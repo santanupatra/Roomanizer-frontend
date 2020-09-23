@@ -1,0 +1,87 @@
+/* body{
+
+} */
+a{
+    text-decoration: none;
+  }
+.form-bg1 {
+    background: transparent;
+    border-radius: 0;
+    border: 0;
+    border-bottom: 1px solid #cacaca;
+    box-shadow: none;
+    width: 100%;
+    padding: 25px;
+}
+.form-bg1 .form-control{
+    height: auto;
+    padding: 11px 12px;
+    Border: 1px solid #666666;
+    border-radius: 27px;
+    font-size: 18px;
+}
+.moneyImage{
+    position: absolute;
+    right: 14px;
+    top: 15px;
+}
+.input-group>.form-control:not(:last-child){
+    border-top-right-radius: 27px !important;
+    border-bottom-right-radius: 27px !important;
+}
+.work{
+    background-image: url(../../../assets/images/work-icon.png);
+    background-repeat: no-repeat;
+    background-position: 114px;
+    background-size:18px ;
+}
+.filter{
+    background-color: #fff;
+    background-image: url(../../../assets/images/filter.png);
+    background-repeat: no-repeat;
+    background-position: 23px;
+    background-size: 26px;
+    cursor: pointer;
+    padding: 23px 12px;
+    Border: 1px solid #666666;
+    border-radius: 27px;
+    display: block;
+}
+.form-bg label{
+    font-size: 18px;
+    color: #232222;
+    font-weight: 500;
+}
+.card-title{
+    font-size: 18px;
+    font-weight: 500;
+}
+.card-footer{
+    background-color: transparent;
+    padding: 0 12px;
+}
+.card-body .svg-inline--fa{
+    font-size: 15px;
+    margin-right: 7px;
+}
+.card-body h6{
+    font-size: 14px;
+    font-weight: 400;
+}
+.svg-inline--fa{
+    font-size: 20px;
+}
+.card-subtitle{
+    font-size: 14px;
+}
+.org{
+    color:orange;
+}
+.page-link{
+    border-radius: 50% !important;
+    padding: 15px 12px !important;
+    margin-left: 8px !important;
+    line-height: 0 !important;
+    color: #000;
+    font-weight: 500;
+}
