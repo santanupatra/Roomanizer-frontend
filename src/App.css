@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700;800&display=swap');
+
+body{
+  font-family: 'Poppins', sans-serif !important;
+  line-height: 24px !important;
+}
+
+a{
+  text-decoration: none !important;
+}
+img{
+  max-width: 100%;
+}
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.header{
+    background: url(/static/media/upper-bg.199b3342.png);
+    background-position: right top;
+    background-repeat: no-repeat;
+    min-height: 694px;
+}
+.navigation .navbar-light .navbar-nav .nav-link{
+    color: #fff !important;
+    font-size: 15px;
+    line-height: 14px;
+    border-right: 1px solid #fff;
+    padding: 0 17px !important;
+    margin-top: 25px;
+    line-height: 14px;
+}
+.navbar-light .navbar-toggler-icon{
+  background-image: url(./assets/images/nav-menu.png) !important;
+  width: 20px;
+  height: 20px;
+}
+.navbar-light .navbar-toggler{
+  border-color: rgb(255 255 255 / 50%);
+}
+
+.page-bg{
+    background: rgb(255 255 255 / 90%);
+    border-radius: 6px;
+    box-shadow: 0px 0px 16px hsl(0deg 0% 0% / 28%);
+    min-height: 578px;
+    width: 100%;
+    margin-top: 10px;
+}
+.footer-sec{
+  background: url(./assets/images/lower-bg.png);
+    background-position: left;
+    background-repeat: no-repeat;
+    min-height: 297px;
+    display: flex;
+    align-items: center;
+}
+.footer-bg{
+  background: url(./assets/images/footer-bg.png);
+}
+.black-bt{
+    background: #41494e;
+    color: #fff;
+    border-radius: 27px;
+    font-size: 16px;
+    border: 0;
+    padding: 15px 22px;
+    display: inline-block;
+}
+.black-bt:hover{
+  color: #e3f4ff;
+  text-decoration: none;
+}
+.footer-link{
+  margin-top: 50px;
+}
+.footer-link a{
+  font-size: 14px;
+  color: #373737;
+  text-decoration: none;
+}
+.social-ft a{
+  padding: 6px;
+}
