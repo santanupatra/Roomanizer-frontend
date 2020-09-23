@@ -1,22 +1,31 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import HomePage from '../Components/HomePage/home';
-import LoginPage from '../Components/LoginPage/login';
-import SignupPage from '../Components/SignupPage/signup';
-import EditprofilePage from '../Components/EditProfilePage/editprofile';
-import RoommateSearchPage from '../Components/RoommateSearchPage/RoommateSearch';
-import ChangePasswordPage from '../Components/ChangePasswordPage/ChangePassword';
-import RoomSearchPage from '../Components/RoomSearchPage/RoomSearch';
-import UserProfilePage from '../Components/UserProfilePage/UserProfile';
-import RoomsForRentPage from '../Components/RoomsForRentPage/RoomsForRent';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import history from '../history';
+import HomePage from '../Containers/Pages/HomePage/home';
+import LoginPage from '../Containers/Pages/LoginPage/login';
+import SignupPage from '../Containers/Pages/SignupPage/signup';
+import UserProfilePage from '../Containers/Pages/UserProfilePage/UserProfile';
+import EditprofilePage from '../Containers/Pages/EditProfilePage/editprofile';
+import ChangePasswordPage from '../Containers/Pages/ChangePasswordPage/ChangePassword';
+import RoommateSearchPage from '../Containers/Pages/RoommateSearchPage/RoommateSearch';
+import RoomSearchPage from '../Containers/Pages/RoomSearchPage/RoomSearch';
+import RoomsForRentPage from '../Containers/Pages/RoomsForRentPage/RoomsForRent';
 
-export default class Routing extends React.Component {
-    render(){
-      return(
-        // <Router>
-        //     <Route path="/" exact component={LoginScreen} />
-        // </Router>
-        <RoomSearchPage />
+const Routes=(props) =>{
+  return (
+        <Router history={history}>
+            <Switch>
+                <Route path="/" exact component={HomePage} />
+                <Route path="/login" exact component={LoginPage} />
+                <Route path="/signUP" exact component={SignupPage} />
+                <Route path="/editProfile" exact component={EditprofilePage} />
+                <Route path="/viewProfile" exact component={UserProfilePage} />
+                <Route path="/changePassword" exact component={ChangePasswordPage} />
+                <Route path="/roomSearch" exact component={RoomSearchPage} />
+                <Route path="/roomMateSearch" exact component={RoommateSearchPage} />
+                <Route path="/roomRent" exact component={RoomsForRentPage} />
+            </Switch>
+        </Router>
       )
-    }
 }
+export default Routes;
