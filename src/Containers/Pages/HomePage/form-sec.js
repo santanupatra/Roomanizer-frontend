@@ -18,11 +18,8 @@ const Formsec = (props) => {
   }
 
     return (
-    
-    
-   
-      
-      <div>
+       
+      <div className="home-form">
       
       <Nav tabs>
         <NavItem>
