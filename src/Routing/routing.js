@@ -10,6 +10,9 @@ import ChangePasswordPage from '../Containers/Pages/ChangePasswordPage/ChangePas
 import RoommateSearchPage from '../Containers/Pages/RoommateSearchPage/RoommateSearch';
 import RoomSearchPage from '../Containers/Pages/RoomSearchPage/RoomSearch';
 import RoomsForRentPage from '../Containers/Pages/RoomsForRentPage/RoomsForRent';
+import SuccessPage from '../Containers/Pages/SuccessPage/success';
+import AboutPage from '../Containers/Pages/AboutPage/about';
+import ContactPage from '../Containers/Pages/ContactPage/contact';
 
 const Routes=(props) =>{
   return (
@@ -24,6 +27,9 @@ const Routes=(props) =>{
                 <Route path="/roomSearch" exact component={RoomSearchPage} />
                 <Route path="/roomMateSearch" exact component={RoommateSearchPage} />
                 <Route path="/roomRent" exact component={RoomsForRentPage} />
+                <Route path="/success" exact component={SuccessPage} />
+                <Route path="/about" exact component={AboutPage} />
+                <Route path="/contact" exact component={ContactPage} />
             </Switch>
         </Router>
       )
