@@ -2,8 +2,10 @@ import { combineReducers } from "redux";
 import auth from "./auth";
 import user from './user';
 import home from './home';
+import setting from './setting';
 export default combineReducers({
     auth,
     user,
-    home
+    home,
+    setting,
 })
