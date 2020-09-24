@@ -1,0 +1,17 @@
+/* body{
+
+} */
+a{
+    text-decoration: none;
+  }
+
+.aboutus{
+  margin: 20px;
+  }
+.aboutus h2{
+  font-size: 30px;
+  margin: 35px 0 20px 0;
+}
+.aboutus p{
+  font-size: 15px;
+}

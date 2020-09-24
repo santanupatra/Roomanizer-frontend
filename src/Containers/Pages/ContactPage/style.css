@@ -1,0 +1,25 @@
+/* body{
+
+} */
+a{
+    text-decoration: none;
+  }
+
+.contactus{
+  margin: 20px;
+  }
+.contactus h2{
+  font-size: 30px;
+  margin: 35px 0 20px 0;
+}
+.contactus p{
+  font-size: 15px;
+}
+.contactus .form-control {
+  border-radius: 25px;
+  padding: 12px 20px;
+  height: auto;
+}
+.contactus .form-group{
+  margin-bottom: 24px;
+}
