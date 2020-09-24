@@ -7,6 +7,10 @@ const axiosInstance = axios.create({
   headers: { Authorization: `Bearer ${getAuthToken}` },
 });
 export default axiosInstance; 
+export const axiosApiCall = axios.create({
+  baseURL: apiBaseUrl + "/web/",
+  headers: { Authorization: `Bearer ${getAuthToken}` },
+});
 export const axiosLogin = axios.create({
     baseURL: apiBaseUrl + "/web/",
 });
