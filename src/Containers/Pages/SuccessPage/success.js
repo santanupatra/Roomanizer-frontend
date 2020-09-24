@@ -2,8 +2,8 @@ import React,{useState} from 'react';
 import './style.css';
 import { Container, Row, Col, Navbar } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import imagePath from '../../../Config/imageConstants';
 import Header from '../../Common/header';
-import Formsec from './form-sec';
 import Footer from '../../Common/footer';
 
 
@@ -21,10 +21,11 @@ export default class Home extends React.Component {
                       <div className="page-bg d-flex align-items-center">
                         
                         <div className="Row d-flex w-100 justify-content-center">
-                          <div className="col-8">
-                              
-                                <Formsec></Formsec>
-
+                          <div className="col-8 text-center thank">
+                            
+                            <img src={imagePath.thankImage} alt="image"/>
+                            <h2><b>Thank You</b></h2>
+                            <p>Thank you for choosing Us.</p>
 
                           </div>
                         </div>

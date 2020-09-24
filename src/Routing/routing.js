@@ -10,6 +10,7 @@ import ChangePasswordPage from '../Containers/Pages/ChangePasswordPage/ChangePas
 import RoommateSearchPage from '../Containers/Pages/RoommateSearchPage/RoommateSearch';
 import RoomSearchPage from '../Containers/Pages/RoomSearchPage/RoomSearch';
 import RoomsForRentPage from '../Containers/Pages/RoomsForRentPage/RoomsForRent';
+import SuccessPage from '../Containers/Pages/SuccessPage/success';
 
 const Routes=(props) =>{
   return (
@@ -24,6 +25,7 @@ const Routes=(props) =>{
                 <Route path="/roomSearch" exact component={RoomSearchPage} />
                 <Route path="/roomMateSearch" exact component={RoommateSearchPage} />
                 <Route path="/roomRent" exact component={RoomsForRentPage} />
+                <Route path="/success" exact component={SuccessPage} />
             </Switch>
         </Router>
       )
