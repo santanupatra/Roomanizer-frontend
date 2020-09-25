@@ -13,6 +13,8 @@ import RoomsForRentPage from '../Containers/Pages/RoomsForRentPage/RoomsForRent'
 import SuccessPage from '../Containers/Pages/SuccessPage/success';
 import AboutPage from '../Containers/Pages/AboutPage/about';
 import ContactPage from '../Containers/Pages/ContactPage/contact';
+import FavoritePage from '../Containers/Pages/FavoritePage/favorite';
+import HowItWorksPage from '../Containers/Pages/HowItWorksPage/HowItWorks';
 
 const Routes=(props) =>{
   return (
@@ -30,6 +32,8 @@ const Routes=(props) =>{
                 <Route path="/success" exact component={SuccessPage} />
                 <Route path="/about" exact component={AboutPage} />
                 <Route path="/contact" exact component={ContactPage} />
+                <Route path="/favorite" exact component={FavoritePage} />
+                <Route path="/howItWorks" exact component={HowItWorksPage} />
             </Switch>
         </Router>
       )
