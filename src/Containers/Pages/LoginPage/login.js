@@ -7,9 +7,9 @@ import Header from '../../Common/header'
 import LoginFrom from './loginFrom';
 
 
-export default class Home extends React.Component {
+function Login () {
 
-  render() {
+  
     return (
       <div className="home">
         <div className="header">
@@ -30,5 +30,6 @@ export default class Home extends React.Component {
         </div>
       </div>
     )
-  }
+  
 }
+export default Login;
