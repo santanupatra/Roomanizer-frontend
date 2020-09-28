@@ -73,7 +73,7 @@ function LoginFrom(props) {
                         innerRef={register}
                         required
                       />
-                          <a href="#" className="forgot"><p>Forgot Password?</p></a>
+                          <a href="/ForgetPassword" className="forgot"><p>Forgot Password?</p></a>
                           {/* <a href="#" className="login-bt mb-2">Login</a> */}
                           <Button type="submit" color="primary" className="login-bt mb-2">
                           Login
