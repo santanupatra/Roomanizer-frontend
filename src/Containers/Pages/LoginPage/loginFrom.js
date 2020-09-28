@@ -13,7 +13,7 @@ const loginFrom = (props) => {
                           <Col sm={12}>
                             <Input type="email" name="name" id="examplename" placeholder="Email" />
                             <Input type="password" name="password" id="examplePassword" placeholder="password placeholder" />
-                            <a href="#" className="forgot"><p>Forgot Password?</p></a>
+                            <a href="/ForgetPassword" className="forgot"><p>Forgot Password?</p></a>
                             <a href="#" className="login-bt mb-2">Login</a>
                             <img src={imagePath.orImage} alt="image"/>
                             <a href="#"><img src={imagePath.fbImage} alt="image"/></a>

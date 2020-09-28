@@ -13,6 +13,7 @@ import RoomsForRentPage from '../Containers/Pages/RoomsForRentPage/RoomsForRent'
 import SuccessPage from '../Containers/Pages/SuccessPage/success';
 import AboutPage from '../Containers/Pages/AboutPage/about';
 import ContactPage from '../Containers/Pages/ContactPage/contact';
+import ForgetPassword from '../Containers/Pages/LoginPage/ForgetPassword'
 
 const Routes=(props) =>{
   return (
@@ -22,6 +23,7 @@ const Routes=(props) =>{
                 <Route path="/login" exact component={LoginPage} />
                 <Route path="/signUP" exact component={SignupPage} />
                 <Route path="/editProfile" exact component={EditprofilePage} />
+                <Route path="/ForgetPassword" exact component={ForgetPassword} />
                 <Route path="/viewProfile" exact component={UserProfilePage} />
                 <Route path="/changePassword" exact component={ChangePasswordPage} />
                 <Route path="/roomSearch" exact component={RoomSearchPage} />
