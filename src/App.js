@@ -12,9 +12,9 @@ import Routing from './Routing/routing'
 export default class App extends React.Component {
   render(){
     return(
-     
-     
       <Routing />
+
+      
       
     )
   }
