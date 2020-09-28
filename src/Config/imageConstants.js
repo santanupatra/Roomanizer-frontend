@@ -48,6 +48,8 @@ const ft2Image = require('../assets/images/ft-2.png');
 const ft3Image = require('../assets/images/ft-3.png');
 const ft4Image = require('../assets/images/ft-4.png');
 const thankImage = require('../assets/images/thank.png');
+const how1Image = require('../assets/images/how-img1.png');
+const how2Image = require('../assets/images/how-img2.png');
 
 
 let imagePath;
@@ -102,6 +104,8 @@ export default imagePath={
     ft2Image:ft2Image,
     ft3Image:ft3Image,
     ft4Image:ft4Image,
-    thankImage:thankImage
+    thankImage:thankImage,
+    how1Image:how1Image,
+    how2Image:how2Image
 
 }
