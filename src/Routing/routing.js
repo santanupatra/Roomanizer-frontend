@@ -15,6 +15,8 @@ import AboutPage from '../Containers/Pages/AboutPage/about';
 import ContactPage from '../Containers/Pages/ContactPage/contact';
 import ActiveMailPage from '../Containers/Pages/ActiveMailPage/ActiveMailPage';
 
+import FavoritePage from '../Containers/Pages/FavoritePage/favorite';
+import HowItWorksPage from '../Containers/Pages/HowItWorksPage/HowItWorks';
 
 const Routes=(props) =>{
   return (
@@ -34,6 +36,8 @@ const Routes=(props) =>{
                 <Route path="/about" exact component={AboutPage} />
                 <Route path="/contact" exact component={ContactPage} />
                 <Route path="/activeAccount/:email" exact component={SuccessPage} />
+                <Route path="/favorite" exact component={FavoritePage} />
+                <Route path="/howItWorks" exact component={HowItWorksPage} />
             </Switch>
         </Router>
       )
