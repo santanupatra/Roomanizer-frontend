@@ -1,23 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React,{useState} from 'react';
 import './style.css';
 import { Container, Row, Col, Navbar } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import imagePath from '../../../Config/imageConstants';
 import Header from '../../Common/header';
 import Footer from '../../Common/footer';
-import { ACTIVEMAIL_URL } from '../../../shared/allApiUrl';
-import { crudAction } from '../../../store/actions/common';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 
 
-// export default class Home extends React.Component {
-  const Home = (props) => {
-  const params = props.match.params;
-    useEffect(() => {
-      // setUserId(params.email)
-      if (params.email) props.crudActionCall(`${ACTIVEMAIL_URL}/${params.email}`, null, "UPDATE")
-    }, [params]);
+export default class Home extends React.Component {
+
+  render() {
     return (
       <div className="home">
         <div className="header">
@@ -33,7 +25,7 @@ import { withRouter } from 'react-router-dom';
                             
                             <img src={imagePath.thankImage} alt="image"/>
                             <h2><b>Thank You</b></h2>
-                            <p>Thank you for choosing Us.</p>
+                            <p>Please active your mail and come back.</p>
 
                           </div>
                         </div>
@@ -47,18 +39,5 @@ import { withRouter } from 'react-router-dom';
       <Footer></Footer>
       </div>
     )
-}
-const mapStateToProps = state => {
-  const { user } = state;
-  return {
-    user
   }
 }
-
-const mapDispatchToProps = dispatch => {
-  return {
-    crudActionCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "USER")),
-  }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Home));
-
