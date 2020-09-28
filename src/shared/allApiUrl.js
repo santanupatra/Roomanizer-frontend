@@ -6,6 +6,7 @@ export const SET_PASSWORD_URL = "/auth-api/web/updatePassword";
 export const USER_URL = 'auth-api/userSignUp';
 export const ACTIVEMAIL_URL = 'auth-api/activeAccount';
 export const CHANGEPASSWORD_URL = 'auth-api/changePassword';
+export const CONTACTUS_URL = 'contactUs-api/contactUs';
 
 
 

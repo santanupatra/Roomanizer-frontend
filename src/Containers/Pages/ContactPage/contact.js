@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import './style.css';
 import { Container, Row, Col, Navbar } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -6,11 +6,36 @@ import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import imagePath from '../../../Config/imageConstants';
 import Header from '../../Common/header';
 import Footer from '../../Common/footer';
+import { CONTACTUS_URL } from '../../../shared/allApiUrl';
+import { useForm } from "react-hook-form";
+import { crudAction } from '../../../store/actions/common';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import InputUI from '../../../UI/InputUI';
 
+// export default class Home extends React.Component {
+const ContactUs = (props) => {
+  const initialFields = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    subject: "",
+    message: "",
+  }
+  
+  const [fields, setFields] = useState(initialFields);
+  const { handleSubmit, register, errors } = useForm();
+  useEffect(() => {
+    const action = props.contactUs.action;
+    setFields({ ...fields, ...props.contactUs.contactUs })
+    if (action.isSuccess && action.type === "ADD")
+      props.history.push("/success")
+  }, [props.contactUs]);
 
-export default class Home extends React.Component {
-
-  render() {
+  const onSubmit = (data) => {
+    props.crudActionCall(CONTACTUS_URL, data,"ADD");
+  }
+    
     return (
       <div className="home">
         <div className="header">
@@ -25,35 +50,77 @@ export default class Home extends React.Component {
                           <Col sm={8} className="contactus">
                             <h2>Contact Us</h2>
                             
-                            <Form>
+                            <Form onSubmit={handleSubmit(onSubmit)}>
                               
                                   <Row form>
                                     <Col md={6}>
                                       <FormGroup>
                                         <Label for="exampleEmail">First Name</Label>
-                                        <Input type="text" name="name" id="exampleEmail" placeholder="Carls" />
+                                        <InputUI 
+                                        type="text" 
+                                        name="firstName" 
+                                        placeholder="First Name"
+                                        errors={errors}
+                                        innerRef={register({
+                                          required: 'This is required field',
+                                        })}
+                                        fields={fields.firstName} 
+                                        />
                                       </FormGroup>
                                     </Col>
                                     <Col md={6}>
                                       <FormGroup>
                                         <Label for="examplePassword">Last Name</Label>
-                                        <Input type="text" name="name" id="examplePassword" placeholder="Jhons" />
+                                        <InputUI
+                                        type="text" 
+                                        name="lastName" 
+                                        placeholder="Last Name"
+                                        errors={errors}
+                                        innerRef={register({
+                                          required: 'This is required field',
+                                        })}
+                                        fields={fields.lastName} />
                                       </FormGroup>
                                     </Col>
                                   </Row>
                               <FormGroup>
                                 <Label for="exampleEmail">Email</Label>
-                                <Input type="email" name="email" id="exampleEmail" placeholder="Email Id" />
+                                <InputUI
+                                type="email" 
+                                name="email" 
+                                placeholder="Email"
+                                errors={errors}
+                                innerRef={register({
+                                  required: 'This is required field',
+                                })}
+                                fields={fields.email}/>
                               </FormGroup>
                               <FormGroup>
                                 <Label for="exampleAddress">Subject</Label>
-                                <Input type="text" name="address" id="exampleAddress" placeholder="Subject"/>
+                                <InputUI 
+                                type="text" 
+                                name="subject" 
+                                placeholder="Subject"
+                                errors={errors}
+                                innerRef={register({
+                                  required: 'This is required field',
+                                })}
+                                fields={fields.subject}/>
                               </FormGroup>
                               <FormGroup>
                                 <Label for="exampleText">Message</Label>
-                                <Input type="textarea" name="text" id="exampleText" />
+                                <InputUI 
+                                type="textarea" 
+                                name="message" 
+                                errors={errors}
+                                innerRef={register({
+                                  required: 'This is required field',
+                                })}
+                                fields={fields.message}/>
                               </FormGroup>
-                              <a href="#" className="black-bt mb-3">Submit</a>
+                              <Button type="submit" className="black-bt mb-3">
+                              Submit
+                              </Button>
                             </Form>
                           </Col>
                         </Row>
@@ -67,5 +134,17 @@ export default class Home extends React.Component {
       <Footer></Footer>
       </div>
     )
+}
+const mapStateToProps = state => {
+  const { contactUs } = state;
+  return {
+    contactUs
   }
 }
+
+const mapDispatchToProps = dispatch => {
+  return {
+    crudActionCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "CONTACTUS")),
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ContactUs));
