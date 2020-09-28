@@ -5,9 +5,19 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import imagePath from '../../../Config/imageConstants';
 import Header from '../../Common/header';
 import Footer from '../../Common/footer';
+import { ACTIVEMAIL_URL } from '../../../shared/allApiUrl';
+import { crudAction } from '../../../store/actions/common';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 
+// export default class Home extends React.Component {
   const Home = (props) => {
+  const params = props.match.params;
+    useEffect(() => {
+      // setUserId(params.email)
+      if (params.email) props.crudActionCall(`${ACTIVEMAIL_URL}/${params.email}`, null, "UPDATE")
+    }, [params]);
     return (
       <div className="home">
         <div className="header">
@@ -38,6 +48,17 @@ import Footer from '../../Common/footer';
       </div>
     )
 }
+const mapStateToProps = state => {
+  const { user } = state;
+  return {
+    user
+  }
+}
 
-export default Home;
+const mapDispatchToProps = dispatch => {
+  return {
+    crudActionCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "USER")),
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Home));
 
