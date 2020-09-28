@@ -21,24 +21,39 @@ export default class Home extends React.Component {
                   <Col>
                       <div className="page-bg">
                         
-                        <Row className="contactus d-flex justify-content-center">
-                          <Col sm={8}>
+                        <Row className="d-flex justify-content-center">
+                          <Col sm={8} className="contactus">
                             <h2>Contact Us</h2>
                             
                             <Form>
+                              
+                                  <Row form>
+                                    <Col md={6}>
+                                      <FormGroup>
+                                        <Label for="exampleEmail">First Name</Label>
+                                        <Input type="text" name="name" id="exampleEmail" placeholder="Carls" />
+                                      </FormGroup>
+                                    </Col>
+                                    <Col md={6}>
+                                      <FormGroup>
+                                        <Label for="examplePassword">Last Name</Label>
+                                        <Input type="text" name="name" id="examplePassword" placeholder="Jhons" />
+                                      </FormGroup>
+                                    </Col>
+                                  </Row>
                               <FormGroup>
                                 <Label for="exampleEmail">Email</Label>
                                 <Input type="email" name="email" id="exampleEmail" placeholder="Email Id" />
                               </FormGroup>
                               <FormGroup>
-                                <Label for="exampleAddress">Address</Label>
-                                <Input type="text" name="address" id="exampleAddress" placeholder="1234 Main St"/>
+                                <Label for="exampleAddress">Subject</Label>
+                                <Input type="text" name="address" id="exampleAddress" placeholder="Subject"/>
                               </FormGroup>
                               <FormGroup>
                                 <Label for="exampleText">Message</Label>
                                 <Input type="textarea" name="text" id="exampleText" />
                               </FormGroup>
-                              <a href="#" className="black-bt">Submit</a>
+                              <a href="#" className="black-bt mb-3">Submit</a>
                             </Form>
                           </Col>
                         </Row>
