@@ -1,23 +1,105 @@
-import React,{useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import './style.css';
 import imagePath from '../../../Config/imageConstants';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Form, FormGroup, Input, Col} from 'reactstrap';
-
+import {Form, FormGroup, Button, Input, Col} from 'reactstrap';
+import { USER_URL } from '../../../shared/allApiUrl';
+import { useForm } from "react-hook-form";
+import { crudAction } from '../../../store/actions/common';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import InputUI from '../../../UI/InputUI';
 
 
 const SignUpFrom = (props) => {
+  const initialFields = {
+    email: "",
+    password: null,
+    confirmPassword: null,
+    errorMessage: null,
+  }
+  
+  const [fields, setFields] = useState(initialFields);
+  const [userId, setUserId] = useState(null);
+  const { handleSubmit, register, errors, message } = useForm();
+  useEffect(() => {
+    const action = props.user.action;
+    setFields({ ...fields, ...props.user.user })
+    if (action.isSuccess && action.type === "ADD")
+      props.history.push("/activeMail")
+  }, [props.user]);
+
+
+  const onSubmit = (data) => {
+    props.crudActionCall(USER_URL, data,"ADD");
+  }
+
+  const  handleChange = (name,value)=>{
+    setFields((prevState) => ({ ...prevState, [name]: value }));
+    if(value!==null && name==='confirmPassword')
+    {
+      if(fields.password!==value)
+      {
+        fields.errorMessage="Password Don't Match"
+      }
+      else
+      {
+        fields.errorMessage=""
+      }
+    }
+    
+  }
+  
+  
     return (
       <div className="">
         
         <div className="login-form">
-                      <Form>
+                      <Form onSubmit={handleSubmit(onSubmit)}>
                         <FormGroup row>
                           <Col sm={12}>
-                            <Input type="email" name="email" id="exampleEmail" placeholder="Email" />
-                            <Input type="password" name="password" id="examplePassword" placeholder="Create Password" />
-                            <Input type="password" name="password" id="examplePassword" placeholder="Confirm Password" />
-                            <a href="#" className="login-bt mt-4">Sign up</a>
+                            <InputUI
+                            type="email"
+                            name="email"
+                            id="exampleEmail" 
+                            placeholder="Email" 
+                            errors={errors}
+                            innerRef={register({
+                              required: 'This is required field',
+                            })}
+                            fields={fields}/>
+                            
+                            <InputUI
+                            type="password" 
+                            name="password" 
+                            id="Password" 
+                            placeholder="Create Password" 
+                            errors={errors}
+                            innerRef={register({
+                              required: 'This is required field',
+                            })}
+                            onChange = {(e) =>
+                              handleChange(e.target.name, e.target.value)
+                            }
+                            fields={fields.password}/>
+                            <InputUI
+                            type="password" 
+                            name="confirmPassword" 
+                            id="confirmPassword" 
+                            placeholder="Confirm Password" 
+                            errors={errors}
+                            innerRef={register({
+                              required: 'This is required field',
+                            })}
+                            onChange = {(e) =>
+                              handleChange(e.target.name, e.target.value)
+                            }
+                            fields={fields.confirmPassword}/>
+                            <div style={{color:'red'}}>{fields.errorMessage}</div>
+                            <Button type="submit" className="login-bt mb-4">
+                              Sign Up
+                            </Button>
+                            {/* <Link to="/activeMail" className="login-bt mt-4">Sign up</Link> */}
                             <img src={imagePath.orImage} alt="image"/>
                             <a href="#"><img src={imagePath.fbImage} alt="image"/></a>
                             <a href="#"><img src={imagePath.gsImage} alt="image"/></a>
@@ -31,4 +113,18 @@ const SignUpFrom = (props) => {
     );
   }
   
-  export default SignUpFrom;
+
+  const mapStateToProps = state => {
+    const { user } = state;
+    return {
+      user
+    }
+  }
+  
+  const mapDispatchToProps = dispatch => {
+    return {
+      crudActionCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "USER")),
+    }
+  }
+
+  export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SignUpFrom));
