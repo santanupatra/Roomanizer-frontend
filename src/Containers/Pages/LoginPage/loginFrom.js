@@ -26,7 +26,6 @@ import {
   Row,
   FormGroup,
 } from "reactstrap";
-
 function LoginFrom(props) { 
  
  
@@ -73,7 +72,7 @@ function LoginFrom(props) {
                         innerRef={register}
                         required
                       />
-                          <a href="/ForgetPassword" className="forgot"><p>Forgot Password?</p></a>
+                          <a href="#" className="forgot"><p>Forgot Password?</p></a>
                           {/* <a href="#" className="login-bt mb-2">Login</a> */}
                           <Button type="submit" color="primary" className="login-bt mb-2">
                           Login
@@ -81,7 +80,7 @@ function LoginFrom(props) {
                           <img src={imagePath.orImage} alt="image"/>
                           <a href="#"><img src={imagePath.fbImage} alt="image"/></a>
                           <a href="#"><img src={imagePath.gsImage} alt="image"/></a>
-                          <p link="#" className="forgot mt-3 mb-0">Don’t have an account? <span>Register</span></p>
+                          <a href="/signUP" className="forgot mt-3 mb-0">Don’t have an account? <span>Register</span></a>
                         </Col>
                       </FormGroup>
                     </Form>

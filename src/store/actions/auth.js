@@ -29,18 +29,22 @@ export const login = (val) => {
             if(data.ack===true) {
             // set token in localStorage
             localStorage.setItem('profileImg', data.data.profilePicture);
-            localStorage.setItem('access-token', data.token);
-            localStorage.setItem('adminId', data.data._id);
+            localStorage.setItem('access-token', data.data.token);
+            localStorage.setItem('userId', data.data.userDetails._id);
+           // localStorage.setItem('itemName', "#")
             localStorage.setItem('userType', data.data.userType?data.data.userType:'');
             localStorage.setItem('permission', data.data.permission?data.data.permission:'');
-            console.log(details)
+           console.log(data.data.userDetails._id);
+           const a = localStorage.getItem('userId')
+             //console.log(a)
+          // console.log(details)
             toast.info(details, {
                 position: toast.POSITION.TOP_CENTER
             });
             
             //console.log("su")
             // set token in redux
-            dispatch({ type: AUTH_SUCCESS, payload: {token: data.token, adminId: data.data._id,profileImg:data.data.profilePicture,userType:data.data.userType?data.data.userType:'',permission:data.data.permission?data.data.permission:''} });
+            dispatch({ type: AUTH_SUCCESS, payload: {token: data.data.token, userId:data.data.userDetails._id,profileImg:data.data.profilePicture,userType:data.data.userType?data.data.userType:'',permission:data.data.permission?data.data.permission:''} });
             
            // return data;
         } else {
@@ -60,7 +64,9 @@ export const login = (val) => {
  */
 export const logout = () => {
     return async dispatch => {
+        
         localStorage.removeItem('access-token');
+        localStorage.removeItem('itemName')
         localStorage.removeItem('adminId');
         dispatch({ type: AUTH_LOGOUT, payload: {} })
     }
