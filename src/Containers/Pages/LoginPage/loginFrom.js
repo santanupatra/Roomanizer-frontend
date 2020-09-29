@@ -10,6 +10,7 @@ import { getAuthToken } from "../../../shared/helpers";
 import { withRouter } from "react-router";
 import { useHistory } from "react-router";
 import { Modal } from 'react-bootstrap'
+import { ToastContainer, toast } from 'react-toastify';
 import {callApi} from "../../../api";
 import { FORGET_PASSWORD_URL } from '../../../shared/allApiUrl';
 import { SET_PASSWORD_URL } from '../../../shared/allApiUrl';
@@ -32,17 +33,20 @@ import {
 } from "reactstrap";
 
 function LoginFrom(props) {
+  const history = useHistory();
+  const { handleSubmit, register } = useForm();
+  // const { handleSubmit, register } = useForm();
+  const [status, setStatus] = useState(false);
+  
+  
+  
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
 
 
-  const history = useHistory();
-  const { handleSubmit, register } = useForm();
-  // const { handleSubmit, register } = useForm();
-  const [status, setStatus] = useState(false);
+  
 
   const onSubmit = (data) => {
     props.loginApiCall(data);
@@ -57,17 +61,27 @@ function LoginFrom(props) {
   try {
   await callApi(FORGET_PASSWORD_URL,"POST",data);
   setStatus(true);
-  NotificationManager.success('Email Verified', 'Success');
+ // NotificationManager.success('Email Verified', 'Success');
+  toast.info('Email Verified', {
+    position: toast.POSITION.TOP_CENTER
+});
   }
   catch (error) {
-      NotificationManager.error('Email is not valid!', 'Error');
+     // NotificationManager.error('Email is not valid!', 'Error');
+      toast.error("Email is not valid!", {
+        position: toast.POSITION.TOP_CENTER
+    });
   }
 }
 else {
   try {
       await callApi(SET_PASSWORD_URL, "PUT",data);
       console.log(data)
-      NotificationManager.success('Password changed succesfully!', 'Success');
+      //NotificationManager.success('Password changed succesfully!', 'Success');
+      toast.info('Password changed succesfully!', {
+        position: toast.POSITION.TOP_CENTER
+      });
+
       props.history.push("/");
 
   }
@@ -90,7 +104,7 @@ else {
     <div className="">
       <div className="login-form">
 
-        <Form onSubmit={handleSubmit(onSubmit)}>
+        <Form >
           <FormGroup row>
             <Col sm={12}>
               {/* <Input type="email" name="name" id="examplename" placeholder="Email" /> */}
@@ -118,7 +132,8 @@ else {
                   <Modal.Title> <h1>Forget Password</h1></Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                <Form onSubmit={handleSubmit(onSubmit_1)}>
+                <Form >
+
                       <p className="text-muted">Please put your Email</p>
                       <InputGroup className="mb-3">
                         <InputGroupAddon addonType="prepend">
@@ -195,7 +210,7 @@ else {
                         {/* <Button variant="secondary" onClick={handleClose}>
                     Close
                     </Button> */}
-                          <Button type="submit" style={{marginLeft:"236px"}}color="primary" className="px-4 mr-4">
+                          <Button type="button" onClick={handleSubmit(onSubmit_1)} style={{marginLeft:"236px"}}color="primary" className="px-4 mr-4">
                             Submit
                           </Button>
                           
@@ -209,13 +224,13 @@ else {
                 </Modal.Footer>
               </Modal>
               {/* <a href="#" className="login-bt mb-2">Login</a> */}
-              <Button type="submit" color="primary" className="login-bt mb-2">
+              <Button type="button" onClick={handleSubmit(onSubmit)} color="primary" className="login-bt mb-2">
                 Login
                         </Button>
               <img src={imagePath.orImage} alt="image" />
               <a href="#"><img src={imagePath.fbImage} alt="image" /></a>
               <a href="#"><img src={imagePath.gsImage} alt="image" /></a>
-              <p link="#" className="forgot mt-3 mb-0">Don’t have an account? <span>Register</span></p>
+              <a href="/signUP" className="forgot mt-3 mb-0">Don’t have an account? <span>Register</span></a>
             </Col>
           </FormGroup>
         </Form>

@@ -15,7 +15,7 @@ import RoomsForRentPage from '../Containers/Pages/RoomsForRentPage/RoomsForRent'
 import SuccessPage from '../Containers/Pages/SuccessPage/success';
 import AboutPage from '../Containers/Pages/AboutPage/about';
 import ContactPage from '../Containers/Pages/ContactPage/contact';
-import ForgetPassword from '../Containers/Pages/LoginPage/ForgetPassword'
+// import ForgetPassword from '../Containers/Pages/LoginPage/ForgetPassword'
 import ActiveMailPage from '../Containers/Pages/ActiveMailPage/ActiveMailPage';
 import CmsDetails from  '../Containers/Common/CmsDetails'
 import { Navbar } from 'reactstrap'
@@ -34,7 +34,7 @@ const Routes=(props) =>{
                 <Route path="/login" exact component={LoginPage} />
                 <Route path="/signUP" exact component={SignupPage} />
                 <Route path="/editProfile" exact component={EditprofilePage} />
-                <Route path="/ForgetPassword" exact component={ForgetPassword} />
+                {/* <Route path="/ForgetPassword" exact component={ForgetPassword} /> */}
                 <Route path="/viewProfile" exact component={UserProfilePage} />
                 <Route path="/changePassword/:userId" exact component={ChangePasswordPage} />
                 <Route path="/roomSearch" exact component={RoomSearchPage} />
