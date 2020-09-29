@@ -1,4 +1,4 @@
-import React, { useEffect ,useState} from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import 'react-notifications/lib/notifications.css';
 import './style.css';
@@ -7,9 +7,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { login } from "../../../store/actions/auth";
 import { connect } from "react-redux";
 import { getAuthToken } from "../../../shared/helpers";
-import { withRouter } from "react-router-dom";
+import { withRouter } from "react-router";
 import { useHistory } from "react-router";
-
+import { Modal } from 'react-bootstrap'
+import {callApi} from "../../../api";
+import { FORGET_PASSWORD_URL } from '../../../shared/allApiUrl';
+import { SET_PASSWORD_URL } from '../../../shared/allApiUrl';
+import { NotificationManager} from 'react-notifications';
 
 import {
   Button,
@@ -26,80 +30,210 @@ import {
   Row,
   FormGroup,
 } from "reactstrap";
-function LoginFrom(props) { 
- 
- 
- 
+
+function LoginFrom(props) {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+
+
   const history = useHistory();
   const { handleSubmit, register } = useForm();
-  
+  // const { handleSubmit, register } = useForm();
+  const [status, setStatus] = useState(false);
+
   const onSubmit = (data) => {
     props.loginApiCall(data);
   };
- 
+
+
+  /*
+  modal api calling
+  */
+ const onSubmit_1 = async(data) => {
+  if (status === false) {
+  try {
+  await callApi(FORGET_PASSWORD_URL,"POST",data);
+  setStatus(true);
+  NotificationManager.success('Email Verified', 'Success');
+  }
+  catch (error) {
+      NotificationManager.error('Email is not valid!', 'Error');
+  }
+}
+else {
+  try {
+      await callApi(SET_PASSWORD_URL, "PUT",data);
+      console.log(data)
+      NotificationManager.success('Password changed succesfully!', 'Success');
+      props.history.push("/");
+
+  }
+  catch (error) {
+      console.log("Error");
+      NotificationManager.error('OTP  is not valid!', 'Error');
+  }
+}
+}
   useEffect(() => {
-    
+
     if (props.auth.isAuthenticated && getAuthToken !== "")
       history.push("/viewProfile");
     return () => {
       // cleanup
     };
-  }, [props.auth]);       
-  
+  }, [props.auth]);
+
   return (
     <div className="">
       <div className="login-form">
-                    
-                    <Form onSubmit={handleSubmit(onSubmit)}>
-                      <FormGroup row>
-                        <Col sm={12}>
-                          {/* <Input type="email" name="name" id="examplename" placeholder="Email" /> */}
-                          <Input
-                        type="email"
-                        name="email"
-          
-                        placeholder="Email"
-                        autoComplete="username"
-                        innerRef={register}
-                        required
-                      />
-                          {/* <Input type="password" name="password" id="examplePassword" placeholder="password placeholder" /> */}
-                          <Input
+
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <FormGroup row>
+            <Col sm={12}>
+              {/* <Input type="email" name="name" id="examplename" placeholder="Email" /> */}
+              <Input
+                type="email"
+                name="email"
+
+                placeholder="Email"
+                autoComplete="username"
+                innerRef={register}
+                required
+              />
+              {/* <Input type="password" name="password" id="examplePassword" placeholder="password placeholder" /> */}
+              <Input
+                type="password"
+                name="password"
+                placeholder="Password"
+                autoComplete="current-password"
+                innerRef={register}
+                required
+              />
+              <a className="forgot" onClick={handleShow}><p>Forgot Password?</p></a>
+              <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                  <Modal.Title> <h1>Forget Password</h1></Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                <Form onSubmit={handleSubmit(onSubmit_1)}>
+                      <p className="text-muted">Please put your Email</p>
+                      <InputGroup className="mb-3">
+                        <InputGroupAddon addonType="prepend">
+                          <InputGroupText>
+                            <i className="icon-user"></i>
+                          </InputGroupText>
+                        </InputGroupAddon>
+                        <Input
+                          type="email"
+                          name="email"
+                          placeholder="Email"
+                          disabled={status}
+                          autoComplete="username"
+                          innerRef={register}
+                          required
+                        />
+                      </InputGroup>
+                      { status? <> <InputGroup className="mb-4">
+                      <InputGroupAddon addonType="prepend">
+                        <InputGroupText>
+                          <i className="icon-lock"></i>
+                        </InputGroupText>
+                      </InputGroupAddon>
+                      <Input
                         type="password"
-                        name="password"
-                        placeholder="Password"
+                        name="otp"
+                        placeholder="O.T.P"
                         autoComplete="current-password"
                         innerRef={register}
                         required
                       />
-                          <a href="#" className="forgot"><p>Forgot Password?</p></a>
-                          {/* <a href="#" className="login-bt mb-2">Login</a> */}
-                          <Button type="submit" color="primary" className="login-bt mb-2">
-                          Login
-                        </Button>
-                          <img src={imagePath.orImage} alt="image"/>
-                          <a href="#"><img src={imagePath.fbImage} alt="image"/></a>
-                          <a href="#"><img src={imagePath.gsImage} alt="image"/></a>
-                          <a href="/signUP" className="forgot mt-3 mb-0">Don’t have an account? <span>Register</span></a>
+                    </InputGroup>
+                    <InputGroup className="mb-4">
+                    <InputGroupAddon addonType="prepend">
+                      <InputGroupText>
+                        <i className="icon-lock"></i>
+                      </InputGroupText>
+                    </InputGroupAddon>
+                    <Input
+                      type="password"
+                      name="password"
+                      placeholder="New Password"
+                    //   autoComplete="current-password"
+                      innerRef={register}
+                      required
+                    />
+                  </InputGroup>
+                  <InputGroup className="mb-4">
+                  <InputGroupAddon addonType="prepend">
+                    <InputGroupText>
+                      <i className="icon-lock"></i>
+                    </InputGroupText>
+                  </InputGroupAddon>
+                  <Input
+                    type="password"
+                    name="confirmPassword"
+                    placeholder="Confirm Password"
+                    // autoComplete="current-password"
+                    innerRef={register}
+                    required
+                  />
+                </InputGroup> </>: null}
+                      <Row>
+                        <Col xs="3">
+                        <Button variant="secondary" onClick={handleClose}>
+                    Close
+                    </Button>
+                          {/* <Button type="submit" color="primary" className="px-4 mr-4">
+                            Submit
+                          </Button> */}
+                          
                         </Col>
-                      </FormGroup>
+                        <Col xs="3">
+                        {/* <Button variant="secondary" onClick={handleClose}>
+                    Close
+                    </Button> */}
+                          <Button type="submit" style={{marginLeft:"236px"}}color="primary" className="px-4 mr-4">
+                            Submit
+                          </Button>
+                          
+                        </Col>
+                      </Row>
                     </Form>
-                  </div>
+                </Modal.Body>
+                <Modal.Footer>
+                 
+                  
+                </Modal.Footer>
+              </Modal>
+              {/* <a href="#" className="login-bt mb-2">Login</a> */}
+              <Button type="submit" color="primary" className="login-bt mb-2">
+                Login
+                        </Button>
+              <img src={imagePath.orImage} alt="image" />
+              <a href="#"><img src={imagePath.fbImage} alt="image" /></a>
+              <a href="#"><img src={imagePath.gsImage} alt="image" /></a>
+              <p link="#" className="forgot mt-3 mb-0">Don’t have an account? <span>Register</span></p>
+            </Col>
+          </FormGroup>
+        </Form>
+      </div>
     </div>
   );
-  } 
-  const mapStateToProps = (state) => {
-    const { auth } = state;
-    return {
-      auth: auth,
-    };
+}
+const mapStateToProps = (state) => {
+  const { auth } = state;
+  return {
+    auth: auth,
   };
-  const mapDispatchToProps = (dispatch) => {
-    return {
-      loginApiCall: (data) => dispatch(login(data)),
-    };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    loginApiCall: (data) => dispatch(login(data)),
   };
-  export default connect(mapStateToProps, mapDispatchToProps)(LoginFrom);
-  
+};
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(LoginFrom));
+
 //export default Example; 
-  
