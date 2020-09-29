@@ -15,6 +15,10 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import InputUI from '../../../UI/InputUI';
+import Facebook from '../facebook';
+import Twitter from '../twitter';
+import Gsuite from '../gSuite';
+
 
 const Formsec = (props) => {
 
@@ -68,14 +72,16 @@ const Formsec = (props) => {
                       <Form onSubmit={handleSubmit(onSubmit)}>
                         <FormGroup row>
                           <Col sm={12}>
-                            <label class="switch">
-                              <input type="checkbox"/>
-                              <span class="slider round"></span>
-                            </label>
-                            <span className="mt-2 d-block">
-                              <a href="#" className="toggle pr-2">I am looking for a room</a>
-                              <a href="#" className="toggle border-right-0 pl-2">I have an available room</a>
-                            </span>
+                            <div className="text-center">
+                              <label class="switch">
+                                <input type="checkbox"/>
+                                <span class="slider round"></span>
+                              </label>
+                              <span className="mt-2 d-block">
+                                <a href="#" className="toggle pr-3">I am looking for a room</a>
+                                <a href="#" className="toggle border-right-0 pl-3">I have an available room</a>
+                              </span>
+                            </div>
                             
                             <Row>
                               <Col>
@@ -163,6 +169,8 @@ const Formsec = (props) => {
                             </div> */}
                             <Button type="submit" className="login-bt mt-4 mb-2"> Submit</Button>
                             {/* <img src={imagePath.orImage} alt="image"/>
+                            <a href="#" className="login-bt mt-4 mb-2">Submit</a>
+                            <img src={imagePath.orImage} alt="image"/>
                             <a href="#"><img src={imagePath.fbImage} alt="image"/></a>
                             <a href="#"><img src={imagePath.gsImage} alt="image"/></a> */}
                           </Col>

@@ -9,11 +9,11 @@ a{
     background: #fff;
     border-radius: 2px;
     padding: 30px 48px;
-    text-align: center;
+    text-align: left !important;
 }
 .login-form .form-control {
     border-radius: 25px;
-    padding: 12px 20px;
+    padding: 12px 10px;
     margin-top: 20px;
     height: auto;
 }
@@ -46,7 +46,10 @@ input:-internal-autofill-selected {
     margin-top: 20px;
     display: block;
 }
-
+.av-room{
+  font-size: 20px;
+  font-weight: 500;
+}
 .switch {
     position: relative;
     display: inline-block;
