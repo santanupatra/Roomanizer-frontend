@@ -8,6 +8,9 @@ export const ACTIVEMAIL_URL = 'auth-api/activeAccount';
 export const CMS_URL = 'cms-api/cms';
 export const CHANGEPASSWORD_URL = 'auth-api/changePassword';
 export const CONTACTUS_URL = 'contactUs-api/contactUs';
+export const EDITPROFILE_URL = 'auth-api/updateProfile';
+export const VIEWPROFILE_URL = 'auth-api/profileDetails';
+
 
 
 

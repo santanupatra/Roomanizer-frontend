@@ -33,11 +33,13 @@ const Routes=(props) =>{
             <Switch>
                 {/* <Navbar isAuth={loggedIn} /> */}
                 <Route path="/" exact component={HomePage} />
+                <Route path="/home" exact component={HomePage} />
+                <Route path="/home/:userId" exact component={HomePage} />
                 <Route path="/login" exact component={LoginPage} />
                 <Route path="/signUP" exact component={SignupPage} />
-                <Route path="/editProfile" exact component={EditprofilePage} />
+                <Route path="/editProfile/:userId" exact component={EditprofilePage} />
                 {/* <Route path="/ForgetPassword" exact component={ForgetPassword} /> */}
-                <Route path="/viewProfile" exact component={UserProfilePage} />
+                <Route path="/viewProfile/:userId" exact component={UserProfilePage} />
                 <Route path="/changePassword/:userId" exact component={ChangePasswordPage} />
                 <Route path="/roomSearch" exact component={RoomSearchPage} />
                 <Route path="/roomMateSearch" exact component={RoommateSearchPage} />

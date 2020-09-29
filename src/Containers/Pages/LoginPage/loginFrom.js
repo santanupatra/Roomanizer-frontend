@@ -94,7 +94,11 @@ else {
   useEffect(() => {
 
     if (props.auth.isAuthenticated && getAuthToken !== "")
-      history.push("/viewProfile");
+    {
+      const userId = localStorage.getItem('userId')
+      history.push(`/viewProfile/${userId}`);
+    }
+      
     return () => {
       // cleanup
     };
