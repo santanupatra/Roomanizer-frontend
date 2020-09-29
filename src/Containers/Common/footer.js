@@ -62,7 +62,7 @@ function Footer(props) {
                 <Col sm={4}></Col>
                 <Col sm={5} className="footer-link">
                   <h6>Contact</h6>
-                  <a href="#">Contact Support | </a>
+                  <a href="/contact">Contact Support | </a>
                   <a href="#"> Help Center | </a>
                   <a href="#">Terms and Policies</a>
                 </Col>
