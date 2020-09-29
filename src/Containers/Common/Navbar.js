@@ -15,7 +15,13 @@ const Navbaar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
+   
+  const logout = () =>{
+     localStorage.removeItem('userId')
 
+
+  }
+  
 
       return (
         <div className="navigation">
@@ -30,10 +36,17 @@ const Navbaar = (props) => {
                 <NavLink href="https://github.com/reactstrap/reactstrap">Community</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="https://github.com/reactstrap/reactstrap">How it Works</NavLink>
+                <NavLink href="/CmsDetails/How_it_works">How it Works</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="/login">Log In</NavLink>
+              { //Check if message failed
+          (localStorage.getItem('userId') === null)
+          ? <NavLink href="/login">Log In</NavLink>
+          : <NavLink href="/" onClick={logout}>Log Out</NavLink> 
+      }
+                {/* <NavLink href="/login">Log In</NavLink> */}
+               
+
               </NavItem>
               <NavItem>
                 <NavLink href="/signUP">Sign Up</NavLink>
@@ -44,6 +57,8 @@ const Navbaar = (props) => {
         </Navbar>
       </div>
       );
+    
     }
+
     
     export default Navbaar;
