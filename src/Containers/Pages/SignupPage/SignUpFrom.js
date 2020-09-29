@@ -20,8 +20,8 @@ const SignUpFrom = (props) => {
   }
   
   const [fields, setFields] = useState(initialFields);
-  const [userId, setUserId] = useState(null);
-  const { handleSubmit, register, errors, message } = useForm();
+  // const [userId, setUserId] = useState(null);
+  const { handleSubmit, register, errors } = useForm();
   useEffect(() => {
     const action = props.user.action;
     setFields({ ...fields, ...props.user.user })

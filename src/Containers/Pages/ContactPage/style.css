@@ -6,11 +6,14 @@ a{
   }
 
 .contactus{
-  margin: 20px;
+  margin: 40px;
+  border: 1px solid #e1e0e0;
+  border-radius: 12px;
+  padding: 0 30px;
   }
 .contactus h2{
   font-size: 30px;
-  margin: 35px 0 20px 0;
+  margin: 20px 0 20px 0;
 }
 .contactus p{
   font-size: 15px;
