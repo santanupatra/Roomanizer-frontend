@@ -20,8 +20,8 @@ const SignUpFrom = (props) => {
   }
   
   const [fields, setFields] = useState(initialFields);
-  const [userId, setUserId] = useState(null);
-  const { handleSubmit, register, errors, message } = useForm();
+  // const [userId, setUserId] = useState(null);
+  const { handleSubmit, register, errors } = useForm();
   useEffect(() => {
     const action = props.user.action;
     setFields({ ...fields, ...props.user.user })
@@ -103,7 +103,7 @@ const SignUpFrom = (props) => {
                             <img src={imagePath.orImage} alt="image"/>
                             <a href="#"><img src={imagePath.fbImage} alt="image"/></a>
                             <a href="#"><img src={imagePath.gsImage} alt="image"/></a>
-                            <p className="forgot mt-3 mb-0">Already have an account? <span>Login</span></p>
+                            <a href="/login" className="forgot mt-3 mb-0">Already have an account? <span>Login</span></a>
                           </Col>
                         </FormGroup>
                       </Form>

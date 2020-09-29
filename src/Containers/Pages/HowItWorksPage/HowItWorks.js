@@ -7,6 +7,8 @@ import Header from '../../Common/header';
 import Footer from '../../Common/footer';
 
 
+
+
 const Home =(props)=>{
     return (
       <div className="home">

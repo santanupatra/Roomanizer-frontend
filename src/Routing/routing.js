@@ -1,4 +1,6 @@
-import React from 'react';
+//import React from 'react';
+import React, { useEffect, useState } from 'react'
+
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import history from '../history';
 import HomePage from '../Containers/Pages/HomePage/home';
@@ -15,21 +17,26 @@ import AboutPage from '../Containers/Pages/AboutPage/about';
 import ContactPage from '../Containers/Pages/ContactPage/contact';
 import ForgetPassword from '../Containers/Pages/LoginPage/ForgetPassword'
 import ActiveMailPage from '../Containers/Pages/ActiveMailPage/ActiveMailPage';
+import CmsDetails from  '../Containers/Common/CmsDetails'
+import { Navbar } from 'reactstrap'
+import AfterActive from '../Containers/Pages/ActiveMailPage/AfterActive';
 
 import FavoritePage from '../Containers/Pages/FavoritePage/favorite';
 import HowItWorksPage from '../Containers/Pages/HowItWorksPage/HowItWorks';
 
 const Routes=(props) =>{
+  //const [loggedIn, setLoggedIn] = useState(localStorage.getItem("token"));
   return (
         <Router history={history}>
             <Switch>
+                {/* <Navbar isAuth={loggedIn} /> */}
                 <Route path="/" exact component={HomePage} />
                 <Route path="/login" exact component={LoginPage} />
                 <Route path="/signUP" exact component={SignupPage} />
                 <Route path="/editProfile" exact component={EditprofilePage} />
                 <Route path="/ForgetPassword" exact component={ForgetPassword} />
                 <Route path="/viewProfile" exact component={UserProfilePage} />
-                <Route path="/changePassword" exact component={ChangePasswordPage} />
+                <Route path="/changePassword/:userId" exact component={ChangePasswordPage} />
                 <Route path="/roomSearch" exact component={RoomSearchPage} />
                 <Route path="/roomMateSearch" exact component={RoommateSearchPage} />
                 <Route path="/roomRent" exact component={RoomsForRentPage} />
@@ -37,7 +44,10 @@ const Routes=(props) =>{
                 <Route path="/activeMail" exact component={ActiveMailPage} />
                 <Route path="/about" exact component={AboutPage} />
                 <Route path="/contact" exact component={ContactPage} />
-                <Route path="/activeAccount/:email" exact component={SuccessPage} />
+                <Route path="/success" exact component={SuccessPage} />
+                <Route path="/CmsDetails/:SlugId" exact component={CmsDetails} />
+
+                <Route path="/activeAccount/:email" exact component={AfterActive} />
                 <Route path="/favorite" exact component={FavoritePage} />
                 <Route path="/howItWorks" exact component={HowItWorksPage} />
             </Switch>
