@@ -2,6 +2,10 @@ import React,{useState} from 'react';
 import './style.css';
 import imagePath from '../../../Config/imageConstants';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Facebook from '../facebook';
+import Twitter from '../twitter';
+import Gsuite from '../gSuite';
+import Email from '../email';
 
 
 const Formsec = (props) => {
@@ -25,11 +29,11 @@ const Formsec = (props) => {
                       </span>
                     </div>
                     <a href="#" className="login-bt mb-2">Messsage</a>
-                    <div className="mt-3">
-                      <a href="#" className="pr-2 pl-2"><img src={imagePath.fImage}/></a>
-                      <a href="#" className="pr-2"><img src={imagePath.tImage}/></a>
-                      <a href="#" className="pr-2"><img src={imagePath.gImage}/></a>
-                      <a href="#"><img src={imagePath.mailImage}/></a>
+                    <div className="mt-3 d-flex align-items-center justify-content-center">
+                      <Facebook></Facebook>
+                      <Twitter></Twitter>
+                      <Gsuite></Gsuite>
+                      <Email></Email>
                     </div>
                 </div>
        

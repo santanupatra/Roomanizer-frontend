@@ -6,12 +6,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from '../../Common/header';
-import Formsec from './form-sec';
-import Userpic from './user-pic';
+import Formsec2 from './form-sec2';
+import Roompic from './room-pic';
 
 
-
-const editProfile =(props)=> {
+const editProfile =(props)=> { 
     return (
       <div className="home">
         <div className="header">
@@ -21,10 +20,10 @@ const editProfile =(props)=> {
                 <Row className="mt-5 pt-5">
                   <Col sm={6} className="pr-5">
                     <h2 className="text-center mb-3">My Profile</h2>
-                    <Formsec></Formsec>
+                    <Formsec2></Formsec2>
                   </Col>
                   <Col sm={6} className="pr-5 pt-5 text-center">
-                   <Userpic></Userpic>
+                    <Roompic></Roompic>
                   </Col>
                 </Row>
               </Container>

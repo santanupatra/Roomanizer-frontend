@@ -7,6 +7,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Nav, NavItem, NavLink } from 'reactstrap';
 import { Button, Form, FormGroup, Label, Input, FormFeedback, FormText } from 'reactstrap';
 import { InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
+import Facebook from '../facebook';
+import Twitter from '../twitter';
+import Gsuite from '../gSuite';
 
 
 const Formsec = (props) => {
@@ -16,14 +19,16 @@ const Formsec = (props) => {
                       <Form>
                         <FormGroup row>
                           <Col sm={12}>
-                            <label class="switch">
-                              <input type="checkbox"/>
-                              <span class="slider round"></span>
-                            </label>
-                            <span className="mt-2 d-block">
-                              <a href="#" className="toggle pr-2">I am looking for a room</a>
-                              <a href="#" className="toggle border-right-0 pl-2">I have an available room</a>
-                            </span>
+                            <div className="text-center">
+                              <label class="switch">
+                                <input type="checkbox"/>
+                                <span class="slider round"></span>
+                              </label>
+                              <span className="mt-2 d-block">
+                                <a href="#" className="toggle pr-3">I am looking for a room</a>
+                                <a href="#" className="toggle border-right-0 pl-3">I have an available room</a>
+                              </span>
+                            </div>
                             
                             <Input type="text" name="name" id="examplename" placeholder="Name" />
                             <Row>
@@ -45,11 +50,11 @@ const Formsec = (props) => {
                               <option>2</option>
                               <option>3</option>
                             </Input>
-                            <div className="mt-4">
-                              <h6 className="social d-inline-block">Link social media accounts:</h6>
-                                  <a href="#" className="pr-2 pl-2"><img src={imagePath.fImage}/></a>
-                                  <a href="#" className="pr-2"><img src={imagePath.tImage}/></a>
-                                  <a href="#"><img src={imagePath.gImage}/></a>
+                            <div className="mt-4 d-flex align-items-center">
+                              <h6 className="social d-inline-block mr-2">Link social media accounts:</h6>
+                                <Facebook></Facebook>
+                                <Twitter></Twitter>
+                                <Gsuite></Gsuite>
                             </div>
                             <a href="#" className="login-bt mt-4 mb-2">Submit</a>
                             <img src={imagePath.orImage} alt="image"/>
