@@ -15,10 +15,10 @@ const items = [
     src: imagePath.slider1Image,
   },
   {
-    src: imagePath.slider2Image,
+    src: imagePath.slider1Image,
   },
   {
-    src: imagePath.slider3Image,
+    src: imagePath.slider1Image,
   }
 ];
 

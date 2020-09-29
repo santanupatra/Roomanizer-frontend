@@ -82,3 +82,6 @@ a{
 .slider-sec{
     border-radius: 3px;
 }
+.sl .carousel-inner{
+    border-radius: 6px;
+}
