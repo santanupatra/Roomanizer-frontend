@@ -33,7 +33,7 @@ const Routes=(props) =>{
                 <Route path="/" exact component={HomePage} />
                 <Route path="/login" exact component={LoginPage} />
                 <Route path="/signUP" exact component={SignupPage} />
-                <Route path="/editProfile" exact component={EditprofilePage} />
+                <Route path="/editProfile/:userId" exact component={EditprofilePage} />
                 {/* <Route path="/ForgetPassword" exact component={ForgetPassword} /> */}
                 <Route path="/viewProfile" exact component={UserProfilePage} />
                 <Route path="/changePassword/:userId" exact component={ChangePasswordPage} />

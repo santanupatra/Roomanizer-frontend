@@ -20,4 +20,4 @@ export const getAuthToken = localStorage.getItem("access-token");
 export const getAuthUserId = localStorage.getItem("adminId");
 export const getAuthUserImage = localStorage.getItem("profileImg");
 export const getUserType = localStorage.getItem("userType");
-export const getImageUrl = imgUrl => apiBaseUrl+'/'+imgUrl;
+export const getImageUrl = imgUrl => apiBaseUrl + imgUrl;

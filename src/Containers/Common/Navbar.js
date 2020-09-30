@@ -33,7 +33,7 @@ const Navbaar = (props) => {
                 <NavLink href="/">Home</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="https://github.com/reactstrap/reactstrap">Community</NavLink>
+                <NavLink href="/CmsDetails/community">Community</NavLink>
               </NavItem>
               <NavItem>
                 <NavLink href="/CmsDetails/How_it_works">How it Works</NavLink>
