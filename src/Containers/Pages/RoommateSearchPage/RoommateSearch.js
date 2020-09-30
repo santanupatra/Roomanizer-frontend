@@ -1,6 +1,7 @@
 import React from 'react';
 import './style.css';
 import { Container, Row, Col, Navbar } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from '../../Common/header';
 import Pageno from '../pageno';

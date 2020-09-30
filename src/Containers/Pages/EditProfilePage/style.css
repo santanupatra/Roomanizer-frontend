@@ -182,5 +182,21 @@ input:-internal-autofill-selected {
     left: 0;
     top: 0;
     opacity: 0;
-    
   }
+  .filter-mod{
+    font-size: 15px;
+    font-weight: 500;
+}
+.th .custom-file-label {
+  border-radius: 25px;
+  padding: 12px 20px;
+  height: auto;
+}
+.th .custom-file-label::after{
+  height: auto;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+  background-color: #668dc8;
+  color: #fff;
+  line-height: 2.5;
+}

@@ -8,7 +8,7 @@ import LoginPage from '../Containers/Pages/LoginPage/login';
 import SignupPage from '../Containers/Pages/SignupPage/signup';
 import UserProfilePage from '../Containers/Pages/UserProfilePage/UserProfile';
 // import EditprofilePage from '../Containers/Pages/EditProfilePage/editprofile';
-import EditprofilePage from '../Containers/Pages/EditProfilePage/editprofile';
+import EditprofilePage from '../Containers/Pages/EditProfilePage/editprofile2';
 
 import ChangePasswordPage from '../Containers/Pages/ChangePasswordPage/ChangePassword';
 import RoommateSearchPage from '../Containers/Pages/RoommateSearchPage/RoommateSearch';
