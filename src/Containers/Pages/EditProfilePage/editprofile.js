@@ -7,7 +7,6 @@ import { faCamera } from '@fortawesome/free-solid-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from '../../Common/header';
 import Formsec from './form-sec';
-import Userpic from './user-pic';
 
 
 
@@ -19,12 +18,23 @@ const editProfile =(props)=> {
             <div className="">
               <Container className="mb-3">
                 <Row className="mt-5 pt-5">
-                  <Col sm={6} className="pr-5">
+                  <Col className="pr-5">
                     <h2 className="text-center mb-3">My Profile</h2>
                     <Formsec></Formsec>
                   </Col>
-                  <Col sm={6} className="pr-5 pt-5 text-center">
-                   <Userpic></Userpic>
+                  <Col className="pr-5 pt-5 text-center">
+                    <div className="user-pic mt-5">
+                      <img src={imagePath.userImage} alt="image"/>
+                      <div class="upload-btn-wrapper">
+                        <button><FontAwesomeIcon icon={faCamera} /></button>
+                        <input type="file" name="myfile" />
+                      </div>
+                    </div>
+                    <div class="thumbnail-file mt-4">
+                        <button><h2 className="mb-0 mt-1">+ Add Thumbnail File </h2></button>
+                        <p>Recomended resolution 800x500, 650x450</p>
+                        <input type="file" name="myfile" />
+                    </div>
                   </Col>
                 </Row>
               </Container>
