@@ -15,20 +15,10 @@ import Gsuite from '../gSuite';
 const Formsec2 = (props) => {
     return (
       <div className="">
-        <div className="login-form mb-5">
+        
                       <Form>
                         <FormGroup row>
                           <Col sm={12}>
-                            <div className="text-center">
-                              <label class="switch">
-                                <input type="checkbox"/>
-                                <span class="slider round"></span>
-                              </label>
-                              <span className="mt-2 d-block">
-                                <a href="#" className="toggle pr-3">I am looking for a room</a>
-                                <a href="#" className="toggle border-right-0 pl-3">I have an available room</a>
-                              </span>
-                            </div>
                             <Row>
                               <Col className="pr-0">
                                 <Input type="text" name="name" id="examplename" placeholder="First Name" />
@@ -145,7 +135,6 @@ const Formsec2 = (props) => {
                           </Col>
                         </FormGroup>
                       </Form>
-                    </div>
       </div>
     );
   }

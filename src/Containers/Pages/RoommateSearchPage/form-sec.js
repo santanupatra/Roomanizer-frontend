@@ -58,7 +58,7 @@ const Formsec = (props) => {
       <div>
             <Modal isOpen={modal} toggle={toggle} className={className}>
               <ModalHeader toggle={toggle}>Filter</ModalHeader>
-              <ModalBody className="">
+              <ModalBody className="p-4">
                 <Form>
                   <FormGroup>
                     <Label for="exampleCheckbox" className="filter-modal">No of Bedrooms</Label>
