@@ -22,9 +22,9 @@ export default class Home extends React.Component {
                 <Row className="align-items-center">
                   <Col>
                     <Row className="mb-4">
-                      <Col className="pr-0"><Slider></Slider></Col>
-                      <Col className="px-0"><Slider></Slider></Col>
-                      <Col className="pl-0"><Slider></Slider></Col>
+
+                      <Col className="sl"><Slider></Slider></Col>
+
                     </Row>
                       
                       <div className="page-bg">  

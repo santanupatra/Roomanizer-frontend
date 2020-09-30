@@ -12,6 +12,7 @@ import { crudAction } from '../../../store/actions/common';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { useForm } from "react-hook-form";
+import Userpic from './user-pic';
 
 
 
@@ -65,7 +66,7 @@ const EditProfile =(props)=> {
             <div className="">
               <Container className="mb-3">
                 <Row className="mt-5 pt-5">
-                  <Col className="pr-5">
+                  <Col sm={6} className="pr-5">
                     <h2 className="text-center mb-3">My Profile</h2>
                     <Formsec></Formsec>
                   </Col>

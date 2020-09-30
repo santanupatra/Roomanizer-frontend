@@ -15,7 +15,9 @@ export default class Header extends React.Component {
             <Container className="mb-3">
               <Row className="align-items-center">
                 <Col>
-                    <img src={imagePath.LogoImage} alt="image"/>
+                  <a href="/">
+                    <img src={imagePath.LogoImage} href="/" alt="image"/>
+                  </a>
                 </Col>
                 <Col>
                   <Navbaar></Navbaar>

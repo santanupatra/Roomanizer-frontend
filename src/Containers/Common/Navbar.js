@@ -12,15 +12,20 @@ import {
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Navbaar = (props) => {
+
+  const [isView, setIsView] = useState(true);
+  
+  const tgl = () => setIsView(!isView);
+
+
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
    
   const logout = () =>{
      localStorage.removeItem('userId')
-
-
   }
+  const userId = localStorage.getItem('userId')
   
 
       return (
@@ -30,7 +35,11 @@ const Navbaar = (props) => {
           <Collapse isOpen={isOpen} navbar>
             <Nav className="mr-auto" navbar>
               <NavItem>
-                <NavLink href="/">Home</NavLink>
+                {
+                (localStorage.getItem('userId') === null)
+                ?<NavLink href="/home">Home</NavLink>
+                :<NavLink href={`/home/${userId}`}>Home</NavLink>
+                }
               </NavItem>
               <NavItem>
                 <NavLink href="/CmsDetails/community">Community</NavLink>
@@ -49,7 +58,14 @@ const Navbaar = (props) => {
 
               </NavItem>
               <NavItem>
-                <NavLink href="/signUP">Sign Up</NavLink>
+              { //Check if message failed
+              (localStorage.getItem('userId') === null)
+              ? <NavLink href="/signUp">Sign Up</NavLink>
+              // :(isView===false)
+              //   ?<NavLink href={`/viewProfile/${userId}`} onClick={tgl}>View Profile</NavLink>
+                :<NavLink href={`/editProfile/${userId}`} /*onClick={tgl}*/>Edit Profile</NavLink>
+              } 
+                
               </NavItem>
       
             </Nav>

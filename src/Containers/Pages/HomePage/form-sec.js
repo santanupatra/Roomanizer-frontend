@@ -41,6 +41,7 @@ const Formsec = (props) => {
       </Nav>
       <div className="form-bg">
       <TabContent activeTab={activeTab}>
+
         <TabPane tabId="1">
           <Row>
             <Col sm="12">
@@ -91,6 +92,8 @@ const Formsec = (props) => {
             </Col>
           </Row>
         </TabPane>
+
+
         <TabPane tabId="2">
         <div className="">
             
@@ -106,7 +109,7 @@ const Formsec = (props) => {
                 <Input className="search" type="email" name="email" id="exampleEmail" placeholder="Enter a street, area or city" />
             </Col>
       </FormGroup>
-      <FormGroup row>
+      <FormGroup row className="mt-4">
           <Col Col sm={4}>
                 <Label for="">Age</Label>
                 <Input type="range" name="range" id="exampleRange" />
