@@ -7,8 +7,8 @@ import HomePage from '../Containers/Pages/HomePage/home';
 import LoginPage from '../Containers/Pages/LoginPage/login';
 import SignupPage from '../Containers/Pages/SignupPage/signup';
 import UserProfilePage from '../Containers/Pages/UserProfilePage/UserProfile';
-import EditprofilePage2 from '../Containers/Pages/EditProfilePage/editprofile2';
-import EditprofilePage from '../Containers/Pages/EditProfilePage/editprofile';
+// import EditprofilePage from '../Containers/Pages/EditProfilePage/editprofile';
+import EditprofilePage from '../Containers/Pages/EditProfilePage/editprofile2';
 
 import ChangePasswordPage from '../Containers/Pages/ChangePasswordPage/ChangePassword';
 import RoommateSearchPage from '../Containers/Pages/RoommateSearchPage/RoommateSearch';
@@ -38,8 +38,8 @@ const Routes=(props) =>{
                 <Route path="/login" exact component={LoginPage} />
                 <Route path="/signUP" exact component={SignupPage} />
                 <Route path="/editProfile/:userId" exact component={EditprofilePage} />
-                <Route path="/editProfile2" exact component={EditprofilePage2} />
-                {/* <Route path="/ForgetPassword" exact component={ForgetPassword} /> */}
+                
+                {/* <Route path="/editProfile2" exact component={EditprofilePage2} /> */}
                 <Route path="/viewProfile/:userId" exact component={UserProfilePage} />
                 <Route path="/changePassword/:userId" exact component={ChangePasswordPage} />
                 <Route path="/roomSearch" exact component={RoomSearchPage} />
