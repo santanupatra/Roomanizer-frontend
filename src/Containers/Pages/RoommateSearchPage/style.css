@@ -37,15 +37,18 @@ a{
 }
 .filter{
     background-color: #fff;
-    background-image: url(../../../assets/images/filter.png);
-    background-repeat: no-repeat;
-    background-position: 23px;
-    background-size: 26px;
+    background-image:none !important;
+    text-align: center;
     cursor: pointer;
-    padding: 23px 12px;
+    padding: 12px 12px !important;
     Border: 1px solid #666666;
     border-radius: 27px;
     display: block;
+    color: #495057;
+}
+.filter:hover{
+    background: #fff;
+    color: #495057;
 }
 .form-bg label{
     font-size: 18px;
@@ -84,4 +87,11 @@ a{
     line-height: 0 !important;
     color: #000;
     font-weight: 500;
+}
+.filter-modal{
+    font-size: 18px;
+    font-weight: 500;
+}
+.filt label{
+    font-size: 14px;
 }
