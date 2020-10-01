@@ -11,6 +11,9 @@ export const CONTACTUS_URL = 'contactUs-api/contactUs';
 export const PROFILEPICTURE_URL = 'auth-api/profilePicture';
 export const EDITPROFILE_URL = 'auth-api/updateProfile';
 export const VIEWPROFILE_URL = 'auth-api/profileDetails';
+export const USERLIST_URL = 'auth-api/user';
+
+
 
 
 
