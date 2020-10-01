@@ -68,7 +68,7 @@ const EditProfile1 =(props)=> {
                         </div>
                   </Col>
                   <Col sm={6} className="pr-5 text-center">
-                    <Userpic></Userpic>
+                    <Userpic userId={ userId}></Userpic>
                   </Col>
             </Row>
         </div>
