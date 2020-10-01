@@ -18,7 +18,7 @@ import LoginNavbar from './LoginNavbar';
           <div className="header-sec">
             <Container className="mb-3">
               <Row className="align-items-center">
-                <Col>
+                <Col sm={5}>
                   <a href="/">
                     <img src={imagePath.LogoImage} href="/" alt="image"/>
                   </a>

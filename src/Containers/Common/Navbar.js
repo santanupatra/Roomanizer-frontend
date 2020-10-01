@@ -33,7 +33,7 @@ const Navbaar = (props) => {
         <Navbar light expand="md">
           <NavbarToggler onClick={toggle} />
           <Collapse isOpen={isOpen} navbar>
-            <Nav className="mr-auto" navbar>
+            <Nav className="ml-auto" navbar>
               <NavItem>
                 {
                 (localStorage.getItem('userId') === null)
@@ -60,7 +60,7 @@ const Navbaar = (props) => {
               <NavItem>
               { //Check if message failed
               (localStorage.getItem('userId') === null)
-              ? <NavLink href="/signUp">Sign Up</NavLink>
+              ? <NavLink className="border-0" href="/signUp">Sign Up</NavLink>
               // :(isView===false)
               //   ?<NavLink href={`/viewProfile/${userId}`} onClick={tgl}>View Profile</NavLink>
                 :<NavLink href={`/editProfile/${userId}`} /*onClick={tgl}*/>Edit Profile</NavLink>

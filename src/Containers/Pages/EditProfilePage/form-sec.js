@@ -119,14 +119,18 @@ const Formsec = (props) => {
                                   })}
                                   fields={fields}/>
                               </Col>
-                            </Row><Row>
+                            </Row>
+                            <Row>
                               <Col>
-                              <DatePicker 
-                              selected={setDate} 
-                              placeholderText="Date of Birth"
-                              onChange={date => handleDatechange(date)}
-                              // value={fields.dateOfBirth}
-                              />
+                                <div className="form-group mt-4">
+                                  <DatePicker 
+                                  selected={setDate} 
+                                  className="form-control"
+                                  placeholderText="Date of Birth"
+                                  onChange={date => handleDatechange(date)}
+                                  // value={fields.dateOfBirth}
+                                  />
+                              </div>
                               </Col>
                               <Col className="pl-0">
                                   <InputUI
@@ -205,13 +209,16 @@ const Formsec = (props) => {
                              required: 'This is required field',
                             })}
                             fields={fields}/>
-                            <br/>
-                            <DatePicker 
-                              selected={setRtoM} 
-                              placeholderText="Ready to Move"
-                              onChange={e => setReadyToMove(e)} 
-                            />
-                            <br/><br/><br/>
+
+                            <div className="form-group my-4 py-2">
+                              <DatePicker 
+                                selected={setRtoM} 
+                                className="form-control"
+                                placeholderText="Ready to Move"
+                                onChange={e => setReadyToMove(e)} 
+                              />
+                            </div>
+
                             <MultiSelect
                             options={options}
                             value={fields.houseRules}

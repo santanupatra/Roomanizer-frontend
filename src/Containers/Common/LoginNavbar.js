@@ -61,8 +61,9 @@ const LoginNavbaar = (props) => {
               </NavItem>
 
               <NavItem>
-                <NavLink>
+                <NavLink className="nav-icon">
                   <FontAwesomeIcon color="white" icon={faEnvelope} />
+                  <div className="blink">8</div>
                 </NavLink>
               </NavItem>
               <NavItem>
