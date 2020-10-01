@@ -121,18 +121,6 @@ const Formsec = (props) => {
                               </Col>
                             </Row><Row>
                               <Col>
-                              {/* {setDate ? (<DatePicker 
-                              selected={setDate} 
-                              placeholderText="Date of Birth"
-                              onChange={date => handleDatechange(date)}
-                              // value={fields.dateOfBirth}
-                              />):(<DatePicker 
-                                selected={fields.dateOfBirth} 
-                                placeholderText="Date of Birth"
-                                onChange={date => handleDatechange(date)}
-                                // value={fields.dateOfBirth}
-                                />
-                              )} */}
                               <DatePicker 
                               selected={setDate} 
                               placeholderText="Date of Birth"
