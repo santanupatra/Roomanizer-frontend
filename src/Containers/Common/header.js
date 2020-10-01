@@ -14,12 +14,12 @@ export default class Header extends React.Component {
           <div className="header-sec">
             <Container className="mb-3">
               <Row className="align-items-center">
-                <Col>
+                <Col sm={5}>
                   <a href="/">
                     <img src={imagePath.LogoImage} href="/" alt="image"/>
                   </a>
                 </Col>
-                <Col>
+                <Col sm={7}>
                   <Navbaar></Navbaar>
                 </Col>
               </Row>

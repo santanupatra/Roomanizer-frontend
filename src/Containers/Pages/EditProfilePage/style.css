@@ -14,7 +14,7 @@ a{
 .login-form .form-control {
     border-radius: 25px;
     padding: 12px 10px;
-    margin-top: 20px;
+    margin-top: 0 !important;
     height: auto;
 }
 input:-internal-autofill-selected {
@@ -205,4 +205,11 @@ input:-internal-autofill-selected {
   background-color: #668dc8;
   color: #fff;
   line-height: 2.5;
+}
+.login-form .react-datepicker-wrapper{
+  display: inline !important;
+}
+.login-form .go2646822163{
+  border-radius: 25px !important;
+    padding: 6px 20px;
 }

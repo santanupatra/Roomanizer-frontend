@@ -51,6 +51,11 @@ const thankImage = require('../assets/images/thank.png');
 const how1Image = require('../assets/images/how-img1.png');
 const how2Image = require('../assets/images/how-img2.png');
 const loginpicImage = require('../assets/images/login-img.png');
+const chatpicImage = require('../assets/images/chat-img.png');
+const chatrgImage = require('../assets/images/chat-right.png');
+const chatltImage = require('../assets/images/chat-left.png');
+const chatbtImage = require('../assets/images/chat-bt.png');
+const attachImage = require('../assets/images/attach.png');
 
 
 let imagePath;
@@ -108,6 +113,9 @@ export default imagePath={
     thankImage:thankImage,
     how1Image:how1Image,
     how2Image:how2Image,
-    loginpicImage:loginpicImage
+    loginpicImage:loginpicImage,
+    chatpicImage:chatpicImage,
+    chatbtImage:chatbtImage,
+    attachImage:attachImage
 
 }

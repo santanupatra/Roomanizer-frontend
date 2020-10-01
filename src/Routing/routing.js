@@ -1,6 +1,5 @@
 //import React from 'react';
 import React, { useEffect, useState } from 'react'
-
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import history from '../history';
 import HomePage from '../Containers/Pages/HomePage/home';
@@ -9,7 +8,6 @@ import SignupPage from '../Containers/Pages/SignupPage/signup';
 import UserProfilePage from '../Containers/Pages/UserProfilePage/UserProfile';
 // import EditprofilePage from '../Containers/Pages/EditProfilePage/editprofile';
 import EditprofilePage from '../Containers/Pages/EditProfilePage/editprofile';
-
 import ChangePasswordPage from '../Containers/Pages/ChangePasswordPage/ChangePassword';
 import RoommateSearchPage from '../Containers/Pages/RoommateSearchPage/RoommateSearch';
 import RoomSearchPage from '../Containers/Pages/RoomSearchPage/RoomSearch';
@@ -22,9 +20,11 @@ import ActiveMailPage from '../Containers/Pages/ActiveMailPage/ActiveMailPage';
 import CmsDetails from  '../Containers/Common/CmsDetails'
 import { Navbar } from 'reactstrap'
 import AfterActive from '../Containers/Pages/ActiveMailPage/AfterActive';
-
 import FavoritePage from '../Containers/Pages/FavoritePage/favorite';
 import HowItWorksPage from '../Containers/Pages/HowItWorksPage/HowItWorks';
+import ChatPage from '../Containers/Pages/ChatPage/chat';
+
+
 
 const Routes=(props) =>{
   //const [loggedIn, setLoggedIn] = useState(localStorage.getItem("token"));
@@ -50,10 +50,10 @@ const Routes=(props) =>{
                 <Route path="/contact" exact component={ContactPage} />
                 <Route path="/success" exact component={SuccessPage} />
                 <Route path="/CmsDetails/:SlugId" exact component={CmsDetails} />
-
                 <Route path="/activeAccount/:email" exact component={AfterActive} />
                 <Route path="/favorite" exact component={FavoritePage} />
                 <Route path="/howItWorks" exact component={HowItWorksPage} />
+                <Route path="/chat" exact component={ChatPage} />
             </Switch>
         </Router>
       )
