@@ -68,20 +68,9 @@ const Formsec = (props) => {
   }
       return (
       <div className="">
-        <div className="login-form mb-5">
                       <Form onSubmit={handleSubmit(onSubmit)}>
                         <FormGroup row>
                           <Col sm={12}>
-                            <div className="text-center">
-                              <label class="switch">
-                                <input type="checkbox"/>
-                                <span class="slider round"></span>
-                              </label>
-                              <span className="mt-2 d-block">
-                                <a href="#" className="toggle pr-3">I am looking for a room</a>
-                                <a href="#" className="toggle border-right-0 pl-3">I have an available room</a>
-                              </span>
-                            </div>
                             
                             <Row>
                               <Col>
@@ -176,7 +165,6 @@ const Formsec = (props) => {
                           </Col>
                         </FormGroup>
                       </Form>
-                    </div>
       </div>
     );
   }

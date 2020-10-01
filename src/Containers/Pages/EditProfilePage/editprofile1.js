@@ -13,13 +13,11 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import Userpic from './user-pic';
-import EditProfile2 from './editprofile2';
-import EditProfile1 from './editprofile1';
 
 
 
 
-const EditProfile =(props)=> {
+const EditProfile1 =(props)=> {
   
   const [fields, setImage] = useState({ preview: "", profilePicture: "" });
  
@@ -62,38 +60,18 @@ const EditProfile =(props)=> {
 
 
     return (
-      <div className="home">
-        <div className="header">
-          <Header></Header>
-            <div className="">
-              <Container className="mb-3">
-                <Row className="mt-5 pt-5">
-                  <Col className="pr-5">
-                    <h2 className="text-center mb-3">My Profile</h2>
-
-                        {/* Toggle */}
-                        <div className="text-center mb-4">
-                            <label class="switch">
-                               <input type="checkbox"/>
-                               <span class="slider round"></span>
-                            </label>
-                            <span className="mt-2 d-block">
-                               <a href="#" className="toggle pr-3">I am looking for a room</a>
-                               <a href="#" className="toggle border-right-0 pl-3">I have an available room</a>
-                            </span>
+        <div>
+            <Row className="">
+                  <Col sm={6} className="pr-5">
+                        <div className="login-form mb-5">
+                          <Formsec></Formsec>
                         </div>
-
                   </Col>
-                </Row>
-
-                <Row>
-                    <EditProfile1></EditProfile1>
-                </Row>
-
-              </Container>
-            </div>
+                  <Col sm={6} className="pr-5 text-center">
+                    <Userpic></Userpic>
+                  </Col>
+            </Row>
         </div>
-      </div>
     )
   
 }
@@ -110,4 +88,4 @@ const mapDispatchToProps = dispatch => {
     resetAction: () => dispatch({ type: "RESET_USER_ACTION" }),
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(EditProfile));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(EditProfile1));
