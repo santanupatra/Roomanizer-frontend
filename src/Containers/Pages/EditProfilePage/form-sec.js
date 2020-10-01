@@ -18,10 +18,13 @@ import InputUI from '../../../UI/InputUI';
 import Facebook from '../facebook';
 import Twitter from '../twitter';
 import Gsuite from '../gSuite';
-
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import moment from 'moment';
+// import 'moment-timezone';
 
 const Formsec = (props) => {
-
+  
   const initialFields = {
     firstName: "",
     lastName: "",
@@ -29,14 +32,19 @@ const Formsec = (props) => {
     aboutMe: "",
     readyToMove: null,
     maxBudget: "",
-    houseRules:""
+    houseRules:"",
+    age: "",
+    gender: "",
+    occupation: ""
   }
   
   const [fields, setFields] = useState(initialFields);
   const [userId, setUserId] = useState(null);
   const { handleSubmit, register, errors } = useForm();
   const params = props.match.params;
-
+  const [setDate, setStartDate] = useState(new Date());
+  const [setRtoM, setReadyToMove] = useState(null);
+ 
   useEffect(() => {
     setUserId(params.userId)
     if (params.userId) props.crudActionCall(`${VIEWPROFILE_URL}/${params.userId}`, null, "GET")
@@ -46,42 +54,45 @@ const Formsec = (props) => {
     const action = props.user.action;
     if (props.user.user && params.userId) {
       setFields({ ...fields, ...props.user.user })
+      setStartDate(moment(props.user.user.dateOfBirth).toDate())
+      setReadyToMove(moment(props.user.user.readyToMove).toDate())
     }
     if (action.isSuccess && action.type === "UPDATE")
-      props.history.push(`/viewProfile/${userId}`)
-
+      props.history.push(`/editProfile/${userId}`)
   }, [props.user]);
 
   const onSubmit = (data) => {
     if (userId) data.userId = userId;
+    if (setDate) data.dateOfBirth = setDate;
+    if (setRtoM) data.readyToMove = setRtoM;
+    if (fields.houseRules) data.houseRules=fields.houseRules
     props.crudActionCall(EDITPROFILE_URL + `/${userId}`, data, "UPDATE");
     props.resetAction();
   }
 
   const options = [
-    { label: "Clean appartment", value: "Clean appartment" },
-    { label: "No smoking", value: "No smoking" },
-  { label: "Dog friendly", value: "Dog friendly"/*, disabled: true*/ },
+    { label: "Clean appartment", value: "1" },
+    { label: "No smoking", value: "2" },
+    { label: "Dog friendly", value: "3" /*, disabled: true*/ },
   ];
-  const  handlechange = selectedOptions => {
-    setFields((prevState) => ({ ...prevState, "houseRules": selectedOptions }));
+  const handleChange = (name,value)=>{
+    setFields((prevState) => ({ ...prevState, [name]: value }));
+  }
+  const  handlechange = value => {
+    setFields((prevState) => ({ ...prevState, "houseRules": value }));
+  }
+  const  handleDatechange = date => {
+    setStartDate(date);
+    var diff_ms = Date.now() - date.getTime();
+    var age_dt = new Date(diff_ms);
+    var realAge = Math.abs(age_dt.getUTCFullYear() - 1970);
+    setFields((prevState) => ({ ...prevState, "age": realAge }));
   }
       return (
       <div className="">
-        <div className="login-form mb-5">
                       <Form onSubmit={handleSubmit(onSubmit)}>
                         <FormGroup row>
                           <Col sm={12}>
-                            <div className="text-center">
-                              <label class="switch">
-                                <input type="checkbox"/>
-                                <span class="slider round"></span>
-                              </label>
-                              <span className="mt-2 d-block">
-                                <a href="#" className="toggle pr-3">I am looking for a room</a>
-                                <a href="#" className="toggle border-right-0 pl-3">I have an available room</a>
-                              </span>
-                            </div>
                             
                             <Row>
                               <Col>
@@ -110,19 +121,28 @@ const Formsec = (props) => {
                               </Col>
                             </Row><Row>
                               <Col>
+                              <DatePicker 
+                              selected={setDate} 
+                              placeholderText="Date of Birth"
+                              onChange={date => handleDatechange(date)}
+                              // value={fields.dateOfBirth}
+                              />
+                              </Col>
+                              <Col className="pl-0">
                                   <InputUI
-                                  type="date"
-                                  name="dateOfBirth"
-                                  id="dateOfBirth"
-                                  placeholder="Date Of Birth"
+                                  type="number"
+                                  name="age"
+                                  placeholder="Age"
                                   errors={errors}
                                   innerRef={register({
                                   required: 'This is required field',
                                   })}
-                                  fields={fields}/>
+                                  value={fields.age}/>
                               </Col>
-                              <Col className="pl-0">
-                                  <InputUI
+                            </Row>
+                            <Row>
+                              <Col>
+                              <InputUI
                                   type="text"
                                   name="maxBudget"
                                   id="maxBudget"
@@ -133,7 +153,48 @@ const Formsec = (props) => {
                                   })}
                                   fields={fields}/>
                               </Col>
+                              <Col className="pl-0">
+                                  <InputUI
+                                  type="select"
+                                  name="gender"
+                                  id="gender"
+                                  placeholder="Gender"
+                                  errors={errors}
+                                  innerRef={register({
+                                  required: 'This is required field',
+                                  })}
+                                  value={fields.gender}
+                                  onChange={(e) =>
+                                    handleChange(e.target.name, e.target.value)
+                                  }
+                                  >
+                                  <option>Choose your gender</option>
+                                  <option value="Male">Male</option>
+                                  <option value="Female">Female</option>
+                                  <option value="Other">Other</option>
+                                  </InputUI>
+
+                              </Col>
                             </Row>
+                            <InputUI
+                                  type="select"
+                                  name="occupation"
+                                  id="occupation"
+                                  placeholder="occupation"
+                                  errors={errors}
+                                  innerRef={register({
+                                  required: 'This is required field',
+                                  })}
+                                  value={fields.occupation}
+                                  onChange={(e) =>
+                                    handleChange(e.target.name, e.target.value)
+                                  }
+                                  >
+                                  <option>Choose your occupation</option>
+                                  <option value="Student">Student</option>
+                                  <option value="Engineer">Engineer</option>
+                                  <option value="Other">Other</option>
+                            </InputUI>
                             <InputUI
                             type="textarea"
                             name="aboutMe"
@@ -144,23 +205,23 @@ const Formsec = (props) => {
                              required: 'This is required field',
                             })}
                             fields={fields}/>
-                            <InputUI
-                            type="date"
-                            name="readyToMove"
-                            id="readyToMove"
-                            placeholder="Ready to Move"
-                            errors={errors}
-                            innerRef={register({
-                             required: 'This is required field',
-                            })}
-                            fields={fields}/>
                             <br/>
+                            <DatePicker 
+                              selected={setRtoM} 
+                              placeholderText="Ready to Move"
+                              onChange={e => setReadyToMove(e)} 
+                            />
+                            <br/><br/><br/>
                             <MultiSelect
                             options={options}
                             value={fields.houseRules}
-                            onChange={handlechange}
+                            onChange={(value) =>
+                              handlechange(value) 
+                            }
+                            // onChange={handlechange}
                             labelledBy={"Preferences for house rules"}/>
 
+                                  
                             {/* <div className="mt-4">
                               <h6 className="social d-inline-block">Link social media accounts:</h6>
                                   <a href="#" className="pr-2 pl-2"><img src={imagePath.fImage}/></a>
@@ -176,7 +237,6 @@ const Formsec = (props) => {
                           </Col>
                         </FormGroup>
                       </Form>
-                    </div>
       </div>
     );
   }
