@@ -29,7 +29,9 @@ const LoginNavbaar = (props) => {
 
    
   const logout = () =>{
+    //console.log("atimmm")
      localStorage.removeItem('userId')
+     localStorage.removeItem('access-token')
   }
   const userId = localStorage.getItem('userId')
 
@@ -80,7 +82,7 @@ const LoginNavbaar = (props) => {
                       <DropdownItem header>My Favorites</DropdownItem>
                       <DropdownItem header>My Messages</DropdownItem>
                       <DropdownItem header>Notifications</DropdownItem>
-                      <DropdownItem header>Logout</DropdownItem>
+                      <DropdownItem header  onClick={logout}>Logout</DropdownItem>
                     </DropdownMenu>
                   </Dropdown> 
                 </NavLink>             

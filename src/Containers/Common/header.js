@@ -7,9 +7,13 @@ import { fab } from '@fortawesome/free-brands-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Nav, NavItem, NavLink } from 'reactstrap';
 import Navbaar from './Navbar';
+import LoginNavbar from './LoginNavbar';
 
-export default class Header extends React.Component {
-    render() {
+ const  Header =(props)=> {
+  const userId = localStorage.getItem('userId');
+  const userToken = localStorage.getItem('access-token')
+
+    
         return (
           <div className="header-sec">
             <Container className="mb-3">
@@ -20,12 +24,15 @@ export default class Header extends React.Component {
                   </a>
                 </Col>
                 <Col>
-                  <Navbaar></Navbaar>
+                {userToken?<LoginNavbar />:<Navbaar />}
+                  
+
                 </Col>
               </Row>
             </Container>
             
           </div>
         )
-    }
+    
 }
+export default  Header;
