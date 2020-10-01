@@ -7,8 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { login } from "../../../store/actions/auth";
 import { connect } from "react-redux";
 import { getAuthToken } from "../../../shared/helpers";
-import { withRouter } from "react-router";
-import { useHistory } from "react-router";
+import { withRouter ,useHistory} from "react-router";
 import { Modal } from 'react-bootstrap'
 import { ToastContainer, toast } from 'react-toastify';
 import {callApi} from "../../../api";
@@ -43,11 +42,6 @@ function LoginFrom(props) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
-
-
-  
-
   const onSubmit = (data) => {
     props.loginApiCall(data);
   };

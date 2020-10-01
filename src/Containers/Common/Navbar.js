@@ -35,11 +35,7 @@ const Navbaar = (props) => {
           <Collapse isOpen={isOpen} navbar>
             <Nav className="mr-auto" navbar>
               <NavItem>
-                {
-                (localStorage.getItem('userId') === null)
-                ?<NavLink href="/home">Home</NavLink>
-                :<NavLink href={`/home/${userId}`}>Home</NavLink>
-                }
+               <NavLink href="/home">Home</NavLink>
               </NavItem>
               <NavItem>
                 <NavLink href="/CmsDetails/community">Community</NavLink>
@@ -48,24 +44,10 @@ const Navbaar = (props) => {
                 <NavLink href="/CmsDetails/How_it_works">How it Works</NavLink>
               </NavItem>
               <NavItem>
-              { //Check if message failed
-          (localStorage.getItem('userId') === null)
-          ? <NavLink href="/login">Log In</NavLink>
-          : <NavLink href="/" onClick={logout}>Log Out</NavLink> 
-      }
-                {/* <NavLink href="/login">Log In</NavLink> */}
-               
-
+                <NavLink href="/login">Log In</NavLink>
               </NavItem>
               <NavItem>
-              { //Check if message failed
-              (localStorage.getItem('userId') === null)
-              ? <NavLink href="/signUp">Sign Up</NavLink>
-              // :(isView===false)
-              //   ?<NavLink href={`/viewProfile/${userId}`} onClick={tgl}>View Profile</NavLink>
-                :<NavLink href={`/editProfile/${userId}`} /*onClick={tgl}*/>Edit Profile</NavLink>
-              } 
-                
+              <NavLink href="/signUp">Sign Up</NavLink>
               </NavItem>
       
             </Nav>

@@ -2,8 +2,10 @@ import React,{useState} from 'react';
 import '../Pages/HomePage/style.css';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import imagePath from '../../Config/imageConstants';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { fab } from '@fortawesome/free-brands-svg-icons';
+import { toast  } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import history from '../../history';
+import { useHistory } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faBell, } from "@fortawesome/free-regular-svg-icons";
 import {
@@ -18,9 +20,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { white } from 'color-name';
 
 const LoginNavbaar = (props) => {
-
-  
-
+  const history = useHistory();
   const [isView, setIsView] = useState(true);
   
   const tgl = () => setIsView(!isView);
@@ -28,11 +28,18 @@ const LoginNavbaar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
 
    
+  
   const logout = () =>{
-    //console.log("atimmm")
-     localStorage.removeItem('userId')
-     localStorage.removeItem('access-token')
-  }
+    localStorage.removeItem("access-token");
+    // this.setState({
+    //     Authtoken: '',
+    //   });
+      toast.info("Sucessfully logout", {
+        position: toast.POSITION.TOP_LEFT
+        });
+          
+    history.push('/')
+} 
   const userId = localStorage.getItem('userId')
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -81,8 +88,8 @@ const LoginNavbaar = (props) => {
                       <DropdownItem header>My Account</DropdownItem>
                       <DropdownItem header>My Favorites</DropdownItem>
                       <DropdownItem header>My Messages</DropdownItem>
-                      <DropdownItem header>Notifications</DropdownItem>
-                      <DropdownItem header  onClick={logout}>Logout</DropdownItem>
+                      <a href="#"><DropdownItem header>Notifications</DropdownItem></a>
+                      <a href="#" onClick={logout}><DropdownItem header  >Logout</DropdownItem></a>
                     </DropdownMenu>
                   </Dropdown> 
                 </NavLink>             
