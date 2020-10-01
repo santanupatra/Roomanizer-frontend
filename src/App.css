@@ -31,7 +31,7 @@ img{
     font-size: 15px;
     line-height: 14px;
     border-right: 1px solid #fff;
-    padding: 0 17px !important;
+    padding: 0 20px !important;
     margin-top: 25px;
     line-height: 14px;
 }
@@ -86,4 +86,18 @@ img{
 }
 .social-ft a{
   padding: 6px;
+}
+.login-hd{
+  background-color: transparent !important;
+  border: none !important;
+  margin-top: -4px;
+}
+.login-hd img{
+  border-radius: 100%;
+  border: 1px solid #e5e5e5;
+  width: 30px;
+  height: 30px;
+}
+.nav-link .btn{
+  padding: 0
 }
