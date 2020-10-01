@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState ,useEffect} from 'react';
 import './style.css';
 import imagePath from '../../../Config/imageConstants';
 import { Container, Row, Col, Navbar } from 'reactstrap';
@@ -14,10 +14,32 @@ import {
 import { Nav, NavItem, NavLink } from 'reactstrap';
 import { Button, Form, FormGroup, Label, Input, FormFeedback, FormText } from 'reactstrap';
 import { InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
+import { connect } from "react-redux";
+import { crudAction } from "../../../store/actions/common";
+import { USERLIST_URL } from '../../../shared/allApiUrl';
+import { getImageUrl } from '../../../shared/helpers';
+import { withRouter } from 'react-router-dom';
 
 
 const Cardbox = (props) => {
-    return (
+  const getUserList = () => {
+    props.crudActionCall(USERLIST_URL + '?keyword&page=0', null, "GET_ALL")
+}
+
+useEffect(() => {
+    getUserList();
+    return () => {
+        // cleanup
+    }
+}, []);
+
+useEffect(() => {
+    const { type, isSuccess } = props.user.action;
+    if (type === "DELETE" && isSuccess)
+        getUserList();
+}, [props.user]);
+  //console.log(props.user.userList.list)
+  return (
 
     <Card>
       <CardImg top width="100%" src={imagePath.roommateImage1} alt="Card image cap" />
@@ -41,6 +63,22 @@ const Cardbox = (props) => {
     </Card>
 
     );
+
+    
   }
-  
-  export default Cardbox;
+  const mapStateToProps = state => {
+    const { user } = state;
+    return {
+        user
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        crudActionCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "USER"))
+
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Cardbox));
+  //export default Cardbox;
