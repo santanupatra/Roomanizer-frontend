@@ -1,16 +1,59 @@
 import React,{useState,useEffect} from 'react';
 import '../Pages/HomePage/style.css';
+import { SETTING_URL } from '../../shared/allApiUrl';
+
 import imagePath from '../../Config/imageConstants';
 import { Container, Row, Col } from 'reactstrap';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { getImageUrl } from '../../shared/helpers';
+//import { withRouter } from 'react-router-dom'
+
 import { connect } from 'react-redux';
 import Navbaar from './Navbar';
 import LoginNavbar from './LoginNavbar';
 import { crudAction } from '../../store/actions/common';
+import { withRouter } from 'react-router-dom';
 
  const  Header =(props)=> {
+
+  const initialFields = {
+    siteEmail: '',
+    siteAddress: '',
+    sitePhoneNumber: '',
+    instagramUrl: '',
+    facebookUrl: '',
+    twitterUrl: '',
+    youtubeUrl: '',
+    pinterestUrl: '',
+    distanceRatio: null,
+    paymentEnvironment: '',
+    siteLogo: null
+  }
+
+  const [fields, setFields] = useState(initialFields);
+  const [settingId, setSettingId] = useState(null);
+  
+  const params = props.match.params;
+
+
+  useEffect(() => {
+    
+    props.crudActionCall(`${SETTING_URL}`, null, "GET")
+  }, [params]);
+
+  useEffect(() => {
+    const action = props.setting.action;
+
+    if (props.setting.setting) {
+      setFields({ ...fields, ...props.setting.setting });
+      setSettingId(props.setting.setting._id);
+     
+    }
+    
+
+  }, [props.setting]);
    console.log('propsuser',props);
   const userId = localStorage.getItem('userId');
   const userToken = localStorage.getItem('access-token')
@@ -22,7 +65,7 @@ import { crudAction } from '../../store/actions/common';
               <Row className="align-items-center">
                 <Col sm={5}>
                   <a href="/">
-                    <img src={imagePath.LogoImage} href="/" alt="image"/>
+                    <img src={getImageUrl(fields.siteLogo)} href="/" alt="image"/>
                   </a>
                 </Col>
                 <Col>
@@ -39,14 +82,17 @@ import { crudAction } from '../../store/actions/common';
 }
 //export default  Header;
 const mapStateToProps = state => {
-  const { user } = state;
+  const { user ,setting } = state;
   return {
-    user
+    user,
+    setting
   }
 }
 const mapDispatchToProps = dispatch => {
   return {
-    crudActionCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "USER"))
+    crudActionCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "USER")),
+    crudActionCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "SETTING"))
+
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Header));

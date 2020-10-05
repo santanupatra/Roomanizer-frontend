@@ -40,6 +40,18 @@ const LoginNavbaar = (props) => {
           
     history.push('/')
 } 
+const change = () =>{
+ 
+  // localStorage.removeItem("access-token");
+  // // this.setState({
+  // //     Authtoken: '',
+  // //   });
+  //   toast.info("Sucessfully logout", {
+  //     position: toast.POSITION.TOP_LEFT
+  //     });
+        
+  history.push(`/editProfile/${userId}`)
+} 
   const userId = localStorage.getItem('userId')
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -86,8 +98,7 @@ const LoginNavbaar = (props) => {
                       <img src={imagePath.loginpicImage} href="/" alt="image"/>
                     </DropdownToggle>
                     <DropdownMenu>
-                      <DropdownItem header>My Account</DropdownItem>
-                      <DropdownItem header>My Favorites</DropdownItem>
+                      <a href="/editProfile/:userId" onClick={change}> <DropdownItem header>My Account</DropdownItem>   </a>                   <DropdownItem header>My Favorites</DropdownItem>
                       <DropdownItem header>My Messages</DropdownItem>
                       <a href="#"><DropdownItem header>Notifications</DropdownItem></a>
                       <a href="#" onClick={logout}><DropdownItem header  >Logout</DropdownItem></a>
