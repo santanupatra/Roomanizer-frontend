@@ -48,37 +48,46 @@ const CmsDetails = (props) =>{
                         <div className="how">
 
                           <Row className="px-5 py-5">
-                            <Col sm={7}>
-                                <div>
+                            {/* <Col sm={7}> */}
+                                
                                   <h2 className="mt-5 mb-3">{fields.cmsTitle}</h2>
-                                  <h6>{fields.cmsContent} </h6>
+                                  {/* <h6>{fields.cmsContent} </h6> */}
+                                  {/* {(SlugId && props.cms.cms) && ( */}
+                                     <div
+                                  contenteditable
+                                    dangerouslySetInnerHTML={{
+                                __html: fields.cmsContent
+                                      }}
+                                   />
+                                      
+                                     {/* )} */}
                                     
-                                </div>
-                            </Col>
-                            <Col sm={5} className="pt-5 mt-2">
+                                
+                            {/* </Col> */}
+                            {/* <Col sm={5} className="pt-5 mt-2">
                               <img src={imagePath.how1Image} alt="image"/>
-                            </Col>
+                            </Col> */}
                           </Row>
 
-                          <Row className="px-5">
+                          {/* <Row className="px-5">
                             <Col sm={5} className="">
                               <img src={imagePath.how2Image} alt="image"/>
                             </Col>
                             <Col sm={7}>
                                 
                             </Col>
-                          </Row>
+                          </Row> */}
 
                         </div>
                         
-                        <Row className="px-2 py-4">
+                        {/* <Row className="px-2 py-4">
 
                           <Col sm={4} className="px-4">  
 
                           </Col>
 
 
-                        </Row>
+                        </Row> */}
                         
                       </div>
                   </Col>
