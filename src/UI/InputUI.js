@@ -18,7 +18,7 @@ export default function InputUI({
 }) {
     return (
         <FormGroup>
-            <Label htmlFor={name}>{label}</Label>
+            {/* <Label htmlFor={name}>{label}</Label> */}
             <Input
                 type={type || 'text'}
                 id={name}
