@@ -6,7 +6,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { SETTING_URL } from '../../shared/allApiUrl';
 import { crudAction } from '../../store/actions/common';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom'
+import { getImageUrl } from '../../shared/helpers';
+
 
 
 
@@ -69,7 +71,7 @@ function Footer(props) {
                 <Col sm={3}>
                   
                   <div className="mt-3">
-                    <img src={imagePath.footerlogoImage} alt="image"/>
+                    <img src={getImageUrl(fields.siteLogo)} alt="image"/>
                     
                     <div className="social-ft mt-2">
                     
