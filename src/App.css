@@ -101,3 +101,19 @@ img{
 .nav-link .btn{
   padding: 0
 }
+.nav-icon{
+  position: relative;
+}
+.blink{
+  border-radius: 100%;
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  top: 0;
+  right: 10px;
+  background: #ff1111;
+  color: #fff;
+  font-size: 10px;
+  text-align: center;
+  padding: 1px;
+}
