@@ -75,10 +75,10 @@ function Footer(props) {
                     
                     <div className="social-ft mt-2">
                     
-                      <a href= {fields.twitterUrl}> <img src={imagePath.ft1Image} alt="image"/></a>
-                      <a href={fields.pinterestUrl}> <img src={imagePath.ft2Image} alt="image"/></a>
-                      <a href= {fields.facebookUrl}> <img src={imagePath.ft3Image} alt="image"/></a>
-                      <a href={fields.instagramUrl}> <img src={imagePath.ft4Image} alt="image"/></a>
+                      <a href= {fields.twitterUrl} target="_blank"> <img src={imagePath.ft1Image} alt="image"/></a>
+                      <a href={fields.pinterestUrl} target="_blank"> <img src={imagePath.ft2Image} alt="image"/></a>
+                      <a href= {fields.facebookUrl} target="_blank"> <img src={imagePath.ft3Image} alt="image"/></a>
+                      <a href={fields.instagramUrl} target="_blank"> <img src={imagePath.ft4Image} alt="image"/></a>
                     
                        </div>
                   </div>
