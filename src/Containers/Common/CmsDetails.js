@@ -46,11 +46,11 @@ const CmsDetails = (props) =>{
                   <Col>
                       <div className="page-bg">  
                         <div className="how">
-
+                        <h1 className="mt-5 mb-3 text-center"  >{fields.cmsTitle}</h1>
                           <Row className="px-5 py-5">
                             {/* <Col sm={7}> */}
                                 
-                                  <h2 className="mt-5 mb-3">{fields.cmsTitle}</h2>
+                                  
                                   {/* <h6>{fields.cmsContent} </h6> */}
                                   {/* {(SlugId && props.cms.cms) && ( */}
                                      <div
