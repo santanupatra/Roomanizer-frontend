@@ -86,8 +86,7 @@ const LoginNavbaar = (props) => {
                       <img src={imagePath.loginpicImage} href="/" alt="image"/>
                     </DropdownToggle>
                     <DropdownMenu>
-                      <DropdownItem header>My Account</DropdownItem>
-                      <DropdownItem header>My Favorites</DropdownItem>
+                      <a href="/editProfile/:userId"> <DropdownItem header>My Account</DropdownItem>   </a>                   <DropdownItem header>My Favorites</DropdownItem>
                       <DropdownItem header>My Messages</DropdownItem>
                       <a href="#"><DropdownItem header>Notifications</DropdownItem></a>
                       <a href="#" onClick={logout}><DropdownItem header  >Logout</DropdownItem></a>
