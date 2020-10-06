@@ -29,12 +29,12 @@ const Formsec = (props) => {
                       </span>
                     </div>
                     <a href="#" className="login-bt mb-2">Messsage</a>
-                    <div className="mt-3 d-flex align-items-center justify-content-center">
+                    {/* <div className="mt-3 d-flex align-items-center justify-content-center">
                       <Facebook></Facebook>
                       <Twitter></Twitter>
                       <Gsuite></Gsuite>
                       <Email></Email>
-                    </div>
+                    </div> */}
                 </div>
        
     );

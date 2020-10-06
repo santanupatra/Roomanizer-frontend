@@ -15,6 +15,9 @@ const Userpic = (props) => {
  
   useEffect(() => {
     setUserDetails(props.user.user)
+    if(props.user && props.user.user)
+    localStorage.setItem('profileImg', props.user.user.profilePicture);
+
     return () => {
       // cleanup
     }
