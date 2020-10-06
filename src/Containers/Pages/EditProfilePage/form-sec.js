@@ -21,6 +21,7 @@ import Gsuite from '../gSuite';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from 'moment';
+import {HOUSE_RULE_URL} from '../../../shared/allApiUrl'
 // import 'moment-timezone';
 
 const Formsec = (props) => {
@@ -48,10 +49,15 @@ const Formsec = (props) => {
   useEffect(() => {
     setUserId(params.userId)
     if (params.userId) props.crudActionCall(`${VIEWPROFILE_URL}/${params.userId}`, null, "GET")
+    props.crudActionHouseCall(HOUSE_RULE_URL, null, "GET_ALL")
+
   }, [params]);
+  console.log(props.house.houseList)
+  
 
   useEffect(() => {
     const action = props.user.action;
+    const { type, isSuccess } = props.house.action;
     if (props.user.user && params.userId) {
       setFields({ ...fields, ...props.user.user })
       setStartDate(moment(props.user.user.dateOfBirth).toDate())
@@ -59,7 +65,7 @@ const Formsec = (props) => {
     }
     if (action.isSuccess && action.type === "UPDATE")
       props.history.push(`/editProfile/${userId}`)
-  }, [props.user]);
+  }, [props.user,props.house]);
 
   const onSubmit = (data) => {
     if (userId) data.userId = userId;
@@ -70,11 +76,16 @@ const Formsec = (props) => {
     props.resetAction();
   }
 
-  const options = [
-    { label: "Clean appartment", value: "1" },
-    { label: "No smoking", value: "2" },
-    { label: "Dog friendly", value: "3" /*, disabled: true*/ },
-  ];
+  // const options =  [
+  //   { label: "Clean appartment", value: "1" },
+  //   { label: "No smoking", value: "2" },
+  //   { label: "Dog friendly", value: "3" /*, disabled: true*/ },
+  // ];
+  const options = props.house.houseList.map((val) =>  
+  ({ label: val.name, value: val._id })  
+  ); 
+     
+  
   const handleChange = (name,value)=>{
     setFields((prevState) => ({ ...prevState, [name]: value }));
   }
@@ -122,7 +133,7 @@ const Formsec = (props) => {
                             </Row>
                             <Row>
                               <Col>
-                                <div className="form-group mt-4">
+                                {/* <div className="form-group mt-4"> */}
                                   <DatePicker 
                                   selected={setDate} 
                                   className="form-control"
@@ -130,7 +141,7 @@ const Formsec = (props) => {
                                   onChange={date => handleDatechange(date)}
                                   // value={fields.dateOfBirth}
                                   />
-                              </div>
+                              {/* </div> */}
                               </Col>
                               <Col className="pl-0">
                                   <InputUI
@@ -214,6 +225,7 @@ const Formsec = (props) => {
                               <DatePicker 
                                 selected={setRtoM} 
                                 className="form-control"
+                                //placeholder= "Ready to Move"
                                 placeholderText="Ready to Move"
                                 onChange={e => setReadyToMove(e)} 
                               />
@@ -248,9 +260,10 @@ const Formsec = (props) => {
     );
   }
   const mapStateToProps = state => {
-    const { user } = state;
+    const { user , house } = state;
     return {
-      user
+      user,
+      house
     }
   }
   
@@ -258,6 +271,8 @@ const Formsec = (props) => {
     return {
       crudActionCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "USER")),
       resetAction: () => dispatch({ type: "RESET_USER_ACTION" }),
+      crudActionHouseCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "HOUSE"))
+
     }
   }
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Formsec));

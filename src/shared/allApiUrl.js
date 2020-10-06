@@ -12,6 +12,8 @@ export const PROFILEPICTURE_URL = 'auth-api/profilePicture';
 export const EDITPROFILE_URL = 'auth-api/updateProfile';
 export const VIEWPROFILE_URL = 'auth-api/profileDetails';
 export const USERLIST_URL = 'auth-api/user';
+export const HOUSE_RULE_URL = 'house-api/house';
+
 
 
 
