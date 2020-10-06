@@ -76,7 +76,7 @@ age:" "
                       <img src={getImageUrl(fields.profilePicture)} className="img-avatar" alt="admin" />
                     </div>
                       <h2>{fields.firstName + ' ' + fields.lastName}</h2>
-                       <h6 className="mb-3">Mail  |  Age: {fields.age}</h6>
+                       <h6 className="mb-3">{fields.gender?fields.gender:''}  |  Age: {fields.age}</h6>
                             
                     <div>
                       <label class="switch">
@@ -89,12 +89,12 @@ age:" "
                       </span>
                     </div>
                     <a href="#" className="login-bt mb-2">Messsage</a>
-                    <div className="mt-3 d-flex align-items-center justify-content-center">
+                    {/* <div className="mt-3 d-flex align-items-center justify-content-center">
                       <Facebook></Facebook>
                       <Twitter></Twitter>
                       <Gsuite></Gsuite>
                       <Email></Email>
-                    </div>
+                    </div> */}
                 </div>
        
     );

@@ -26,7 +26,7 @@ const ChangePasswordForm = (props) => {
       setFields({ ...fields, ...props.user.user })
     }
     if (action.isSuccess && action.type === "UPDATE")
-      props.history.push("/viewProfile")
+      props.history.push(`/viewProfile/${userId}`)
 
   }, [props.user]);
   

@@ -1,10 +1,12 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import '../Pages/HomePage/style.css';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import imagePath from '../../Config/imageConstants';
 import { toast  } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import history from '../../history';
+import { crudAction } from '../../store/actions/common';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { useHistory } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faBell, } from "@fortawesome/free-regular-svg-icons";
@@ -18,17 +20,25 @@ import {
 } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { white } from 'color-name';
+import {getImageUrl} from '../../shared/helpers'
 
 const LoginNavbaar = (props) => {
   const history = useHistory();
   const [isView, setIsView] = useState(true);
-  
+  const [fields, setFields] = useState();
+  const [pImage,setPImage] = useState(localStorage.getItem('profileImg'));
+  console.log('imafe',localStorage.getItem('profileImg'));
   const tgl = () => setIsView(!isView);
 
   const [isOpen, setIsOpen] = useState(false);
 
    
-  
+  useEffect(() => {
+    if (props.user.user) {
+      setFields({...fields,...props.user.user})
+    }
+}, [props.user]);
+
   const logout = () =>{
     localStorage.removeItem("access-token");
     // this.setState({
@@ -41,16 +51,10 @@ const LoginNavbaar = (props) => {
     history.push('/')
 } 
 const change = () =>{
- 
-  // localStorage.removeItem("access-token");
-  // // this.setState({
-  // //     Authtoken: '',
-  // //   });
-  //   toast.info("Sucessfully logout", {
-  //     position: toast.POSITION.TOP_LEFT
-  //     });
-        
   history.push(`/editProfile/${userId}`)
+} 
+const change2 = () =>{
+  history.push(`/changePassword/${userId}`)
 } 
   const userId = localStorage.getItem('userId')
 
@@ -95,11 +99,13 @@ const change = () =>{
                 <NavLink className="border-0 pr-0">
                   <Dropdown isOpen={dropdownOpen} toggle={toggle}>
                     <DropdownToggle caret className="login-hd">
-                      <img src={imagePath.loginpicImage} href="/" alt="image"/>
+                      <img src={getImageUrl(fields && fields?fields.profilePicture:pImage)} href="/" alt="image"/>
                     </DropdownToggle>
                     <DropdownMenu>
-                      <a href="/editProfile/:userId" onClick={change}> <DropdownItem header>My Account</DropdownItem>   </a>                   <DropdownItem header>My Favorites</DropdownItem>
-                      <DropdownItem header>My Messages</DropdownItem>
+                      <a href="/editProfile/:userId" onClick={change}> <DropdownItem header>My Account</DropdownItem></a> 
+                      <a href={`/changePassword/${userId}`}  onClick={change2}> <DropdownItem header>Settings</DropdownItem></a>                   
+                      <DropdownItem header>My Favorites</DropdownItem>
+                      <a href="#"><DropdownItem header>My Messages</DropdownItem></a>
                       <a href="#"><DropdownItem header>Notifications</DropdownItem></a>
                       <a href="#" onClick={logout}><DropdownItem header  >Logout</DropdownItem></a>
                     </DropdownMenu>
@@ -115,5 +121,18 @@ const change = () =>{
     
     }
 
+    const mapStateToProps = state => {
+      const { user } = state;
+      return {
+        user
+      }
+    }
     
-    export default LoginNavbaar;
+    const mapDispatchToProps = dispatch => {
+      return {
+        crudActionCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "USER")),
+        resetAction: () => dispatch({ type: "RESET_USER_ACTION" }),
+      }
+    }
+    export default connect(mapStateToProps, mapDispatchToProps)(withRouter(LoginNavbaar));
+    //export default LoginNavbaar;
