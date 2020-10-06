@@ -22,6 +22,7 @@ import EditProfile1 from './editprofile1';
 const EditProfile =(props)=> {
   
   const [fields, setImage] = useState({ preview: "", profilePicture: "" });
+  const [userType, setUserType] = useState("customer");
  
   const [userId, setUserId] = useState(null);
   const { handleSubmit, register, errors } = useForm();
@@ -36,29 +37,18 @@ const EditProfile =(props)=> {
 
   }, [props.user]);
   
-  const handleFileChange = (data) => {
-    data.preventDefault();
-    console.log(data.target.files[0])
-    
+  const handleChnage =(e)=>{
+    console.log("tesxtt====",e.target)
+    console.log("tesxtt233====",e.target.checked)
+    if(e.target.checked==true){
+       setUserType('landlord')
 
-    if (data.target.files.length) {
-      setImage({
-        preview: URL.createObjectURL(data.target.files[0]),
-        profilePicture: data.target.files[0]
-      });
+    }else{
+      setUserType('customer')
+
     }
-   
-   
-  
-    fields.profilePicture = data.target.files[0]
-    console.log(fields.profilePicture)
-    
-    const formData = new FormData() 
-  formData.append('profilePicture', fields.profilePicture)
-    console.log(formData)
-    props.crudActionCall(PROFILEPICTURE_URL + `/${userId}`,formData, "UPDATE");
-    props.resetAction();
   }
+  console.log("userType++++====",userType)
 
 
     return (
@@ -74,7 +64,7 @@ const EditProfile =(props)=> {
                         {/* Toggle */}
                         <div className="text-center mb-4">
                             <label class="switch">
-                               <input type="checkbox"/>
+                               <input type="checkbox" name="userType" onClick={handleChnage}/>
                                <span class="slider round"></span>
                             </label>
                             <span className="mt-2 d-block">
@@ -87,7 +77,8 @@ const EditProfile =(props)=> {
                 </Row>
 
                 <Row>
-                    <EditProfile1></EditProfile1>
+                  {userType =='customer'?
+                    <EditProfile1 />:<EditProfile2 />}
                 </Row>
 
               </Container>
