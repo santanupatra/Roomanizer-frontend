@@ -4,11 +4,12 @@ import imagePath from '../../../Config/imageConstants';
 import { Container, Row, Col, Navbar } from 'reactstrap';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Nav, NavItem, NavLink } from 'reactstrap';
+import { Nav, NavItem } from 'reactstrap';
 import { Button, Form, FormGroup, Label, Input, FormFeedback, FormText } from 'reactstrap';
 import { InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
 import { TabContent, TabPane, Card, CardTitle, CardText } from 'reactstrap';
 import classnames from 'classnames';
+import { NavLink } from "react-router-dom";
 
 const Formsec = (props) => {
   const [activeTab, setActiveTab] = useState('1');
@@ -21,21 +22,20 @@ const Formsec = (props) => {
        
       <div className="home-form">
       
-      <Nav tabs>
+      <Nav tabs className="pl-5">
         <NavItem>
-          <NavLink
-            className={classnames({ active: activeTab === '1' })}
+          <NavLink to="#"
+            className={classnames({ activeBase: activeTab === '1' })}
             onClick={() => { toggle('1'); }}
-          >
-           <a href="#" class="form-bt ml-5">Find a Place</a>
+          >Find a Place
           </NavLink>
         </NavItem>
         <NavItem>
-          <NavLink
-            className={classnames({ active: activeTab === '2' })}
+          <NavLink to="#"
+            className={classnames({ activeBase: activeTab === '2' })}
             onClick={() => { toggle('2'); }}
           >
-            <a href="#" class="form-bt-light">Find Roommate</a>
+            Find Roommate
           </NavLink>
         </NavItem>
       </Nav>
