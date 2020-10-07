@@ -16,7 +16,7 @@ export default class Home extends React.Component {
         <div className="header">
           <Header />
             <div className="">
-              <Container className="mb-3">
+              {/* <Container className="mb-3">
                 <Row className="align-items-center">
                   <Col>
                       <div className="page-bg d-flex align-items-center">
@@ -33,6 +33,13 @@ export default class Home extends React.Component {
                       </div>
                   </Col>
                 </Row>
+              </Container> */}
+              <Container className="mb-3">
+                <div className="page-bg d-flex align-items-center justify-content-center">
+                  <Col xs={12} sm={12} md={8} lg={8}>
+                    <Formsec></Formsec>
+                  </Col>
+                </div>
               </Container>
             </div>
         </div>
