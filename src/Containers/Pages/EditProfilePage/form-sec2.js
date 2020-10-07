@@ -27,12 +27,11 @@ const Formsec2 = (props) => {
                                 <Input type="text" name="name" id="examplename" placeholder="Last Name" />
                               </Col>
                             </Row>
+                            <Input type="text" name="roomName" id="exampleEmail" placeholder="Room Name" />
+                            <Input type="number" name="area" id="exampleEmail" placeholder="Area in sq/ft" />
                             <Input type="text" name="email" id="exampleEmail" placeholder="Location" />
-                            
                             <Input type="text" name="email" id="exampleEmail" placeholder="Maximum Budget" />
-                            
                             <Input type="textarea" name="text" id="exampleText" placeholder="About Room" />
-
                             <FormGroup className="mt-3">
                               <Label for="exampleCheckbox" className="filter-mod">No of Bedrooms</Label>
                               <div className="filt d-flex justify-content-between">
@@ -76,6 +75,7 @@ const Formsec2 = (props) => {
                                     <option>Flatmates</option>
                                     <option>Male</option>
                                     <option>Female</option>
+                                    <option>Other</option>
                                   </Input>
                                 </Col>
                                 <Col>
