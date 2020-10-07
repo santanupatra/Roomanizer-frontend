@@ -90,7 +90,7 @@ else {
     if (props.auth.isAuthenticated && getAuthToken !== "")
     {
       const userId = localStorage.getItem('userId')
-      history.push(`/viewProfile/${userId}`);
+      history.push(`/editProfile/${userId}`);
     }
       
     return () => {

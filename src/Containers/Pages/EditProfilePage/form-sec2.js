@@ -36,21 +36,21 @@ const Formsec2 = (props) => {
                             <FormGroup className="mt-3">
                               <Label for="exampleCheckbox" className="filter-mod">No of Bedrooms</Label>
                               <div className="filt d-flex justify-content-between">
-                                <CustomInput type="checkbox" id="exampleCustomCheckbox" label="2 Bedroom" />
-                                <CustomInput type="checkbox" id="exampleCustomCheckbox2" label="3 Bedroom" />
-                                <CustomInput type="checkbox" id="exampleCustomCheckbox3" label="4+ Bedroom" />
+                                <CustomInput type="checkbox" id="exampleCustomCheckbox13" label="2 Bedroom" />
+                                <CustomInput type="checkbox" id="exampleCustomCheckbox14" label="3 Bedroom" />
+                                <CustomInput type="checkbox" id="exampleCustomCheckbox15" label="4+ Bedroom" />
                               </div>
                             </FormGroup>
 
                             <FormGroup>
                               <Label for="exampleCheckbox" className="filter-mod">Listing Amenities</Label>
                               <div className="filt d-flex justify-content-between">
-                                <CustomInput type="checkbox" id="exampleCustomCheckbox" label="In-unit Washer" />
-                                <CustomInput type="checkbox" id="exampleCustomCheckbox2" label="Furnished" />
-                                <CustomInput type="checkbox" id="exampleCustomCheckbox3" label="Private Bathroom" />
+                                <CustomInput type="checkbox"id="exampleCustomCheckbox10" label="In-unit Washer" />
+                                <CustomInput type="checkbox" id="exampleCustomCheckbox11" label="Furnished" />
+                                <CustomInput type="checkbox" id="exampleCustomCheckbox12" label="Private Bathroom" />
                               </div>
                               <div className="filt d-flex justify-content-between">                
-                                <CustomInput type="checkbox" id="exampleCustomCheckbox3" label="Outdoor Space" />
+                                <CustomInput type="checkbox" id="exampleCustomCheckbox16" label="Outdoor Space" />
                               </div>
                             </FormGroup>
 
@@ -60,13 +60,13 @@ const Formsec2 = (props) => {
                                   <CustomInput type="checkbox" id="exampleCustomCheckbox" label="No Smoking" />
                                   <CustomInput type="checkbox" id="exampleCustomCheckbox2" label="No Pets" />
                                   <CustomInput type="checkbox" id="exampleCustomCheckbox3" label="No Drugs" />
-                                  <CustomInput type="checkbox" id="exampleCustomCheckbox3" label="No Drinking" />               
+                                  <CustomInput type="checkbox" id="exampleCustomCheckbox4" label="No Drinking" />               
                                 </div>
                                 <div className="filt d-flex justify-content-between">
-                                  <CustomInput type="checkbox" id="exampleCustomCheckbox3" label="Dogs Ok" />
-                                  <CustomInput type="checkbox" id="exampleCustomCheckbox3" label="Cats Ok" />
-                                  <CustomInput type="checkbox" id="exampleCustomCheckbox3" label="Other Pets Ok" />
-                                  <CustomInput type="checkbox" id="exampleCustomCheckbox3" label="Couples Ok" />
+                                  <CustomInput type="checkbox" id="exampleCustomCheckbox5" label="Dogs Ok" />
+                                  <CustomInput type="checkbox" id="exampleCustomCheckbox6" label="Cats Ok" />
+                                  <CustomInput type="checkbox" id="exampleCustomCheckbox7" label="Other Pets Ok" />
+                                  <CustomInput type="checkbox" id="exampleCustomCheckbox8" label="Couples Ok" />
                                 </div>
                             </FormGroup>
 

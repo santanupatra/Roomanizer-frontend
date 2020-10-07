@@ -36,6 +36,7 @@ const Userpic = (props) => {
       reader.onloadend = e => {
         setUserImage(e.target.result);
       };
+      console.log(props.userId)
       if(props.userId){
         props.crudActionCall(`${PROFILEPICTURE_URL}/${props.userId}`, formData, "UPDATE")
 
