@@ -208,7 +208,7 @@ else {
                         {/* <Button variant="secondary" onClick={handleClose}>
                     Close
                     </Button> */}
-                          <Button type="button" onClick={handleSubmit(onSubmit_1)} style={{marginLeft:"236px"}}color="primary" className="px-4 mr-4">
+                          <Button type="button" onClick={handleSubmit(onSubmit_1)} style={{marginLeft:"236px"}} color="primary" className="px-4 mr-4">
                             Submit
                           </Button>
                           

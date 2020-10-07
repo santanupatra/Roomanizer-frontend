@@ -1,9 +1,24 @@
-/* body{
-
-} */
-a{
-    text-decoration: none;
-  }
 .how p{
     font-size: 14px;
+}
+.how h1{
+  color: #014d81;
+  position: relative;
+  font-size: 40px;
+  padding-bottom: 20px;
+}
+.how h1::before{
+  content: "";
+  width: 50px;
+  height: 4px;
+  background-color:#014d81;
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  margin: 0px auto;
+  bottom: 0px;
+}
+.how h2{
+  font-size: 24px;
+  color: #000;
 }

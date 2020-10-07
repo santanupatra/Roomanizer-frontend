@@ -127,7 +127,7 @@ const Formsec2 = (props) => {
                                 <Gsuite></Gsuite>
                             </div>
                             <div className="text-center">
-                              <a href="#" className="login-bt mt-4 mb-2">Submit</a>
+                              <Button type="submit" color="primary" className="login-bt mt-4 mb-2"> Submit</Button>
                               <img src={imagePath.orImage} alt="image"/>
                               <a href="#"><img src={imagePath.fbImage} alt="image"/></a>
                               <a href="#"><img src={imagePath.gsImage} alt="image"/></a>
