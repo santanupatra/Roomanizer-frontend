@@ -64,17 +64,20 @@ img{
   background: url(./assets/images/footer-bg.png);
 }
 .black-bt{
-    background: #41494e;
-    color: #fff;
-    border-radius: 27px;
-    font-size: 16px;
-    border: 0;
-    padding: 15px 22px;
+    background: #191919 !important;
+    color: #fff !important;
+    border-radius: 27px !important;
+    font-size: 16px !important;
+    border: 0 !important;
+    padding: 15px 22px !important;
     display: inline-block;
 }
 .black-bt:hover{
   color: #e3f4ff;
   text-decoration: none;
+}
+.black-bt:focus{
+  box-shadow: none !important;
 }
 .footer-link{
   margin-top: 50px;
@@ -116,4 +119,17 @@ img{
   font-size: 10px;
   text-align: center;
   padding: 1px;
+}
+
+.react-datepicker__triangle{
+  left: 50% !important;
+}
+
+.numberfild::-webkit-outer-spin-button,
+.numberfild::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.numberfild[type=number] {
+  -moz-appearance: textfield;
 }

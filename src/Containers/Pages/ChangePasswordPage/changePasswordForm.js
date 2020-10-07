@@ -64,7 +64,7 @@ const ChangePasswordForm = (props) => {
                             })}
                             fields={fields}
                             />
-                            <Button type="submit" size="sm" color="success" className="login-bt mt-5"> Submit</Button>
+                            <Button type="submit" size="sm" color="primary" className="login-bt mt-5"> Submit</Button>
                           </Col>
                         </FormGroup>
                       </Form>

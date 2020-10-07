@@ -96,7 +96,7 @@ const SignUpFrom = (props) => {
                             }
                             fields={fields.confirmPassword}/>
                             <div style={{color:'red'}}>{fields.errorMessage}</div>
-                            <Button type="submit" className="login-bt mb-4">
+                            <Button type="submit" color="primary" className="login-bt mb-4">
                               Sign Up
                             </Button>
                             {/* <Link to="/activeMail" className="login-bt mt-4">Sign up</Link> */}

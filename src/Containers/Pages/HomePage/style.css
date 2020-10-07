@@ -43,11 +43,6 @@
     border-color: #666666;
     box-shadow: none;
 }
-.moneyImage{
-    position: absolute;
-    right: 14px;
-    top: 15px;
-}
 .input-group>.form-control:not(:last-child){
     border-top-right-radius: 27px !important;
     border-bottom-right-radius: 27px !important;
@@ -69,4 +64,21 @@
     background-repeat: no-repeat;
     background-position: 152px;
     background-size: 18px;
+}
+.link{
+    color: #606060;
+    font-size: 16px;
+}
+.link:hover{
+    color: #014d81;
+    text-decoration: none;
+}
+.input-group{
+    position: relative;
+}
+.input-group-icon{
+    position: absolute;
+    right: 14px;
+    top: 15px;
+    z-index: 10;
 }
