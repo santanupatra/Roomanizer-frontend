@@ -1,4 +1,6 @@
-import React from 'react';
+
+import React, { useState, useEffect } from 'react';
+
 import './style.css';
 import imagePath from '../../../Config/imageConstants';
 import { Container, Row, Col, Navbar } from 'reactstrap';
@@ -8,9 +10,28 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from '../../Common/header';
 import Formsec2 from './form-sec2';
 import Roompic from './room-pic';
+import { crudAction } from '../../../store/actions/common';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { useForm } from "react-hook-form";
+import Userpic from './user-pic';
 
 
 const EditProfile2 =(props)=> { 
+
+  const [userId, setUserId] = useState(null);
+  const { handleSubmit, register, errors } = useForm();
+  const params = props.match.params;
+  useEffect(() => {
+    setUserId(params.userId)
+    const action = props.user.action;
+    // if (props.user.user && params.userId) {
+    //   setImage({ ...fields, ...props.user.user })
+    // }
+    
+
+  }, [props.user]);
+  
     return (
       <div className="">
                 <Row className="">
@@ -20,11 +41,28 @@ const EditProfile2 =(props)=> {
                         </div>
                   </Col>
                   <Col sm={6} className="pr-5 text-center">
-                    <Roompic></Roompic>
+                    <Roompic userId={ userId} ></Roompic>
                   </Col>
                 </Row>
       </div>
     )
   
 }
-export default  EditProfile2;
+const mapStateToProps = state => {
+  const { user } = state;
+  return {
+    user
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    crudActionCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "USER")),
+    resetAction: () => dispatch({ type: "RESET_USER_ACTION" }),
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(EditProfile2));
+
+
+
+//export default  EditProfile2;

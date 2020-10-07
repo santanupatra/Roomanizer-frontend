@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from 'react';
 import '../Pages/HomePage/style.css';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { Link } from 'react-router-dom';
 import imagePath from '../../Config/imageConstants';
 import { toast  } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -16,7 +17,7 @@ import {
   NavbarToggler,
   Nav, 
   NavItem, 
-  NavLink
+   NavLink
 } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { white } from 'color-name';
@@ -50,12 +51,12 @@ const LoginNavbaar = (props) => {
           
     history.push('/')
 } 
-const change = () =>{
-  history.push(`/editProfile/${userId}`)
-} 
-const change2 = () =>{
-  history.push(`/changePassword/${userId}`)
-} 
+// const change = () =>{
+//   history.push(`/editProfile/${userId}`)
+// } 
+// const change2 = () =>{
+//   history.push(`/changePassword/${userId}`)
+// } 
   const userId = localStorage.getItem('userId')
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -102,8 +103,11 @@ const change2 = () =>{
                       <img src={getImageUrl(fields && fields?fields.profilePicture:pImage)} href="/" alt="image"/>
                     </DropdownToggle>
                     <DropdownMenu>
-                      <a href="/editProfile/:userId" onClick={change}> <DropdownItem header>My Account</DropdownItem></a> 
-                      <a href={`/changePassword/${userId}`}  onClick={change2}> <DropdownItem header>Settings</DropdownItem></a>                   
+                      {/* <Link to={`/editProfile/${userId}`} > <DropdownItem header>My Account</DropdownItem></Link>  */}
+                      <DropdownItem header><Link to={`/viewProfile/${userId}`} className ='dark'> My Account</Link></DropdownItem>
+                      {/* <a href={`/changePassword/${userId}`}  onClick={change2}> <DropdownItem header>Settings</DropdownItem></a>    */}
+                      <DropdownItem header><Link to={`/changePassword/${userId}`} className ='dark'> Settings</Link></DropdownItem>
+                      
                       <DropdownItem header>My Favorites</DropdownItem>
                       <a href="#"><DropdownItem header>My Messages</DropdownItem></a>
                       <a href="#"><DropdownItem header>Notifications</DropdownItem></a>
