@@ -32,6 +32,7 @@ const LoginNavbaar = (props) => {
   const tgl = () => setIsView(!isView);
 
   const [isOpen, setIsOpen] = useState(false);
+  const toggle = () => setIsOpen(!isOpen);
 
    
   useEffect(() => {
@@ -61,7 +62,7 @@ const LoginNavbaar = (props) => {
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const toggle = () => setDropdownOpen(prevState => !prevState);
+  const toggle1 = () => setDropdownOpen(prevState => !prevState);
 
 
       return (
@@ -98,7 +99,7 @@ const LoginNavbaar = (props) => {
 
               <NavItem>
                 <NavLink className="border-0 pr-0">
-                  <Dropdown isOpen={dropdownOpen} toggle={toggle}>
+                  <Dropdown isOpen={dropdownOpen} toggle={toggle1}>
                     <DropdownToggle caret className="login-hd">
                       <img src={getImageUrl(fields && fields?fields.profilePicture:pImage)} href="/" alt="image"/>
                     </DropdownToggle>
