@@ -200,3 +200,21 @@ input:-internal-autofill-selected {
   color: #fff;
   line-height: 2.5;
 }
+.MultiSelect-input .dropdown-container{
+  border: 1px solid #ced4da;
+  border-radius: 25px;
+  height: 51px;
+}
+.MultiSelect-input .dropdown-heading{
+  height: 51px;
+}
+.MultiSelect-input:focus{
+  outline: 0px;
+}
+.MultiSelect-input .go2646822163:focus-within{
+  box-shadow: none;
+  border-color: #ced4da;
+}
+.filt .custom-checkbox{
+  width: 135px;
+}

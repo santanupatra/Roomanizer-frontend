@@ -29,11 +29,13 @@ const Home =(props)=>{
                                 </div>
                             </Col>
 
-                            <Col sm={4} className="d-flex align-items-center pl-0">
-                              
-                                <a href="#" className="view-bt"><img src={imagePath.listviewImage} alt="image"/>List view</a>
-                                <a href="#" className="view-bt"><img src={imagePath.maptviewImage} alt="image"/>Map view</a>
-                                <a href="#" className="view-bt"><img src={imagePath.splitviewImage} alt="image"/>Split view</a>
+                            <Col sm={4} className="">
+                                <div className="d-flex align-items-center">
+                                  <a href="#" className="view-bt"><img src={imagePath.listviewImage} alt="image"/>List view</a>
+                                  <a href="#" className="view-bt"><img src={imagePath.maptviewImage} alt="image"/>Map view</a>
+                                  <a href="#" className="view-bt"><img src={imagePath.splitviewImage} alt="image"/>Split view</a>
+                                </div>
+                                
                               
                             </Col>
 

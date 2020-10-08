@@ -224,7 +224,7 @@ const Formsec = (props) => {
                             <div className="form-group my-4 py-2">
                               <DatePicker 
                                 selected={setRtoM} 
-                                className="form-control"
+                                className="form-control w-100"
                                 //placeholder= "Ready to Move"
                                 placeholderText="Ready to Move"
                                 onChange={e => setReadyToMove(e)} 
@@ -234,6 +234,7 @@ const Formsec = (props) => {
                             <MultiSelect
                             options={options}
                             value={fields.houseRules}
+                            className="MultiSelect-input"
                             onChange={(value) =>
                               handlechange(value) 
                             }
