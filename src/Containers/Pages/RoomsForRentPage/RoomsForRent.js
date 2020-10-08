@@ -9,7 +9,7 @@ import Slider from './slider';
 import Footer from '../../Common/footer';
 import { connect } from "react-redux";
 import { crudAction } from "../../../store/actions/common";
-import { ROOM_URL } from '../../../shared/allApiUrl';
+import { LANDLORD_URL } from '../../../shared/allApiUrl';
 //import { getImageUrl } from '../../../hared/helpers';
 import moment from 'moment'
 import { withRouter } from 'react-router-dom';
@@ -59,7 +59,7 @@ import {getImageUrl} from '../../../shared/helpers'
     
     
       useEffect(() => {
-        props.crudActionCall(`${ROOM_URL}/${userId}`, null, "GET")
+        props.crudActionCall(`${LANDLORD_URL}/${userId}`, null, "GET")
         //setUserDate(props.user.action.data);
         
     

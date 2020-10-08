@@ -7,11 +7,9 @@ import { faCamera } from '@fortawesome/free-solid-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from '../../Common/header';
 import Formsec from './form-sec';
-import { PROFILEPICTURE_URL } from '../../../shared/allApiUrl';
 import { crudAction } from '../../../store/actions/common';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { useForm } from "react-hook-form";
 import Userpic from './user-pic';
 
 
@@ -22,7 +20,6 @@ const EditProfile1 =(props)=> {
   const [fields, setImage] = useState({ preview: "", profilePicture: "" });
  
   const [userId, setUserId] = useState(null);
-  const { handleSubmit, register, errors } = useForm();
   const params = props.match.params;
   useEffect(() => {
     setUserId(params.userId)
@@ -34,29 +31,7 @@ const EditProfile1 =(props)=> {
 
   }, [props.user]);
   
-  const handleFileChange = (data) => {
-    data.preventDefault();
-    console.log(data.target.files[0])
-    
-
-    if (data.target.files.length) {
-      setImage({
-        preview: URL.createObjectURL(data.target.files[0]),
-        profilePicture: data.target.files[0]
-      });
-    }
-   
-   
   
-    fields.profilePicture = data.target.files[0]
-    console.log(fields.profilePicture)
-    
-    const formData = new FormData() 
-  formData.append('profilePicture', fields.profilePicture)
-    console.log(formData)
-    props.crudActionCall(PROFILEPICTURE_URL + `/${userId}`,formData, "UPDATE");
-    props.resetAction();
-  }
 
 
     return (

@@ -8,7 +8,7 @@ import Gsuite from '../gSuite';
 import Email from '../email';
 import { connect } from "react-redux";
 import { crudAction } from "../../../store/actions/common";
-import { USERLIST_URL } from '../../../shared/allApiUrl';
+import { USER_URL } from '../../../shared/allApiUrl';
 //import { getImageUrl } from '../../../hared/helpers';
 import moment from 'moment'
 import { withRouter } from 'react-router-dom';
@@ -48,7 +48,7 @@ const Formsec = (props) => {
   
   
     useEffect(() => {
-      props.crudActionCall(`${USERLIST_URL}/${userId}`, null, "GET")
+      props.crudActionCall(`${USER_URL}/${userId}`, null, "GET")
       //setUserDate(props.user.action.data);
       
   

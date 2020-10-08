@@ -2,12 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './style.css';
 import imagePath from '../../../Config/imageConstants';
 import { Container, Row, Col, Navbar,Form,Button,FormGroup } from 'reactstrap';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCamera } from '@fortawesome/free-solid-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Header from '../../Common/header';
 import Formsec from './form-sec';
-import { PROFILEPICTURE_URL } from '../../../shared/allApiUrl';
 import { crudAction } from '../../../store/actions/common';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -34,30 +30,7 @@ const EditProfile1 =(props)=> {
 
   }, [props.user]);
   
-  const handleFileChange = (data) => {
-    data.preventDefault();
-    console.log(data.target.files[0])
-    
-
-    if (data.target.files.length) {
-      setImage({
-        preview: URL.createObjectURL(data.target.files[0]),
-        profilePicture: data.target.files[0]
-      });
-    }
-   
-   
-  
-    fields.profilePicture = data.target.files[0]
-    console.log(fields.profilePicture)
-    
-    const formData = new FormData() 
-  formData.append('profilePicture', fields.profilePicture)
-    console.log(formData)
-    props.crudActionCall(PROFILEPICTURE_URL + `/${userId}`,formData, "UPDATE");
-    props.resetAction();
-  }
-
+ 
 
     return (
         <div>
