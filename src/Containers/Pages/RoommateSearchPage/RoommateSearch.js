@@ -51,89 +51,35 @@ useEffect(() => {
                 <Row className="align-items-center">
                   <Col>
                       <div className="page-bg">  
-                        <Row className= "">
-                          
-                          <Col>
+                        <Row>
+                          <Col xs={12} m={12} md={12} lg={12}>
                               <div className="form-bg1">
-                                <h3 className="mt-3 mb-4">Find A Roommate :</h3>
+                                <h3 className="heading2 mt-3 mb-4">Find A Roommate :</h3>
                                 <Formsec></Formsec>
                               </div>
                           </Col>
-
                         </Row>
 
-                        <Row className="px-5">
-                          <Col className="px-4">
-                            <h3 className="mt-3 mb-4">All Roommates {props.user.userList.count - 1}    Results</h3>
-                          </Col>
-                          <Col></Col>
-                        </Row>
+                        <Col xs={12} m={12} md={12} lg={12}>
+                          <h3 className="heading2 mt-3 mb-4">All Roommates {props.user.userList.count - 1}    Results</h3>
+                        </Col>
                         
-                        <Row className="px-5 py-4">
-                          {/* <Col className="px-4">
-                              <div> */}
-                              {props.user && props.user.userList.count > 0 ?
-                                        props.user.userList.list.map((val) => {
-                                            return (
-                                              <Col className="px-4">
-                                              <div>
-                                <Cardbox val={val}       ></Cardbox>
+                        <Col xs={12} m={12} md={12} lg={12}>
+                          <Row className="d-flex flex-wrap">
+                            {props.user && props.user.userList.count > 0 ? props.user.userList.list.map((val) => {
+                              return (
+                                <Col xs={12} sm={6} md={6} lg={4} className="mb-4">
+                                  <div>
+                                    <Cardbox val={val}></Cardbox>
+                                  </div>
+                                </Col>
+                                  );
+                                })
+                                : null}
+                          </Row>
+                        </Col>
 
-                                </div>
-                          </Col>
-                                );
-                              })
-
-                              : null}
-                                {/* </div>
-                          </Col> */}
-                          {/* <Col className="px-4">
-                              <div>
-                                <Cardbox></Cardbox>
-                              </div>
-                          </Col>
-                          <Col className="px-4">
-                              <div>
-                                <Cardbox></Cardbox>
-                              </div>
-                          </Col> */}
-                        </Row>
-
-                        {/* <Row className="px-5 py-4">
-                          <Col className="px-4">
-                              <div>
-                                <Cardbox></Cardbox>
-                              </div>
-                          </Col>
-                          <Col className="px-4">
-                              <div>
-                                <Cardbox></Cardbox>
-                              </div>
-                          </Col>
-                          <Col className="px-4">
-                              <div>
-                                <Cardbox></Cardbox>
-                              </div>
-                          </Col>
-                        </Row>
-
-                        <Row className="px-5 py-4">
-                          <Col className="px-4">
-                              <div>
-                                <Cardbox></Cardbox>
-                              </div>
-                          </Col>
-                          <Col className="px-4">
-                              <div>
-                                <Cardbox></Cardbox>
-                              </div>
-                          </Col>
-                          <Col className="px-4">
-                              <div>
-                                <Cardbox></Cardbox>
-                              </div>
-                          </Col>
-                        </Row> */}
+                        
 
                         <Row>
                           <Col>

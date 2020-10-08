@@ -22,22 +22,19 @@ export default class Home extends React.Component {
                 <Row className="align-items-center">
                   <Col>
                     <Row className="mb-4">
-
                       <Col className="sl"><Slider></Slider></Col>
-
                     </Row>
                       
                       <div className="page-bg">  
 
-                        <Row className="p-5">
-                          <Col sm={4}>
+                        <Row className="p-3 p-sm-5 p-md-5 p-lg-5">
+                          <Col xs={12} sm={12} md={12} lg={4}>
                             <Formsec></Formsec>
                           </Col>
-
-                          <Col sm={8}>
+                          <Col xs={12} sm={12} md={12} lg={8}>
                             <div className="about mt-0 pb-4">
                               <h4>For Private Room:</h4>
-                              <h2 className="blue">$500 / month in Luxembourg</h2>
+                              <h2 className="blue heading3">$500 / month in Luxembourg</h2>
                             </div>
                             <div className="about">
                               <h4>About Room</h4>
@@ -46,33 +43,31 @@ necessary, making this the first true generator on the Internet.
 It uses a dictionary of over 200 Latin words, combined with a handful of model 
 sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-
 characteristic words etc.</p>
-                            <ul className="ab pl-0 d-flex justify-content-between mb-1">
-                              <li><img src={imagePath.bedImage} className="pr-1" alt="image"/>3 Bedrooms</li>
-                              <li><img src={imagePath.maleImage} className="pr-1" alt="image"/>Male Flatmates</li>
-                              <li><img src={imagePath.ageImage} className="pr-1" alt="image"/>20-40 Age Range</li>
-                              <li><img src={imagePath.bathImage} className="pr-1" alt="image"/>1.5 Bathrooms</li>
-                            </ul>
-                            <ul className="ab pl-0 d-flex mb-4">
-                              <li><img src={imagePath.washImage} className="pr-1" alt="image"/>In-unit Washer/Dryer</li>
-                              <li><img src={imagePath.cleanImage} className="pl-4 pr-1" alt="image"/>Weekly Cleaning Personnel</li>
+                            <ul className="room-animitices">
+                              <li><img src={imagePath.bedImage} alt="image"/>3 Bedrooms</li>
+                              <li><img src={imagePath.maleImage} alt="image"/>Male Flatmates</li>
+                              <li><img src={imagePath.ageImage} alt="image"/>20-40 Age Range</li>
+                              <li><img src={imagePath.bathImage} alt="image"/>1.5 Bathrooms</li>
+                              <li><img src={imagePath.washImage} alt="image"/>In-unit Washer/Dryer</li>
+                              <li><img src={imagePath.cleanImage} alt="image"/>Weekly Cleaning Personnel</li>
                             </ul>
                             </div>
 
                             <div className="about">
                               <Row>
-                                <Col sm={3}>
+                                <Col xs={12} sm={6} md={3} lg={3}>
                                   <h4>Move in:</h4>
                                   <p>Available Now</p>
                                 </Col>
-                                <Col sm={3}>
+                                <Col xs={12} sm={6} md={3} lg={3}>
                                   <h4>Duration:</h4>
                                   <p>1-12 months</p>
                                 </Col>
-                                <Col sm={3}>
+                                <Col xs={12} sm={6} md={3} lg={3}>
                                   <h4>Deposit:</h4>
                                   <p>$500</p>
                                 </Col>
-                                <Col sm={3}>
+                                <Col xs={12} sm={6} md={3} lg={3}>
                                   <h4>Charges:</h4>
                                   <p>$200 or Included</p>
                                 </Col>

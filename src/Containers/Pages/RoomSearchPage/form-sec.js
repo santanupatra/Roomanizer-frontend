@@ -47,7 +47,7 @@ const Formsec = (props) => {
                 <Form>
                   <FormGroup>
                     <Label for="exampleCheckbox" className="filter-modal">No of Bedrooms</Label>
-                    <div className="filt d-flex justify-content-between">
+                    <div className="filt d-flex justify-content-between flex-wrap">
                       <CustomInput type="checkbox" id="exampleCustomCheckbox" label="2 Bedroom" />
                       <CustomInput type="checkbox" id="exampleCustomCheckbox2" label="3 Bedroom" />
                       <CustomInput type="checkbox" id="exampleCustomCheckbox3" label="4+ Bedroom" />
@@ -55,7 +55,7 @@ const Formsec = (props) => {
                   </FormGroup>
                   <FormGroup>
                     <Label for="exampleCheckbox" className="filter-modal">Preferred Gender</Label>
-                    <div className="filt d-flex justify-content-between">
+                    <div className="filt d-flex justify-content-between flex-wrap">
                       <CustomInput type="radio" id="exampleCustomRadio" name="customRadio" label="Male" />
                       <CustomInput type="radio" id="exampleCustomRadio1" name="customRadio" label="Female" />
                       <CustomInput type="radio" id="exampleCustomRadio2" name="customRadio" label="Either" />
@@ -63,12 +63,11 @@ const Formsec = (props) => {
                   </FormGroup>
                   <FormGroup>
                     <Label for="exampleCheckbox" className="filter-modal">Listing Amenities</Label>
-                    <div className="filt d-flex justify-content-between">
+                    <div className="filt d-flex justify-content-between flex-wrap">
                       <CustomInput type="checkbox" id="exampleCustomCheckbox" label="In-unit Washer" />
                       <CustomInput type="checkbox" id="exampleCustomCheckbox" label="Cleaning Personnel" />
                       <CustomInput type="checkbox" id="exampleCustomCheckbox" label="Furnished" />                     
-                    </div>
-                    <div className="filt d-flex justify-content-between">
+                    
                       <CustomInput type="checkbox" id="exampleCustomCheckbox" label="Private Bathroom" />
                       <CustomInput type="checkbox" id="exampleCustomCheckbox" label="Parking" />
                       <CustomInput type="checkbox" id="exampleCustomCheckbox" label="Outdoor Space" />
@@ -76,19 +75,17 @@ const Formsec = (props) => {
                   </FormGroup>
                   <FormGroup>
                     <Label for="exampleCheckbox" className="filter-modal">House Rules</Label>
-                    <div className="filt d-flex justify-content-between">
+                    <div className="filt d-flex justify-content-between flex-wrap">
                       <CustomInput type="checkbox" id="exampleCustomCheckbox" label="No Smoking" />
                       <CustomInput type="checkbox" id="exampleCustomCheckbox2" label="No Pets" />
                       <CustomInput type="checkbox" id="exampleCustomCheckbox3" label="No Drugs" />
                       <CustomInput type="checkbox" id="exampleCustomCheckbox3" label="No Drinking" />               
-                    </div>
-                    <div className="filt d-flex justify-content-between">
+                    
                       <CustomInput type="checkbox" id="exampleCustomCheckbox3" label="Dogs Ok" />
                       <CustomInput type="checkbox" id="exampleCustomCheckbox3" label="Cats Ok" />
                       <CustomInput type="checkbox" id="exampleCustomCheckbox3" label="Other Pets Ok" />
                       <CustomInput type="checkbox" id="exampleCustomCheckbox3" label="Couples Ok" />
-                    </div>
-                    <div className="filt d-flex justify-content-between">
+                    
                       <CustomInput type="checkbox" id="exampleCustomCheckbox3" label="vegan Only" />
                       <CustomInput type="checkbox" id="exampleCustomCheckbox3" label="420 Friendly" />
                       <CustomInput type="checkbox" id="exampleCustomCheckbox3" label="Drinking Friendly" />
