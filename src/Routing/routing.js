@@ -38,8 +38,6 @@ const Routes=(props) =>{
                 <Route path="/login" exact component={LoginPage} />
                 <Route path="/signUP" exact component={SignupPage} />
                 <Route path="/editProfile/:userId" exact component={EditprofilePage} />
-                
-                
                 <Route path="/viewProfile/:userId" exact component={UserProfilePage} />
                 <Route path="/changePassword/:userId" exact component={ChangePasswordPage} />
                 <Route path="/roomSearch" exact component={RoomSearchPage} />

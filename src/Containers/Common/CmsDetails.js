@@ -48,7 +48,7 @@ const CmsDetails = (props) =>{
                       <div className="page-bg py-5">  
                         <div className="how">
                         <h1 className="mb-3 text-center">{fields.cmsTitle}</h1>
-                          <div className="px-5 py-5">
+                          <div className="p-3 p-sm-5 p-md-5 p-lg-5">
                             <div contenteditable dangerouslySetInnerHTML={{ __html: fields.cmsContent }} />
                           </div>
                         </div>

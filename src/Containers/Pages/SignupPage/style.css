@@ -1,10 +1,4 @@
-body{
-
-}
-a{
-    text-decoration: none;
-  }
-.login-form {
+/* .login-form {
     border: 1px solid #a5a5a5;
     background: #fff;
     border-radius: 2px;
@@ -47,3 +41,12 @@ input:-internal-autofill-selected {
     margin-top: 20px;
     display: block;
 }
+
+@media(max-width:767px){
+    .white-heading{
+        color: #fff;
+    }
+    .login-form{
+        padding: 25px !important;
+    }
+} */

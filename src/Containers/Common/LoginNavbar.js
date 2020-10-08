@@ -104,15 +104,12 @@ const LoginNavbaar = (props) => {
                       <img src={getImageUrl(fields && fields?fields.profilePicture:pImage)} href="/" alt="image"/>
                     </DropdownToggle>
                     <DropdownMenu>
-                      {/* <Link to={`/editProfile/${userId}`} > <DropdownItem header>My Account</DropdownItem></Link>  */}
-                      <DropdownItem header><Link to={`/viewProfile/${userId}`} className ='dark'> My Account</Link></DropdownItem>
-                      {/* <a href={`/changePassword/${userId}`}  onClick={change2}> <DropdownItem header>Settings</DropdownItem></a>    */}
-                      <DropdownItem header><Link to={`/changePassword/${userId}`} className ='dark'> Settings</Link></DropdownItem>
-                      
-                      <DropdownItem header>My Favorites</DropdownItem>
-                      <a href="#"><DropdownItem header>My Messages</DropdownItem></a>
-                      <a href="#"><DropdownItem header>Notifications</DropdownItem></a>
-                      <a href="#" onClick={logout}><DropdownItem header  >Logout</DropdownItem></a>
+                      <Link to={`/viewProfile/${userId}`}>My Account</Link>
+                      <Link to={`/changePassword/${userId}`}>Settings</Link>
+                      <Link to="#">My Favorites</Link>
+                      <Link to="#">My Messages</Link>
+                      <Link to="#">Notifications</Link>
+                      <Link to="#" onClick={logout}>Logout</Link>
                     </DropdownMenu>
                   </Dropdown> 
                 </NavLink>             
