@@ -2,17 +2,12 @@ import React, { useState, useEffect } from 'react';
 import './style.css';
 import imagePath from '../../../Config/imageConstants';
 import { Container, Row, Col, Navbar,Form,Button,FormGroup } from 'reactstrap';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCamera } from '@fortawesome/free-solid-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from '../../Common/header';
-import Formsec from './form-sec';
-import { PROFILEPICTURE_URL } from '../../../shared/allApiUrl';
 import { crudAction } from '../../../store/actions/common';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { useForm } from "react-hook-form";
-import Userpic from './user-pic';
 import EditProfile2 from './editprofile2';
 import EditProfile1 from './editprofile1';
 

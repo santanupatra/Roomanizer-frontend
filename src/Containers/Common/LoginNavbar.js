@@ -104,7 +104,7 @@ const LoginNavbaar = (props) => {
                       <img src={getImageUrl(fields && fields?fields.profilePicture:pImage)} href="/" alt="image"/>
                     </DropdownToggle>
                     <DropdownMenu>
-                      <Link to={`/viewProfile/${userId}`}>My Account</Link>
+                      <Link to={`/editProfile/${userId}`}>My Account</Link>
                       <Link to={`/changePassword/${userId}`}>Settings</Link>
                       <Link to="#">My Favorites</Link>
                       <Link to="#">My Messages</Link>

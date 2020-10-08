@@ -8,8 +8,7 @@ import { Nav, NavItem, NavLink } from 'reactstrap';
 import { Button, Form, FormGroup, Label, Input, FormFeedback, FormText } from 'reactstrap';
 import { InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
 import MultiSelect from "react-multi-select-component";
-import { VIEWPROFILE_URL } from '../../../shared/allApiUrl';
-import { EDITPROFILE_URL } from '../../../shared/allApiUrl';
+import { USER_URL } from '../../../shared/allApiUrl';
 import { crudAction } from '../../../store/actions/common';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -47,7 +46,7 @@ const Formsec = (props) => {
  
   useEffect(() => {
     setUserId(params.userId)
-    if (params.userId) props.crudActionCall(`${VIEWPROFILE_URL}/${params.userId}`, null, "GET")
+    if (params.userId) props.crudActionCall(`${USER_URL}/${params.userId}`, null, "GET")
   }, [params]);
 
   useEffect(() => {
@@ -66,7 +65,7 @@ const Formsec = (props) => {
     if (setDate) data.dateOfBirth = setDate;
     if (setRtoM) data.readyToMove = setRtoM;
     if (fields.houseRules) data.houseRules=fields.houseRules
-    props.crudActionCall(EDITPROFILE_URL + `/${userId}`, data, "UPDATE");
+    props.crudActionCall(USER_URL + `/${userId}`, data, "UPDATE");
     props.resetAction();
   }
 

@@ -2,26 +2,28 @@ import React,{useState , useEffect} from 'react';
 import './style.css';
 import imagePath from '../../../Config/imageConstants';
 import { Container, Row, Col, Navbar } from 'reactstrap';
-import { fab } from '@fortawesome/free-brands-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Nav, NavItem, NavLink } from 'reactstrap';
 import { Button, Form, FormGroup, Label, Input, FormFeedback, FormText } from 'reactstrap';
-import { InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
 import MultiSelect from "react-multi-select-component";
-import { VIEWPROFILE_URL } from '../../../shared/allApiUrl';
-import { EDITPROFILE_URL } from '../../../shared/allApiUrl';
+import { USER_URL,HOUSE_RULE_URL ,CITY_URL} from '../../../shared/allApiUrl';
 import { crudAction } from '../../../store/actions/common';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import InputUI from '../../../UI/InputUI';
-import Facebook from '../facebook';
-import Twitter from '../twitter';
-import Gsuite from '../gSuite';
+
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from 'moment';
-import {HOUSE_RULE_URL} from '../../../shared/allApiUrl'
+import PlacesAutocomplete, {
+  geocodeByAddress,
+  getLatLng,
+} from 'react-places-autocomplete';
+//import 'react-google-places-autocomplete/dist/index.min.css';
+import Geocode from "react-geocode";
+const palceKey = "AIzaSyA5LrPhIokuSBO5EgKEcfu859gog6fRF8w";
+  Geocode.setApiKey(palceKey);
+  Geocode.setLanguage("en");
 // import 'moment-timezone';
 
 const Formsec = (props) => {
@@ -36,7 +38,12 @@ const Formsec = (props) => {
     houseRules:"",
     age: "",
     gender: "",
-    occupation: ""
+    occupation: "",
+    longitude: "",
+    latitude: "",
+    address:"",  
+    city:"",
+    zipCode:"",
   }
   
   const [fields, setFields] = useState(initialFields);
@@ -48,11 +55,13 @@ const Formsec = (props) => {
  
   useEffect(() => {
     setUserId(params.userId)
-    if (params.userId) props.crudActionCall(`${VIEWPROFILE_URL}/${params.userId}`, null, "GET")
+    if (params.userId) props.crudActionCall(`${USER_URL}/${params.userId}`, null, "GET")
     props.crudActionHouseCall(HOUSE_RULE_URL, null, "GET_ALL")
+    props.crudActionCityCall(CITY_URL, null, "GET_ALL")
+
 
   }, [params]);
-  console.log(props.house.houseList)
+  
   
 
   useEffect(() => {
@@ -65,14 +74,18 @@ const Formsec = (props) => {
     }
     if (action.isSuccess && action.type === "UPDATE")
       props.history.push(`/editProfile/${userId}`)
-  }, [props.user,props.house]);
+  }, [props.user,props.house,props.city]);
 
   const onSubmit = (data) => {
     if (userId) data.userId = userId;
     if (setDate) data.dateOfBirth = setDate;
     if (setRtoM) data.readyToMove = setRtoM;
+    data.longitude = fields.longitude;
+    data.latitude = fields.latitude;
+    data.address = fields.address;
     if (fields.houseRules) data.houseRules=fields.houseRules
-    props.crudActionCall(EDITPROFILE_URL + `/${userId}`, data, "UPDATE");
+    console.log(data)
+    props.crudActionCall(USER_URL + `/${userId}`, data, "UPDATE");
     props.resetAction();
   }
 
@@ -92,6 +105,14 @@ const Formsec = (props) => {
   const  handlechange = value => {
     setFields((prevState) => ({ ...prevState, "houseRules": value }));
   }
+
+  const handleChang = address => {
+    setFields((prevState) => ({ ...prevState, address }));
+  };
+
+  const handleChange6 = (name,value)=>{
+    setFields((prevState) => ({ ...prevState, [name]: value }));
+  }
   const  handleDatechange = date => {
     setStartDate(date);
     var diff_ms = Date.now() - date.getTime();
@@ -99,6 +120,42 @@ const Formsec = (props) => {
     var realAge = Math.abs(age_dt.getUTCFullYear() - 1970);
     setFields((prevState) => ({ ...prevState, "age": realAge }));
   }
+  const searchOptions = {
+    componentRestrictions: { country: ['us','ca','uy'] },
+    //types: ['city']
+  }
+ 
+ 
+ 
+  const handleSelect = address => {
+    //setFields((prevState) => ({ ...prevState, ["street"]: address.structured_formatting.main_text }));
+    setFields((prevState) => ({ ...prevState, ["street"]: address })); 
+    geocodeByAddress(address)
+      .then(results => getLatLng(results[0]))
+    //  .then(latLng => console.log('Success', latLng))
+    //  .catch(error => console.error('Error', error));
+
+      .then(({ lat, lng }) => {
+              console.log("lat==",lat,"lng==",lng)
+              console.log(address);
+            //  console.log(address.structured_formatting.main_text);
+            //  console.log(address.structured_formatting.secondary_text);
+              // Geocode.fromLatLng(lat, lng).then(
+              //   response => {
+              //     const zipCode = response.results[1].address_components[0].long_name;
+              //     setFields((prevState) => ({ ...prevState, ["zipCode"]: zipCode }));
+              //     console.log("response====",response);
+        
+              //   },
+              //   error => {
+              //     console.error(error);
+              //   }
+              // );
+              setFields((prevState) => ({ ...prevState, ["address"]: address }));
+              setFields((prevState) => ({ ...prevState, ["longitude"]: lng }));
+              setFields((prevState) => ({ ...prevState, ["latitude"]: lat }));
+            });
+  };
       return (
       <div className="">
                       <Form onSubmit={handleSubmit(onSubmit)}>
@@ -129,9 +186,105 @@ const Formsec = (props) => {
                                   })}
                                   fields={fields}/>
                               </Col>
-                            </Row>
-                            <Row>
-                              <Col xs={12} sm={6} md={6} lg={6}>
+                                </Row>
+                                <Row>
+
+                                <label>Address</label>
+
+                                  <PlacesAutocomplete
+                                      onChange={handleChang}
+                                      onSelect={handleSelect}
+                                      searchOptions={searchOptions}
+                                      value={fields.address}
+                                    >
+                                      {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                                        <div>
+                                          <input
+                                            {...getInputProps({
+                                              placeholder: 'Search Places ...',
+                                              className: 'location-search-input',
+                                            })}
+                                          />
+                                          <div className="autocomplete-dropdown-container">
+                                            {loading && <div>Loading...</div>}
+                                            {suggestions.map(suggestion => {
+                                              const className = suggestion.active
+                                                ? 'suggestion-item--active'
+                                                : 'suggestion-item';
+                                              // inline style for demonstration purpose
+                                              const style = suggestion.active
+                                                ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                                                : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                                              return (
+                                                <div
+                                                  {...getSuggestionItemProps(suggestion, {
+                                                    className,
+                                                    style,
+                                                  })}
+                                                >
+                                                  <span>{suggestion.description}</span>
+                                                </div>
+                                              );
+                                            })}
+                                          </div>
+                                        </div>
+                                      )}
+                                    </PlacesAutocomplete>
+
+
+                                </Row>
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                 <Row>
+                                  <Col>
+                            
+                                        <Input
+                                        type="select"
+                                        name="city"
+                                        id="city"
+                                        innerRef={register}
+                                        value={fields.city}
+                                        onChange={(e) =>
+                                          handleChange6(e.target.name, e.target.value)
+                                        }
+                                      >
+                                        <option selected disabled>Select A City....</option>
+                                      {
+                                          props.city && props.city.cityList.map((val) =>{
+                                          return(
+                                            // <option value={val._id}>{val.cityName}</option>
+                                            <option>{val.cityName}</option>
+                                          );
+                                        })
+                                        } 
+                          
+                                     </Input>
+                            
+                                          </Col>
+                            
+                                          <Col>
+                                        <InputUI
+                                  type="number"
+                                  name="zipCode"
+                                  id="zipCode"
+                                  placeholder="Zip Code"
+                                  errors={errors}
+                                  innerRef={register({
+                                  required: 'This is required field',
+                                  })}
+                                  fields={fields}/>
+                            
+                            
+                            
+                                    </Col>
+                                    </Row>
+                               <Row>
+                              <Col>
                                 {/* <div className="form-group mt-4"> */}
                                   <DatePicker 
                                   selected={setDate} 
@@ -260,10 +413,11 @@ const Formsec = (props) => {
     );
   }
   const mapStateToProps = state => {
-    const { user , house } = state;
+    const { user , house ,city} = state;
     return {
       user,
-      house
+      house,
+      city
     }
   }
   
@@ -271,7 +425,9 @@ const Formsec = (props) => {
     return {
       crudActionCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "USER")),
       resetAction: () => dispatch({ type: "RESET_USER_ACTION" }),
-      crudActionHouseCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "HOUSE"))
+      crudActionHouseCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "HOUSE")),
+      crudActionCityCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "CITY")),
+
 
     }
   }

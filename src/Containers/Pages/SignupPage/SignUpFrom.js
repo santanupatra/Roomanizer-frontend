@@ -3,7 +3,7 @@ import './style.css';
 import imagePath from '../../../Config/imageConstants';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Form, FormGroup, Button, Input, Col} from 'reactstrap';
-import { USER_URL } from '../../../shared/allApiUrl';
+import { SIGNUP_URL } from '../../../shared/allApiUrl';
 import { useForm } from "react-hook-form";
 import { crudAction } from '../../../store/actions/common';
 import { NavLink, withRouter } from 'react-router-dom';
@@ -31,7 +31,7 @@ const SignUpFrom = (props) => {
 
 
   const onSubmit = (data) => {
-    props.crudActionCall(USER_URL, data,"ADD");
+    props.crudActionCall(SIGNUP_URL, data,"ADD");
   }
 
   const  handleChange = (name,value)=>{

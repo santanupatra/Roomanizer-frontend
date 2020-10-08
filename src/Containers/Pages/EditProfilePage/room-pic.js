@@ -9,7 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Nav, NavItem, NavLink } from 'reactstrap';
 import { Button, Form, FormGroup, Label, Input, FormFeedback, FormText } from 'reactstrap';
 import { InputGroup, InputGroupAddon, InputGroupText, CustomInput, } from 'reactstrap';
-import {ROOMPICTURE_URL} from '../../../shared/allApiUrl';
+import {USER_URL} from '../../../shared/allApiUrl';
 import { crudAction } from '../../../store/actions/common';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -50,7 +50,7 @@ const Roompic = (props) => {
      console.log(props.userId)
 
       if(props.userId){
-        props.crudActionCall(`${ROOMPICTURE_URL}/${props.userId}`, formData, "UPDATE")
+        props.crudActionCall(`${USER_URL}/profilePicture/${props.userId}`, formData, "UPDATE")
 
       }
       //setDropdownOpen(false)
@@ -77,11 +77,11 @@ const Roompic = (props) => {
                        />
                       </div>
                     </div>
-                    {/* <FormGroup className="mb-5 th">
+                    <FormGroup className="mb-5 th">
                       <Label for="exampleCustomFileBrowser">Add Room Images</Label>
                       <CustomInput type="file" id="exampleCustomFileBrowser" name="customFile" label="Pick a file!" />
                     </FormGroup>
-                    <div class="thumbnail-file mt-4">
+                    {/* <div class="thumbnail-file mt-4">
                         <button><h2 className="mb-0 mt-1">+ Add Thumbnail File </h2></button>
                         <p>Recomended resolution 800x500, 650x450</p>
                         <input type="file" name="myfile" />
