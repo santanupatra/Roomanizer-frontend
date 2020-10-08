@@ -136,3 +136,13 @@ img{
 .numberfild[type=number] {
   -moz-appearance: textfield;
 }
+
+@media(max-width:767px){
+  .heading1{
+    font-size: 24px !important;
+  }
+  .heading1 .result{
+    display: block;
+    margin-left: 0px;
+  }
+}
