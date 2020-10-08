@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import './style.css';
 import imagePath from '../../../Config/imageConstants';
-import { Container, Row, Col, Navbar } from 'reactstrap';
+import { Container, Row, Col, Navbar, UncontrolledCollapse } from 'reactstrap';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Nav, NavItem, NavLink } from 'reactstrap';
@@ -55,13 +55,12 @@ const Formsec2 = (props) => {
 
                             <FormGroup>
                               <Label for="exampleCheckbox" className="filter-mod">House Rules</Label>
-                              <div className="filt d-flex justify-content-between">
+                                <div className="filt d-flex justify-content-between flex-wrap">
                                   <CustomInput type="checkbox" id="exampleCustomCheckbox" label="No Smoking" />
                                   <CustomInput type="checkbox" id="exampleCustomCheckbox2" label="No Pets" />
                                   <CustomInput type="checkbox" id="exampleCustomCheckbox3" label="No Drugs" />
                                   <CustomInput type="checkbox" id="exampleCustomCheckbox4" label="No Drinking" />               
-                                </div>
-                                <div className="filt d-flex justify-content-between">
+                                
                                   <CustomInput type="checkbox" id="exampleCustomCheckbox5" label="Dogs Ok" />
                                   <CustomInput type="checkbox" id="exampleCustomCheckbox6" label="Cats Ok" />
                                   <CustomInput type="checkbox" id="exampleCustomCheckbox7" label="Other Pets Ok" />
@@ -121,11 +120,24 @@ const Formsec2 = (props) => {
                             </Row>
 
                             <div className="mt-4 d-flex align-items-center">
-                              <h6 className="social d-inline-block mr-2">Link social media accounts:</h6>
-                                <Facebook></Facebook>
-                                <Twitter></Twitter>
-                                <Gsuite></Gsuite>
+                              <h6 className="social mr-2">Link social media accounts:</h6>
+                                <div id="socialmediaLink" className="d-flex">
+                                  <Facebook></Facebook>
+                                  <Twitter></Twitter>
+                                  <Gsuite></Gsuite>
+                                </div>
                             </div>
+                            <UncontrolledCollapse toggler="#socialmediaLink">
+                              <FormGroup>
+                                <Input type="text" name="facebookprofile" id="facebookprofile" placeholder="Facebook Link" />
+                              </FormGroup>
+                              <FormGroup>
+                                <Input type="text" name="twitterprofile" id="twitterprofile" placeholder="Twitter Link" />
+                              </FormGroup>
+                              <FormGroup>
+                                <Input type="text" name="googleprofile" id="googleprofile" placeholder="Google Link" />
+                              </FormGroup>
+                            </UncontrolledCollapse>
                             <div className="text-center">
                               <Button type="submit" color="primary" className="login-bt mt-4 mb-2"> Submit</Button>
                               <img src={imagePath.orImage} alt="image"/>
