@@ -1,41 +1,51 @@
 import React,{useState} from 'react';
 import './style.css';
 import imagePath from '../../../Config/imageConstants';
-import { Container, Row, Col, Navbar } from 'reactstrap';
-import { fab } from '@fortawesome/free-brands-svg-icons';
+import { Row, Col, Button } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Nav, NavItem, NavLink } from 'reactstrap';
-import { Button, Form, FormGroup, Label, Input, FormFeedback, FormText } from 'reactstrap';
-import { InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
-import { TabContent, TabPane, Card, CardTitle, CardText } from 'reactstrap';
+import { Nav, NavItem } from 'reactstrap';
+import { FormGroup, Label, Input } from 'reactstrap';
+import { InputGroup, InputGroupAddon } from 'reactstrap';
+import { TabContent, TabPane } from 'reactstrap';
 import classnames from 'classnames';
+import { NavLink } from "react-router-dom";
 
-const Formsec = (props) => {
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCalendarAlt, faClock } from '@fortawesome/free-regular-svg-icons';
+
+import ReactSimpleRange from 'react-simple-range';
+import { faBriefcase } from '@fortawesome/free-solid-svg-icons';
+
+const Formsec = () => {
   const [activeTab, setActiveTab] = useState('1');
 
   const toggle = tab => {
     if(activeTab !== tab) setActiveTab(tab);
   }
 
+  const [startDate, setStartDate] = useState(null);
+  const [startTime, setStartTime] = useState(null);
+
     return (
        
       <div className="home-form">
       
-      <Nav tabs>
+      <Nav tabs className="pl-5">
         <NavItem>
-          <NavLink
-            className={classnames({ active: activeTab === '1' })}
+          <NavLink to="#"
+            className={classnames({ activeBase: activeTab === '1' })}
             onClick={() => { toggle('1'); }}
-          >
-           <a href="#" class="form-bt ml-5">Find a Place</a>
+          >Find a Place
           </NavLink>
         </NavItem>
         <NavItem>
-          <NavLink
-            className={classnames({ active: activeTab === '2' })}
+          <NavLink to="#"
+            className={classnames({ activeBase: activeTab === '2' })}
             onClick={() => { toggle('2'); }}
           >
-            <a href="#" class="form-bt-light">Find Roommate</a>
+            Find Roommate
           </NavLink>
         </NavItem>
       </Nav>
@@ -62,33 +72,42 @@ const Formsec = (props) => {
                 </FormGroup>
                 <FormGroup row className="mt-4">
                   <Col sm={4}>
-                    <Input
-                      type="date"
-                      name="date"
-                      id="exampleDate"
-                      placeholder="Move Date"
-                    />
-                  </Col>
-                  <Col sm={4}>
-                      <Input
-                        type="time"
-                        name="time"
-                        id="exampleTime"
-                        placeholder="Duration"
-                      />
+                    <InputGroup>
+                      <DatePicker selected={startDate} placeholderText="Move Date" className="form-control" name="date" id="exampleDate" onChange={date => setStartDate(date)} />
+                      <InputGroupAddon addonType="icon"><FontAwesomeIcon icon={faCalendarAlt} /></InputGroupAddon>
+                    </InputGroup>
                   </Col>
                   <Col sm={4}>
                       <InputGroup>
-                        <Input placeholder="Budget" min={0} max={100} type="number" step="1" />
-                        <InputGroupAddon addonType=""><img src={imagePath.moneyImage} alt="image" className="moneyImage"/></InputGroupAddon>
+                        <DatePicker
+                          selected={startTime}
+                          onChange={date => setStartTime(date)}
+                          showTimeSelect
+                          showTimeSelectOnly
+                          className="form-control"
+                          name="time"
+                          id="exampleTime"
+                          timeIntervals={15}
+                          placeholderText="Duration"
+                          timeCaption="Time"
+                          dateFormat="h:mm aa"
+                        />
+                        <InputGroupAddon addonType="icon"><FontAwesomeIcon icon={faClock} /></InputGroupAddon>
+                      </InputGroup>
+                  </Col>
+                  <Col sm={4}>
+                      <InputGroup>
+                        <Input placeholder="Budget" className="numberfild" min={0} max={100} type="number" step="1" />
+                        <InputGroupAddon addonType="icon"><img src={imagePath.moneyImage} alt="image" /></InputGroupAddon>
                       </InputGroup>
                   </Col>
                 </FormGroup>
                 <div className="d-flex justify-content-center">
-                    <a href="#" className="black-bt">Search Now</a>
+                    <Button color="" className="black-bt">Search Now</Button>
                 </div>
               
               </div>
+              
             </Col>
           </Row>
         </TabPane>
@@ -112,10 +131,21 @@ const Formsec = (props) => {
       <FormGroup row className="mt-4">
           <Col Col sm={4}>
                 <Label for="">Age</Label>
-                <Input type="range" name="range" id="exampleRange" />
+                <ReactSimpleRange
+                  min={1}
+                  max={100}
+                  label={true}
+                  sliderSize={5}
+                  sliderColor='#ccc'
+                  trackColor='#014d81'
+                  thumbColor='#014d81'
+                 />
               </Col>
               <Col sm={4}>
-                  <Input className="work" type="email" name="email" id="exampleEmail" placeholder="Occupation" />
+                <InputGroup>
+                  <Input placeholder="Occupation" type="text" />
+                  <InputGroupAddon addonType="icon"><FontAwesomeIcon icon={faBriefcase} /></InputGroupAddon>
+                </InputGroup>
               </Col>
           <Col sm={4}>
             <Input type="select" name="select" id="exampleSelect">
@@ -127,7 +157,7 @@ const Formsec = (props) => {
           </Col>
       </FormGroup>
       <div className="d-flex justify-content-center">
-          <a href="#" className="black-bt">Search Now</a>
+        <Button color="" className="black-bt">Search Now</Button>
       </div>
     
     </div>

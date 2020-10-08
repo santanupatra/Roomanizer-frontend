@@ -1,10 +1,5 @@
-/* body{
 
-} */
-a{
-    text-decoration: none;
-  }
-.form-bt {
+.home-form .nav-item a.activeBase{
     background-color: #014d81;
     color: #fff;
     font-size: 20px;
@@ -15,13 +10,10 @@ a{
     padding: 10px 37px;
     display: inline-block;
 }
-.form-bt:hover{
-    color: #fff;
-}
 .home-form .nav-tabs .nav-link{
     border: 0 !important;
 }
-.form-bt-light {
+.home-form .nav-item a{
     background-color: #d8e5ed;
     color: #4b4b4b;
     font-size: 20px;
@@ -31,9 +23,6 @@ a{
     border-top-right-radius: 12px;
     padding: 10px 30px;
     display: inline-block;
-}
-.form-bt-light:hover{
-    color: #4b4b4b;
 }
 .form-bg {
     background: rgb(255 255 255 / 90%);
@@ -50,17 +39,16 @@ a{
     border-radius: 27px;
     font-size: 18px;
 }
-.moneyImage{
-    position: absolute;
-    right: 14px;
-    top: 15px;
+.form-bg .form-control:focus{
+    border-color: #666666;
+    box-shadow: none;
 }
 .input-group>.form-control:not(:last-child){
     border-top-right-radius: 27px !important;
     border-bottom-right-radius: 27px !important;
 }
 .search{
-    background-image: url(../../../assets/images/search.png);
+    background-image: url('../../../assets/images/search.png');
     background-repeat: no-repeat;
     background-position: 20px;
     background-size:18px ;
@@ -76,4 +64,21 @@ a{
     background-repeat: no-repeat;
     background-position: 152px;
     background-size: 18px;
+}
+.link{
+    color: #606060;
+    font-size: 16px;
+}
+.link:hover{
+    color: #014d81;
+    text-decoration: none;
+}
+.input-group{
+    position: relative;
+}
+.input-group-icon{
+    position: absolute;
+    right: 14px;
+    top: 15px;
+    z-index: 10;
 }

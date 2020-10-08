@@ -23,6 +23,9 @@ const CmsDetails = (props) =>{
   
   
   useEffect(() => {
+    cmsDetail()
+  }, [props.match.params.SlugId])
+
   const  cmsDetail = async()=>{
     if (props.match.params.SlugId ) {
       let  {data}  = await axiosApiCall.get(`${CMS_URL}/${props.match.params.SlugId}`, null)
@@ -33,8 +36,6 @@ const CmsDetails = (props) =>{
      
     }
   }
-    cmsDetail()
-  }, [props.match.params.SlugId])
   return(
     
         <div className="home">
@@ -44,55 +45,16 @@ const CmsDetails = (props) =>{
               <Container className="mb-3">
                 <Row className="align-items-center">
                   <Col>
-                      <div className="page-bg">  
+                      <div className="page-bg py-5">  
                         <div className="how">
-                        <h1 className="mt-5 mb-3 text-center"  >{fields.cmsTitle}</h1>
-                          <Row className="px-5 py-5">
-                            {/* <Col sm={7}> */}
-                                
-                                  
-                                  {/* <h6>{fields.cmsContent} </h6> */}
-                                  {/* {(SlugId && props.cms.cms) && ( */}
-                                     <div
-                                  contenteditable
-                                    dangerouslySetInnerHTML={{
-                                __html: fields.cmsContent
-                                      }}
-                                   />
-                                      
-                                     {/* )} */}
-                                    
-                                
-                            {/* </Col> */}
-                            {/* <Col sm={5} className="pt-5 mt-2">
-                              <img src={imagePath.how1Image} alt="image"/>
-                            </Col> */}
-                          </Row>
-
-                          {/* <Row className="px-5">
-                            <Col sm={5} className="">
-                              <img src={imagePath.how2Image} alt="image"/>
-                            </Col>
-                            <Col sm={7}>
-                                
-                            </Col>
-                          </Row> */}
-
+                        <h1 className="mb-3 text-center">{fields.cmsTitle}</h1>
+                          <div className="px-5 py-5">
+                            <div contenteditable dangerouslySetInnerHTML={{ __html: fields.cmsContent }} />
+                          </div>
                         </div>
-                        
-                        {/* <Row className="px-2 py-4">
-
-                          <Col sm={4} className="px-4">  
-
-                          </Col>
-
-
-                        </Row> */}
-                        
                       </div>
                   </Col>
                 </Row>
-
               </Container>
             </div>
         </div>

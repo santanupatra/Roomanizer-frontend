@@ -248,7 +248,7 @@ const Formsec = (props) => {
                                   <a href="#" className="pr-2"><img src={imagePath.tImage}/></a>
                                   <a href="#"><img src={imagePath.gImage}/></a>
                             </div> */}
-                            <Button type="submit" className="login-bt mt-4 mb-2"> Submit </Button>
+                            <Button type="submit" color="primary" className="login-bt mt-4 mb-2"> Submit </Button>
                             {/* <img src={imagePath.orImage} alt="image"/>
                             <a href="#" className="login-bt mt-4 mb-2">Submit</a>
                             <img src={imagePath.orImage} alt="image"/>
