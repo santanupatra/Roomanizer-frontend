@@ -102,11 +102,10 @@ const Formsec = (props) => {
       return (
       <div className="">
                       <Form onSubmit={handleSubmit(onSubmit)}>
-                        <FormGroup row>
+                        <FormGroup>
                           <Col sm={12}>
-                            
                             <Row>
-                              <Col>
+                              <Col xs={12} sm={6} md={6} lg={6}>
                                   <InputUI
                                   type="text"
                                   name="firstName"
@@ -118,7 +117,7 @@ const Formsec = (props) => {
                                   })}
                                   fields={fields}/>
                               </Col>
-                              <Col className="pl-0">
+                              <Col xs={12} sm={6} md={6} lg={6}>
                                   <InputUI
                                   type="text"
                                   name="lastName"
@@ -132,7 +131,7 @@ const Formsec = (props) => {
                               </Col>
                             </Row>
                             <Row>
-                              <Col>
+                              <Col xs={12} sm={6} md={6} lg={6}>
                                 {/* <div className="form-group mt-4"> */}
                                   <DatePicker 
                                   selected={setDate} 
@@ -143,7 +142,7 @@ const Formsec = (props) => {
                                   />
                               {/* </div> */}
                               </Col>
-                              <Col className="pl-0">
+                              <Col xs={12} sm={6} md={6} lg={6}>
                                   <InputUI
                                   type="number"
                                   name="age"
@@ -156,7 +155,7 @@ const Formsec = (props) => {
                               </Col>
                             </Row>
                             <Row>
-                              <Col>
+                              <Col xs={12} sm={6} md={6} lg={6}>
                               <InputUI
                                   type="text"
                                   name="maxBudget"
@@ -168,7 +167,7 @@ const Formsec = (props) => {
                                   })}
                                   fields={fields}/>
                               </Col>
-                              <Col className="pl-0">
+                              <Col xs={12} sm={6} md={6} lg={6}>
                                   <InputUI
                                   type="select"
                                   name="gender"
