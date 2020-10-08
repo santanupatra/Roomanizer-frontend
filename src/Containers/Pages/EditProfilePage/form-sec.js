@@ -5,7 +5,7 @@ import { Container, Row, Col, Navbar } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Form, FormGroup, Label, Input, FormFeedback, FormText } from 'reactstrap';
 import MultiSelect from "react-multi-select-component";
-import { USER_URL } from '../../../shared/allApiUrl';
+import { USER_URL,HOUSE_RULE_URL ,CITY_URL} from '../../../shared/allApiUrl';
 import { crudAction } from '../../../store/actions/common';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -15,8 +15,6 @@ import InputUI from '../../../UI/InputUI';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from 'moment';
-import {HOUSE_RULE_URL} from '../../../shared/allApiUrl'
-import {CITY_URL} from '../../../shared/allApiUrl'
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
