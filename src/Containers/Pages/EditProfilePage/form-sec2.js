@@ -21,6 +21,8 @@ import { VIEWPROFILE_URL } from '../../../shared/allApiUrl';
 import {EDITLANDLORD_URL} from '../../../shared/allApiUrl'
 import {ROOM_URL} from '../../../shared/allApiUrl'
 import {axiosApiCall} from "../../../api/index";
+import {CITY_URL} from '../../../shared/allApiUrl'
+
 
 
 const Formsec2 = (props) => {
@@ -28,20 +30,40 @@ const Formsec2 = (props) => {
     firstName: "",
     lastName: "",
     dateOfBirth: null,
-    houseRules:"",
+   // houseRules:"",
     age: "",
    }
    const initialField = {
-    firstName: "",
-    lastName: "",
-    dateOfBirth: null,
-    houseRules:"",
-    age: "",
+   user_Id: "",
+   roomNo: "",
+   bathNo:"",
+   aboutRoom:"",
+   address:null,
+   age:"",
+   aminities: null,
+   area:"",
+   budget:"",
+   charges:"",
+   chargesType:"",
+   city:"",
+   deposite:"",
+   duration:"",
+   flateMate:"",
+   houseRules:null,
+   latitude:null,
+   location:[],
+   longitude:null,
+   moveIn:"",
+   noOfBedRoom:null,
+   roomName:"",
+   zipCode:"",
+   ageRange:"",
+
    }
 
   
   const [fields, setFields] = useState(initialFields);
-  const [data, setField] = useState(initialField);
+  const [field, setField] = useState(initialField);
 
   const [userId, setUserId] = useState(null);
   const { handleSubmit, register, errors } = useForm();
@@ -54,9 +76,14 @@ const Formsec2 = (props) => {
     setUserId(params.userId)
     if (params.userId) props.crudActionCall(`${VIEWPROFILE_URL}/${params.userId}`, null, "GET")
     // props.crudActionHouseCall(`${ROOM_URL}/${params.userId}`, null, "GET")
+    props.crudActionCityCall(CITY_URL, null, "GET_ALL")
+
     let {data}  =  await axiosApiCall.get(`${ROOM_URL}/${params.userId}`, null)
 
-    console.log(data.data[0])
+    setField({ ...field, ...data.data })
+
+
+    console.log(data.data)
     
     }
   cmsDetail()
@@ -96,8 +123,8 @@ const Formsec2 = (props) => {
   // //   { label: "No smoking", value: "2" },
   // //   { label: "Dog friendly", value: "3" /*, disabled: true*/ },
   // // ];
-  // const options = props.house.houseList.map((val) =>  
-  // ({ label: val.name, value: val._id })  
+  // const options = props.city.cityList.map((val) =>  
+  // ({ label: val.cityName, value: val._id })  
   // ); 
      
   
@@ -113,9 +140,12 @@ const Formsec2 = (props) => {
   const handleChange4 = (name,value)=>{
     setFields((prevState) => ({ ...prevState, [name]: value }));
   }
+  const handleChange6 = (name,value)=>{
+    setFields((prevState) => ({ ...prevState, [name]: value }));
+  }
  
   const  handlechange = value => {
-    setFields((prevState) => ({ ...prevState, "houseRules": value }));
+    setFields((prevState) => ({ ...prevState, "": value }));
   }
   const  handleDatechange = date => {
     setStartDate(date);
@@ -164,7 +194,7 @@ const Formsec2 = (props) => {
                             <Row>
                             <Input type="text" name="email" id="exampleEmail" placeholder="Location" />
                             <Col>
-                            <InputUI
+                            {/* <InputUI
                                   type="text"
                                   name="city"
                                   id="city"
@@ -173,7 +203,28 @@ const Formsec2 = (props) => {
                                   innerRef={register({
                                   required: 'This is required field',
                                   })}
-                                  fields={fields}/>
+                                  fields={field}/> */}
+                                        <Input
+                                        type="select"
+                                        name="city"
+                                        id="city"
+                                        innerRef={register}
+                                        value={field.city}
+                                        onChange={(e) =>
+                                          handlechange(e.target.name, e.target.value)
+                                        }
+                                      >
+                                        <option selected disabled>Select A City....</option>
+                                      {
+                                          props.city && props.city.cityList.map((val) =>{
+                                          return(
+                                            // <option value={val._id}>{val.cityName}</option>
+                                            <option>{val.cityName}</option>
+                                          );
+                                        })
+                                        } 
+                          
+                                     </Input>
                             
                             </Col>
                             <Col>
@@ -186,24 +237,15 @@ const Formsec2 = (props) => {
                                   innerRef={register({
                                   required: 'This is required field',
                                   })}
-                                  fields={fields}/>
+                                  fields={field}/>
                             
                             
                             
                             </Col>
                             </Row>
                             {/* <Input type="text" name="email" id="exampleEmail" placeholder="Maximum Budget" /> */}
-                            <InputUI
-                                  type="text"
-                                  name="budget"
-                                  id="budget"
-                                  placeholder="Maximum Budget"
-                                  errors={errors}
-                                  innerRef={register({
-                                  required: 'This is required field',
-                                  })}
-                                  fields={fields}/>
-
+                             <Row>
+                             <Col>
                                   <InputUI
                                   type="text"
                                   name="roomName"
@@ -213,8 +255,23 @@ const Formsec2 = (props) => {
                                   innerRef={register({
                                   required: 'This is required field',
                                   })}
-                                  fields={fields}/>                                   
+                                  fields={field}/>                                   
+                            </Col>
+                            <Col>
                             
+                            <InputUI
+                                  type="number"
+                                  name="area"
+                                  id="area"
+                                  placeholder="Area in sq/ft"
+                                  errors={errors}
+                                  innerRef={register({
+                                  required: 'This is required field',
+                                  })}
+                                  fields={field}/>  
+                            
+                            </Col>
+                            </Row>
                             {/* <Input type="textarea" name="text" id="exampleText" placeholder="About Room" /> */}
                             <InputUI
                             type="textarea"
@@ -225,7 +282,7 @@ const Formsec2 = (props) => {
                             innerRef={register({
                              required: 'This is required field',
                             })}
-                            fields={fields}/>
+                            fields={field}/>
                             <Row>
                               <Col>
                                 {/* <div className="form-group mt-4"> */}
@@ -305,7 +362,7 @@ const Formsec2 = (props) => {
                                   innerRef={register({
                                   required: 'This is required field',
                                   })}
-                                  //value={fields}
+                                  value={field.flateMate}
                                   onChange={(e) =>
                                     handleChange(e.target.name, e.target.value)
                                   }
@@ -331,7 +388,7 @@ const Formsec2 = (props) => {
                                   innerRef={register({
                                   required: 'This is required field',
                                   })}
-                                  //value={fields}
+                                  value={field.ageRange}
                                   onChange={(e) =>
                                     handleChange3(e.target.name, e.target.value)
                                   }
@@ -375,7 +432,7 @@ const Formsec2 = (props) => {
                                   innerRef={register({
                                   required: 'This is required field',
                                   })}
-                                  //value={fields}
+                                  value={field.duration}
                                   onChange={(e) =>
                                     handleChange2(e.target.name, e.target.value)
                                   }
@@ -394,6 +451,23 @@ const Formsec2 = (props) => {
                                   <option>$500</option>
                                   <option>$700</option>
                                 </Input> */}
+                               <InputUI
+                                  type="text"
+                                  name="budget"
+                                  id="budget"
+                                  placeholder="Maximum Budget"
+                                  errors={errors}
+                                  innerRef={register({
+                                  required: 'This is required field',
+                                  })}
+                                  fields={field}/>
+                              </Col>
+                              <Col>
+                                {/* <Input type="text" name="select" id="exampleSelect" placeholder="Charges">
+                                  <option>Charges</option>
+                                  <option>$200 or included</option>
+                                  <option>$300 or included</option>
+                                </Input> */}
                                 <InputUI
                                   type="text"
                                   name="deposite"
@@ -403,16 +477,13 @@ const Formsec2 = (props) => {
                                   innerRef={register({
                                   required: 'This is required field',
                                   })}
-                                  fields={fields}/>
+                                  fields={field}/>
                               </Col>
-                              <Col>
-                                {/* <Input type="text" name="select" id="exampleSelect" placeholder="Charges">
-                                  <option>Charges</option>
-                                  <option>$200 or included</option>
-                                  <option>$300 or included</option>
-                                </Input> */}
-                                <InputUI
-                                  type="number"
+                            </Row>
+                            <Row>
+                           <Col>
+                           <InputUI  
+                                 type="number"
                                   name="charges"
                                   id="charges"
                                   placeholder="Charges"
@@ -420,10 +491,12 @@ const Formsec2 = (props) => {
                                   innerRef={register({
                                   required: 'This is required field',
                                   })}
-                                  fields={fields}/>
-                              </Col>
-                            </Row>
-                            <Row>
+                                  fields={field}/>
+                           
+                           </Col>
+                           
+                           
+                           <Col>
                             <InputUI
                                   type="select"
                                   name="chargesType"
@@ -433,7 +506,7 @@ const Formsec2 = (props) => {
                                   innerRef={register({
                                   required: 'This is required field',
                                   })}
-                                  //value={fields}
+                                  value={field.chargesType}
                                   onChange={(e) =>
                                     handleChange4(e.target.name, e.target.value)
                                   }
@@ -443,7 +516,7 @@ const Formsec2 = (props) => {
                                   <option value="yearly">yearly</option>
                                   
                                   </InputUI>
-
+                              </Col>
 
 
                             </Row>
@@ -469,10 +542,11 @@ const Formsec2 = (props) => {
   }
   
   const mapStateToProps = state => {
-    const { user,room} = state;
+    const { user,room,city} = state;
     return {
       user,
-      room
+      room,
+      city,
       
     }
   }
@@ -481,7 +555,9 @@ const Formsec2 = (props) => {
     return {
       crudActionCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "USER")),
       resetAction: () => dispatch({ type: "RESET_USER_ACTION" }),
-      crudActionHouseCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "ROOM"))
+      crudActionHouseCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "ROOM")),
+    crudActionCityCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "CITY"))
+
 
       
 
