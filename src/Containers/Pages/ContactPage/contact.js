@@ -47,7 +47,7 @@ const ContactUs = (props) => {
                       <div className="page-bg">
                         
                         <Row className="d-flex justify-content-center">
-                          <Col sm={8} className="contactus how">
+                          <Col xs={12} sm={12} md={12} lg={8} className="contactus how">
                             <h1 className="text-center mb-5">Contact Us</h1>
                             
                             <Form onSubmit={handleSubmit(onSubmit)}>

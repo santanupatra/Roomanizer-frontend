@@ -32,7 +32,7 @@ const Formsec = () => {
        
       <div className="home-form">
       
-      <Nav tabs className="pl-5">
+      <Nav tabs className="pl-3 pl-sm-5 pl-md-5 pl-lg-5">
         <NavItem>
           <NavLink to="#"
             className={classnames({ activeBase: activeTab === '1' })}
@@ -54,82 +54,86 @@ const Formsec = () => {
 
         <TabPane tabId="1">
           <Row>
-            <Col sm="12">
-
-              <div className="">
-            
-                  <FormGroup row>
-                      <Col sm={4}>
-                      <Input type="select" name="select" id="exampleSelect">
-                          <option>Luxembourg</option>
-                          <option>2</option>
-                          <option>3</option>
-                      </Input>
-                      </Col>
-                      <Col sm={8}>
-                          <Input className="search" type="email" name="email" id="exampleEmail" placeholder="Enter a street, area or city" />
-                      </Col>
-                </FormGroup>
-                <FormGroup row className="mt-4">
-                  <Col sm={4}>
-                    <InputGroup>
-                      <DatePicker selected={startDate} placeholderText="Move Date" className="form-control" name="date" id="exampleDate" onChange={date => setStartDate(date)} />
-                      <InputGroupAddon addonType="icon"><FontAwesomeIcon icon={faCalendarAlt} /></InputGroupAddon>
-                    </InputGroup>
-                  </Col>
-                  <Col sm={4}>
-                      <InputGroup>
-                        <DatePicker
-                          selected={startTime}
-                          onChange={date => setStartTime(date)}
-                          showTimeSelect
-                          showTimeSelectOnly
-                          className="form-control"
-                          name="time"
-                          id="exampleTime"
-                          timeIntervals={15}
-                          placeholderText="Duration"
-                          timeCaption="Time"
-                          dateFormat="h:mm aa"
-                        />
-                        <InputGroupAddon addonType="icon"><FontAwesomeIcon icon={faClock} /></InputGroupAddon>
-                      </InputGroup>
-                  </Col>
-                  <Col sm={4}>
-                      <InputGroup>
-                        <Input placeholder="Budget" className="numberfild" min={0} max={100} type="number" step="1" />
-                        <InputGroupAddon addonType="icon"><img src={imagePath.moneyImage} alt="image" /></InputGroupAddon>
-                      </InputGroup>
-                  </Col>
-                </FormGroup>
-                <div className="d-flex justify-content-center">
-                    <Button color="" className="black-bt">Search Now</Button>
-                </div>
-              
-              </div>
-              
+            <Col xs={12} sm={12} md={4} lg={4}>
+              <FormGroup>
+                <Input type="select" name="select" id="exampleSelect">
+                    <option>Luxembourg</option>
+                    <option>2</option>
+                    <option>3</option>
+                </Input>
+              </FormGroup>
             </Col>
-          </Row>
+            <Col xs={12} sm={12} md={8} lg={8}>
+              <FormGroup>
+                <Input className="search" type="email" name="email" id="exampleEmail" placeholder="Enter a street, area or city" />
+              </FormGroup>
+            </Col>
+            </Row>
+            <Row>
+            <Col xs={12} sm={12} md={3} lg={3}>
+              <FormGroup>
+                <InputGroup>
+                  <DatePicker selected={startDate} placeholderText="Move Date" className="form-control" name="date" id="exampleDate" onChange={date => setStartDate(date)} />
+                  <InputGroupAddon addonType="icon"><FontAwesomeIcon icon={faCalendarAlt} /></InputGroupAddon>
+                </InputGroup>
+              </FormGroup>
+            </Col>
+            <Col xs={12} sm={12} md={3} lg={3}>
+              <FormGroup>
+                  <InputGroup>
+                    <DatePicker
+                      selected={startTime}
+                      onChange={date => setStartTime(date)}
+                      showTimeSelect
+                      showTimeSelectOnly
+                      className="form-control"
+                      name="time"
+                      id="exampleTime"
+                      timeIntervals={15}
+                      placeholderText="Duration"
+                      timeCaption="Time"
+                      dateFormat="h:mm aa"
+                    />
+                    <InputGroupAddon addonType="icon"><FontAwesomeIcon icon={faClock} /></InputGroupAddon>
+                  </InputGroup>
+                </FormGroup>
+            </Col>
+            <Col xs={12} sm={12} md={3} lg={3}>
+              <FormGroup>
+                <InputGroup>
+                  <Input placeholder="Budget" className="numberfild" min={0} max={100} type="number" step="1" />
+                  <InputGroupAddon addonType="icon"><img src={imagePath.moneyImage} alt="image" /></InputGroupAddon>
+                </InputGroup>
+              </FormGroup>
+            </Col>
+            <Col xs={12} sm={12} md={3} lg={3}>
+              <span><Button color="" className="black-bt">Search Now</Button></span>
+            </Col>
+            </Row>
         </TabPane>
 
 
         <TabPane tabId="2">
-        <div className="">
-            
-        <FormGroup row>
-            <Col sm={4}>
-            <Input type="select" name="select" id="exampleSelect">
-                <option>Luxembourg</option>
-                <option>2</option>
-                <option>3</option>
-            </Input>
+
+          <Row>
+            <Col xs={12} sm={12} md={4} lg={4}>
+              <FormGroup>
+              <Input type="select" name="select" id="exampleSelect">
+                  <option>Luxembourg</option>
+                  <option>2</option>
+                  <option>3</option>
+              </Input>
+              </FormGroup>
             </Col>
-            <Col sm={8}>
+            <Col xs={12} sm={12} md={8} lg={8}>
+              <FormGroup>
                 <Input className="search" type="email" name="email" id="exampleEmail" placeholder="Enter a street, area or city" />
+              </FormGroup>
             </Col>
-      </FormGroup>
-      <FormGroup row className="mt-4">
-          <Col Col sm={4}>
+            </Row>
+            <Row>
+            <Col xs={12} sm={12} md={3} lg={3}>
+              <FormGroup>
                 <Label for="">Age</Label>
                 <ReactSimpleRange
                   min={1}
@@ -140,27 +144,30 @@ const Formsec = () => {
                   trackColor='#014d81'
                   thumbColor='#014d81'
                  />
+                 </FormGroup>
               </Col>
-              <Col sm={4}>
-                <InputGroup>
-                  <Input placeholder="Occupation" type="text" />
-                  <InputGroupAddon addonType="icon"><FontAwesomeIcon icon={faBriefcase} /></InputGroupAddon>
-                </InputGroup>
+              
+              <Col xs={12} sm={12} md={3} lg={3}>
+                <FormGroup>
+                  <Input type="select" name="select" id="exampleSelect">
+                    <option>Occupation</option>
+                  </Input>
+                </FormGroup>
               </Col>
-          <Col sm={4}>
-            <Input type="select" name="select" id="exampleSelect">
-                <option>Gender</option>
-                <option>Male</option>
-                <option>Female</option>
-                <option>Other</option>
-            </Input>
-          </Col>
-      </FormGroup>
-      <div className="d-flex justify-content-center">
-        <Button color="" className="black-bt">Search Now</Button>
-      </div>
-    
-    </div>
+              <Col xs={12} sm={12} md={3} lg={3}>
+                <FormGroup>
+                  <Input type="select" name="select" id="exampleSelect">
+                      <option>Gender</option>
+                      <option>Male</option>
+                      <option>Female</option>
+                      <option>Other</option>
+                  </Input>
+                </FormGroup>
+              </Col>
+              <Col xs={12} sm={12} md={3} lg={3}>
+                <Button color="" className="black-bt">Search Now</Button>
+              </Col>
+          </Row>
         </TabPane>
       </TabContent>
       </div>

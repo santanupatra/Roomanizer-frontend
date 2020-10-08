@@ -30,6 +30,7 @@ import {
   Row,
   FormGroup,
 } from "reactstrap";
+import { NavLink } from "react-router-dom";
 
 function LoginFrom(props) {
   const history = useHistory();
@@ -225,10 +226,12 @@ else {
               <Button type="button" onClick={handleSubmit(onSubmit)} color="primary" className="login-bt mb-2">
                 Login
                         </Button>
-              <img src={imagePath.orImage} alt="image" />
-              <a href="#"><img src={imagePath.fbImage} alt="image" /></a>
-              <a href="#"><img src={imagePath.gsImage} alt="image" /></a>
-              <a href="/signUP" className="forgot mt-3 mb-0">Don’t have an account? <span>Register</span></a>
+                        <div className="text-center">
+                          <img src={imagePath.orImage} alt="image" />
+                          <NavLink to="#"><img src={imagePath.fbImage} alt="image" /></NavLink>
+                          <NavLink to="#"><img src={imagePath.gsImage} alt="image" /></NavLink>
+                        </div>
+                        <NavLink to="/signUP" className="forgot mt-3 mb-0">Don’t have an account? <span>Register</span></NavLink>
             </Col>
           </FormGroup>
         </Form>

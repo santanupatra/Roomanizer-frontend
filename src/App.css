@@ -139,6 +139,9 @@ button:focus{
 .numberfild[type=number] {
   -moz-appearance: textfield;
 }
+.form-control:focus{
+  box-shadow: none !important;
+}
 
 @media(max-width:767px){
   .heading3,
