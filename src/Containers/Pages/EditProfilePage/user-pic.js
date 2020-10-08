@@ -4,7 +4,7 @@ import imagePath from '../../../Config/imageConstants';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { PROFILEPICTURE_URL } from '../../../shared/allApiUrl';
+import { USER_URL } from '../../../shared/allApiUrl';
 import { crudAction } from '../../../store/actions/common';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -38,7 +38,7 @@ const Userpic = (props) => {
       };
       console.log(props.userId)
       if(props.userId){
-        props.crudActionCall(`${PROFILEPICTURE_URL}/${props.userId}`, formData, "UPDATE")
+        props.crudActionCall(`${USER_URL}/profilePicture/${props.userId}`, formData, "UPDATE")
 
       }
       //setDropdownOpen(false)
