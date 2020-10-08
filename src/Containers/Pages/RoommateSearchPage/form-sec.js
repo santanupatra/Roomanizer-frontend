@@ -2,7 +2,7 @@ import React,{useState} from 'react';
 import './style.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import imagePath from '../../../Config/imageConstants';
-import {FormGroup, Button, Label, Input, Col } from 'reactstrap';
+import {FormGroup, Button, Label, Input, Col, Row } from 'reactstrap';
 import { Modal, ModalHeader, ModalBody, ModalFooter, CustomInput, Form, } from 'reactstrap';
 
 
@@ -21,8 +21,8 @@ const Formsec = (props) => {
     return (
       <div className="">
         
-        <FormGroup row>
-            <Col sm={3}>
+        <Row>
+            <Col xs={12} sm={12} md={6} lg={2}>
             <Label for="">Location</Label>
             <Input type="select" name="select" id="exampleSelect">
                 <option>Luxembourg</option>
@@ -30,30 +30,30 @@ const Formsec = (props) => {
                 <option>3</option>
             </Input>
             </Col>
-            <Col Col sm={2}>
+            <Col xs={12} sm={12} md={6} lg={2}>
               <Label for="">Age</Label>
               <Input type="range" name="range" id="exampleRange" />
             </Col>
-            <Col sm={2}>
+            <Col xs={12} sm={12} md={6} lg={2}>
             <Label for="">Occupation</Label>
                 <Input className="work" type="email" name="email" id="exampleEmail" placeholder="Students" />
             </Col>
-        <Col sm={2}>
-          <Label for="">Gender</Label>
-          <Input type="select" name="select" id="exampleSelect">
-                <option>Male</option>
-                <option>Female</option>
-                <option>Other</option>
-            </Input>
-        </Col>
-        <Col sm={1} className="pr-0">
-          <Label for="">Filter</Label>
-          <a className="filter" onClick={toggle}>{buttonLabel}<img src={imagePath.filterImage} alt="image"/></a>
-        </Col>
-        <Col sm={2} className="pt-4 pl-4">
-          <a href="#" className="black-bt">Search Now</a>
-        </Col>
-      </FormGroup>
+            <Col xs={12} sm={12} md={6} lg={2}>
+              <Label for="">Gender</Label>
+              <Input type="select" name="select" id="exampleSelect">
+                    <option>Male</option>
+                    <option>Female</option>
+                    <option>Other</option>
+                </Input>
+            </Col>
+            <Col xs={12} sm={12} md={6} lg={2}>
+              <Label for="">Filter</Label>
+              <a className="filter" onClick={toggle}>{buttonLabel}<img src={imagePath.filterImage} alt="image"/></a>
+            </Col>
+            <Col xs={12} sm={12} md={6} lg={2}>
+              <button className="black-bt mt-4">Search Now</button>
+            </Col>
+      </Row>
 
       <div>
             <Modal isOpen={modal} toggle={toggle} className={className}>

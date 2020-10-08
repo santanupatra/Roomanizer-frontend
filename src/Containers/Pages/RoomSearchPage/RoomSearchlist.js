@@ -19,8 +19,8 @@ const Searchlist = (props) => {
     return (
               <div>
                   
-                  <div className="px-2 d-flex justify-content-between align-items-center">
-                    <h3 className="mt-3 mb-4">All Roommates    <span class="result">28 Results</span></h3>
+                  <div className="px-2 d-sm-flex d-md-flex d-lg-flex justify-content-between align-items-center">
+                    <h3 className="heading1 mt-3 mb-4">All Roommates    <span class="result">28 Results</span></h3>
 
                     <Nav tabs>
                       <NavItem>
@@ -47,76 +47,56 @@ const Searchlist = (props) => {
                   <TabContent activeTab={activeTab}>
                   
                     <TabPane tabId="1">
-                      <Row className="mr-0 ml-0">
-                        <Col className="">
-                            <div>
-                              <Cardbox></Cardbox>
-                            </div>
+                      <Row>
+                        <Col xs={12} sm={6} md={6} lg={6}>
+                          <Cardbox></Cardbox>
                         </Col>
-                        <Col className="">
-                            <div>
-                              <Cardbox></Cardbox>
-                            </div>
+                        <Col xs={12} sm={6} md={6} lg={6}>
+                          <Cardbox></Cardbox>
                         </Col>
                       </Row>
 
-                      <Row className="mt-3 mr-0 ml-0">
-                        <Col className="">
-                            <div>
-                              <Cardbox></Cardbox>
-                            </div>
+                      <Row className="mt-3">
+                        <Col xs={12} sm={6} md={6} lg={6}>
+                          <Cardbox></Cardbox>
                         </Col>
-                        <Col className="">
-                            <div>
-                              <Cardbox></Cardbox>
-                            </div>
+                        <Col xs={12} sm={6} md={6} lg={6}>
+                          <Cardbox></Cardbox>
                         </Col>
                       </Row>
 
-                      <Row className="mt-3 mr-0 ml-0">
-                        <Col className="">
-                            <div>
-                              <Cardbox></Cardbox>
-                            </div>
+                      <Row className="mt-3">
+                        <Col xs={12} sm={6} md={6} lg={6}>
+                          <Cardbox></Cardbox>
                         </Col>
-                        <Col className="">
-                            <div>
-                              <Cardbox></Cardbox>
-                            </div>
+                        <Col xs={12} sm={6} md={6} lg={6}>
+                          <Cardbox></Cardbox>
                         </Col>
                       </Row>
                       
                     </TabPane>
                     <TabPane tabId="2">
-                        <Row className="list-type mr-0 ml-0">
-                          <Col className="">
-                              <div>
-                                <Cardlist></Cardlist>
-                              </div>
+                        <Row className="list-type">
+                          <Col>
+                            <Cardlist></Cardlist>
                           </Col>
                         </Row>
 
-                        <Row className="list-type mr-0 ml-0">
-                          <Col className="">
-                              <div>
-                                <Cardlist></Cardlist>
-                              </div>
+                        <Row className="list-type">
+                          <Col>
+                            <Cardlist></Cardlist>
                           </Col>
                         </Row>
 
-                        <Row className="list-type mr-0 ml-0">
-                          <Col className="">
-                              <div>
-                                <Cardlist></Cardlist>
-                              </div>
+                        <Row className="list-type">
+                          <Col>
+                            <Cardlist></Cardlist>
                           </Col>
                         </Row>
 
-                        <Row className="list-type mr-0 ml-0">
-                          <Col className="">
-                              <div>
-                                <Cardlist></Cardlist>
-                              </div>
+                        <Row className="list-type">
+                          <Col>
+                            <Cardlist></Cardlist>
                           </Col>
                         </Row>
 

@@ -13,7 +13,7 @@ import {
 const Cardlist = (props) => {
     return (
 
-    <Card className="mt-5">
+    <Card className="mt-5 d-block d-sm-flex d-md-flex d-lg-flex">
       <div className="">
       <CardImg className="roomimg" top width="100%" src={imagePath.roomImage1} alt="Card image cap"/>
         <div className="roomuser">
@@ -32,11 +32,11 @@ const Cardlist = (props) => {
         </div>
 
         <CardFooter className="mt-2">
-        <Row>
+        <div className="d-flex">
           <Col sm={8} className="py-2"><h6 className="org">$2.50 / Month</h6></Col>
           <Col sm={2} className="border-left border-right px-2 py-2"><FontAwesomeIcon color="red" icon={faHeart} /></Col>
           <Col sm={2} className="py-2"><FontAwesomeIcon icon={faShareAlt} /></Col>
-        </Row>
+        </div>
       </CardFooter>
 
       </CardBody>

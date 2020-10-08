@@ -72,7 +72,7 @@ const Formsec = (props) => {
   
    return (
     
-                <div className="left-box text-center">
+                <div className="left-box text-center mb-4">
                     <div className="profile-img mb-2">
                       {/* <img src={imagePath.roomuserpicImage} alt="image"/> */}
                       <img src={getImageUrl(fields.profilePicture)} className="img-avatar" alt="admin" />
@@ -92,12 +92,6 @@ const Formsec = (props) => {
                       </span>
                     </div>
                     <a href="#" className="login-bt mb-2">Messsage</a>
-                    {/* <div className="mt-3 d-flex align-items-center justify-content-center">
-                      <Facebook></Facebook>
-                      <Twitter></Twitter>
-                      <Gsuite></Gsuite>
-                      <Email></Email>
-                    </div> */}
                 </div>
        
     );

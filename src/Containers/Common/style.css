@@ -22,3 +22,21 @@
   font-size: 24px;
   color: #000;
 }
+
+@media(max-width:767px){
+  .navbar-toggler{
+    position: absolute;
+    top: -35px;
+    right: 0px;
+  }
+  .navbar-collapse{
+    width: 100%;
+    height: auto;
+    background-color: #014d81;
+    border: 1px solid #023a5f;
+    padding-bottom: 25px;
+  }
+  .navigation .navbar-light .navbar-nav .nav-link{
+    border-right: none;
+  }
+}

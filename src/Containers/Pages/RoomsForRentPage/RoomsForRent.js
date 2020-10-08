@@ -88,19 +88,16 @@ import {getImageUrl} from '../../../shared/helpers'
                 <Row className="align-items-center">
                   <Col>
                     <Row className="mb-4">
-
                       <Col className="sl"><Slider></Slider></Col>
-
                     </Row>
                       
                       <div className="page-bg">  
 
-                        <Row className="p-5">
-                          <Col sm={4}>
+                        <Row className="p-3 p-sm-5 p-md-5 p-lg-5">
+                          <Col xs={12} sm={12} md={12} lg={4}>
                             <Formsec></Formsec>
                           </Col>
-
-                          <Col sm={8}>
+                          <Col xs={12} sm={12} md={12} lg={8}>
                             <div className="about mt-0 pb-4">
                               <h4>For Private Room:</h4>
                               <h2 className="blue">${fields.charges} / {fields.chargesType} in Luxembourg</h2>
@@ -122,19 +119,19 @@ import {getImageUrl} from '../../../shared/helpers'
 
                             <div className="about">
                               <Row>
-                                <Col sm={3}>
+                                <Col xs={12} sm={6} md={3} lg={3}>
                                   <h4>Move in:</h4>
                                       <p>{fields.moveIn}</p>
                                 </Col>
-                                <Col sm={3}>
+                                <Col xs={12} sm={6} md={3} lg={3}>
                                   <h4>Duration:</h4>
                                      <p>{fields.duration}</p>
                                 </Col>
-                                <Col sm={3}>
+                                <Col xs={12} sm={6} md={3} lg={3}>
                                   <h4>Deposit:</h4>
                                       <p>${fields.deposite}</p>
                                 </Col>
-                                <Col sm={3}>
+                                <Col xs={12} sm={6} md={3} lg={3}>
                                   <h4>Charges:</h4>
                                   <p>$200 or Included</p>
                                 </Col>

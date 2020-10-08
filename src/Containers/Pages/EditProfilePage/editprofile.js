@@ -58,7 +58,7 @@ const EditProfile =(props)=> {
             <div className="">
               <Container className="mb-3">
                 <Row className="mt-5 pt-5">
-                  <Col sm={6} className="pr-5">
+                  <Col xs={12} sm={12} md={6} lg={6} className="pr-5">
                     <h2 className="text-center mb-3">My Profile</h2>
 
                         {/* Toggle */}

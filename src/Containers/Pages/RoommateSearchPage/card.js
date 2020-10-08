@@ -24,7 +24,9 @@ const Cardbox = (props) => {
   return (
 
     <Card>
-      <CardImg top width="100%" src={getImageUrl(val.profilePicture)} alt="Card image cap" />
+      <div className="listingImgBox">
+        <CardImg  src={getImageUrl(val.profilePicture)} alt="Card image cap" />
+      </div>
       <CardBody>
         <div className="d-flex justify-content-between align-items-center">
           <CardTitle>{val.firstName + ' ' +val.lastName}</CardTitle>
@@ -36,11 +38,11 @@ const Cardbox = (props) => {
         </div>
       </CardBody>
       <CardFooter className="">
-        <Row>
+        <div className="d-flex">
           <Col sm={8} className="py-2"><h6 className="org">${val.maxBudget} / Month</h6></Col>
           <Col sm={2} className="border-left border-right py-2"><FontAwesomeIcon color="red" icon={faHeart} /></Col>
           <Col sm={2} className="py-2"><FontAwesomeIcon icon={faShareAlt} /></Col>
-        </Row>
+        </div>
       </CardFooter>
     </Card>
 

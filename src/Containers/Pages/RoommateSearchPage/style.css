@@ -95,3 +95,10 @@ a{
 .filt label{
     font-size: 14px;
 }
+
+.listingImgBox{
+    width: 100%;
+    height: auto;
+    max-height: 338px;
+    overflow: hidden;
+}

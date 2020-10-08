@@ -63,15 +63,13 @@ import { withRouter } from 'react-router-dom';
           <div className="header-sec">
             <Container className="mb-3">
               <Row className="align-items-center">
-                <Col sm={5}>
+                <Col xs={12} sm={12} md={3} lg={3}>
                   <a href="/">
                     <img src={getImageUrl(fields.siteLogo)} href="/" alt="image"/>
                   </a>
                 </Col>
-                <Col>
-                {userToken?<LoginNavbar />:<Navbaar />}
-                  
-
+                <Col xs={12} sm={12} md={9} lg={9}>
+                  {userToken?<LoginNavbar />:<Navbaar />}
                 </Col>
               </Row>
             </Container>
