@@ -52,7 +52,7 @@ const Formsec = (props) => {
     props.crudActionHouseCall(HOUSE_RULE_URL, null, "GET_ALL")
 
   }, [params]);
-  console.log(props.house.houseList)
+  
   
 
   useEffect(() => {
@@ -72,6 +72,7 @@ const Formsec = (props) => {
     if (setDate) data.dateOfBirth = setDate;
     if (setRtoM) data.readyToMove = setRtoM;
     if (fields.houseRules) data.houseRules=fields.houseRules
+    console.log(data)
     props.crudActionCall(EDITPROFILE_URL + `/${userId}`, data, "UPDATE");
     props.resetAction();
   }

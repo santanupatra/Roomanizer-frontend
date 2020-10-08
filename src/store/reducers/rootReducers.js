@@ -5,6 +5,7 @@ import home from './home';
 import contactUs from './contactUs';
 import setting from './setting';
 import house from './house'
+import room from './room'
 export default combineReducers({
     auth,
     user,
@@ -12,4 +13,5 @@ export default combineReducers({
     setting,
     contactUs,
     house,
+    room,
 })
