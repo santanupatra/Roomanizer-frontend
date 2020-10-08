@@ -14,6 +14,10 @@ export const EDITPROFILE_URL = 'auth-api/updateProfile';
 export const VIEWPROFILE_URL = 'auth-api/profileDetails';
 export const USERLIST_URL = 'auth-api/user';
 export const HOUSE_RULE_URL = 'house-api/house';
+export const EDITLANDLORD_URL = 'landlord-api/landlord'
+export const ROOM_URL = 'landlord-api/room'
+export const CITY_URL = 'landlord-api/city'
+
 
 
 
