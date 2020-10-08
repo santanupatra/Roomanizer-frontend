@@ -77,11 +77,11 @@ const Roompic = (props) => {
                        />
                       </div>
                     </div>
-                    {/* <FormGroup className="mb-5 th">
+                    <FormGroup className="mb-5 th">
                       <Label for="exampleCustomFileBrowser">Add Room Images</Label>
                       <CustomInput type="file" id="exampleCustomFileBrowser" name="customFile" label="Pick a file!" />
                     </FormGroup>
-                    <div class="thumbnail-file mt-4">
+                    {/* <div class="thumbnail-file mt-4">
                         <button><h2 className="mb-0 mt-1">+ Add Thumbnail File </h2></button>
                         <p>Recomended resolution 800x500, 650x450</p>
                         <input type="file" name="myfile" />

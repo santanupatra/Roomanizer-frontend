@@ -104,7 +104,7 @@ const LoginNavbaar = (props) => {
                     </DropdownToggle>
                     <DropdownMenu>
                       {/* <Link to={`/editProfile/${userId}`} > <DropdownItem header>My Account</DropdownItem></Link>  */}
-                      <DropdownItem header><Link to={`/viewProfile/${userId}`} className ='dark'> My Account</Link></DropdownItem>
+                      <DropdownItem header><Link to={`/roomRent/${userId}`} className ='dark'> My Account</Link></DropdownItem>
                       {/* <a href={`/changePassword/${userId}`}  onClick={change2}> <DropdownItem header>Settings</DropdownItem></a>    */}
                       <DropdownItem header><Link to={`/changePassword/${userId}`} className ='dark'> Settings</Link></DropdownItem>
                       

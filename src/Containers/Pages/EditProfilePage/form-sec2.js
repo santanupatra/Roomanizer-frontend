@@ -13,6 +13,8 @@ import Gsuite from '../gSuite';
 import { crudAction } from '../../../store/actions/common';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import {HOUSE_RULE_URL} from '../../../shared/allApiUrl'
+import MultiSelect from "react-multi-select-component";
 import { useForm } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import InputUI from '../../../UI/InputUI';
@@ -22,6 +24,15 @@ import {EDITLANDLORD_URL} from '../../../shared/allApiUrl'
 import {ROOM_URL} from '../../../shared/allApiUrl'
 import {axiosApiCall} from "../../../api/index";
 import {CITY_URL} from '../../../shared/allApiUrl'
+import PlacesAutocomplete, {
+  geocodeByAddress,
+  getLatLng,
+} from 'react-places-autocomplete';
+//import 'react-google-places-autocomplete/dist/index.min.css';
+import Geocode from "react-geocode";
+const palceKey = "AIzaSyA5LrPhIokuSBO5EgKEcfu859gog6fRF8w";
+  Geocode.setApiKey(palceKey);
+  Geocode.setLanguage("en");
 
 
 
@@ -30,7 +41,7 @@ const Formsec2 = (props) => {
     firstName: "",
     lastName: "",
     dateOfBirth: null,
-   // houseRules:"",
+   
     age: "",
    }
    const initialField = {
@@ -38,7 +49,7 @@ const Formsec2 = (props) => {
    roomNo: "",
    bathNo:"",
    aboutRoom:"",
-   address:null,
+   address:"",
    age:"",
    aminities: null,
    area:"",
@@ -76,6 +87,7 @@ const Formsec2 = (props) => {
     setUserId(params.userId)
     if (params.userId) props.crudActionCall(`${VIEWPROFILE_URL}/${params.userId}`, null, "GET")
     // props.crudActionHouseCall(`${ROOM_URL}/${params.userId}`, null, "GET")
+    props.crudActionHouseCall(HOUSE_RULE_URL, null, "GET_ALL")
     props.crudActionCityCall(CITY_URL, null, "GET_ALL")
 
     let {data}  =  await axiosApiCall.get(`${ROOM_URL}/${params.userId}`, null)
@@ -96,7 +108,7 @@ const Formsec2 = (props) => {
 
   useEffect(() => {
     const action = props.user.action;
-    const { type, isSuccess } = props.room.action;
+    const { type, isSuccess } = props.house.action;
     
     if (props.user.user && params.userId) {
       setFields({ ...fields, ...props.user.user })
@@ -105,27 +117,40 @@ const Formsec2 = (props) => {
     }
     if (action.isSuccess && action.type === "UPDATE")
       props.history.push(`/editProfile/${userId}`)
-  }, [props.user]);
+  }, [props.user,props.house]);
 
   const onSubmit = (data) => {
+    data.longitude = field.longitude;
+    data.latitude = field.latitude;
+    data.address = field.address;
     console.log(data)
     if (userId) data.userId = userId;
     data.user_Id = userId 
     if (setDate) data.dateOfBirth = setDate;
     if (setRtoM) data.moveIn = setRtoM;
-   // if (fields.houseRules) data.houseRules=fields.houseRules
+    if (field.houseRules) data.houseRules=field.houseRules
+    if (field.aminities) data.aminities=field.aminities
     props.crudActionCall(EDITLANDLORD_URL + `/${userId}`, data, "UPDATE");
     props.resetAction();
   }
 
-  // // const options =  [
-  // //   { label: "Clean appartment", value: "1" },
-  // //   { label: "No smoking", value: "2" },
-  // //   { label: "Dog friendly", value: "3" /*, disabled: true*/ },
-  // // ];
-  // const options = props.city.cityList.map((val) =>  
-  // ({ label: val.cityName, value: val._id })  
-  // ); 
+  const options1 =  [
+    { label: "Furnished", value: "1" },
+    { label: "Private Bathroom", value: "2" },
+    { label: "Outdoor Space", value: "3" /*, disabled: true*/ },
+    { label: "In-unit Washer", value: "4" },
+
+   
+
+  ];
+  const options = props.house.houseList.map((val) =>  
+  ({ label: val.name, value: val._id })  
+  );
+  
+  const searchOptions = {
+    componentRestrictions: { country: ['us','ca','uy'] },
+    //types: ['city']
+  }
      
   
   const handleChange = (name,value)=>{
@@ -140,13 +165,17 @@ const Formsec2 = (props) => {
   const handleChange4 = (name,value)=>{
     setFields((prevState) => ({ ...prevState, [name]: value }));
   }
-  const handleChange6 = (name,value)=>{
-    setFields((prevState) => ({ ...prevState, [name]: value }));
-  }
+  
  
   const  handlechange = value => {
-    setFields((prevState) => ({ ...prevState, "": value }));
+    setField((prevState) => ({ ...prevState, "houseRules": value }));
   }
+  const  handlechange1 = value => {
+    setField((prevState) => ({ ...prevState, "aminities": value }));
+  }
+  const handleChang = address => {
+    setField((prevState) => ({ ...prevState, address }));
+  };
   const  handleDatechange = date => {
     setStartDate(date);
     var diff_ms = Date.now() - date.getTime();
@@ -154,7 +183,35 @@ const Formsec2 = (props) => {
     var realAge = Math.abs(age_dt.getUTCFullYear() - 1970);
     setFields((prevState) => ({ ...prevState, "age": realAge }));
   }
+  const handleSelect = address => {
+    //setFields((prevState) => ({ ...prevState, ["street"]: address.structured_formatting.main_text }));
+    setField((prevState) => ({ ...prevState, ["street"]: address })); 
+    geocodeByAddress(address)
+      .then(results => getLatLng(results[0]))
+    //  .then(latLng => console.log('Success', latLng))
+    //  .catch(error => console.error('Error', error));
 
+      .then(({ lat, lng }) => {
+              console.log("lat==",lat,"lng==",lng)
+              console.log(address);
+            //  console.log(address.structured_formatting.main_text);
+            //  console.log(address.structured_formatting.secondary_text);
+              // Geocode.fromLatLng(lat, lng).then(
+              //   response => {
+              //     const zipCode = response.results[1].address_components[0].long_name;
+              //     setFields((prevState) => ({ ...prevState, ["zipCode"]: zipCode }));
+              //     console.log("response====",response);
+        
+              //   },
+              //   error => {
+              //     console.error(error);
+              //   }
+              // );
+              setField((prevState) => ({ ...prevState, ["address"]: address }));
+              setField((prevState) => ({ ...prevState, ["longitude"]: lng }));
+              setField((prevState) => ({ ...prevState, ["latitude"]: lat }));
+            });
+  };
   
 
     return (
@@ -192,7 +249,48 @@ const Formsec2 = (props) => {
                               </Col>
                             </Row>
                             <Row>
-                            <Input type="text" name="email" id="exampleEmail" placeholder="Location" />
+                            {/* <Input type="text" name="email" id="exampleEmail" placeholder="Location" /> */}
+                            <PlacesAutocomplete
+                      onChange={handleChang}
+                      onSelect={handleSelect}
+                      searchOptions={searchOptions}
+                      value={field.address}
+                    >
+                      {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                        <div>
+                          <input
+                            {...getInputProps({
+                              placeholder: 'Search Places ...',
+                              className: 'location-search-input',
+                            })}
+                          />
+                          <div className="autocomplete-dropdown-container">
+                            {loading && <div>Loading...</div>}
+                            {suggestions.map(suggestion => {
+                              const className = suggestion.active
+                                ? 'suggestion-item--active'
+                                : 'suggestion-item';
+                              // inline style for demonstration purpose
+                              const style = suggestion.active
+                                ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                                : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                              return (
+                                <div
+                                  {...getSuggestionItemProps(suggestion, {
+                                    className,
+                                    style,
+                                  })}
+                                >
+                                  <span>{suggestion.description}</span>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      )}
+                    </PlacesAutocomplete>  
+                            </Row>
+                           <Row>
                             <Col>
                             {/* <InputUI
                                   type="text"
@@ -227,6 +325,7 @@ const Formsec2 = (props) => {
                                      </Input>
                             
                             </Col>
+                            
                             <Col>
                             <InputUI
                                   type="number"
@@ -311,13 +410,13 @@ const Formsec2 = (props) => {
                             <FormGroup className="mt-3">
                               <Label for="exampleCheckbox" className="filter-mod">No of Bedrooms</Label>
                               <div className="filt d-flex justify-content-between">
-                                <CustomInput type="checkbox" id="exampleCustomCheckbox13" label="2 Bedroom" />
-                                <CustomInput type="checkbox" id="exampleCustomCheckbox14" label="3 Bedroom" />
-                                <CustomInput type="checkbox" id="exampleCustomCheckbox15" label="4+ Bedroom" />
+                                <CustomInput type="radio" id="radio1" label="2 Bedroom" />
+                                <CustomInput type="radio" id="radio2" label="3 Bedroom" />
+                                <CustomInput type="radio" id="radio3" label="4+ Bedroom" />
                               </div>
                             </FormGroup>
 
-                            <FormGroup>
+                            {/* <FormGroup>
                               <Label for="exampleCheckbox" className="filter-mod">Listing Amenities</Label>
                               <div className="filt d-flex justify-content-between">
                                 <CustomInput type="checkbox"id="exampleCustomCheckbox10" label="In-unit Washer" />
@@ -327,9 +426,20 @@ const Formsec2 = (props) => {
                               <div className="filt d-flex justify-content-between">                
                                 <CustomInput type="checkbox" id="exampleCustomCheckbox16" label="Outdoor Space" />
                               </div>
-                            </FormGroup>
-
-                            <FormGroup>
+                            </FormGroup> */}
+                                   <Label for="exampleCheckbox" className="filter-mod">Listing Amenities</Label>
+                              <div className="filt d-flex justify-content-between"></div>
+                                     <MultiSelect
+                                        options={options1}
+                                        value={field.aminities}
+                                        className="MultiSelect-input"
+                                        onChange={(value) =>
+                                        handlechange1(value) 
+                                        }
+                                        // onChange={handlechange}
+                                         labelledBy={"Preferences for house rules"}/>
+                                      
+                            {/* <FormGroup>
                               <Label for="exampleCheckbox" className="filter-mod">House Rules</Label>
                                 <div className="filt d-flex justify-content-between flex-wrap">
                                   <CustomInput type="checkbox" id="exampleCustomCheckbox" label="No Smoking" />
@@ -342,8 +452,20 @@ const Formsec2 = (props) => {
                                   <CustomInput type="checkbox" id="exampleCustomCheckbox7" label="Other Pets Ok" />
                                   <CustomInput type="checkbox" id="exampleCustomCheckbox8" label="Couples Ok" />
                                 </div>
-                            </FormGroup>
-
+                            </FormGroup> */}
+                                  <Label for="exampleCheckbox" className="filter-mod">House Rules</Label>
+                                <div className="filt d-flex justify-content-between flex-wrap"></div>    
+                                      <MultiSelect
+                                        options={options}
+                                        value={field.houseRules}
+                                        className="MultiSelect-input"
+                                        onChange={(value) =>
+                                        handlechange(value) 
+                                        }
+                                        // onChange={handlechange}
+                                         labelledBy={"Preferences for house rules"}/>
+                                      
+                                      
                               <Row>
                                 <Col className="pr-0">
                                   {/* <Input type="select" name="select" id="exampleSelect">
@@ -554,11 +676,12 @@ const Formsec2 = (props) => {
   }
   
   const mapStateToProps = state => {
-    const { user,room,city} = state;
+    const { user,room,city,house} = state;
     return {
       user,
       room,
       city,
+      house,
       
     }
   }
@@ -567,8 +690,10 @@ const Formsec2 = (props) => {
     return {
       crudActionCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "USER")),
       resetAction: () => dispatch({ type: "RESET_USER_ACTION" }),
-      crudActionHouseCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "ROOM")),
-    crudActionCityCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "CITY"))
+     // crudActionHouseCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "ROOM")),
+    crudActionCityCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "CITY")),
+    crudActionHouseCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "HOUSE"))
+
 
 
       
