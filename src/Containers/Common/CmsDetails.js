@@ -23,6 +23,9 @@ const CmsDetails = (props) =>{
   
   
   useEffect(() => {
+    cmsDetail()
+  }, [props.match.params.SlugId])
+
   const  cmsDetail = async()=>{
     if (props.match.params.SlugId ) {
       let  {data}  = await axiosApiCall.get(`${CMS_URL}/${props.match.params.SlugId}`, null)
@@ -33,8 +36,6 @@ const CmsDetails = (props) =>{
      
     }
   }
-    cmsDetail()
-  }, [props.match.params.SlugId])
   return(
     
         <div className="home">
