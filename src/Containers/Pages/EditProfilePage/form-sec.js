@@ -162,7 +162,7 @@ const Formsec = (props) => {
                         <FormGroup>
                           <Col sm={12}>
                             <Row>
-                              <Col xs={12} sm={6} md={6} lg={6}>
+                              <Col xs={12} sm={12} md={6} lg={6}>
                                   <InputUI
                                   type="text"
                                   name="firstName"
@@ -174,12 +174,13 @@ const Formsec = (props) => {
                                   })}
                                   fields={fields}/>
                               </Col>
-                              <Col xs={12} sm={6} md={6} lg={6}>
+                              <Col xs={12} sm={12} md={6} lg={6}>
                                   <InputUI
                                   type="text"
                                   name="lastName"
                                   id="lastName"
                                   placeholder="Last Name"
+                                  className="m-0"
                                   errors={errors}
                                   innerRef={register({
                                   required: 'This is required field',
@@ -188,9 +189,8 @@ const Formsec = (props) => {
                               </Col>
                                 </Row>
                                 <Row>
-
-                                <label>Address</label>
-
+                                <Col xs={12} sm={12} md={12} lg={12}>
+                                  <FormGroup>
                                   <PlacesAutocomplete
                                       onChange={handleChang}
                                       onSelect={handleSelect}
@@ -202,7 +202,7 @@ const Formsec = (props) => {
                                           <input
                                             {...getInputProps({
                                               placeholder: 'Search Places ...',
-                                              className: 'location-search-input',
+                                              className: 'form-control m-0',
                                             })}
                                           />
                                           <div className="autocomplete-dropdown-container">
@@ -230,23 +230,17 @@ const Formsec = (props) => {
                                         </div>
                                       )}
                                     </PlacesAutocomplete>
-
-
+                                    </FormGroup>
+                                    </Col>
                                 </Row>
-                                
-                                
-                                
-                                
-                                
-                                
-                                
                                  <Row>
-                                  <Col>
-                            
+                                  <Col xs={12} sm={12} md={6} lg={6}>
+                                  <FormGroup>
                                         <Input
                                         type="select"
                                         name="city"
                                         id="city"
+                                        className="m-0"
                                         innerRef={register}
                                         value={fields.city}
                                         onChange={(e) =>
@@ -261,70 +255,75 @@ const Formsec = (props) => {
                                             <option>{val.cityName}</option>
                                           );
                                         })
-                                        } 
-                          
+                                        }
                                      </Input>
-                            
-                                          </Col>
-                            
-                                          <Col>
-                                        <InputUI
-                                  type="number"
-                                  name="zipCode"
-                                  id="zipCode"
-                                  placeholder="Zip Code"
-                                  errors={errors}
-                                  innerRef={register({
-                                  required: 'This is required field',
-                                  })}
-                                  fields={fields}/>
-                            
-                            
-                            
+                                     </FormGroup>
                                     </Col>
-                                    </Row>
+                                    <Col xs={12} sm={12} md={6} lg={6}>
+                                      <FormGroup>
+                                        <InputUI
+                                          type="number"
+                                          name="zipCode"
+                                          id="zipCode"
+                                          className="m-0"
+                                          placeholder="Zip Code"
+                                          errors={errors}
+                                          innerRef={register({
+                                          required: 'This is required field',
+                                          })}
+                                          fields={fields}/>
+                                        </FormGroup>
+                                    </Col>
+                              </Row>
                                <Row>
-                              <Col>
-                                {/* <div className="form-group mt-4"> */}
+                              <Col xs={12} sm={12} md={6} lg={6}>
+                                  <FormGroup>
                                   <DatePicker 
                                   selected={setDate} 
-                                  className="form-control"
+                                  className="form-control m-0"
                                   placeholderText="Date of Birth"
                                   onChange={date => handleDatechange(date)}
-                                  // value={fields.dateOfBirth}
                                   />
-                              {/* </div> */}
+                                  </FormGroup>
                               </Col>
-                              <Col xs={12} sm={6} md={6} lg={6}>
+                              <Col xs={12} sm={12} md={6} lg={6}>
+                                <FormGroup>
                                   <InputUI
                                   type="number"
                                   name="age"
                                   placeholder="Age"
+                                  className="m-0"
                                   errors={errors}
                                   innerRef={register({
                                   required: 'This is required field',
                                   })}
                                   value={fields.age}/>
+                                  </FormGroup>
                               </Col>
                             </Row>
                             <Row>
-                              <Col xs={12} sm={6} md={6} lg={6}>
-                              <InputUI
+                              <Col xs={12} sm={12} md={6} lg={6}>
+                              <FormGroup>
+                                <InputUI
                                   type="text"
                                   name="maxBudget"
                                   id="maxBudget"
                                   placeholder="Maximum Budget"
+                                  className="m-0"
                                   errors={errors}
                                   innerRef={register({
                                   required: 'This is required field',
                                   })}
                                   fields={fields}/>
+                                  </FormGroup>
                               </Col>
-                              <Col xs={12} sm={6} md={6} lg={6}>
+                              <Col xs={12} sm={12} md={6} lg={6}>
+                              <FormGroup>
                                   <InputUI
                                   type="select"
                                   name="gender"
                                   id="gender"
+                                  className="m-0"
                                   placeholder="Gender"
                                   errors={errors}
                                   innerRef={register({
@@ -340,14 +339,18 @@ const Formsec = (props) => {
                                   <option value="Female">Female</option>
                                   <option value="Other">Other</option>
                                   </InputUI>
-
+                                  </FormGroup>
                               </Col>
                             </Row>
-                            <InputUI
+                            <Row>
+                              <Col xs={12} sm={12} md={12} lg={12}>
+                                <FormGroup>
+                                  <InputUI
                                   type="select"
                                   name="occupation"
                                   id="occupation"
                                   placeholder="occupation"
+                                  className="m-0"
                                   errors={errors}
                                   innerRef={register({
                                   required: 'This is required field',
@@ -361,27 +364,42 @@ const Formsec = (props) => {
                                   <option value="Student">Student</option>
                                   <option value="Engineer">Engineer</option>
                                   <option value="Other">Other</option>
-                            </InputUI>
-                            <InputUI
-                            type="textarea"
-                            name="aboutMe"
-                            id="aboutMe"
-                            placeholder="About Me"
-                            errors={errors}
-                            innerRef={register({
-                             required: 'This is required field',
-                            })}
-                            fields={fields}/>
+                                  </InputUI>
+                                </FormGroup>
+                              </Col>
+                            </Row>
+                            <Row>
+                              <Col xs={12} sm={12} md={12} lg={12}>
+                                <FormGroup>
+                                <InputUI
+                                  type="textarea"
+                                  name="aboutMe"
+                                  id="aboutMe"
+                                  className="m-0"
+                                  placeholder="About Me"
+                                  errors={errors}
+                                  innerRef={register({
+                                  required: 'This is required field',
+                                  })}
+                                  fields={fields}/>
+                                </FormGroup>
+                              </Col>
+                            </Row>
 
-                            <div className="form-group my-4 py-2">
-                              <DatePicker 
-                                selected={setRtoM} 
-                                className="form-control w-100"
-                                //placeholder= "Ready to Move"
-                                placeholderText="Ready to Move"
-                                onChange={e => setReadyToMove(e)} 
-                              />
-                            </div>
+                            <Row>
+                              <Col xs={12} sm={12} md={12} lg={12}>
+                                <FormGroup>
+                                <DatePicker 
+                                    selected={setRtoM} 
+                                    className="form-control w-100 m-0"
+                                    //placeholder= "Ready to Move"
+                                    placeholderText="Ready to Move"
+                                    onChange={e => setReadyToMove(e)} 
+                                  />
+                                </FormGroup>
+                              </Col>
+                            </Row>
+                            
 
                             <MultiSelect
                             options={options}
