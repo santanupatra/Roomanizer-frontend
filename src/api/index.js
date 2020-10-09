@@ -34,7 +34,7 @@ export const callApi = (url, method, data) => {
       .then((response) => {
         console.log("callApi===>>>>", response);
         if (response.status === 200) {
-          resolve(response.data.data);
+          resolve(response.data);
           //alert(response.data.details);
         } else {
           reject();

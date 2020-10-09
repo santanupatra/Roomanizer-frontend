@@ -17,7 +17,7 @@ import {getImageUrl} from '../../../shared/helpers';
 
 
 const Roompic = (props) => {
-  console.log(props.user.user._id)
+  // console.log(props.user.user._id)
   const [userImage,setUserImage] = useState(null)
   const [userDetails,setUserDetails] = useState()
  
