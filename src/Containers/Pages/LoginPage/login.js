@@ -14,19 +14,17 @@ function Login () {
       <div className="home">
         <div className="header">
           <Header></Header>
-            <div className="">
               <Container className="mb-3">
-                <Row className="mt-5 pt-5">
-                  <Col sm={6} className="pr-5">
-                    <h2 className="text-center mb-3">Login</h2>
+                <Row>
+                  <Col xs={12} sm={12} md={12} lg={6} className="pr-lg-5">
+                    <h2 className="white-heading text-center mb-3">Login</h2>
                     <LoginFrom />
                   </Col>
-                  <Col sm={6}>
+                  <Col xs={12} sm={12} md={12} lg={6}>
                     <img src={imagePath.loginImage} alt="image"/>
                   </Col>
                 </Row>
               </Container>
-            </div>
         </div>
       </div>
     )

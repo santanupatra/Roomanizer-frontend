@@ -3,10 +3,10 @@ import './style.css';
 import imagePath from '../../../Config/imageConstants';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Form, FormGroup, Button, Input, Col} from 'reactstrap';
-import { USER_URL } from '../../../shared/allApiUrl';
+import { SIGNUP_URL } from '../../../shared/allApiUrl';
 import { useForm } from "react-hook-form";
 import { crudAction } from '../../../store/actions/common';
-import { withRouter } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import InputUI from '../../../UI/InputUI';
 
@@ -31,7 +31,7 @@ const SignUpFrom = (props) => {
 
 
   const onSubmit = (data) => {
-    props.crudActionCall(USER_URL, data,"ADD");
+    props.crudActionCall(SIGNUP_URL, data,"ADD");
   }
 
   const  handleChange = (name,value)=>{
@@ -100,10 +100,12 @@ const SignUpFrom = (props) => {
                               Sign Up
                             </Button>
                             {/* <Link to="/activeMail" className="login-bt mt-4">Sign up</Link> */}
+                            <div className="text-center">
                             <img src={imagePath.orImage} alt="image"/>
-                            <a href="#"><img src={imagePath.fbImage} alt="image"/></a>
-                            <a href="#"><img src={imagePath.gsImage} alt="image"/></a>
-                            <a href="/login" className="forgot mt-3 mb-0">Already have an account? <span>Login</span></a>
+                              <NavLink to="#"><img src={imagePath.fbImage} alt="image"/></NavLink>
+                              <NavLink to="#"><img src={imagePath.gsImage} alt="image"/></NavLink>
+                            </div>
+                            <NavLink to="/login" className="forgot mt-3 mb-0">Already have an account? <span>Login</span></NavLink>
                           </Col>
                         </FormGroup>
                       </Form>

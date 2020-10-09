@@ -22,6 +22,19 @@
   font-size: 24px;
   color: #000;
 }
+.navigation .dropdown-menu a{
+  display: block;
+  padding: 5px 10px;
+  font-size: 15px;
+  color: #555;
+}
+.navigation .dropdown-menu a:hover{
+  background-color: #014d81;
+  color: #fff;
+}
+.navigation .dropdown-toggle:focus{
+  box-shadow: none !important;
+}
 
 @media(max-width:767px){
   .navbar-toggler{
@@ -38,5 +51,11 @@
   }
   .navigation .navbar-light .navbar-nav .nav-link{
     border-right: none;
+  }
+  .how h1{
+    font-size: 24px;
+  }
+  .how h2{
+    font-size: 20px;
   }
 }

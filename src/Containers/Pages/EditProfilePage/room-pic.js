@@ -9,7 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Nav, NavItem, NavLink } from 'reactstrap';
 import { Button, Form, FormGroup, Label, Input, FormFeedback, FormText } from 'reactstrap';
 import { InputGroup, InputGroupAddon, InputGroupText, CustomInput, } from 'reactstrap';
-import {ROOMPICTURE_URL} from '../../../shared/allApiUrl';
+import {USER_URL} from '../../../shared/allApiUrl';
 import { crudAction } from '../../../store/actions/common';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -50,7 +50,7 @@ const Roompic = (props) => {
      console.log(props.userId)
 
       if(props.userId){
-        props.crudActionCall(`${ROOMPICTURE_URL}/${props.userId}`, formData, "UPDATE")
+        props.crudActionCall(`${USER_URL}/profilePicture/${props.userId}`, formData, "UPDATE")
 
       }
       //setDropdownOpen(false)

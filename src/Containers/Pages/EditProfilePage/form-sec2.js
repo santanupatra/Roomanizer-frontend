@@ -19,11 +19,9 @@ import { useForm } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import InputUI from '../../../UI/InputUI';
 import moment from 'moment';
-import { VIEWPROFILE_URL } from '../../../shared/allApiUrl';
-import {EDITLANDLORD_URL} from '../../../shared/allApiUrl'
-import {ROOM_URL} from '../../../shared/allApiUrl'
+
+import {LANDLORD_URL,USER_URL,CITY_URL} from '../../../shared/allApiUrl'
 import {axiosApiCall} from "../../../api/index";
-import {CITY_URL} from '../../../shared/allApiUrl'
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
@@ -85,12 +83,11 @@ const Formsec2 = (props) => {
   useEffect(() => {
     const  cmsDetail = async()=>{
     setUserId(params.userId)
-    if (params.userId) props.crudActionCall(`${VIEWPROFILE_URL}/${params.userId}`, null, "GET")
-    // props.crudActionHouseCall(`${ROOM_URL}/${params.userId}`, null, "GET")
+    if (params.userId) props.crudActionCall(`${USER_URL}/${params.userId}`, null, "GET")
     props.crudActionHouseCall(HOUSE_RULE_URL, null, "GET_ALL")
     props.crudActionCityCall(CITY_URL, null, "GET_ALL")
 
-    let {data}  =  await axiosApiCall.get(`${ROOM_URL}/${params.userId}`, null)
+    let {data}  =  await axiosApiCall.get(`${LANDLORD_URL}/${params.userId}`, null)
 
     setField({ ...field, ...data.data })
 
@@ -130,7 +127,7 @@ const Formsec2 = (props) => {
     if (setRtoM) data.moveIn = setRtoM;
     if (field.houseRules) data.houseRules=field.houseRules
     if (field.aminities) data.aminities=field.aminities
-    props.crudActionCall(EDITLANDLORD_URL + `/${userId}`, data, "UPDATE");
+    props.crudActionCall(LANDLORD_URL + `/${userId}`, data, "UPDATE");
     props.resetAction();
   }
 
@@ -197,19 +194,6 @@ const Formsec2 = (props) => {
       .then(({ lat, lng }) => {
               console.log("lat==",lat,"lng==",lng)
               console.log(address);
-            //  console.log(address.structured_formatting.main_text);
-            //  console.log(address.structured_formatting.secondary_text);
-              // Geocode.fromLatLng(lat, lng).then(
-              //   response => {
-              //     const zipCode = response.results[1].address_components[0].long_name;
-              //     setFields((prevState) => ({ ...prevState, ["zipCode"]: zipCode }));
-              //     console.log("response====",response);
-        
-              //   },
-              //   error => {
-              //     console.error(error);
-              //   }
-              // );
               setField((prevState) => ({ ...prevState, ["address"]: address }));
               setField((prevState) => ({ ...prevState, ["longitude"]: lng }));
               setField((prevState) => ({ ...prevState, ["latitude"]: lat }));
@@ -254,11 +238,11 @@ const Formsec2 = (props) => {
                             <Row>
                             {/* <Input type="text" name="email" id="exampleEmail" placeholder="Location" /> */}
                             <PlacesAutocomplete
-                      onChange={handleChang}
-                      onSelect={handleSelect}
-                      searchOptions={searchOptions}
-                      value={field.address}
-                    >
+                              onChange={handleChang}
+                              onSelect={handleSelect}
+                              searchOptions={searchOptions}
+                              value={field.address}
+                            >
                       {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                         <div>
                           <input

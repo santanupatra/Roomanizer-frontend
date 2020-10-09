@@ -9,7 +9,7 @@ import Cardbox from './card';
 import Footer from '../../Common/footer';
 import { connect } from "react-redux";
 import { crudAction } from "../../../store/actions/common";
-import { USERLIST_URL } from '../../../shared/allApiUrl';
+import { USER_URL } from '../../../shared/allApiUrl';
 import { getImageUrl } from '../../../shared/helpers';
 import { withRouter } from 'react-router-dom';
 import moment from 'moment'
@@ -19,7 +19,7 @@ const RoomMateSearch =(props)=> {
 
   console.log(props.user.userList.count)
   const getUserList = () => {
-    props.crudActionCall(USERLIST_URL + '?keyword&page=0', null, "GET_ALL")
+    props.crudActionCall(USER_URL + '?keyword&page=0', null, "GET_ALL")
 }
 
 useEffect(() => {

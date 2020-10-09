@@ -2,27 +2,19 @@ import React,{useState , useEffect} from 'react';
 import './style.css';
 import imagePath from '../../../Config/imageConstants';
 import { Container, Row, Col, Navbar } from 'reactstrap';
-import { fab } from '@fortawesome/free-brands-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Nav, NavItem, NavLink } from 'reactstrap';
 import { Button, Form, FormGroup, Label, Input, FormFeedback, FormText } from 'reactstrap';
-import { InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
 import MultiSelect from "react-multi-select-component";
-import { VIEWPROFILE_URL } from '../../../shared/allApiUrl';
-import { EDITPROFILE_URL } from '../../../shared/allApiUrl';
+import { USER_URL,HOUSE_RULE_URL ,CITY_URL} from '../../../shared/allApiUrl';
 import { crudAction } from '../../../store/actions/common';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import InputUI from '../../../UI/InputUI';
-import Facebook from '../facebook';
-import Twitter from '../twitter';
-import Gsuite from '../gSuite';
+
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from 'moment';
-import {HOUSE_RULE_URL} from '../../../shared/allApiUrl'
-import {CITY_URL} from '../../../shared/allApiUrl'
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
@@ -63,7 +55,7 @@ const Formsec = (props) => {
  
   useEffect(() => {
     setUserId(params.userId)
-    if (params.userId) props.crudActionCall(`${VIEWPROFILE_URL}/${params.userId}`, null, "GET")
+    if (params.userId) props.crudActionCall(`${USER_URL}/${params.userId}`, null, "GET")
     props.crudActionHouseCall(HOUSE_RULE_URL, null, "GET_ALL")
     props.crudActionCityCall(CITY_URL, null, "GET_ALL")
 
@@ -93,7 +85,7 @@ const Formsec = (props) => {
     data.address = fields.address;
     if (fields.houseRules) data.houseRules=fields.houseRules
     console.log(data)
-    props.crudActionCall(EDITPROFILE_URL + `/${userId}`, data, "UPDATE");
+    props.crudActionCall(USER_URL + `/${userId}`, data, "UPDATE");
     props.resetAction();
   }
 
