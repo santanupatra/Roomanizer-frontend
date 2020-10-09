@@ -202,24 +202,23 @@ const Formsec2 = (props) => {
       <div className="">
         
                       <Form onSubmit={handleSubmit(onSubmit)}>
-                        <FormGroup row>
-                          <Col sm={12}>
                             <Row>
-                              <Col className="pr-0">
-                                {/* <Input type="text" name="name" id="examplename" placeholder="First Name" /> */}
-                                <InputUI
-                                  type="text"
-                                  name="firstName"
-                                  id="firstName"
-                                  placeholder="First Name"
-                                  errors={errors}
-                                  innerRef={register({
-                                  required: 'This is required field',
-                                  })}
-                                  fields={fields}/>
+                              <Col xs={12} sm={12} md={6} lg={6}>
+                                <FormGroup>
+                                  <InputUI
+                                    type="text"
+                                    name="firstName"
+                                    id="firstName"
+                                    placeholder="First Name"
+                                    errors={errors}
+                                    innerRef={register({
+                                    required: 'This is required field',
+                                    })}
+                                    fields={fields}/>
+                                </FormGroup>
                               </Col>
-                              <Col>
-                                {/* <Input type="text" name="name" id="examplename" placeholder="Last Name" /> */}
+                              <Col xs={12} sm={12} md={6} lg={6}>
+                                <FormGroup>
                                 <InputUI
                                   type="text"
                                   name="lastName"
@@ -230,119 +229,112 @@ const Formsec2 = (props) => {
                                   required: 'This is required field',
                                   })}
                                   fields={fields}/>
+                                  </FormGroup>
                               </Col>
                             </Row>
                             <Row>
-                            {/* <Input type="text" name="email" id="exampleEmail" placeholder="Location" /> */}
+                              <Col xs={12} sm={12} md={12} lg={12}>
+                                <FormGroup>
                             <PlacesAutocomplete
                               onChange={handleChang}
                               onSelect={handleSelect}
                               searchOptions={searchOptions}
                               value={field.address}
                             >
-                      {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                        <div>
-                          <input
-                            {...getInputProps({
-                              placeholder: 'Search Places ...',
-                              className: 'location-search-input',
-                            })}
-                          />
-                          <div className="autocomplete-dropdown-container">
-                            {loading && <div>Loading...</div>}
-                            {suggestions.map(suggestion => {
-                              const className = suggestion.active
-                                ? 'suggestion-item--active'
-                                : 'suggestion-item';
-                              // inline style for demonstration purpose
-                              const style = suggestion.active
-                                ? { backgroundColor: '#fafafa', cursor: 'pointer' }
-                                : { backgroundColor: '#ffffff', cursor: 'pointer' };
-                              return (
-                                <div
-                                  {...getSuggestionItemProps(suggestion, {
-                                    className,
-                                    style,
-                                  })}
-                                >
-                                  <span>{suggestion.description}</span>
+                              {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                                <div>
+                                  <input
+                                    {...getInputProps({
+                                      placeholder: 'Search Places ...',
+                                      className: 'location-search-input',
+                                    })}
+                                  />
+                                  <div className="autocomplete-dropdown-container">
+                                    {loading && <div>Loading...</div>}
+                                    {suggestions.map(suggestion => {
+                                      const className = suggestion.active
+                                        ? 'suggestion-item--active'
+                                        : 'suggestion-item';
+                                      // inline style for demonstration purpose
+                                      const style = suggestion.active
+                                        ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                                        : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                                      return (
+                                        <div
+                                          {...getSuggestionItemProps(suggestion, {
+                                            className,
+                                            style,
+                                          })}
+                                        >
+                                          <span>{suggestion.description}</span>
+                                        </div>
+                                      );
+                                    })}
+                                  </div>
                                 </div>
-                              );
-                            })}
-                          </div>
-                        </div>
-                      )}
-                    </PlacesAutocomplete>  
+                              )}
+                              </PlacesAutocomplete> 
+                              </FormGroup> 
+                              </Col>
                             </Row>
                            <Row>
-                            <Col>
-                            {/* <InputUI
-                                  type="text"
-                                  name="city"
-                                  id="city"
-                                  placeholder="City"
-                                  errors={errors}
-                                  innerRef={register({
-                                  required: 'This is required field',
-                                  })}
-                                  fields={field}/> */}
-                                        <Input
-                                        type="select"
-                                        name="city"
-                                        id="city"
-                                        innerRef={register}
-                                        value={field.city}
-                                        onChange={(e) =>
-                                          handlechange(e.target.name, e.target.value)
-                                        }
-                                      >
-                                        <option selected disabled>Select A City....</option>
-                                      {
-                                          props.city && props.city.cityList.map((val) =>{
-                                          return(
-                                            // <option value={val._id}>{val.cityName}</option>
-                                            <option>{val.cityName}</option>
-                                          );
-                                        })
-                                        } 
-                          
-                                     </Input>
-                            
+                            <Col xs={12} sm={12} md={6} lg={6}>
+                              <FormGroup>
+                                <Input
+                                type="select"
+                                name="city"
+                                id="city"
+                                innerRef={register}
+                                value={field.city}
+                                onChange={(e) =>
+                                  handlechange(e.target.name, e.target.value)
+                                }>
+                                  <option selected disabled>Select A City....</option>
+                                {
+                                    props.city && props.city.cityList.map((val) =>{
+                                    return(
+                                      // <option value={val._id}>{val.cityName}</option>
+                                      <option>{val.cityName}</option>
+                                    );
+                                  })
+                                  } 
+                                </Input>
+                              </FormGroup>
                             </Col>
-                            
-                            <Col>
-                            <InputUI
-                                  type="number"
-                                  name="zipCode"
-                                  id="zipCode"
-                                  placeholder="Zip Code"
-                                  errors={errors}
-                                  innerRef={register({
-                                  required: 'This is required field',
-                                  })}
-                                  fields={field}/>
-                            
-                            
-                            
+                            <Col xs={12} sm={12} md={6} lg={6}>
+                              <FormGroup>
+                                <InputUI
+                                      type="number"
+                                      name="zipCode"
+                                      id="zipCode"
+                                      placeholder="Zip Code"
+                                      errors={errors}
+                                      innerRef={register({
+                                      required: 'This is required field',
+                                      })}
+                                      fields={field}/>
+                              </FormGroup>
                             </Col>
                             </Row>
-                            {/* <Input type="text" name="email" id="exampleEmail" placeholder="Maximum Budget" /> */}
-                             <Row>
-                             <Col>
-                                  <InputUI
-                                  type="text"
-                                  name="roomName"
-                                  id="roomName"
-                                  placeholder="Room Name"
-                                  errors={errors}
-                                  innerRef={register({
-                                  required: 'This is required field',
-                                  })}
-                                  fields={field}/>                                   
-                            </Col>
-                            <Col>
                             
-                            <InputUI
+                             <Row>
+                              <Col xs={12} sm={12} md={6} lg={6}>
+                                <FormGroup>
+                                    <InputUI
+                                    type="text"
+                                    name="roomName"
+                                    id="roomName"
+                                    placeholder="Room Name"
+                                    errors={errors}
+                                    innerRef={register({
+                                    required: 'This is required field',
+                                    })}
+                                    fields={field}/>
+                                  </FormGroup>             
+                              </Col>
+                            <Col xs={12} sm={12} md={6} lg={6}>
+                              <FormGroup>
+                              <InputUI
                                   type="number"
                                   name="area"
                                   id="area"
@@ -351,34 +343,39 @@ const Formsec2 = (props) => {
                                   innerRef={register({
                                   required: 'This is required field',
                                   })}
-                                  fields={field}/>  
-                            
+                                  fields={field}/>
+                                  </FormGroup>
                             </Col>
                             </Row>
-                            {/* <Input type="textarea" name="text" id="exampleText" placeholder="About Room" /> */}
-                            <InputUI
-                            type="textarea"
-                            name="aboutRoom"
-                            id="aboutRoom"
-                            placeholder="About Room"
-                            errors={errors}
-                            innerRef={register({
-                             required: 'This is required field',
-                            })}
-                            fields={field}/>
                             <Row>
-                              <Col>
-                                {/* <div className="form-group mt-4"> */}
+                              <Col xs={12} sm={12} md={12} lg={12}>
+                              <FormGroup>
+                              <InputUI
+                                type="textarea"
+                                name="aboutRoom"
+                                id="aboutRoom"
+                                placeholder="About Room"
+                                errors={errors}
+                                innerRef={register({
+                                required: 'This is required field',
+                                })}
+                                fields={field}/>
+                                </FormGroup>
+                              </Col>
+                            </Row>
+                            <Row>
+                              <Col xs={12} sm={12} md={6} lg={6}>
+                                <FormGroup>
                                   <DatePicker 
                                   selected={setDate} 
                                   className="form-control"
                                   placeholderText="Date of Birth"
                                   onChange={date => handleDatechange(date)}
-                                  // value={fields.dateOfBirth}
                                   />
-                              {/* </div> */}
+                                  </FormGroup>
                               </Col>
-                              <Col className="pl-0">
+                              <Col xs={12} sm={12} md={6} lg={6}>
+                                <FormGroup>
                                   <InputUI
                                   type="number"
                                   name="age"
@@ -388,6 +385,7 @@ const Formsec2 = (props) => {
                                   required: 'This is required field',
                                   })}
                                   value={fields.age}/>
+                                  </FormGroup>
                               </Col>
                             </Row>
 
@@ -399,18 +397,6 @@ const Formsec2 = (props) => {
                                 <CustomInput type="radio" id="radio3" label="4+ Bedroom" />
                               </div>
                             </FormGroup>
-
-                            {/* <FormGroup>
-                              <Label for="exampleCheckbox" className="filter-mod">Listing Amenities</Label>
-                              <div className="filt d-flex justify-content-between">
-                                <CustomInput type="checkbox"id="exampleCustomCheckbox10" label="In-unit Washer" />
-                                <CustomInput type="checkbox" id="exampleCustomCheckbox11" label="Furnished" />
-                                <CustomInput type="checkbox" id="exampleCustomCheckbox12" label="Private Bathroom" />
-                              </div>
-                              <div className="filt d-flex justify-content-between">                
-                                <CustomInput type="checkbox" id="exampleCustomCheckbox16" label="Outdoor Space" />
-                              </div>
-                            </FormGroup> */}
                                    <Label for="exampleCheckbox" className="filter-mod">Listing Amenities</Label>
                               <div className="filt d-flex justify-content-between"></div>
                                      <MultiSelect
@@ -420,23 +406,7 @@ const Formsec2 = (props) => {
                                         onChange={(value) =>
                                         handlechange1(value) 
                                         }
-                                        // onChange={handlechange}
                                          labelledBy={"Preferences for house rules"}/>
-                                      
-                            {/* <FormGroup>
-                              <Label for="exampleCheckbox" className="filter-mod">House Rules</Label>
-                                <div className="filt d-flex justify-content-between flex-wrap">
-                                  <CustomInput type="checkbox" id="exampleCustomCheckbox" label="No Smoking" />
-                                  <CustomInput type="checkbox" id="exampleCustomCheckbox2" label="No Pets" />
-                                  <CustomInput type="checkbox" id="exampleCustomCheckbox3" label="No Drugs" />
-                                  <CustomInput type="checkbox" id="exampleCustomCheckbox4" label="No Drinking" />               
-                                
-                                  <CustomInput type="checkbox" id="exampleCustomCheckbox5" label="Dogs Ok" />
-                                  <CustomInput type="checkbox" id="exampleCustomCheckbox6" label="Cats Ok" />
-                                  <CustomInput type="checkbox" id="exampleCustomCheckbox7" label="Other Pets Ok" />
-                                  <CustomInput type="checkbox" id="exampleCustomCheckbox8" label="Couples Ok" />
-                                </div>
-                            </FormGroup> */}
                                   <Label for="exampleCheckbox" className="filter-mod">House Rules</Label>
                                 <div className="filt d-flex justify-content-between flex-wrap"></div>    
                                       <MultiSelect
@@ -446,18 +416,11 @@ const Formsec2 = (props) => {
                                         onChange={(value) =>
                                         handlechange(value) 
                                         }
-                                        // onChange={handlechange}
                                          labelledBy={"Preferences for house rules"}/>
                                       
                                       
                               <Row>
                                 <Col className="pr-0">
-                                  {/* <Input type="select" name="select" id="exampleSelect">
-                                    <option>Flatmates</option>
-                                    <option>Male</option>
-                                    <option>Female</option>
-                                    <option value="Other">Other</option>
-                                  </Input> */}
                                   <InputUI
                                   type="select"
                                   name="flatmates"
@@ -652,8 +615,6 @@ const Formsec2 = (props) => {
                               <a href="#"><img src={imagePath.fbImage} alt="image"/></a>
                               <a href="#"><img src={imagePath.gsImage} alt="image"/></a>
                               </div>
-                          </Col>
-                        </FormGroup>
                       </Form>
       </div>
     );
