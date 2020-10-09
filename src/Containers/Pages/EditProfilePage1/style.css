@@ -117,13 +117,6 @@ input:-internal-autofill-selected {
   .slider.round:before {
     border-radius: 50%;
   }
-  .toggle{
-    font-size: 14px;
-    color: #3c3c3c;
-    font-weight: 600;
-    line-height: 40px;
-    border-right: 1px solid #3c3c3c;
-  }
   .user-pic{
     position: relative;
   }
