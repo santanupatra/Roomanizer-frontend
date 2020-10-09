@@ -153,17 +153,20 @@ const Formsec2 = (props) => {
   }
      
   
-  const handleChange = (name,value)=>{
-    setFields((prevState) => ({ ...prevState, [name]: value }));
+  const handleChange7 = (name,value)=>{
+    setField((prevState) => ({ ...prevState, [name]: value }));
   }
   const handleChange2 = (name,value)=>{
-    setFields((prevState) => ({ ...prevState, [name]: value }));
+    setField((prevState) => ({ ...prevState, [name]: value }));
   }
   const handleChange3 = (name,value)=>{
-    setFields((prevState) => ({ ...prevState, [name]: value }));
+    setField((prevState) => ({ ...prevState, [name]: value }));
   }
   const handleChange4 = (name,value)=>{
-    setFields((prevState) => ({ ...prevState, [name]: value }));
+    setField((prevState) => ({ ...prevState, [name]: value }));
+  }
+  const  handlechange5 = (name,value)=>{
+    setField((prevState) => ({ ...prevState, [name]: value }));
   }
   
  
@@ -309,7 +312,7 @@ const Formsec2 = (props) => {
                                         innerRef={register}
                                         value={field.city}
                                         onChange={(e) =>
-                                          handlechange(e.target.name, e.target.value)
+                                          handlechange5(e.target.name, e.target.value)
                                         }
                                       >
                                         <option selected disabled>Select A City....</option>
@@ -485,7 +488,7 @@ const Formsec2 = (props) => {
                                   })}
                                   value={field.flateMate}
                                   onChange={(e) =>
-                                    handleChange(e.target.name, e.target.value)
+                                    handleChange7(e.target.name, e.target.value)
                                   }
                                   >
                                   <option>Choose your Flatmates </option>
@@ -515,8 +518,11 @@ const Formsec2 = (props) => {
                                   }
                                   >
                                   <option>Choose your Age Range </option>
-                                  <option value="20-30 Age">20-30 Age</option>
-                                  <option value="30-40 Age">30-40 Age</option>
+                                  <option value="Early 20s">Early 20s</option>
+                                  <option value="Late 20s">Late 20s</option>
+                                  <option value="30s">30s</option>
+                                  <option value="40s and older">40s and older</option>
+
                                   
                                   </InputUI>
                                   
@@ -532,7 +538,7 @@ const Formsec2 = (props) => {
                                 </Input> */}
                                 <DatePicker 
                                 selected={setRtoM} 
-                                className="form-control"
+                                className="form-control w-100"
                                 
                                 placeholderText="Move In ?"
                                 onChange={e => setmoveIn(e)} 
@@ -559,8 +565,10 @@ const Formsec2 = (props) => {
                                   }
                                   >
                                   <option>Choose your Duration </option>
-                                  <option value="1-12 Months">1-12 Months</option>
-                                  <option value="1-10 Months">1-10 Months</option>
+                                  <option value="1-3 Months">1-3 Months</option>
+                                  <option value="3-6 Months">3-6 Months</option>
+                                  <option value="6+ Months">6+ Months</option>
+
                                   
                                   </InputUI>
                               </Col>
