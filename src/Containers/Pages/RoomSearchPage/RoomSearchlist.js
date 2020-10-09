@@ -19,7 +19,7 @@ const Searchlist = (props) => {
     return (
               <div>
                   
-                  <div className="px-2 d-sm-flex d-md-flex d-lg-flex justify-content-between align-items-center">
+                  <div className="px-2 d-sm-flex d-md-flex d-lg-flex justify-content-between align-items-center pb-3">
                     <h3 className="heading1 mt-3 mb-4">All Roommates    <span class="result">28 Results</span></h3>
 
                     <Nav tabs>

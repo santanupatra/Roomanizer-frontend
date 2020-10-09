@@ -167,6 +167,7 @@ const Formsec = (props) => {
                                   type="text"
                                   name="firstName"
                                   id="firstName"
+                                  className="m-0"
                                   placeholder="First Name"
                                   errors={errors}
                                   innerRef={register({

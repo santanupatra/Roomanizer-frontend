@@ -227,10 +227,10 @@ input:-internal-autofill-selected {
 }
 @media(max-width:767px){
   .toggle{
-    color: #fff !important;
-    display: block;
-    border:none;
+    /* color: #fff !important; */
+    display: block !important;
+    border:none !important;
     padding: 0px !important;
-    margin: 5px 0px;
+    margin: 5px 0px !important;
   }
 }
