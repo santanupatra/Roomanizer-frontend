@@ -35,14 +35,14 @@ const EditProfile1 =(props)=> {
 
 
     return (
-        <div>
+        <div className="col">
             <Row className="">
-                  <Col xs={12} sm={12} md={6} lg={6} className="order-2 order-sm-2 order-md-1 order-lg-1">
+                  <Col xs={12} sm={12} md={8} lg={6} className="order-2 order-sm-2 order-md-1 order-lg-1">
                         <div className="login-form mb-5">
                           <Formsec></Formsec>
                         </div>
                   </Col>
-                  <Col xs={12} sm={12} md={6} lg={6} className="text-center order-1 order-sm-1 order-md-2 order-lg-2">
+                  <Col xs={12} sm={12} md={4} lg={6} className="text-center order-1 order-sm-1 order-md-2 order-lg-2">
                     <Userpic userId={ userId}></Userpic>
                   </Col>
             </Row>
