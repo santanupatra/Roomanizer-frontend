@@ -11,7 +11,7 @@ import { crudAction } from "../../../store/actions/common";
 import { USER_URL } from '../../../shared/allApiUrl';
 //import { getImageUrl } from '../../../hared/helpers';
 import moment from 'moment'
-import { withRouter } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import {getImageUrl} from '../../../shared/helpers'
 
 
@@ -86,9 +86,9 @@ const Formsec = (props) => {
                         <input type="checkbox"/>
                         <span class="slider round"></span>
                       </label>
-                      <span className="mt-2 mb-5 d-flex justify-content-between">
-                        <a href="#" className="toggle pr-3 text-right">I am looking for a room</a>
-                        <a href="#" className="toggle border-right-0 pl-3 text-left">I have an available room</a>
+                      <span className="mt-2 mb-5 d-md-flex d-lg-flex justify-content-between">
+                        <NavLink className="toggle pr-3">I am looking for a room</NavLink>
+                        <NavLink className="toggle border-right-0 pl-3">I have an available room</NavLink>
                       </span>
                     </div>
                     <a href="#" className="login-bt mb-2">Messsage</a>

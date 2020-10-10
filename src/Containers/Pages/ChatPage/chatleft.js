@@ -9,13 +9,13 @@ const ChatLeft = (props) => {
     return (
           <div className="p-4 border-bottom">
             <Row>
-              <Col sm={3} className="">
+              <Col xs={3} sm={3} md={3} lg={3} className="">
                 <div className="chatpic">
                   <img src={imagePath.chatpicImage} alt="image"/>
                   <div className="green-ball"></div>
                 </div>
               </Col>
-              <Col sm={9} className="d-flex justify-content-between pl-0">
+              <Col xs={9} sm={9} md={9} lg={9} className="d-flex justify-content-between pl-0">
                 <div>
                     <h6>Ruby Perrin</h6>
                     <p>Hey, How are you?</p>

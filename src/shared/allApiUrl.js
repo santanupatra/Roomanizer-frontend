@@ -12,14 +12,4 @@ export const CMS_URL = 'cms-api/cms';
 export const CONTACTUS_URL = 'contactUs-api/contactUs';
 export const USER_URL = 'user-api';
 export const LANDLORD_URL = 'landlord-api'
-
-
-
-
-
-
-
-
-
-
-
+export const AMINITIES_URL = 'setting-api/aminities';

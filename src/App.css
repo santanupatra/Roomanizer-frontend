@@ -153,4 +153,7 @@ button:focus{
     display: block;
     margin-left: 0px;
   }
+  .white-heading{
+    font-size: 24px;
+  }
 }

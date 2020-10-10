@@ -57,13 +57,6 @@
     border: 2px solid #000;
     transition: .4s;
 }
-.toggle {
-    font-size: 14px;
-    color: #3c3c3c;
-    font-weight: 600;
-    line-height: 22px;
-    border-right: 1px solid #3c3c3c;
-}
 .blue{
     color: #014d81;
 }

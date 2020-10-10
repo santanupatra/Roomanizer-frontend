@@ -35,12 +35,12 @@ const EditProfile2 =(props)=> {
     return (
       <div className="">
                 <Row className="">
-                  <Col sm={6} className="pr-5">
+                  <Col xs={12} sm={12} md={6} lg={6} className="pr-5">
                         <div className="login-form mb-5">
                           <Formsec2></Formsec2>
                         </div>
                   </Col>
-                  <Col sm={6} className="pr-5 text-center">
+                  <Col xs={12} sm={12} md={6} lg={6} className="pr-5 text-center">
                     <Roompic userId={ userId} ></Roompic>
                   </Col>
                 </Row>
