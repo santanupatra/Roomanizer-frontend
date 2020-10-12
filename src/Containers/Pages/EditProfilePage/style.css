@@ -218,3 +218,19 @@ input:-internal-autofill-selected {
 .filt .custom-checkbox{
   width: 150px;
 }
+
+@media(max-width:991px){
+  .user-pic img{
+    width: 200px;
+    height: 200px;
+  }
+}
+@media(max-width:767px){
+  .toggle{
+    /* color: #fff !important; */
+    display: block !important;
+    border:none !important;
+    padding: 0px !important;
+    margin: 5px 0px !important;
+  }
+}

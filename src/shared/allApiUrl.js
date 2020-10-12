@@ -19,14 +19,4 @@ export const EDITLANDLORD_URL = 'landlord-api/landlord'
 export const ROOM_URL = 'landlord-api/room'
 export const USER_URL = 'user-api';
 export const LANDLORD_URL = 'landlord-api'
-
-
-
-
-
-
-
-
-
-
-
+export const AMINITIES_URL = 'setting-api/aminities';

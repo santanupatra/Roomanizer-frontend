@@ -32,7 +32,7 @@ export const login = (val) => {
             localStorage.setItem('access-token', data.data.token);
             localStorage.setItem('userId', data.data.userDetails._id);
            // localStorage.setItem('itemName', "#")
-            localStorage.setItem('userType', data.data.userType?data.data.userType:'');
+            localStorage.setItem('userType', data.data.userDetails.userType?data.data.userDetails.userType:'');
             localStorage.setItem('permission', data.data.permission?data.data.permission:'');
            console.log(data.data.userDetails._id);
            const a = localStorage.getItem('userId')

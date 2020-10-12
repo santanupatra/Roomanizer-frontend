@@ -77,16 +77,14 @@ occupation:" "
                   <Col>
                       <div className="page-bg">  
                       
-                        <Row className="p-5">
-                          <Col sm={4}>
+                        <Row className="p-3 p-sm-5 p-md-5 p-lg-5">
+                          <Col xs={12} sm={12} md={12} lg={4}>
                             <Formsec></Formsec>
                           </Col>
-                         
-                          <Col sm={8}>
+                          <Col xs={12} sm={12} md={12} lg={8}>
                             <div className="about mt-0">
-                            
-                                      <h4>About {fields.firstName + ' ' + fields.lastName}</h4>
-                                    <p>{fields.aboutMe}</p>
+                              <h4>About {fields.firstName + ' ' + fields.lastName}</h4>
+                              <p>{fields.aboutMe}</p>
                             </div>
                             <div className="about">
                               <h4>Maximum Budget:</h4>

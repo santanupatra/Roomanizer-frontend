@@ -14,7 +14,7 @@ import { connect } from 'react-redux';
 import Navbaar from './Navbar';
 import LoginNavbar from './LoginNavbar';
 import { crudAction } from '../../store/actions/common';
-import { withRouter } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 
  const  Header =(props)=> {
 
@@ -54,7 +54,7 @@ import { withRouter } from 'react-router-dom';
     
 
   }, [props.setting]);
-   console.log('propsuser',props);
+   //console.log('propsuser',props);
   const userId = localStorage.getItem('userId');
   const userToken = localStorage.getItem('access-token')
 
@@ -64,9 +64,10 @@ import { withRouter } from 'react-router-dom';
             <Container className="mb-3">
               <Row className="align-items-center">
                 <Col xs={12} sm={12} md={3} lg={3}>
-                  <a href="/">
-                    <img src={getImageUrl(fields.siteLogo)} href="/" alt="image"/>
-                  </a>
+                  <NavLink to="/">
+                    {/* <img src={getImageUrl(fields.siteLogo)} href="/" alt="image"/> */}
+                    <img src={imagePath.LogoImage}  alt="image"/>
+                  </NavLink>
                 </Col>
                 <Col xs={12} sm={12} md={9} lg={9}>
                   {userToken?<LoginNavbar />:<Navbaar />}

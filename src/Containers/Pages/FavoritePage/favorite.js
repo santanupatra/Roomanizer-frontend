@@ -31,15 +31,15 @@ const Home =(props)=>{
                         
                         <Row className="px-2 py-4">
 
-                          <Col sm={4} className="px-4">  
+                          <Col xs={12} sm={12} md={6} lg={4} className="px-4">  
                             <Cardbox></Cardbox>
                           </Col>
 
-                          <Col sm={4} className="px-4">  
+                          <Col xs={12} sm={12} md={6} lg={4} className="px-4">  
                             <Cardbox></Cardbox>
                           </Col>
 
-                          <Col sm={4} className="px-4">  
+                          <Col xs={12} sm={12} md={6} lg={4} className="px-4">  
                             <Cardbox></Cardbox>
                           </Col>
 

@@ -26,7 +26,7 @@ const Home =(props)=>{
                       <div className="page-bg">  
                         <div className= "">
                           <Row>
-                            <Col sm={5} className="border-right pr-0">
+                            <Col xs={12} sm={12} md={12} lg={5} className="border-right pr-0">
                                 <div className="px-4 py-3 border-bottom">
                                   <h3 className="mt-4 mb-0">Chats</h3>
                                 </div>
@@ -48,7 +48,7 @@ const Home =(props)=>{
                                 </div>
 
                             </Col>
-                            <Col sm={7} className="pl-0">
+                            <Col xs={12} sm={12} md={12} lg={7} className="pl-0">
                               <div className="px-4 py-3 border-bottom">
                                 <Row>
                                   <Col sm={2} className="">
@@ -57,16 +57,14 @@ const Home =(props)=>{
                                       <div className="green-ball"></div>
                                     </div>
                                   </Col>
-                                  <Col sm={5}>
-                                  </Col>
-                                  <Col sm={5} className="chat-icon">
+                                  {/* <Col sm={5} className="chat-icon">
                                     <div className="d-flex justify-content-between mt-4">
                                       <a href="#"><FontAwesomeIcon icon={faCalendar} /></a>
                                       <a href="#"><FontAwesomeIcon icon={faPhone} /></a>
                                       <a href="#"><FontAwesomeIcon icon={faVideo} /></a>
                                       <a href="#"><FontAwesomeIcon icon={faEllipsisV} /></a>
                                     </div>
-                                  </Col>
+                                  </Col> */}
                                 </Row>
                               </div>
 
