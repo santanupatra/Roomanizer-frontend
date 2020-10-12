@@ -25,7 +25,11 @@ const Cardbox = (props) => {
 
     <Card>
       <div className="listingImgBox">
+        {val.profilePicture ?
         <CardImg  src={getImageUrl(val.profilePicture)} alt="Card image cap" />
+        :
+        <CardImg  src={imagePath.noImage} alt="Card image cap" />
+        }
       </div>
       <CardBody>
         <div className="d-flex justify-content-between align-items-center">
