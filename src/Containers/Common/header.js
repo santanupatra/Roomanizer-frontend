@@ -54,7 +54,7 @@ import { NavLink, withRouter } from 'react-router-dom';
     
 
   }, [props.setting]);
-   console.log('propsuser',props);
+   //console.log('propsuser',props);
   const userId = localStorage.getItem('userId');
   const userToken = localStorage.getItem('access-token')
 
