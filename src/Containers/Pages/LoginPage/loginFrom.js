@@ -52,7 +52,8 @@ function LoginFrom(props) {
   modal api calling
   */
  const onSubmit_1 = async(data) => {
-  if (status === false) {
+   console.log(data)
+ if (status === false ) {
   try {
   await callApi(FORGET_PASSWORD_URL,"POST",data);
   setStatus(true);
@@ -68,7 +69,12 @@ function LoginFrom(props) {
     });
   }
 }
-else {
+else if(data.password!=data.confirmPassword){
+  toast.error("Password and Confirm_Password not match!", {
+    position: toast.POSITION.TOP_CENTER
+});
+}
+else  {
   try {
       await callApi(SET_PASSWORD_URL, "PUT",data);
       console.log(data)
@@ -82,8 +88,12 @@ else {
   }
   catch (error) {
       console.log("Error");
-      NotificationManager.error('OTP  is not valid!', 'Error');
+      // NotificationManager.error('OTP  is not valid!', 'Error');
+      toast.error("OTP  is not valid!", {
+        position: toast.POSITION.TOP_CENTER
+    });
   }
+
 }
 }
   useEffect(() => {
