@@ -56,6 +56,7 @@ const chatrgImage = require('../assets/images/chat-right.png');
 const chatltImage = require('../assets/images/chat-left.png');
 const chatbtImage = require('../assets/images/chat-bt.png');
 const attachImage = require('../assets/images/attach.png');
+const noImage = require('../assets/images/no-image.jpg');
 
 
 let imagePath;
@@ -116,6 +117,7 @@ export default imagePath={
     loginpicImage:loginpicImage,
     chatpicImage:chatpicImage,
     chatbtImage:chatbtImage,
-    attachImage:attachImage
+    attachImage:attachImage,
+    noImage:noImage,
 
 }
