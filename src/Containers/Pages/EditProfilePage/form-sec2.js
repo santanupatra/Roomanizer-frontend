@@ -19,8 +19,9 @@ import { useForm } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import InputUI from '../../../UI/InputUI';
 import moment from 'moment';
-
-import {LANDLORD_URL,USER_URL,CITY_URL} from '../../../shared/allApiUrl'
+import { callApi} from '../../../api';
+import { apiBaseUrl } from "../../../shared/helpers";
+import {ROOM_URL,USER_URL,CITY_URL,LANDLORD_URL,AMINITIES_URL} from '../../../shared/allApiUrl'
 import {axiosApiCall} from "../../../api/index";
 import PlacesAutocomplete, {
   geocodeByAddress,
@@ -39,7 +40,7 @@ const Formsec2 = (props) => {
     firstName: "",
     lastName: "",
     dateOfBirth: null,
-   
+    socialId:"",
     age: "",
    }
    const initialField = {
@@ -63,7 +64,7 @@ const Formsec2 = (props) => {
    location:[],
    longitude:null,
    moveIn:"",
-   noOfBedRoom:null,
+   noOfBedRoom:"",
    roomName:"",
    zipCode:"",
    ageRange:"",
@@ -79,6 +80,7 @@ const Formsec2 = (props) => {
   const params = props.match.params;
   const [setDate, setStartDate] = useState(new Date());
   const [setRtoM, setmoveIn] = useState(null);
+  const [aminitiesOption, setAminitiesOption] = useState([]);
  
   useEffect(() => {
     const  cmsDetail = async()=>{
@@ -87,17 +89,28 @@ const Formsec2 = (props) => {
     props.crudActionHouseCall(HOUSE_RULE_URL, null, "GET_ALL")
     props.crudActionCityCall(CITY_URL, null, "GET_ALL")
 
-    let {data}  =  await axiosApiCall.get(`${LANDLORD_URL}/${params.userId}`, null)
-
+    let {data}  =  await axiosApiCall.get(`${ROOM_URL}/${params.userId}`, null)
+    
     setField({ ...field, ...data.data })
-
-
+    callApi(apiBaseUrl+"/web/"+AMINITIES_URL,'GET','').then(
+      response => {
+        let option = response.data.map((val) =>  
+          ({ label: val.name, value: val._id })  
+        );
+        setAminitiesOption(option);
+      }
+    )
+    if(data.data){
+    setmoveIn(moment(data.data.moveIn).toDate())
+    }  
     console.log(data.data)
     
     }
   cmsDetail()
+  
 
   }, [params]);
+  
   
   
   console.log(props.user.user)
@@ -110,7 +123,9 @@ const Formsec2 = (props) => {
     if (props.user.user && params.userId) {
       setFields({ ...fields, ...props.user.user })
       setStartDate(moment(props.user.user.dateOfBirth).toDate())
-      setmoveIn(moment(props.user.user.moveIn).toDate())
+      //setmoveIn(moment(props.user.user.moveIn).toDate())
+     // setmoveIn(moment(data.data.moveIn).toDate())
+
     }
     if (action.isSuccess && action.type === "UPDATE")
       props.history.push(`/editProfile/${userId}`)
@@ -126,20 +141,21 @@ const Formsec2 = (props) => {
     if (setDate) data.dateOfBirth = setDate;
     if (setRtoM) data.moveIn = setRtoM;
     if (field.houseRules) data.houseRules=field.houseRules
+    if (field.noOfBedRoom) data.noOfBedRoom=field.noOfBedRoom
     if (field.aminities) data.aminities=field.aminities
     props.crudActionCall(LANDLORD_URL + `/${userId}`, data, "UPDATE");
     props.resetAction();
   }
 
-  const options1 =  [
-    { label: "Furnished", value: "1" },
-    { label: "Private Bathroom", value: "2" },
-    { label: "Outdoor Space", value: "3" /*, disabled: true*/ },
-    { label: "In-unit Washer", value: "4" },
+  // const options1 =  [
+  //   { label: "Furnished", value: "1" },
+  //   { label: "Private Bathroom", value: "2" },
+  //   { label: "Outdoor Space", value: "3" /*, disabled: true*/ },
+  //   { label: "In-unit Washer", value: "4" },
 
    
 
-  ];
+  // ];
   const options = props.house.houseList.map((val) =>  
   ({ label: val.name, value: val._id })  
   );
@@ -150,9 +166,7 @@ const Formsec2 = (props) => {
   }
      
   
-  const handleChange7 = (name,value)=>{
-    setField((prevState) => ({ ...prevState, [name]: value }));
-  }
+  
   const handleChange2 = (name,value)=>{
     setField((prevState) => ({ ...prevState, [name]: value }));
   }
@@ -170,10 +184,16 @@ const Formsec2 = (props) => {
   const  handlechange = value => {
     setField((prevState) => ({ ...prevState, "houseRules": value }));
   }
-  const  handlechange1 = value => {
-    setField((prevState) => ({ ...prevState, "aminities": value }));
+  const  handlechange1 = e => {
+          console.log(e.target.value)
+          const val = e.target.value
+    setField((prevState) => ({ ...prevState, "noOfBedRoom": val }));
   }
-  const handleChang = address => {
+  // const handleChang = address => {
+  //   setField((prevState) => ({ ...prevState, address }));
+  // };
+
+  const handleChangeAddress = address => {
     setField((prevState) => ({ ...prevState, address }));
   };
   const  handleDatechange = date => {
@@ -236,33 +256,32 @@ const Formsec2 = (props) => {
                               </Col>
                             </Row>
                             <Row>
-                              <Col xs={12} sm={12} md={12} lg={12}>
-                                <FormGroup>
-                            <PlacesAutocomplete
-                              onChange={handleChang}
-                              onSelect={handleSelect}
-                              searchOptions={searchOptions}
-                              value={field.address}
-                            >
-                              {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                                <div>
-                                  <input
-                                    {...getInputProps({
-                                      placeholder: 'Search Places ...',
-                                      className: 'location-search-input',
-                                    })}
-                                  />
-                                  <div className="autocomplete-dropdown-container">
-                                    {loading && <div>Loading...</div>}
-                                    {suggestions.map(suggestion => {
-                                      const className = suggestion.active
-                                        ? 'suggestion-item--active'
-                                        : 'suggestion-item';
-                                      // inline style for demonstration purpose
-                                      const style = suggestion.active
-                                        ? { backgroundColor: '#fafafa', cursor: 'pointer' }
-                                        : { backgroundColor: '#ffffff', cursor: 'pointer' };
-                                      return (
+                  
+                              <PlacesAutocomplete
+                                onChange={handleChangeAddress}
+                                onSelect={handleSelect}
+                                searchOptions={searchOptions}
+                                value={field.address}
+                              >
+                                {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                                  <Col xs={12} sm={12} md={12} lg={12}>
+                                    <input
+                                      {...getInputProps({
+                                        placeholder: 'Search Places ...',
+                                        className: 'form-control',
+                                      })}
+                                    />
+                                    <div className="autocomplete-dropdown-container">
+                                      {loading && <div>Loading...</div>}
+                                      {suggestions.map(suggestion => {
+                                        const className = suggestion.active
+                                          ? 'suggestion-item--active'
+                                          : 'suggestion-item';
+                                        // inline style for demonstration purpose
+                                        const style = suggestion.active
+                                          ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                                          : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                                        return (
                                         <div
                                           {...getSuggestionItemProps(suggestion, {
                                             className,
@@ -274,12 +293,12 @@ const Formsec2 = (props) => {
                                       );
                                     })}
                                   </div>
-                                </div>
+                                </Col>
                               )}
-                              </PlacesAutocomplete> 
-                              </FormGroup> 
-                              </Col>
-                            </Row>
+                            </PlacesAutocomplete>
+                          </Row>
+                                      
+                            
                            <Row>
                             <Col xs={12} sm={12} md={6} lg={6}>
                               <FormGroup>
@@ -290,7 +309,7 @@ const Formsec2 = (props) => {
                                 innerRef={register}
                                 value={field.city}
                                 onChange={(e) =>
-                                  handlechange(e.target.name, e.target.value)
+                                  handlechange5(e.target.name, e.target.value)
                                 }>
                                   <option selected disabled>Select A City....</option>
                                 {
@@ -347,7 +366,7 @@ const Formsec2 = (props) => {
                                   required: 'This is required field',
                                   })}
                                   fields={field}/>
-                                  </FormGroup>
+                              </FormGroup>
                             </Col>
                             </Row>
                             <Row>
@@ -363,6 +382,23 @@ const Formsec2 = (props) => {
                                 required: 'This is required field',
                                 })}
                                 fields={field}/>
+                                </FormGroup>
+                              </Col>
+                            </Row>
+                            <Row>
+                              <Col xs={12} sm={12} md={12} lg={12}>
+                              <FormGroup>
+                              <InputUI
+                                      type="url"
+                                      name="socialId"
+                                      id="socialId"
+                                      placeholder="Social Media ID"
+                                      errors={errors}
+                                      innerRef={register({
+                                      // required: 'This is required field',
+                                      })}
+                                      fields={fields}
+                                    />
                                 </FormGroup>
                               </Col>
                             </Row>
@@ -391,25 +427,71 @@ const Formsec2 = (props) => {
                                   </FormGroup>
                               </Col>
                             </Row>
-
                             <FormGroup className="mt-3">
                               <Label for="exampleCheckbox" className="filter-mod">No of Bedrooms</Label>
                               <div className="filt d-flex justify-content-between">
-                                <CustomInput type="radio" id="radio1" label="2 Bedroom" />
-                                <CustomInput type="radio" id="radio2" label="3 Bedroom" />
-                                <CustomInput type="radio" id="radio3" label="4+ Bedroom" />
-                              </div>
-                            </FormGroup>
+                                {/* <Input type="radio" id="radio1" name="noOfBedRoom" value="2 Bedroom" label="2 Bedroom" onChange={(value) =>
+                                    handlechange1(value)
+                                  }/>2 Bedroom
+                                <Input type="radio" id="radio2" name="noOfBedRoom" value="3 Bedroom" label="3 Bedroom" onChange={(value) =>
+                                    handlechange1(value)
+                                  }/>3 Bedroom
+                                <Input type="radio" id="radio3" name= "noOfBedRoom" value="4+ Bedroom" label="4+ Bedroom" onChange={(value) =>
+                                    handlechange1(value)
+                                  }/>4+ Bedroom */}
+                                    <input
+                                      type="radio"
+                                      value="2 Bedroom"
+                                      name= "noOfBedRoom"
+                                      onChange={(value) =>
+                                          handlechange1(value)}
+                                     // defaultChecked={value === "2 Bedroom"}    
+                                      checked={field.noOfBedRoom === "2 Bedroom"}
+                                       // {...plaftormInputProps}
+                                      />2 Bedroom
+                                      <input
+                                        type="radio"
+                                        value="3 Bedroom"
+                                        name= "noOfBedRoom"
+                                        checked={field.noOfBedRoom === "3 Bedroom"}
+                                        onChange={(value) =>
+                                          handlechange1(value)}
+                                        />3 Bedroom
+                                        <input
+                                          type="radio"
+                                          value="4+ Bedroom"
+                                          name= "noOfBedRoom"
+                                          checked={field.noOfBedRoom === "4+ Bedroom"}
+                                          //defaultChecked={value === "4+ Bedroom"}  
+                                          onChange={(value) =>
+                                            handlechange1(value)}
+                                        // checked={field.noOfBedRoom}
+                                          // {...plaftormInputProps}
+                                          />4+ Bedroom
+                                </div>
+                              </FormGroup>
+                           
+                            
                                    <Label for="exampleCheckbox" className="filter-mod">Listing Amenities</Label>
                               <div className="filt d-flex justify-content-between"></div>
-                                     <MultiSelect
+                                          <MultiSelect
+                                                options={aminitiesOption}
+                                                value={field.aminities}
+                                                className="MultiSelect-input"
+                                                onChange={(value) =>
+                                                  handleChange2("aminities",value) 
+                                                }
+                                                labelledBy={"Preferences for house rules"}
+                                              />
+                            
+                                     {/* <MultiSelect
                                         options={options1}
                                         value={field.aminities}
                                         className="MultiSelect-input"
                                         onChange={(value) =>
                                         handlechange1(value) 
                                         }
-                                         labelledBy={"Preferences for house rules"}/>
+                                         labelledBy={"Preferences for house rules"}/> */}
                                   <Label for="exampleCheckbox" className="filter-mod">House Rules</Label>
                                 <div className="filt d-flex justify-content-between flex-wrap"></div>    
                                       <MultiSelect
@@ -426,8 +508,8 @@ const Formsec2 = (props) => {
                                 <Col className="pr-0">
                                   <InputUI
                                   type="select"
-                                  name="flatmates"
-                                  id="flatmates"
+                                  name="flateMate"
+                                  id="flateMate"
                                   placeholder="flatmates"
                                   errors={errors}
                                   innerRef={register({
@@ -435,13 +517,13 @@ const Formsec2 = (props) => {
                                   })}
                                   value={field.flateMate}
                                   onChange={(e) =>
-                                    handleChange7(e.target.name, e.target.value)
+                                    handleChange3(e.target.name, e.target.value)
                                   }
                                   >
-                                  <option>Choose your Flatmates </option>
-                                  <option value="Male">Male</option>
-                                  <option value="Female">Female</option>
-                                  <option value="Other">Other</option>
+                                  <option selected disabled>Choose your Flatmates </option>
+                                  <option value="male">Male</option>
+                                  <option value="female">Female</option>
+                                  <option value="other">Other</option>
                                   </InputUI>
                                 </Col>
                                 <Col>
@@ -464,7 +546,7 @@ const Formsec2 = (props) => {
                                     handleChange3(e.target.name, e.target.value)
                                   }
                                   >
-                                  <option>Choose your Age Range </option>
+                                  <option selected disabled>Choose your Age Range </option>
                                   <option value="Early 20s">Early 20s</option>
                                   <option value="Late 20s">Late 20s</option>
                                   <option value="30s">30s</option>
@@ -511,7 +593,7 @@ const Formsec2 = (props) => {
                                     handleChange2(e.target.name, e.target.value)
                                   }
                                   >
-                                  <option>Choose your Duration </option>
+                                  <option selected disabled>Choose your Duration </option>
                                   <option value="1-3 Months">1-3 Months</option>
                                   <option value="3-6 Months">3-6 Months</option>
                                   <option value="6+ Months">6+ Months</option>
@@ -587,7 +669,7 @@ const Formsec2 = (props) => {
                                     handleChange4(e.target.name, e.target.value)
                                   }
                                   >
-                                  <option>Choose your Charges Type </option>
+                                  <option selected disabled>Choose your Charges Type </option>
                                   <option value="monthly">monthly</option>
                                   <option value="yearly">yearly</option>
                                   
