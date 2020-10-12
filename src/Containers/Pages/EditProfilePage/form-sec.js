@@ -49,6 +49,7 @@ const Formsec = (props) => {
     city:"",
     zipCode:"",
     aminities: [],
+    socialId:"",
   }
   
   const [fields, setFields] = useState(initialFields);
@@ -348,7 +349,21 @@ const Formsec = (props) => {
                   })}
                   fields={fields}
                 />
-
+              
+                              
+              <InputUI
+                  type="text"
+                  name="socialId"
+                  id="socialId"
+                  placeholder="Social Media ID"
+                  errors={errors}
+                  innerRef={register({
+                   // required: 'This is required field',
+                  })}
+                  fields={fields}
+                />
+                
+                              
                 <div className="form-group my-4 py-2">
                   <DatePicker 
                     selected={setRtoM} 
