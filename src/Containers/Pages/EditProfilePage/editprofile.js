@@ -21,47 +21,40 @@ const EditProfile =(props)=> {
   const [userType, setUserType] = useState({'userType':localStorage.getItem('userType')});
  
   const [userId, setUserId] = useState(null);
-  const { handleSubmit, register, errors } = useForm();
   const params = props.match.params;
   useEffect(() => {
     setUserId(params.userId)
     const action = props.user.action;
     if (props.user.user && params.userId) {
       setImage({ ...fields, ...props.user.user })
-      //setUserType(props.user.user.userType)
-
     }
     
 
   }, [props.user]);
   
   const handleChnage =(e)=>{
-    console.log("tesxtt====",e.target.value)
-    console.log("tesxtt233====",e.target.checked)
-    let data;
+    
     if(e.target.checked==true){
-       data = userType;
+       
        localStorage.setItem('userType','landlord')
        setUserType({userType:'landlord'});
        props.crudActionCall(`${USER_URL}` + `/${userId}`, {'userType':'landlord'}, "UPDATE");
 
     }else{
       localStorage.setItem('userType','customer')
-      data = userType;
       setUserType({userType:'customer'});
       props.crudActionCall(`${USER_URL}` + `/${userId}`, {'userType':'customer'}, "UPDATE");
 
     }
   }
-  console.log("userType++++====",userType,'localstorage==',localStorage.getItem('userType'))
+  
 
-  let checked;
-if(userType.userType ==='customer'){
-  checked=false;
-}else if(userType.userType ==='landlord'){
-  checked=true;
-
-}
+    let checked;
+    if(userType.userType ==='customer'){
+     checked=false;
+    }else if(userType.userType ==='landlord'){
+     checked=true;
+    }
 
 
     return (
