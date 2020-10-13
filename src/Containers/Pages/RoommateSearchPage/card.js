@@ -25,11 +25,15 @@ const Cardbox = (props) => {
 
     <Card>
       <div className="listingImgBox">
+        {val.profilePicture ?
         <CardImg  src={getImageUrl(val.profilePicture)} alt="Card image cap" />
+        :
+        <CardImg  src={imagePath.noImage} alt="Card image cap" />
+        }
       </div>
       <CardBody>
         <div className="d-flex justify-content-between align-items-center">
-          <CardTitle>{val.firstName + ' ' +val.lastName}</CardTitle>
+          <CardTitle>{val.firstName?val.firstName:''} {val.lastName?val.lastName:''}</CardTitle>
           <CardSubtitle>{val.gender}</CardSubtitle>
         </div>
         <div className="d-flex justify-content-between">
@@ -39,7 +43,7 @@ const Cardbox = (props) => {
       </CardBody>
       <CardFooter className="">
         <div className="d-flex justify-content-between">
-          <div className="py-2"><h6 className="org">$2.50 / Month</h6></div>
+      <div className="py-2"><h6 className="org">${val.maxBudget}</h6></div>
           <div className="border-left border-right p-2"><FontAwesomeIcon color="red" icon={faHeart} /></div>
           <div className="py-2"><FontAwesomeIcon icon={faShareAlt} /></div>
         </div>

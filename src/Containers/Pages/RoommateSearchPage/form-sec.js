@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import './style.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import imagePath from '../../../Config/imageConstants';
@@ -6,28 +6,68 @@ import {FormGroup, Button, Label, Input, Col, Row } from 'reactstrap';
 import { Modal, ModalHeader, ModalBody, ModalFooter, CustomInput, Form, } from 'reactstrap';
 import ReactSimpleRange from 'react-simple-range';
 
+import { callApi} from '../../../api';
+import { apiBaseUrl } from "../../../shared/helpers";
+import { CITY_URL} from '../../../shared/allApiUrl';
+
 
 const Formsec = (props) => {
+  const initialFields = {
+    gender: "",
+    occupation: "",
+    city:"",
+    cityList:""
+  }
 
-  const {
-    buttonLabel,
-    className
-  } = props;
+  const {buttonLabel,className} = props;
 
   const [modal, setModal] = useState(false);
+  const [fields, setFields] = useState(initialFields);
+  const [cityList, setCityList] = useState([]);
+  const [address, setAddress] = useState('');
+  const [age, setAge] = useState('');
+
+  useEffect(() => {
+
+    callApi(apiBaseUrl+"/web/"+CITY_URL,'GET','').then(
+      response => {
+        let option = response.data;
+        setCityList(option);
+      }
+    )
+
+  },[]);
+
+  const handleChange = (name,value)=>{
+    setFields((prevState) => ({ ...prevState, [name]: value }));
+  }
 
   const toggle = () => setModal(!modal);
+
 
     return (
       <div className="">
         
         <Row>
             <Col xs={12} sm={12} md={6} lg={2}>
-            <Label for="">Location</Label>
-            <Input type="select" name="select" id="exampleSelect">
-                <option>Luxembourg</option>
-                <option>2</option>
-                <option>3</option>
+            <Label for="">City</Label>
+            <Input 
+              type="select" 
+              name="city" 
+              id="city"
+              value={fields.city}
+              onChange={(e) =>
+                handleChange(e.target.name, e.target.value)
+              }
+            >
+              <option value="">City</option>
+              {
+                cityList!='' && cityList.map((val) =>{
+                  return(
+                    <option value={val.cityName}>{val.cityName}</option>
+                  );
+                })
+              } 
             </Input>
             </Col>
             <Col xs={12} sm={12} md={6} lg={2}>
@@ -40,21 +80,42 @@ const Formsec = (props) => {
                   sliderColor='#ccc'
                   trackColor='#014d81'
                   thumbColor='#014d81'
+                  value = {20}
                  />
             </Col>
             <Col xs={12} sm={12} md={6} lg={2}>
             <Label for="">Occupation</Label>
-              <Input type="select" name="select" id="exampleSelect">
-                <option>Occupation</option>
+              <Input 
+                type="select" 
+                name="occupation" 
+                id="occupation"
+                value={fields.occupation}
+                onChange={(e) =>
+                  handleChange(e.target.name, e.target.value)
+                }
+              >
+                <option value="">Occupation</option>
+                <option value="Student">Student</option>
+                <option value="Engineer">Engineer</option>
+                <option value="Other">Other</option>
               </Input>
             </Col>
             <Col xs={12} sm={12} md={6} lg={2}>
               <Label for="">Gender</Label>
-              <Input type="select" name="select" id="exampleSelect">
-                    <option>Male</option>
-                    <option>Female</option>
-                    <option>Other</option>
-                </Input>
+              <Input 
+                type="select"
+                name="gender" 
+                id="gender"
+                value={fields.gender}
+                onChange={(e) =>
+                  handleChange(e.target.name, e.target.value)
+                }
+              >
+                <option value="">Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </Input>
             </Col>
             <Col xs={12} sm={12} md={6} lg={2}>
               <Label for="">Filter</Label>

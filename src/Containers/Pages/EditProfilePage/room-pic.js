@@ -14,12 +14,17 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import {getImageUrl} from '../../../shared/helpers';
 import {axiosApiCall} from '../../../api/index'
-
+import { toast  } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Roompic = (props) => {
   const [userImage,setUserImage] = useState(null)
   const [userDetails,setUserDetails] = useState()
+  const [roomDetails,setRoomDetails] = useState()
   const [RoomImage, updateRoomImage] = useState([]);
   const [RoomImageFile, updateRoomImageFile] = useState([]);
+  //import { useHistory } from "react-router";
+
+  console.log("userImage====",userImage)
   console.log("userImage====",userImage)
  
   useEffect(() => {
@@ -109,20 +114,23 @@ const Roompic = (props) => {
                 // set token in localStorage
                 const details = data.msg;
                 console.log("history===",data)
-                // if(data.ack===true){
-                //     history.push({pathname: `/home`});
-  
-                //     toast.info(details, {
-                //         position: toast.POSITION.TOP_CENTER
-                //     });
-                // }else{
-                //     toast.error(details, {
-                //         position: toast.POSITION.TOP_CENTER
-                //     });
-                // }
+                if(data.ack===true){
+                  let  {data}  = await axiosApiCall.get(`${LANDLORD_URL}/${props.userId}`, null);
+                  //props.history.push({pathname: `/home`});
+                    let roomDetailsStore = localStorage.setItem('roomDetails',JSON.stringify(data.data))
+                    setRoomDetails(JSON.parse(roomDetailsStore))
+                    updateRoomImage(null)
+                    toast.info(details, {
+                        position: toast.POSITION.TOP_CENTER
+                    });
+                }else{
+                    toast.error(details, {
+                        position: toast.POSITION.TOP_CENTER
+                    });
+                }
     
   }
-
+console.log("roomDetails===",roomDetails)
     return (
                 <div className="">
 
@@ -146,25 +154,46 @@ const Roompic = (props) => {
                     </div>
                     <div>
                       {
-                          RoomImage && RoomImage.length >0 &&
-                          RoomImage.map((value ,key) => {
-                          
+                          roomDetails && roomDetails.roomImage && roomDetails.roomImage.length >0 &&
+                          roomDetails.roomImage.map((value ,key) => {
+                          console.log("value",value)
                             return (
                             <a 
                             href="#"
-                            onClick={e => handleFileDelete(key)}
+                            onClick={e => handleFileDelete(value._id)}
                             >
                               
                               <img
                                 key ={key}
                                 style={{ maxHeight: '70px' }}
-                                src={value}
+                                src={getImageUrl(value.image)}
                                 alt="Image Preview"
                               />
                               <FontAwesomeIcon style= {{top: "10"}} icon={faTimesCircle} />
                               </a>
                             );
                           })
+                    }
+                    {
+                       RoomImage && RoomImage.length >0 &&
+                       RoomImage.map((value ,key) => {
+                       
+                         return (
+                         <a 
+                         href="#"
+                         onClick={e => handleFileDelete(key)}
+                         >
+                           
+                           <img
+                             key ={key}
+                             style={{ maxHeight: '70px' }}
+                             src={value}
+                             alt="Image Preview"
+                           />
+                           <FontAwesomeIcon style= {{top: "10"}} icon={faTimesCircle} />
+                           </a>
+                         );
+                       })
                     }
                     </div>
                     <Form >
