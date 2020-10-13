@@ -87,8 +87,8 @@ const Formsec = (props) => {
                         <span class="slider round"></span>
                       </label>
                       <span className="mt-2 mb-5 d-md-flex d-lg-flex justify-content-between">
-                        <NavLink className="toggle pr-3">I am looking for a room</NavLink>
-                        <NavLink className="toggle border-right-0 pl-3">I have an available room</NavLink>
+                        <NavLink to="#" className="toggle pr-3">I am looking for a room</NavLink>
+                        <NavLink to="#" className="toggle border-right-0 pl-3">I have an available room</NavLink>
                       </span>
                     </div>
                     <a href="#" className="login-bt mb-2">Messsage</a>
