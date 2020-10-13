@@ -430,44 +430,32 @@ const Formsec2 = (props) => {
                             <FormGroup className="mt-3">
                               <Label for="exampleCheckbox" className="filter-mod">No of Bedrooms</Label>
                               <div className="filt d-flex justify-content-between">
-                                {/* <Input type="radio" id="radio1" name="noOfBedRoom" value="2 Bedroom" label="2 Bedroom" onChange={(value) =>
-                                    handlechange1(value)
-                                  }/>2 Bedroom
-                                <Input type="radio" id="radio2" name="noOfBedRoom" value="3 Bedroom" label="3 Bedroom" onChange={(value) =>
-                                    handlechange1(value)
-                                  }/>3 Bedroom
-                                <Input type="radio" id="radio3" name= "noOfBedRoom" value="4+ Bedroom" label="4+ Bedroom" onChange={(value) =>
-                                    handlechange1(value)
-                                  }/>4+ Bedroom */}
-                                    <input
-                                      type="radio"
-                                      value="2 Bedroom"
-                                      name= "noOfBedRoom"
+                                <Label>
+                                  <input type="radio" value="2 Bedroom" name= "noOfBedRoom"
+                                    onChange={(value) =>
+                                        handlechange1(value)}
+                                    // defaultChecked={value === "2 Bedroom"}    
+                                    checked={field.noOfBedRoom === "2 Bedroom"}
+                                      // {...plaftormInputProps}
+                                  /> 2 Bedroom
+                                  </Label>
+                                  <Label>
+                                    <input type="radio" value="3 Bedroom" name= "noOfBedRoom"
+                                      checked={field.noOfBedRoom === "3 Bedroom"}
                                       onChange={(value) =>
                                           handlechange1(value)}
-                                     // defaultChecked={value === "2 Bedroom"}    
-                                      checked={field.noOfBedRoom === "2 Bedroom"}
-                                       // {...plaftormInputProps}
-                                      />2 Bedroom
-                                      <input
-                                        type="radio"
-                                        value="3 Bedroom"
-                                        name= "noOfBedRoom"
-                                        checked={field.noOfBedRoom === "3 Bedroom"}
-                                        onChange={(value) =>
-                                          handlechange1(value)}
-                                        />3 Bedroom
-                                        <input
-                                          type="radio"
-                                          value="4+ Bedroom"
-                                          name= "noOfBedRoom"
-                                          checked={field.noOfBedRoom === "4+ Bedroom"}
-                                          //defaultChecked={value === "4+ Bedroom"}  
-                                          onChange={(value) =>
-                                            handlechange1(value)}
-                                        // checked={field.noOfBedRoom}
-                                          // {...plaftormInputProps}
-                                          />4+ Bedroom
+                                    /> 3 Bedroom
+                                  </Label>
+                                  <Label>
+                                    <input type="radio" value="4+ Bedroom" name= "noOfBedRoom"
+                                      checked={field.noOfBedRoom === "4+ Bedroom"}
+                                      //defaultChecked={value === "4+ Bedroom"}  
+                                      onChange={(value) =>
+                                        handlechange1(value)}
+                                    // checked={field.noOfBedRoom}
+                                      // {...plaftormInputProps}
+                                      /> 4+ Bedroom
+                                  </Label>
                                 </div>
                               </FormGroup>
                            

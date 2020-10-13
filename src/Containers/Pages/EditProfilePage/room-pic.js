@@ -152,25 +152,18 @@ console.log("roomDetails===",roomDetails)
                        />
                       </div>
                     </div>
-                    <div>
+                    <div className="uploadImgs">
                       {
                           roomDetails && roomDetails.roomImage && roomDetails.roomImage.length >0 &&
                           roomDetails.roomImage.map((value ,key) => {
                           console.log("value",value)
                             return (
-                            <a 
-                            href="#"
-                            onClick={e => handleFileDelete(value._id)}
-                            >
-                              
-                              <img
-                                key ={key}
-                                style={{ maxHeight: '70px' }}
-                                src={getImageUrl(value.image)}
-                                alt="Image Preview"
-                              />
-                              <FontAwesomeIcon style= {{top: "10"}} icon={faTimesCircle} />
-                              </a>
+                              <div className="uPic">
+                                <img key ={key} src={getImageUrl(value.image)} alt="Image Preview" />
+                                <a href="#" onClick={e => handleFileDelete(value._id)} >
+                                  <FontAwesomeIcon icon={faTimesCircle} />
+                                </a>
+                              </div>
                             );
                           })
                     }
@@ -179,32 +172,28 @@ console.log("roomDetails===",roomDetails)
                        RoomImage.map((value ,key) => {
                        
                          return (
-                         <a 
-                         href="#"
-                         onClick={e => handleFileDelete(key)}
-                         >
-                           
-                           <img
-                             key ={key}
-                             style={{ maxHeight: '70px' }}
-                             src={value}
-                             alt="Image Preview"
-                           />
-                           <FontAwesomeIcon style= {{top: "10"}} icon={faTimesCircle} />
-                           </a>
+                           <div className="uPic">
+                              <img key ={key} src={value} alt="Image Preview" />
+                              <a href="#" onClick={e => handleFileDelete(key)} >
+                                <FontAwesomeIcon icon={faTimesCircle} />
+                              </a>
+                           </div>
                          );
                        })
                     }
                     </div>
                     <Form >
                         <FormGroup className="mb-5 th">
-                           <Row>
-                              <Label for="exampleCustomFileBrowser">Add Room Images</Label>
-                                <CustomInput 
+                           
+                                <div className="addImages">
+                                  <input type="file" id="exampleCustomFileBrowser" name="customFile"    label="Pick a file!" accept=".png, .jpg, .jpeg"maxlength ={1024}         maxCount={10} minCount={4} multiple onChange={e => handlemultipleFileChange(e)} />
+                                </div>
+                                <Label for="exampleCustomFileBrowser">Add Room Images</Label>
+                                {/* <CustomInput 
                                 type="file" id="exampleCustomFileBrowser" name="customFile"    label="Pick a file!" accept=".png, .jpg, .jpeg"maxlength ={1024}         maxCount={10} minCount={4} multiple onChange={e => handlemultipleFileChange(e)}
-                                />
+                                /> */}
                               <Button type="button" color="primary" className="login-bt mt-4 mb-2" onClick={roomImageUploadApi}> Upload </Button>
-                          </Row> 
+                           
                             
                       </FormGroup>
                     </Form>

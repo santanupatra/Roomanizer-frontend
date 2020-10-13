@@ -76,6 +76,9 @@
     margin: 5px;
     width: 45%;
 }
+.about .ab{
+    list-style-type: none;
+}
 
 @media(max-width:767px){
     .left-box h2{
