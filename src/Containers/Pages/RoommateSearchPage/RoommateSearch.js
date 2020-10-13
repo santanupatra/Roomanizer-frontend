@@ -17,17 +17,21 @@ import { Modal, ModalHeader, ModalBody, ModalFooter, CustomInput, Form, } from '
 import ReactSimpleRange from 'react-simple-range';
 import { callApi} from '../../../api';
 import { apiBaseUrl } from "../../../shared/helpers";
-import { CITY_URL} from '../../../shared/allApiUrl';
+import { CITY_URL,AMINITIES_URL,HOUSE_RULE_URL} from '../../../shared/allApiUrl';
 import imagePath from '../../../Config/imageConstants';
+import ReactPaginate from 'react-paginate';
 
 
 const RoomMateSearch =(props)=> {
 
+  const perPage = 6;
   const {buttonLabel,className} = props;
   const toggle = () => setModal(!modal);
 
   const [modal, setModal] = useState(false);
-  const [fcityList, setFilterCityList] = useState([]);
+  const [cityList, setCityList] = useState([]);
+  const [amenitiesList, setAmenitiesList] = useState([]);
+  const [houserulesList, setHouseRulesList] = useState([]);
   
   const [searchList, setSearchList] = useState([]);
   const [showList, setShowList] = useState(false);
@@ -37,6 +41,10 @@ const RoomMateSearch =(props)=> {
   const [foccupation, setOccupation] = useState('');
   const [fcity, setCity] = useState('');
   const [fage, setAge] = useState('');
+  const [fbedrooms, setBedrooms] = useState('');
+  const [famenities, setAmenities] = useState('');
+  const [fhouserules, setHouseRules] = useState('');
+  const [pageCount, setPageCount] = useState('');
   
 
   useEffect(() => {
@@ -53,13 +61,15 @@ const RoomMateSearch =(props)=> {
     setOccupation(occupation);
     setAge(age);
 
-    let searchpara = '?city='+city+'&occupation='+occupation+'&gender='+gender+'&age='+age+'&location='+location+'&page=0';
+    let searchpara = '?city='+city+'&occupation='+occupation+'&gender='+gender+'&age='+age+'&location='+location+'&page=0&perpage='+perPage;
 
     callApi(apiBaseUrl+"/web/user-api/"+searchpara,'GET','').then(
       response => {
+        let totalpagecount = Math.ceil(response.data.count/perPage);
         setShowList(true);
         setListCount(response.data.count);
         setSearchList(response.data.list);
+        setPageCount(totalpagecount);
       }
     )
 
@@ -69,29 +79,75 @@ const RoomMateSearch =(props)=> {
     callApi(apiBaseUrl+"/web/"+CITY_URL,'GET','').then(
       response => {
         let option = response.data;
-        setFilterCityList(option);
+        setCityList(option);
+      }
+    )
+
+    callApi(apiBaseUrl+"/web/"+AMINITIES_URL,'GET','').then(
+      response => {
+        let option = response.data;
+        setAmenitiesList(option);
+      }
+    )
+
+    callApi(apiBaseUrl+"/web/"+HOUSE_RULE_URL,'GET','').then(
+      response => {
+        let option = response.data;
+        setHouseRulesList(option);
       }
     )
 
   },[]);
 
 
-  const filterSubmit = () => {
+  const filterSubmit = (page) => {
     setShowList(false);
     let params = new URLSearchParams(props.location.search);
     let flocation = '';
     // let location = params.get('location');
 
-    let searchpara = '?city='+fcity+'&occupation='+foccupation+'&gender='+fgender+'&age='+fage+'&location='+flocation+'&page=0';
+    let searchpara = '?city='+fcity+'&occupation='+foccupation+'&gender='
+                    +fgender+'&age='+fage+'&location='+flocation+'&bedrooms='
+                    +fbedrooms+'&amenities='+famenities+'&houserules='
+                    +fhouserules+'&page='+page+'&perpage='+perPage;
     console.log("parameters",searchpara);
     callApi(apiBaseUrl+"/web/user-api/"+searchpara,'GET','').then(
       response => {
+        let totalpagecount = Math.ceil(response.data.count/perPage);
         setShowList(true);
         setListCount(response.data.count);
         setSearchList(response.data.list);
+        setPageCount(totalpagecount);
         
       }
     )
+  }
+
+  const paginationCallFunction = (e) => {
+    const selectedPage = e.selected;
+    filterSubmit(selectedPage);
+  }
+  
+  const createFilterString = (name,e) => {
+
+    if(name=="amenities"){
+      if(famenities){
+        setAmenities(famenities+','+e);
+      } else {
+        setAmenities(e);
+      }
+    }
+    if(name=="houserules"){
+      if(fhouserules){
+        setHouseRules(fhouserules+','+e);
+      } else {
+        setHouseRules(e);
+      }
+    }
+  }
+
+  const createHouseRulesString = (e) => {
+    
   }
   
 
@@ -121,8 +177,7 @@ const RoomMateSearch =(props)=> {
                                         onChange={(e) =>setCity(e.target.value)}
                                       >
                                         <option value="">City</option>
-                                        {
-                                          fcityList!='' && fcityList.map((val) =>{
+                                        { cityList!='' && cityList.map((val) =>{
                                             return(
                                               <option value={val.cityName}>{val.cityName}</option>
                                             );
@@ -179,7 +234,7 @@ const RoomMateSearch =(props)=> {
                                       <a className="filter" onClick={toggle}>{buttonLabel}<img src={imagePath.filterImage} alt="image"/></a>
                                     </Col>
                                     <Col xs={12} sm={12} md={6} lg={2}>
-                                      <button onClick={filterSubmit} className="black-bt mt-4">Search Now</button>
+                                      <button onClick={(e)=>filterSubmit(0)} className="black-bt mt-4">Search Now</button>
                                     </Col>
                                 </Row>
 
@@ -191,33 +246,64 @@ const RoomMateSearch =(props)=> {
                                         <FormGroup>
                                           <Label for="exampleCheckbox" className="filter-modal">No of Bedrooms</Label>
                                           <div className="filt d-flex justify-content-between flex-wrap">
-                                            <CustomInput type="checkbox" id="no_bedrooms1" label="2 Bedroom" />
-                                            <CustomInput type="checkbox" id="no_bedrooms2" label="3 Bedroom" />
-                                            <CustomInput type="checkbox" id="no_bedrooms3" label="4+ Bedroom" />
+                                            <CustomInput 
+                                              type="radio" 
+                                              name="no_bedrooms" 
+                                              id="no_bedrooms1" 
+                                              value="2" 
+                                              label="2 Bedroom"
+                                              onChange={(e) =>setBedrooms(e.target.value)} 
+                                            />
+                                            <CustomInput 
+                                              type="radio" 
+                                              name="no_bedrooms" 
+                                              id="no_bedrooms2" 
+                                              value="3" 
+                                              label="3 Bedroom" 
+                                              onChange={(e) =>setBedrooms(e.target.value)} 
+                                            />
+                                            <CustomInput 
+                                              type="radio" 
+                                              name="no_bedrooms" 
+                                              id="no_bedrooms3" 
+                                              value="5" 
+                                              label="4+ Bedroom"
+                                              onChange={(e) =>setBedrooms(e.target.value)}  
+                                            />
                                           </div>
                                         </FormGroup>
                                         <FormGroup>
                                           <Label for="exampleCheckbox" className="filter-modal">Listing Amenities</Label>
                                           <div className="filt d-flex justify-content-between flex-wrap">
-                                            <CustomInput type="checkbox" id="listing_amenities1" label="In-unit Washer" />
-                                            <CustomInput type="checkbox" id="listing_amenities2" label="Furnished" />
-                                            <CustomInput type="checkbox" id="listing_amenities3" label="Private Bathroom" />
-                                        
-                                            <CustomInput type="checkbox" id="listing_amenities4" label="Outdoor Space" />
+                                            { amenitiesList!='' && amenitiesList.map((val) =>{
+                                                return(
+                                                  <CustomInput 
+                                                    type="checkbox" 
+                                                    id={val._id} 
+                                                    label={val.name}
+                                                    value={val._id}
+                                                    onChange={(e) =>createFilterString("amenities",e.target.value)} 
+                                                  />
+                                                );
+                                              })
+                                            }
                                           </div>
                                         </FormGroup>
                                         <FormGroup>
                                           <Label for="exampleCheckbox" className="filter-modal">Home Rules</Label>
                                           <div className="filt d-flex justify-content-between flex-wrap">
-                                            <CustomInput type="checkbox" id="home_rules1" label="No Smoking" />
-                                            <CustomInput type="checkbox" id="home_rules2" label="No Pets" />
-                                            <CustomInput type="checkbox" id="home_rules3" label="No Drugs" />
-                                            <CustomInput type="checkbox" id="home_rules4" label="No Drinking" />               
-                                          
-                                            <CustomInput type="checkbox" id="home_rules5" label="Dogs Ok" />
-                                            <CustomInput type="checkbox" id="home_rules6" label="Cats Ok" />
-                                            <CustomInput type="checkbox" id="home_rules7" label="Other Pets Ok" />
-                                            <CustomInput type="checkbox" id="home_rules8" label="Couples Ok" />
+                                            { houserulesList!='' && houserulesList.map((val) =>{
+                                                return(
+                                                  <CustomInput 
+                                                    type="checkbox" 
+                                                    id={val._id} 
+                                                    label={val.name}
+                                                    value={val._id}
+                                                    onChange={(e) =>createFilterString("houserules",e.target.value)} 
+                                                  />
+                                                );
+                                              })
+                                            }
                                           </div>
                                         </FormGroup>
                                       </Form>
@@ -269,7 +355,27 @@ const RoomMateSearch =(props)=> {
 
                         <Row>
                           <Col>
-                            <Pageno></Pageno>
+                            {searchList && listCount > 0 ?
+                              <ReactPaginate
+                                previousLabel={"<"}
+                                nextLabel={">"}
+                                breakLabel={"..."}
+                                pageCount={pageCount}
+                                marginPagesDisplayed={1}
+                                pageRangeDisplayed={5}
+                                onPageChange={paginationCallFunction}
+                                containerClassName={"pagination pagination-sm"}
+                                pageLinkClassName = {"page-link"}
+                                previousLinkClassName =  {"page-link"}
+                                nextLinkClassName =  {"page-link"}
+                                activeClassName={"page-item active"}
+                                activeLinkClassName = {"page-link"}
+                                disabledClassName = {"page-item disabled"}
+                                breakClassName={"page-item"}
+                                breakLinkClassName={"page-link"}
+
+                              />
+                            : null }
                           </Col>
                         </Row>
                         

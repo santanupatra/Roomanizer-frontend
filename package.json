@@ -22,6 +22,7 @@
     "react-hook-form": "^6.8.6",
     "react-multi-select-component": "^3.0.2",
     "react-notifications": "^1.7.2",
+    "react-paginate": "^6.5.0",
     "react-places-autocomplete": "^7.3.0",
     "react-redux": "^7.2.1",
     "react-router-dom": "^5.2.0",
