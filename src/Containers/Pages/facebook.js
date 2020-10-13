@@ -11,6 +11,7 @@ export default class Facebook extends React.Component {
 
           <div className="mr-1">
             <img src={imagePath.fImage}/>
+            
           </div>
 
         )

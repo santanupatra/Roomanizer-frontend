@@ -3,7 +3,7 @@ import './style.css';
 import imagePath from '../../../Config/imageConstants';
 import { Container, Row, Col, Navbar } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, Form, FormGroup, Label, Input, FormFeedback, FormText } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, FormFeedback, FormText,UncontrolledCollapse } from 'reactstrap';
 import MultiSelect from "react-multi-select-component";
 import { USER_URL,HOUSE_RULE_URL ,CITY_URL,AMINITIES_URL} from '../../../shared/allApiUrl';
 import { crudAction } from '../../../store/actions/common';
@@ -13,7 +13,9 @@ import { useForm } from "react-hook-form";
 import InputUI from '../../../UI/InputUI';
 import { callApi} from '../../../api';
 import { apiBaseUrl } from "../../../shared/helpers";
-
+import Facebook from '../facebook';
+import Twitter from '../twitter';
+import Gsuite from '../gSuite';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from 'moment';
@@ -49,7 +51,10 @@ const Formsec = (props) => {
     city:"",
     zipCode:"",
     aminities: [],
-    socialId:"",
+    facebookLink:'',
+    twitterLink:'',
+    gsuiteLink:'',
+    noOfBedRoom:'',
   }
   
   const [fields, setFields] = useState(initialFields);
@@ -99,6 +104,7 @@ const Formsec = (props) => {
     data.latitude = fields.latitude;
     data.address = fields.address;
     if (fields.houseRules) data.houseRules=fields.houseRules
+    if (fields.noOfBedRoom) data.noOfBedRoom=fields.noOfBedRoom
     if (fields.aminities) data.aminities=fields.aminities
     // console.log(data)
     props.crudActionCall(USER_URL + `/${userId}`, data, "UPDATE");
@@ -113,7 +119,12 @@ const Formsec = (props) => {
   const handleChange = (name,value)=>{
     setFields((prevState) => ({ ...prevState, [name]: value }));
   }
-
+  const  handlechange1 = e => {
+    console.log(e.target.value)
+    const val = e.target.value
+    setFields((prevState) => ({ ...prevState, "noOfBedRoom": val }));
+  }
+  
   const handleChangeAddress = address => {
     setFields((prevState) => ({ ...prevState, address }));
   };
@@ -349,19 +360,52 @@ const Formsec = (props) => {
                   })}
                   fields={fields}
                 />
-              
+                 
+                 <FormGroup className="mt-3">
+                              <Label for="exampleCheckbox" className="filter-mod">No of Bedrooms</Label>
+                              <div className="filt d-flex justify-content-between">
+                                {/* <Input type="radio" id="radio1" name="noOfBedRoom" value="2 Bedroom" label="2 Bedroom" onChange={(value) =>
+                                    handlechange1(value)
+                                  }/>2 Bedroom
+                                <Input type="radio" id="radio2" name="noOfBedRoom" value="3 Bedroom" label="3 Bedroom" onChange={(value) =>
+                                    handlechange1(value)
+                                  }/>3 Bedroom
+                                <Input type="radio" id="radio3" name= "noOfBedRoom" value="4+ Bedroom" label="4+ Bedroom" onChange={(value) =>
+                                    handlechange1(value)
+                                  }/>4+ Bedroom */}
+                                    <input
+                                      type="radio"
+                                      value="2"
+                                      name= "noOfBedRoom"
+                                      onChange={(value) =>
+                                          handlechange1(value)}
+                                     // defaultChecked={value === "2 Bedroom"}    
+                                      checked={fields.noOfBedRoom === "2"}
+                                       // {...plaftormInputProps}
+                                      />2 Bedroom
+                                      <input
+                                        type="radio"
+                                        value="3"
+                                        name= "noOfBedRoom"
+                                        checked={fields.noOfBedRoom === "3"}
+                                        onChange={(value) =>
+                                          handlechange1(value)}
+                                        />3 Bedroom
+                                        <input
+                                          type="radio"
+                                          value="5"
+                                          name= "noOfBedRoom"
+                                          checked={fields.noOfBedRoom === "5"}
+                                          //defaultChecked={value === "4+ Bedroom"}  
+                                          onChange={(value) =>
+                                            handlechange1(value)}
+                                        // checked={field.noOfBedRoom}
+                                          // {...plaftormInputProps}
+                                          />4+ Bedroom
+                                </div>
+                              </FormGroup>
                               
-              <InputUI
-                  type="text"
-                  name="socialId"
-                  id="socialId"
-                  placeholder="Social Media ID"
-                  errors={errors}
-                  innerRef={register({
-                   // required: 'This is required field',
-                  })}
-                  fields={fields}
-                />
+              
                 
                               
                 <div className="form-group my-4 py-2">
@@ -397,7 +441,78 @@ const Formsec = (props) => {
                   // onChange={handlechange}
                   labelledBy={"Preferences for house rules"}
                 />
-
+                <div className="mt-4 d-flex align-items-center">
+                              <h6 className="social mr-2">Link social media accounts:</h6>
+                                <div id="facebookLink" className="d-flex">
+                                  <Facebook></Facebook>
+                                  
+                                </div>
+                                <div id="twitterLink" className="d-flex">
+                                  
+                                  <Twitter></Twitter>
+                                  
+                                </div>
+                                <div id="gsuiteLink" className="d-flex">
+                                  
+                                 <Gsuite></Gsuite>
+                                </div>
+                            </div>
+                            <UncontrolledCollapse toggler="#facebookLink">
+                              <FormGroup>
+                                {/* <Input type="text" name="facebookprofile" id="facebookprofile" placeholder="Facebook Link" /> */}
+                                <InputUI
+                                      type="text"
+                                      name="facebookLink"
+                                      id="facebookLink1"
+                                      placeholder="Facebook Link"
+                                      errors={errors}
+                                      innerRef={register({
+                                      // required: 'This is required field',
+                                      })}
+                                      fields={fields}
+                                    // value={fields.socialMediaLink.facebookLink}
+                                    />
+                              </FormGroup>
+                              
+                              
+                            </UncontrolledCollapse>
+                            <UncontrolledCollapse toggler="#twitterLink">
+                              
+                              <FormGroup>
+                                {/* <Input type="text" name="twitterprofile" id="twitterprofile" placeholder="Twitter Link" /> */}
+                                <InputUI
+                                      type="text"
+                                      name="twitterLink"
+                                      id="twitterLink1"
+                                      placeholder="Twitter Link"
+                                      errors={errors}
+                                      innerRef={register({
+                                      // required: 'This is required field',
+                                      })}
+                                      fields={fields}
+                                    />
+                              </FormGroup>
+                              
+                            </UncontrolledCollapse>
+                            <UncontrolledCollapse toggler="#gsuiteLink">
+                              
+                              
+                              <FormGroup>
+                                {/* <Input type="text" name="googleprofile" id="googleprofile" placeholder="Google Link" /> */}
+                                <InputUI
+                                      type="text"
+                                      name="gsuiteLink"
+                                      id="gsuiteLink1"
+                                      placeholder="Google Link"
+                                      errors={errors}
+                                      innerRef={register({
+                                      // required: 'This is required field',
+                                      })}
+                                      fields={fields}
+                                    />
+                              </FormGroup>
+                            </UncontrolledCollapse>
+              
                 <Button type="submit" color="primary" className="login-bt mt-4 mb-2"> Submit </Button>
                   
               </Col>
