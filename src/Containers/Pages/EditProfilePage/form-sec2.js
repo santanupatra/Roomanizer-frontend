@@ -40,8 +40,10 @@ const Formsec2 = (props) => {
     firstName: "",
     lastName: "",
     dateOfBirth: null,
-    socialId:"",
-    age: "",
+    facebookLink:'',
+    twitterLink:'',
+    gsuiteLink:'',
+    age:"",
    }
    const initialField = {
    user_Id: "",
@@ -114,6 +116,8 @@ const Formsec2 = (props) => {
   
   
   console.log(props.user.user)
+ 
+
 
 
   useEffect(() => {
@@ -130,7 +134,8 @@ const Formsec2 = (props) => {
     if (action.isSuccess && action.type === "UPDATE")
       props.history.push(`/editProfile/${userId}`)
   }, [props.user,props.house]);
-
+  // console.log(fields.socialMediaLink.facebookLink)
+ 
   const onSubmit = (data) => {
     data.longitude = field.longitude;
     data.latitude = field.latitude;
@@ -385,13 +390,13 @@ const Formsec2 = (props) => {
                                 </FormGroup>
                               </Col>
                             </Row>
-                            <Row>
+                            {/* <Row>
                               <Col xs={12} sm={12} md={12} lg={12}>
                               <FormGroup>
                               <InputUI
                                       type="url"
-                                      name="socialId"
-                                      id="socialId"
+                                      name="socialMediaId"
+                                      id="socialMediaId"
                                       placeholder="Social Media ID"
                                       errors={errors}
                                       innerRef={register({
@@ -401,7 +406,7 @@ const Formsec2 = (props) => {
                                     />
                                 </FormGroup>
                               </Col>
-                            </Row>
+                            </Row> */}
                             <Row>
                               <Col xs={12} sm={12} md={6} lg={6}>
                                 <FormGroup>
@@ -635,7 +640,7 @@ const Formsec2 = (props) => {
                                   innerRef={register({
                                   required: 'This is required field',
                                   })}
-                                  fields={field}/>
+                                 fields={field}/>
                               </Col>
                             </Row>
                             <Row>
@@ -681,21 +686,73 @@ const Formsec2 = (props) => {
 
                             <div className="mt-4 d-flex align-items-center">
                               <h6 className="social mr-2">Link social media accounts:</h6>
-                                <div id="socialmediaLink" className="d-flex">
+                                <div id="facebookLink" className="d-flex">
                                   <Facebook></Facebook>
+                                  
+                                </div>
+                                <div id="twitterLink" className="d-flex">
+                                  
                                   <Twitter></Twitter>
-                                  <Gsuite></Gsuite>
+                                  
+                                </div>
+                                <div id="gsuiteLink" className="d-flex">
+                                  
+                                 <Gsuite></Gsuite>
                                 </div>
                             </div>
-                            <UncontrolledCollapse toggler="#socialmediaLink">
+                            <UncontrolledCollapse toggler="#facebookLink">
                               <FormGroup>
-                                <Input type="text" name="facebookprofile" id="facebookprofile" placeholder="Facebook Link" />
+                                {/* <Input type="text" name="facebookprofile" id="facebookprofile" placeholder="Facebook Link" /> */}
+                                <InputUI
+                                      type="text"
+                                      name="facebookLink"
+                                      id="facebookLink1"
+                                      placeholder="Facebook Link"
+                                      errors={errors}
+                                      innerRef={register({
+                                      // required: 'This is required field',
+                                      })}
+                                      fields={fields}
+                                    // value={fields.socialMediaLink.facebookLink}
+                                    />
                               </FormGroup>
+                              
+                              
+                            </UncontrolledCollapse>
+                            <UncontrolledCollapse toggler="#twitterLink">
+                              
                               <FormGroup>
-                                <Input type="text" name="twitterprofile" id="twitterprofile" placeholder="Twitter Link" />
+                                {/* <Input type="text" name="twitterprofile" id="twitterprofile" placeholder="Twitter Link" /> */}
+                                <InputUI
+                                      type="text"
+                                      name="twitterLink"
+                                      id="twitterLink1"
+                                      placeholder="Twitter Link"
+                                      errors={errors}
+                                      innerRef={register({
+                                      // required: 'This is required field',
+                                      })}
+                                      fields={fields}
+                                    />
                               </FormGroup>
+                              
+                            </UncontrolledCollapse>
+                            <UncontrolledCollapse toggler="#gsuiteLink">
+                              
+                              
                               <FormGroup>
-                                <Input type="text" name="googleprofile" id="googleprofile" placeholder="Google Link" />
+                                {/* <Input type="text" name="googleprofile" id="googleprofile" placeholder="Google Link" /> */}
+                                <InputUI
+                                      type="text"
+                                      name="gsuiteLink"
+                                      id="gsuiteLink1"
+                                      placeholder="Google Link"
+                                      errors={errors}
+                                      innerRef={register({
+                                      // required: 'This is required field',
+                                      })}
+                                      fields={fields}
+                                    />
                               </FormGroup>
                             </UncontrolledCollapse>
                             <div className="text-center">
