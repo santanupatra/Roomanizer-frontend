@@ -106,6 +106,8 @@ const LoginNavbaar = (props) => {
                     <DropdownMenu>
                       <Link to={`/editProfile/${userId}`}>My Account</Link>
                       <Link to={`/changePassword/${userId}`}>Settings</Link>
+                      <Link to={`/favoriteroom/${userId}`}>My Favorites Room </Link>
+                      <Link to={`/favoriteroomate/${userId}`}>My Favorites Roommate</Link>
                       <Link to="#">My Favorites</Link>
                       <Link to="#">My Messages</Link>
                       <Link to="#">Notifications</Link>
