@@ -62,7 +62,10 @@ const Formsec = () => {
     let occupation = fields.occupation;
     let gender = fields.gender;
 
-    history.push('/roomMateSearch/?city='+city+'&occupation='+occupation+'&gender='+gender+'&age='+age+'&location='+address);
+    let searchpara = '?city='+city+'&occupation='+occupation+'&gender='
+                    +gender+'&age='+age+'&location='+address+'&bedrooms=&amenities=&houserules=&page=0';
+
+    history.push('/roomMateSearch/'+searchpara);
     
   }
 

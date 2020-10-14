@@ -20,11 +20,12 @@ import { apiBaseUrl } from "../../../shared/helpers";
 import { CITY_URL,AMINITIES_URL,HOUSE_RULE_URL} from '../../../shared/allApiUrl';
 import imagePath from '../../../Config/imageConstants';
 import ReactPaginate from 'react-paginate';
+import { BrowserRouter as Router, Route, useHistory } from "react-router-dom";
 
 
 const RoomMateSearch =(props)=> {
 
-  const perPage = 6;
+  const perPage = 1;
   const {buttonLabel,className} = props;
   const toggle = () => setModal(!modal);
 
@@ -37,14 +38,15 @@ const RoomMateSearch =(props)=> {
   const [showList, setShowList] = useState(false);
   const [listCount, setListCount] = useState(0);
 
-  const [fgender, setGender] = useState('');
-  const [foccupation, setOccupation] = useState('');
-  const [fcity, setCity] = useState('');
-  const [fage, setAge] = useState('');
-  const [fbedrooms, setBedrooms] = useState('');
-  const [famenities, setAmenities] = useState('');
-  const [fhouserules, setHouseRules] = useState('');
+  const [gender, setGender] = useState('');
+  const [occupation, setOccupation] = useState('');
+  const [city, setCity] = useState('');
+  const [age, setAge] = useState('');
+  const [bedrooms, setBedrooms] = useState('');
+  const [amenities, setAmenities] = useState('');
+  const [houserules, setHouseRules] = useState('');
   const [pageCount, setPageCount] = useState('');
+  const history = useHistory();
   
 
   useEffect(() => {
@@ -55,13 +57,21 @@ const RoomMateSearch =(props)=> {
     let gender = params.get('gender');
     let age = params.get('age');
     let location = params.get('location');
+    let bedrooms = params.get('bedrooms');
+    let amenities = params.get('amenities');
+    let houserules = params.get('houserules');
+    let page = params.get('page');
 
     setGender(gender);
     setCity(city);
     setOccupation(occupation);
     setAge(age);
+    setBedrooms(bedrooms);
 
-    let searchpara = '?city='+city+'&occupation='+occupation+'&gender='+gender+'&age='+age+'&location='+location+'&page=0&perpage='+perPage;
+    let searchpara = '?city='+city+'&occupation='+occupation+'&gender='
+                    +gender+'&age='+age+'&location='+location+'&bedrooms='
+                    +bedrooms+'&amenities='+amenities+'&houserules='
+                    +houserules+'&page='+page+'&perpage='+perPage;
 
     callApi(apiBaseUrl+"/web/user-api/"+searchpara,'GET','').then(
       response => {
@@ -103,51 +113,54 @@ const RoomMateSearch =(props)=> {
   const filterSubmit = (page) => {
     setShowList(false);
     let params = new URLSearchParams(props.location.search);
-    let flocation = '';
-    // let location = params.get('location');
+    // let flocation = '';
+    let location = params.get('location');
 
-    let searchpara = '?city='+fcity+'&occupation='+foccupation+'&gender='
-                    +fgender+'&age='+fage+'&location='+flocation+'&bedrooms='
-                    +fbedrooms+'&amenities='+famenities+'&houserules='
-                    +fhouserules+'&page='+page+'&perpage='+perPage;
-    console.log("parameters",searchpara);
-    callApi(apiBaseUrl+"/web/user-api/"+searchpara,'GET','').then(
-      response => {
-        let totalpagecount = Math.ceil(response.data.count/perPage);
-        setShowList(true);
-        setListCount(response.data.count);
-        setSearchList(response.data.list);
-        setPageCount(totalpagecount);
-        
-      }
-    )
+    let searchpara = '?city='+city+'&occupation='+occupation+'&gender='
+                    +gender+'&age='+age+'&location='+location+'&bedrooms='
+                    +bedrooms+'&amenities='+amenities+'&houserules='
+                    +houserules+'&page='+page+'&perpage='+perPage;
+    
+    history.push('/roomMateSearch/'+searchpara);
+    window.location.reload();
   }
 
   const paginationCallFunction = (e) => {
     const selectedPage = e.selected;
-    filterSubmit(selectedPage);
+    setShowList(false);
+    let params = new URLSearchParams(props.location.search);
+    // let flocation = '';
+    let location = params.get('location');
+
+    let searchpara = '?city='+city+'&occupation='+occupation+'&gender='
+                    +gender+'&age='+age+'&location='+location+'&bedrooms='
+                    +bedrooms+'&amenities='+amenities+'&houserules='
+                    +houserules+'&page='+selectedPage+'&perpage='+perPage;
+
+    callApi(apiBaseUrl+"/web/user-api/"+searchpara,'GET','').then(
+      response => {
+        setShowList(true);
+        setSearchList(response.data.list);
+      }
+    )
   }
   
   const createFilterString = (name,e) => {
 
     if(name=="amenities"){
-      if(famenities){
-        setAmenities(famenities+','+e);
+      if(amenities){
+        setAmenities(amenities+','+e);
       } else {
         setAmenities(e);
       }
     }
     if(name=="houserules"){
-      if(fhouserules){
-        setHouseRules(fhouserules+','+e);
+      if(houserules){
+        setHouseRules(houserules+','+e);
       } else {
         setHouseRules(e);
       }
     }
-  }
-
-  const createHouseRulesString = (e) => {
-    
   }
   
 
@@ -173,7 +186,7 @@ const RoomMateSearch =(props)=> {
                                         type="select" 
                                         name="fcity" 
                                         id="fcity"
-                                        value={fcity}
+                                        value={city}
                                         onChange={(e) =>setCity(e.target.value)}
                                       >
                                         <option value="">City</option>
@@ -195,7 +208,7 @@ const RoomMateSearch =(props)=> {
                                           sliderColor='#ccc'
                                           trackColor='#014d81'
                                           thumbColor='#014d81'
-                                          value = {fage}
+                                          value = {age}
                                           onChange={(value)=>{setAge(value.value);}}
                                         />
                                     </Col>
@@ -205,7 +218,7 @@ const RoomMateSearch =(props)=> {
                                         type="select" 
                                         name="foccupation" 
                                         id="foccupation"
-                                        value={foccupation}
+                                        value={occupation}
                                         onChange={(e) =>setOccupation(e.target.value)}
                                       >
                                         <option value="">Occupation</option>
@@ -220,7 +233,7 @@ const RoomMateSearch =(props)=> {
                                         type="select"
                                         name="fgender" 
                                         id="fgender"
-                                        value={fgender}
+                                        value={gender}
                                         onChange={(e) =>setGender(e.target.value)}
                                       >
                                         <option value="">Gender</option>
@@ -250,7 +263,8 @@ const RoomMateSearch =(props)=> {
                                               type="radio" 
                                               name="no_bedrooms" 
                                               id="no_bedrooms1" 
-                                              value="2" 
+                                              value="2"
+                                              checked={bedrooms==2} 
                                               label="2 Bedroom"
                                               onChange={(e) =>setBedrooms(e.target.value)} 
                                             />
@@ -258,7 +272,8 @@ const RoomMateSearch =(props)=> {
                                               type="radio" 
                                               name="no_bedrooms" 
                                               id="no_bedrooms2" 
-                                              value="3" 
+                                              value="3"
+                                              checked={bedrooms==3} 
                                               label="3 Bedroom" 
                                               onChange={(e) =>setBedrooms(e.target.value)} 
                                             />
@@ -266,7 +281,8 @@ const RoomMateSearch =(props)=> {
                                               type="radio" 
                                               name="no_bedrooms" 
                                               id="no_bedrooms3" 
-                                              value="5" 
+                                              value="5"
+                                              checked={bedrooms==5} 
                                               label="4+ Bedroom"
                                               onChange={(e) =>setBedrooms(e.target.value)}  
                                             />
@@ -362,7 +378,7 @@ const RoomMateSearch =(props)=> {
                                 breakLabel={"..."}
                                 pageCount={pageCount}
                                 marginPagesDisplayed={1}
-                                pageRangeDisplayed={5}
+                                pageRangeDisplayed={2}
                                 onPageChange={paginationCallFunction}
                                 containerClassName={"pagination pagination-sm"}
                                 pageLinkClassName = {"page-link"}
