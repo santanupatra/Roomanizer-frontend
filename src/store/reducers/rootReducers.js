@@ -7,7 +7,8 @@ import setting from './setting';
 import house from './house'
 import room from './room'
 import city from './city'
-import landlord from './landlord'
+import landlord from './landlord';
+import favorite from './favorite'
 export default combineReducers({
     auth,
     user,
@@ -17,5 +18,6 @@ export default combineReducers({
     house,
     room,
     city,
-    landlord
+    landlord,
+    favorite,
 })
