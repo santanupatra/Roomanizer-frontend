@@ -21,6 +21,8 @@ import CmsDetails from  '../Containers/Common/CmsDetails'
 import { Navbar } from 'reactstrap'
 import AfterActive from '../Containers/Pages/ActiveMailPage/AfterActive';
 import FavoritePage from '../Containers/Pages/FavoritePage/favorite';
+import FavoriteRoom from '../Containers/Pages/FavoriteRoom/favoriteroom';
+import FavoriteRoomate from '../Containers/Pages/FavoriteRoomate/favoriteroomate';
 import HowItWorksPage from '../Containers/Pages/HowItWorksPage/HowItWorks';
 import ChatPage from '../Containers/Pages/ChatPage/chat';
 
@@ -51,6 +53,8 @@ const Routes=(props) =>{
                 <Route path="/CmsDetails/:SlugId" exact component={CmsDetails} />
                 <Route path="/activeAccount/:email" exact component={AfterActive} />
                 <Route path="/favorite" exact component={FavoritePage} />
+                <Route path="/favoriteroom/:userId" exact component={FavoriteRoom} />
+                <Route path="/favoriteroomate/:userId" exact component={FavoriteRoomate} />
                 <Route path="/howItWorks" exact component={HowItWorksPage} />
                 <Route path="/chat" exact component={ChatPage} />
             </Switch>
