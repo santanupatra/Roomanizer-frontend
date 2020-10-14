@@ -43,6 +43,7 @@ const LoginNavbaar = (props) => {
 
   const logout = () =>{
     localStorage.removeItem("access-token");
+    localStorage.removeItem('userId')
     // this.setState({
     //     Authtoken: '',
     //   });

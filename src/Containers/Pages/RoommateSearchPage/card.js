@@ -11,6 +11,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {
   Card, CardImg, CardText, CardBody, CardFooter,
   CardTitle, CardSubtitle} from 'reactstrap';
+import { withRouter ,useHistory} from "react-router";
+import { connect } from 'react-redux';
+import { crudAction } from '../../../store/actions/common';
+import { FAV_URL } from '../../../shared/allApiUrl';
+
 import { Nav, NavItem, NavLink } from 'reactstrap';
 import { Button, Form, FormGroup, Label, Input, FormFeedback, FormText } from 'reactstrap';
 import { InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
@@ -20,12 +25,46 @@ import { getImageUrl } from '../../../shared/helpers';
 
 
 const Cardbox = (props) => {
-  const[fav,setFav]=useState(true);
- const click = () =>{
-   setFav()
+  const history = useHistory();
+  console.log(localStorage.getItem('userId'))
+  const[fav,setFav]=useState();
+  const click = () =>{
+  if(localStorage.getItem('userId') == null){
+   history.push('/login') 
+  }else{ 
+        let a = true
+        // const b = localStorage.getItem('userId')
+        // console.log(b)
+        // const c = "roomMate"
+        // console.log(c)
+        // data.loginUserId = b
+        // data.roomMateId = val._id 
+        // data.type = c
+        // console.log(data)
+       const data = {
+          loginUserId : localStorage.getItem('userId') ,
+          roomMateId :   val._id     ,
+         // type :    "roomMate"    ,
+        }
+        console.log(data)
+        props.crudActionCall(FAV_URL,data,"ADD");
+        setFav(a)
+      }
+ }
+ const click2 = () =>{
+  let a = false
+  const data = {
+    loginUserId : localStorage.getItem('userId') ,
+    roomMateId :   val._id     ,
+    type :    "roomMate"    ,
+  }
+  console.log(data)
+  props.crudActionCall(FAV_URL,data,"ADD");
+  setFav(a)
 
  }
-  const val = (props.val)  
+  const val = (props.val) 
+  console.log(val._id) 
   return (
 
     <Card>
@@ -50,8 +89,9 @@ const Cardbox = (props) => {
         <div className="d-flex justify-content-between">
       <div className="py-2"><h6 className="org">${val.maxBudget}</h6></div>
       {fav?
-        <div className="border-left border-right p-2"><button type="checkbox"  onClick={click} className="wishlistbtn"><img src={imagePath.heartoutLine}/></button></div>
-      :  <div className="border-left border-right p-2"><button type="checkbox"  className="wishlistbtn"><img src={imagePath.heartsolid}/></button></div>
+        
+       <div className="border-left border-right p-2"><button type="checkbox" onClick={click2} className="wishlistbtn"><img src={imagePath.heartsolid}/></button></div>
+       : <div className="border-left border-right p-2"><button type="checkbox"  onClick={click} className="wishlistbtn"><img src={imagePath.heartoutLine}/></button></div>
      }
           
           <div className="py-2"><FontAwesomeIcon icon={faShareAlt} /></div>
@@ -62,4 +102,22 @@ const Cardbox = (props) => {
     );
   }
   
-  export default Cardbox;
+  const mapStateToProps = state => {
+    const { favorite } = state;
+    return {
+      favorite
+    }
+  }
+  
+  const mapDispatchToProps = dispatch => {
+    return {
+      crudActionCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "FAVORITE")),
+    }
+  }
+
+  export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Cardbox));
+  
+  
+  
+  
+ // export default Cardbox;
