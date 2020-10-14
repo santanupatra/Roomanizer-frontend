@@ -20,7 +20,11 @@ import { getImageUrl } from '../../../shared/helpers';
 
 
 const Cardbox = (props) => {
-  const[fav,setFav]=useState(false);
+  const[fav,setFav]=useState(true);
+ const click = () =>{
+   setFav()
+
+ }
   const val = (props.val)  
   return (
 
@@ -46,8 +50,8 @@ const Cardbox = (props) => {
         <div className="d-flex justify-content-between">
       <div className="py-2"><h6 className="org">${val.maxBudget}</h6></div>
       {fav?
-        <div className="border-left border-right p-2"><button className="wishlistbtn"><img src={imagePath.heartoutLine}/></button></div>:
-        <div className="border-left border-right p-2"><button className="wishlistbtn"><img src={imagePath.heartsolid}/></button></div>
+        <div className="border-left border-right p-2"><button type="checkbox"  onClick={click} className="wishlistbtn"><img src={imagePath.heartoutLine}/></button></div>
+      :  <div className="border-left border-right p-2"><button type="checkbox"  className="wishlistbtn"><img src={imagePath.heartsolid}/></button></div>
      }
           
           <div className="py-2"><FontAwesomeIcon icon={faShareAlt} /></div>
