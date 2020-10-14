@@ -1,23 +1,15 @@
 import React,{useState , useEffect} from 'react';
 import './style.css';
 import imagePath from '../../../Config/imageConstants';
-import { Row, Col, Button } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Nav, NavItem } from 'reactstrap';
-import { FormGroup, Label, Input } from 'reactstrap';
-import { InputGroup, InputGroupAddon } from 'reactstrap';
-import { TabContent, TabPane } from 'reactstrap';
+import { InputGroup, InputGroupAddon ,TabContent, TabPane,Row, Col, Button,Nav, NavItem,FormGroup, Label, Input} from 'reactstrap';
 import classnames from 'classnames';
 import { NavLink } from "react-router-dom";
-
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarAlt, faClock } from '@fortawesome/free-regular-svg-icons';
-
 import ReactSimpleRange from 'react-simple-range';
-import { faBriefcase } from '@fortawesome/free-solid-svg-icons';
-
 import { callApi} from '../../../api';
 import { apiBaseUrl } from "../../../shared/helpers";
 import { CITY_URL} from '../../../shared/allApiUrl';
@@ -98,16 +90,36 @@ const Formsec = () => {
           <Row>
             <Col xs={12} sm={12} md={4} lg={4}>
               <FormGroup>
-                <Input type="select" name="select" id="exampleSelect">
-                    <option>Luxembourg</option>
-                    <option>2</option>
-                    <option>3</option>
+                <Input 
+                  type="select" 
+                  name="city" 
+                  id="city"
+                  value={fields.city}
+                  onChange={(e) =>
+                    handleChange(e.target.name, e.target.value)
+                  }
+                >
+                  <option value="">City</option>
+                  {
+                    cityList!='' && cityList.map((val) =>{
+                      return(
+                        <option value={val.cityName}>{val.cityName}</option>
+                      );
+                    })
+                  } 
                 </Input>
               </FormGroup>
             </Col>
             <Col xs={12} sm={12} md={8} lg={8}>
               <FormGroup>
-                <Input className="search" type="email" name="email" id="exampleEmail" placeholder="Enter a street, area or city" />
+                <Input 
+                    className="search" 
+                    type="text" 
+                    name="address" 
+                    id="address"
+                    placeholder="Enter a street, area or city"
+                    onChange={event => setAddress(event.target.value)}
+                  />
               </FormGroup>
             </Col>
             </Row>
@@ -122,7 +134,7 @@ const Formsec = () => {
             </Col>
             <Col xs={12} sm={12} md={3} lg={3}>
               <FormGroup>
-                  <InputGroup>
+                  {/* <InputGroup>
                     <DatePicker
                       selected={startTime}
                       onChange={date => setStartTime(date)}
@@ -137,7 +149,25 @@ const Formsec = () => {
                       dateFormat="h:mm aa"
                     />
                     <InputGroupAddon addonType="icon"><FontAwesomeIcon icon={faClock} /></InputGroupAddon>
-                  </InputGroup>
+                  </InputGroup> */}
+                    <Input 
+                    type="select" 
+                    name="city" 
+                    id="city"
+                    value={fields.city}
+                    onChange={(e) =>
+                      handleChange(e.target.name, e.target.value)
+                    }
+                  >
+                  <option value="">City</option>
+                  {
+                    cityList!='' && cityList.map((val) =>{
+                      return(
+                        <option value={val.cityName}>{val.cityName}</option>
+                      );
+                    })
+                  } 
+                </Input>
                 </FormGroup>
             </Col>
             <Col xs={12} sm={12} md={3} lg={3}>

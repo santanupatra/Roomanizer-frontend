@@ -57,6 +57,8 @@ const chatltImage = require('../assets/images/chat-left.png');
 const chatbtImage = require('../assets/images/chat-bt.png');
 const attachImage = require('../assets/images/attach.png');
 const noImage = require('../assets/images/no-image.jpg');
+const heartoutLine = require('../assets/images/hart-outline.png');
+const heartsolid = require('../assets/images/hart-solid.png');
 
 
 let imagePath;
@@ -119,5 +121,7 @@ export default imagePath={
     chatbtImage:chatbtImage,
     attachImage:attachImage,
     noImage:noImage,
+    heartoutLine:heartoutLine,
+    heartsolid:heartsolid,
 
 }
