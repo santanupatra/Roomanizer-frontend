@@ -20,7 +20,8 @@ const Formsec = () => {
     gender: "",
     occupation: "",
     city:"",
-    cityList:""
+    cityList:"",
+    duration:""
   }
 
   const [activeTab, setActiveTab] = useState('1');
@@ -153,24 +154,41 @@ const Formsec = () => {
                     />
                     <InputGroupAddon addonType="icon"><FontAwesomeIcon icon={faClock} /></InputGroupAddon>
                   </InputGroup> */}
-                    <Input 
-                    type="select" 
-                    name="city" 
-                    id="city"
-                    value={fields.city}
-                    onChange={(e) =>
-                      handleChange(e.target.name, e.target.value)
-                    }
-                  >
-                  <option value="">City</option>
-                  {
-                    cityList!='' && cityList.map((val) =>{
-                      return(
-                        <option value={val.cityName}>{val.cityName}</option>
-                      );
-                    })
-                  } 
-                </Input>
+                      <Input 
+                        type="select" 
+                        name="duration" 
+                        id="duration"
+                        value={fields.city}
+                        onChange={(e) =>
+                          handleChange(e.target.name, e.target.value)
+                        }
+                    >
+                      <option selected >Choose your Duration </option>
+                      <option value="1-3 Months">1-3 Months</option>
+                      <option value="3-6 Months">3-6 Months</option>
+                      <option value="6+ Months">6+ Months</option>
+                  </Input>
+                {/* <InputUI
+                                  type="select"
+                                  name="duration"
+                                  id="duration"
+                                  placeholder="Duration"
+                                  errors={errors}
+                                  innerRef={register({
+                                  required: 'This is required field',
+                                  })}
+                                  value={field.duration}
+                                  onChange={(e) =>
+                                    handleChange2(e.target.name, e.target.value)
+                                  }
+                                  >
+                                  <option selected disabled>Choose your Duration </option>
+                                  <option value="1-3 Months">1-3 Months</option>
+                                  <option value="3-6 Months">3-6 Months</option>
+                                  <option value="6+ Months">6+ Months</option>
+
+                                  
+                                  </InputUI> */}
                 </FormGroup>
             </Col>
             <Col xs={12} sm={12} md={3} lg={3}>
