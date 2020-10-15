@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React,{useState,useEffect} from 'react';
 import './style.css';
 import imagePath from '../../../Config/imageConstants';
 import { Container, Row, Col, Navbar } from 'reactstrap';
@@ -98,14 +98,7 @@ const Cardbox = (props) => {
 
     } else {
       let a = true
-      // const b = localStorage.getItem('userId')
-      // console.log(b)
-      // const c = "roomMate"
-      // console.log(c)
-      // data.loginUserId = b
-      // data.roomMateId = val._id 
-      // data.type = c
-      // console.log(data)
+      
       const data = {
         loginUserId: localStorage.getItem('userId'),
         roomMateId: val._id,
