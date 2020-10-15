@@ -64,7 +64,7 @@ occupation:" "
     
 
   }, [props.user]);
-   console.log(fields.houseRules)
+   console.log(fields.readyToMove)
 
     return (
       <div className="home">
@@ -94,11 +94,12 @@ occupation:" "
                               <Row>
                                 <Col sm={4}>
                                   <h4>Move in Date:</h4>
-                                       <p>{(fields.readyToMove)? moment(fields.readyToMove).format('YYYY-MM-DD') : ''}</p>
+                                       {(fields.readyToMove=='')? '' : moment(fields.readyToMove).format('YYYY-MM-DD')}
                                 </Col>
                                 <Col sm={8}>
                                   <h4>Occupation:</h4>
-                                       <p>{fields.occupation}</p>
+                                       {/* {fields.occupation} */}
+                                       {(fields.occupation)? fields.occupation : " "}
                                 </Col>
                               </Row>
                             </div>
@@ -115,9 +116,9 @@ occupation:" "
                             <div className="about border-0">
                               <h4>Looking for a room in:</h4>
                               <ul className="look pl-1">
-                                <li>Greater London</li>
-                                <li>Southwark</li>
-                                <li>Zone 1</li>
+                                      <li>{fields.address}</li>
+                                      <li>{fields.zipCode}</li>
+                                      <li>{fields.city}</li>
                               </ul>
                             
                             </div>
