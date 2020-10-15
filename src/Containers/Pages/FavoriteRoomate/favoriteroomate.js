@@ -1,71 +1,42 @@
-import React ,{useEffect,useState}from 'react';
+import React,{useState,useEffect} from 'react';
 import './style.css';
-import { Container, Row, Col, Navbar } from 'reactstrap';
+import imagePath from '../../../Config/imageConstants';
+import { Container, Row, Col } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from '../../Common/header';
-import Pageno from '../pageno';
-import Formsec from './form-sec';
 import Cardbox from './card';
 import Footer from '../../Common/footer';
-import { connect } from "react-redux";
-import { crudAction } from "../../../store/actions/common";
-import { USER_URL } from '../../../shared/allApiUrl';
-import { getImageUrl } from '../../../shared/helpers';
-import { withRouter } from 'react-router-dom';
-import moment from 'moment'
-import { callApi} from '../../../api';
-import { apiBaseUrl } from "../../../shared/helpers";
+import { withRouter ,useHistory} from "react-router";
+import { connect } from 'react-redux';
+import { crudAction } from '../../../store/actions/common';
+import { FAV_URL} from '../../../shared/allApiUrl';
 
 
-const RoomMateSearch =(props)=> {
 
-  const [searchList, setSearchList] = useState([]);
-  const [showList, setShowList] = useState(false);
-  const [listCount, setListCount] = useState(0);
-  
-  const getSearchResult = () => {
-    let params = new URLSearchParams(props.location.search);
-    let city = params.get('city');
-    let occupation = params.get('occupation');
-    let gender = params.get('gender');
-    let age = params.get('age');
-    let location = params.get('location');
+const RoomMateSearch =(props)=>{
+  let loginUserId = props.match.params.userId;
+  console.log(props.match.params.userId)
 
-    let searchpara = '?city='+city+'&occupation='+occupation+'&gender='+gender+'&age='+age+'&location='+location+'&page=0';
 
-    callApi(apiBaseUrl+"/web/user-api/"+searchpara,'GET','').then(
-      response => {
-        setShowList(true);
-        console.log("parameters",response.data.list);
-        setSearchList(response.data.list);
-        
-      }
-    )
-  }
 
-  useEffect(() => {
+  const getCityList = () => {
+    props.crudActionCall(`${FAV_URL}/${loginUserId}`, null, "GET")
+}
 
-    let params = new URLSearchParams(props.location.search);
-    let city = params.get('city');
-    let occupation = params.get('occupation');
-    let gender = params.get('gender');
-    let age = params.get('age');
-    let location = params.get('location');
+ useEffect(() => {
+     getCityList();
+     return () => {
+         // cleanup
+     }
+ }, []);
+ console.log(props.favorite.favorite)
 
-    let searchpara = '?city='+city+'&occupation='+occupation+'&gender='+gender+'&age='+age+'&location='+location+'&page=0';
-
-    callApi(apiBaseUrl+"/web/user-api/"+searchpara,'GET','').then(
-      response => {
-        setShowList(true);
-        setListCount(response.data.count)
-        setSearchList(response.data.list);
-      }
-    )
-
-  },[]);
-  
-
-  return (
+useEffect(() => {
+    const { type, isSuccess } = props.favorite.action;
+    if (type === "DELETE" && isSuccess)
+        getCityList();
+}, [props.favorite]);
+    return (
       <div className="home">
         <div className="header">
           <Header></Header>
@@ -74,52 +45,39 @@ const RoomMateSearch =(props)=> {
                 <Row className="align-items-center">
                   <Col>
                       <div className="page-bg">  
-                        <Row>
-                          <Col xs={12} m={12} md={12} lg={12}>
-                              <div className="form-bg1">
-                                <h3 className="heading2 mt-3 mb-4">Favorite Roommate :</h3>
-                                {/* <Formsec></Formsec> */}
-                              </div>
-                          </Col>
-                        </Row>
+                        <div className= "">
+                          <Row>
+                            <Col sm={12}>
+                                <div className="px-4">
+                                  <h3 className="mt-5 mb-0">Favorites Room Mate :</h3>
 
-                        <Col xs={12} m={12} md={12} lg={12}>
-                          {searchList && listCount > 0 ? 
-                            <h3 className="heading2 mt-3 mb-4">All Roommates: {listCount}   Results</h3>
-                          :
-                          <h3 className="heading2 mt-3 mb-4"></h3>}
-                        </Col>
-                        
-                        <Col xs={12} m={12} md={12} lg={12}>
-                          <Row className="d-flex flex-wrap">
-                            {showList ? 
-                            searchList && listCount > 0 ? searchList.map((val) => {
-                              return (
-                                <Col xs={12} sm={6} md={6} lg={4} className="mb-4">
-                                  <div>
-                                    <Cardbox val={val}></Cardbox>
-                                  </div>
-                                </Col>
-                                  );
-                                })
-                                :
-                                <Col xs={12} sm={6} md={6} lg={4} className="mb-4">
-                                  <div>No Roommates found!</div>
-                                </Col>
-                                 :
-                                 <Col xs={12} sm={6} md={6} lg={4} className="mb-4">
-                                  <div>Loading data ....</div>
-                                </Col>
-                                }
+                                </div>
+                            </Col>
                           </Row>
-                        </Col>
-
+                        </div>
                         
+                        <Row className="px-2 py-4">
+                        {props.favorite.favorite ?
+                              props.favorite.favorite.map((val) => {
 
-                        <Row>
-                          <Col>
-                            <Pageno></Pageno>
+                          return (
+                          <Col xs={12} sm={12} md={6} lg={4} className="px-4">  
+                            <Cardbox val={val}></Cardbox>
                           </Col>
+
+                           );
+                          })
+
+                          : null} 
+
+                           {/* <Col xs={12} sm={12} md={6} lg={4} className="px-4">  
+                             <Cardbox></Cardbox>
+                           </Col>
+
+                           <Col xs={12} sm={12} md={6} lg={4} className="px-4">  
+                             <Cardbox></Cardbox>
+                          </Col> */}
+
                         </Row>
                         
                       </div>
@@ -134,19 +92,20 @@ const RoomMateSearch =(props)=> {
     )
   
 }
+
 const mapStateToProps = state => {
-  const { user } = state;
+  const { favorite } = state;
   return {
-      user
+    favorite
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-      crudActionCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "USER"))
-
+    crudActionCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "FAVORITE")),
   }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(RoomMateSearch));
-//export default  roomMateSearch;
+
+//export default RoomMateSearch;

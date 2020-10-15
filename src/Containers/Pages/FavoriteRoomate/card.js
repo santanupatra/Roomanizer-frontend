@@ -21,30 +21,31 @@ import { getImageUrl } from '../../../shared/helpers';
 
 const Cardbox = (props) => {
   const[fav,setFav]=useState(false);
-  const val = (props.val)  
+  const val = (props.val) 
+  console.log(val.roomMateId)
   return (
 
     <Card>
       <div className="listingImgBox">
-        {val.profilePicture ?
-        <CardImg  src={getImageUrl(val.profilePicture)} alt="Card image cap" />
-        :
-        <CardImg  src={imagePath.noImage} alt="Card image cap" />
-        }
+        {val.roomMateId.profilePicture ?
+        <CardImg  src={getImageUrl(val.roomMateId.profilePicture)} alt="Card image cap" />
+        
+        :<CardImg  src={imagePath.noImage} alt="Card image cap" />
+          }
       </div>
       <CardBody>
         <div className="d-flex justify-content-between align-items-center">
-          <CardTitle>{val.firstName?val.firstName:''} {val.lastName?val.lastName:''}</CardTitle>
-          <CardSubtitle>{val.gender}</CardSubtitle>
+          <CardTitle>{val.roomMateId.firstName?val.roomMateId.firstName:''} {val.roomMateId.lastName?val.roomMateId.lastName:''}</CardTitle>
+          <CardSubtitle>{val.roomMateId.gender}</CardSubtitle>
         </div>
         <div className="d-flex justify-content-between">
-          <h6><FontAwesomeIcon icon={faCalendarAlt} />{(val.readyToMove)? moment(val.readyToMove).format('YYYY-MM-DD') : ''}</h6>
-            <CardSubtitle>Age: {val.age}</CardSubtitle>
+          <h6><FontAwesomeIcon icon={faCalendarAlt} />{(val.roomMateId.readyToMove)? moment(val.roomMateId.readyToMove).format('YYYY-MM-DD') : ''}</h6>
+            <CardSubtitle>Age: {val.roomMateId.age}</CardSubtitle>
         </div>
       </CardBody>
       <CardFooter className="">
         <div className="d-flex justify-content-between">
-      <div className="py-2"><h6 className="org">${val.maxBudget}</h6></div>
+      <div className="py-2"><h6 className="org">${val.roomMateId.maxBudget}</h6></div>
       {fav?
         <div className="border-left border-right p-2"><button className="wishlistbtn"><img src={imagePath.heartoutLine}/></button></div>:
         <div className="border-left border-right p-2"><button className="wishlistbtn"><img src={imagePath.heartsolid}/></button></div>

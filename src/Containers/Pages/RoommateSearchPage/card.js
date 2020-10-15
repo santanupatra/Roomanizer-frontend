@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import './style.css';
 import imagePath from '../../../Config/imageConstants';
 import { Container, Row, Col, Navbar } from 'reactstrap';
@@ -28,11 +28,31 @@ const Cardbox = (props) => {
   const history = useHistory();
   console.log(localStorage.getItem('userId'))
   const[fav,setFav]=useState();
+   
+  let loginUserId = localStorage.getItem('userId');
+  //console.log(props.match.params.userId)
+
+
+
+  const getCityList = () => {
+    props.crudActionCall(`${FAV_URL}/${loginUserId}`, null, "GET_ALL")
+}
+
+ useEffect(() => {
+     getCityList();
+     return () => {
+         // cleanup
+     }
+ }, []);
+
+
   const click = () =>{
   if(localStorage.getItem('userId') == null){
    history.push('/login') 
   }else{ 
-        let a = true
+   // localStorage.setItem('a',val._id)
+    let a = true
+       // let a = true
         // const b = localStorage.getItem('userId')
         // console.log(b)
         // const c = "roomMate"
@@ -52,6 +72,8 @@ const Cardbox = (props) => {
       }
  }
  const click2 = () =>{
+  
+  //localStorage.removeItem('a')
   let a = false
   const data = {
     loginUserId : localStorage.getItem('userId') ,
@@ -63,8 +85,15 @@ const Cardbox = (props) => {
   setFav(a)
 
  }
+ const listItems = props.favorite.favoriteList.map((myList) =>  
+    <li>{myList}</li>
+  
+  
+  );
+  console.log(listItems[0])
+  console.log(props.favorite.favoriteList)
   const val = (props.val) 
-  console.log(val._id) 
+  console.log(val) 
   return (
 
     <Card>
