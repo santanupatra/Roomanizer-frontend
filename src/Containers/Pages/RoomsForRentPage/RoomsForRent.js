@@ -41,10 +41,11 @@ import {getImageUrl} from '../../../shared/helpers'
       location:[],
       longitude:null,
       moveIn:"",
-      noOfBedRoom:null,
+      noOfBedRoom:'',
       roomName:"",
       zipCode:"",
       ageRange:"",
+      aminities:[]
     
         }
       
@@ -78,6 +79,7 @@ import {getImageUrl} from '../../../shared/helpers'
     
       }, [props.room]);
        console.log(fields.houseRules)
+       console.log(fields)
   
     return (
       <div className="home">
@@ -100,20 +102,24 @@ import {getImageUrl} from '../../../shared/helpers'
                           <Col xs={12} sm={12} md={12} lg={8}>
                             <div className="about mt-0 pb-4">
                               <h4>For Private Room:</h4>
-                              <h2 className="blue">${fields.charges} / {fields.chargesType} in Luxembourg</h2>
+                              <h2 className="blue">${fields.charges} / {fields.chargesType} in {fields.city} </h2>
                             </div>
                             <div className="about">
                               <h4>About Room</h4>
                               <p className="mb-2">{fields.aboutRoom}</p>
                             <ul className="ab pl-0 d-flex justify-content-between mb-1">
-                              <li><img src={imagePath.bedImage} className="pr-1" alt="image"/>3 Bedrooms</li>
+                               <li><img src={imagePath.bedImage} className="pr-1" alt="image"/>{fields.noOfBedRoom}</li>
                               <li><img src={imagePath.maleImage} className="pr-1" alt="image"/>{fields.flateMate} Flatmates</li>
                               <li><img src={imagePath.ageImage} className="pr-1" alt="image"/>{fields.ageRange}</li>
-                              <li><img src={imagePath.bathImage} className="pr-1" alt="image"/>1.5 Bathrooms</li>
+                              <li><img src={imagePath.bathImage} className="pr-1" alt="image"/>{fields.bathNo} Bathrooms</li>
                             </ul>
                             <ul className="ab pl-0 d-flex mb-4">
-                              <li><img src={imagePath.washImage} className="pr-1" alt="image"/>In-unit Washer/Dryer</li>
-                              <li><img src={imagePath.cleanImage} className="pl-4 pr-1" alt="image"/>Weekly Cleaning Personnel</li>
+                            {fields.aminities.map(val => {
+                                   return (
+                                   <li><img src={fields.aminitiesImage} className="pr-1" alt="image"/>{val.label}</li>
+                                   )
+                            })}
+                              {/* <li><img src={imagePath.cleanImage} className="pl-4 pr-1" alt="image"/>Weekly Cleaning Personnel</li> */}
                             </ul>
                             </div>
 
@@ -133,7 +139,7 @@ import {getImageUrl} from '../../../shared/helpers'
                                 </Col>
                                 <Col xs={12} sm={6} md={3} lg={3}>
                                   <h4>Charges:</h4>
-                                  <p>$200 or Included</p>
+                                  <p>${fields.charges} or Included</p>
                                 </Col>
                               </Row>
                             </div>
