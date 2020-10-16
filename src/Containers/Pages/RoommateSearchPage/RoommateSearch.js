@@ -67,23 +67,29 @@ const RoomMateSearch =(props)=> {
     setOccupation(occupation);
     setAge(age);
     setBedrooms(bedrooms);
-
-    let searchpara = '?city='+city+'&occupation='+occupation+'&gender='
-                    +gender+'&age='+age+'&location='+location+'&bedrooms='
-                    +bedrooms+'&amenities='+amenities+'&houserules='
-                    +houserules+'&page='+page+'&perpage='+perPage;
-
-    callApi(apiBaseUrl+"/web/user-api/"+searchpara,'GET','').then(
-      response => {
-        let totalpagecount = Math.ceil(response.data.count/perPage);
-        setShowList(true);
-        setListCount(response.data.count);
-        setSearchList(response.data.list);
-        setPageCount(totalpagecount);
-      }
-    )
-
-  },[]);
+    
+    let searchpara;
+    if(localStorage.getItem('userId')!=null){
+            searchpara = '?city='+city+'&occupation='+occupation+'&gender='
+                            +gender+'&age='+age+'&location='+location+'&bedrooms='
+                            +bedrooms+'&amenities='+amenities+'&houserules='
+                            +houserules+'&loginUserId='+localStorage.getItem('userId')+'&page='+page+'&perpage='+perPage;
+    }else{
+           searchpara = '?city='+city+'&occupation='+occupation+'&gender='
+                          +gender+'&age='+age+'&location='+location+'&bedrooms='
+                          +bedrooms+'&amenities='+amenities+'&houserules='
+                          +houserules+'&page='+page+'&perpage='+perPage;
+          }
+                    callApi(apiBaseUrl+"/web/user-api/"+searchpara,'GET','').then(
+                      response => {
+                        let totalpagecount = Math.ceil(response.data.count/perPage);
+                        setShowList(true);
+                        setListCount(response.data.count);
+                        setSearchList(response.data.list);
+                        setPageCount(totalpagecount);
+                      }
+                    )
+    },[]);
 
   useEffect(() => {
     callApi(apiBaseUrl+"/web/"+CITY_URL,'GET','').then(
@@ -115,15 +121,26 @@ const RoomMateSearch =(props)=> {
     let params = new URLSearchParams(props.location.search);
     // let flocation = '';
     let location = params.get('location');
-
+     
+    if(localStorage.getItem('userId')!=null){
     let searchpara = '?city='+city+'&occupation='+occupation+'&gender='
+                    +gender+'&age='+age+'&location='+location+'&bedrooms='
+                    +bedrooms+'&amenities='+amenities+'&houserules='
+                    +houserules+'&loginUserId='+localStorage.getItem('userId')+'&page='+page+'&perpage='+perPage;
+    
+    history.push('/roomMateSearch/'+searchpara);
+    window.location.reload();
+    }else{
+      let searchpara = '?city='+city+'&occupation='+occupation+'&gender='
                     +gender+'&age='+age+'&location='+location+'&bedrooms='
                     +bedrooms+'&amenities='+amenities+'&houserules='
                     +houserules+'&page='+page+'&perpage='+perPage;
     
     history.push('/roomMateSearch/'+searchpara);
     window.location.reload();
-  }
+}
+ 
+}
 
   const paginationCallFunction = (e) => {
     const selectedPage = e.selected;
@@ -131,19 +148,32 @@ const RoomMateSearch =(props)=> {
     let params = new URLSearchParams(props.location.search);
     // let flocation = '';
     let location = params.get('location');
-
-    let searchpara = '?city='+city+'&occupation='+occupation+'&gender='
+    
+    let searchpara
+    if(localStorage.getItem('userId')!=null){
+     searchpara = '?city='+city+'&occupation='+occupation+'&gender='
                     +gender+'&age='+age+'&location='+location+'&bedrooms='
                     +bedrooms+'&amenities='+amenities+'&houserules='
-                    +houserules+'&page='+selectedPage+'&perpage='+perPage;
-
-    callApi(apiBaseUrl+"/web/user-api/"+searchpara,'GET','').then(
-      response => {
-        setShowList(true);
-        setSearchList(response.data.list);
-      }
-    )
+                    +houserules+'&loginUserId='+localStorage.getItem('userId')+'&page='+selectedPage+'&perpage='+perPage;
+    }else{   
+    searchpara = '?city='+city+'&occupation='+occupation+'&gender='
+              +gender+'&age='+age+'&location='+location+'&bedrooms='
+              +bedrooms+'&amenities='+amenities+'&houserules='
+              +houserules+'&page='+selectedPage+'&perpage='+perPage;
+         }
+               
+                   callApi(apiBaseUrl+"/web/user-api/"+searchpara,'GET','').then(
+                  response => {
+                    setShowList(true);
+                    setSearchList(response.data.list);
+                  }
+                )
+    
+  
+    
+   
   }
+
   
   const createFilterString = (name,e) => {
 

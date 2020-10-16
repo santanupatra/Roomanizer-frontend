@@ -251,7 +251,7 @@ const Formsec = (props) => {
                     {
                       props.city && props.city.cityList.map((val) =>{
                         return(
-                          <option value={val._id}>{val.cityName}</option>
+                          <option value={val.cityName}>{val.cityName}</option>
                         );
                       })
                     } 
