@@ -34,8 +34,11 @@ profilePicture: " ",
 readyToMove: " ",
 userType: " ",
 occupation:" ",
-age:" "
-
+age:" ",
+facebookLink:'',
+twitterLink:'',
+gsuiteLink:'',
+email:''
     }
   
   
@@ -89,7 +92,7 @@ age:" "
     
 
   }, [props.user]);
-   console.log(fields.userType)
+   console.log(props.user.user)
     return (
     
                 <div className="left-box text-center">
@@ -111,12 +114,17 @@ age:" "
                       </span>
                     </div>
                     <a href="#" className="login-bt mb-2">Messsage</a>
-                    {/* <div className="mt-3 d-flex align-items-center justify-content-center">
-                      <Facebook></Facebook>
-                      <Twitter></Twitter>
-                      <Gsuite></Gsuite>
-                      <Email></Email>
-                    </div> */}
+                    <div className="mt-3 d-flex align-items-center justify-content-center">
+                    <a href= {fields.facebookLink} target="_blank"><Facebook></Facebook></a>
+                    <a href= {fields.twitterLink} target="_blank">  <Twitter></Twitter></a>
+                    <a href= {fields.gsuiteLink} target="_blank">  <Gsuite></Gsuite></a>
+                    <a href={`mailto:${fields.email}`} target="_blank">  <Email></Email></a>
+                     {/* <a class="btn btn-primay" href={`mailto:${val.email}`}>Reply</a> */}
+                      {/* <Facebook></Facebook> */}
+                      {/* <Twitter></Twitter> */}
+                      {/* <Gsuite></Gsuite>
+                      <Email></Email> */}
+                    </div>
                 </div>
        
     );
