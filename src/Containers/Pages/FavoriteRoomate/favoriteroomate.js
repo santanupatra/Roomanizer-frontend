@@ -20,7 +20,7 @@ const RoomMateSearch =(props)=>{
 
 
   const getCityList = () => {
-    props.crudActionCall(`${FAV_URL}/${loginUserId}`, null, "GET")
+    props.crudActionCall(`${FAV_URL}/${loginUserId}`, null, "GET_ALL")
 }
 
  useEffect(() => {
@@ -29,7 +29,9 @@ const RoomMateSearch =(props)=>{
          // cleanup
      }
  }, []);
- console.log(props.favorite.favorite)
+ console.log(props.favorite)
+ 
+ console.log(props.favorite.favoriteList)
 
 useEffect(() => {
     const { type, isSuccess } = props.favorite.action;
@@ -57,18 +59,18 @@ useEffect(() => {
                         </div>
                         
                         <Row className="px-2 py-4">
-                        {props.favorite.favorite ?
-                              props.favorite.favorite.map((val) => {
+                        {props.favorite && props.favorite.favoriteList.count > 0 ?
+                                props.favorite.favoriteList.list.map((val) => {
 
                           return (
                           <Col xs={12} sm={12} md={6} lg={4} className="px-4">  
-                            <Cardbox val={val}></Cardbox>
+                            <Cardbox val={val}  ></Cardbox>
                           </Col>
 
-                           );
-                          })
+                             );
+                           })
 
-                          : null} 
+                           : null}  
 
                            {/* <Col xs={12} sm={12} md={6} lg={4} className="px-4">  
                              <Cardbox></Cardbox>
