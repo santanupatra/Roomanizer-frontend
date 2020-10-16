@@ -97,7 +97,7 @@ const Formsec2 = (props) => {
     callApi(apiBaseUrl+"/web/"+AMINITIES_URL,'GET','').then(
       response => {
         let option = response.data.map((val) =>  
-          ({ label: val.name, value: val._id })  
+          ({ label: val.name, value: val._id ,img: val.aminitiesImage})  
         );
         setAminitiesOption(option);
       }

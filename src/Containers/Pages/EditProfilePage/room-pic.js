@@ -22,24 +22,22 @@ const Roompic = (props) => {
   const [roomDetails,setRoomDetails] = useState()
   const [RoomImage, updateRoomImage] = useState([]);
   const [RoomImageFile, updateRoomImageFile] = useState([]);
-  //import { useHistory } from "react-router";
-
-  console.log("userImage====",userImage)
-  console.log("userImage====",userImage)
- 
+  const [imageUploadCheck,setImageUploadCheck]=useState(false);
   useEffect(() => {
-    
-
     setUserDetails(props.user.user)
-   
     if(props.user && props.user.user)
-    localStorage.setItem('profileImg', props.user.user.profilePicture);
-
+      localStorage.setItem('profileImg', props.user.user.profilePicture);
+      roomImageViewApi()
     return () => {
       // cleanup
     }
-  }, [props.user.user,props.userId])
-  
+  }, [props.user.user,props.userId,imageUploadCheck])
+
+  const roomImageViewApi=async()=>{
+      let  {data}  = await axiosApiCall.get(`${LANDLORD_URL}/room/${props.userId}`, null);
+      setRoomDetails(data.data)
+      setImageUploadCheck(false)
+  }
   let imageUpload = React.createRef();
   const uploadHandler = e => {
     imageUpload.current.click();
@@ -54,12 +52,9 @@ const Roompic = (props) => {
       reader.onloadend = e => {
         setUserImage(e.target.result);
       };
-
       if(props.userId){
         props.crudActionCall(`${USER_URL}/profilePicture/${props.userId}`, formData, "UPDATE")
-
       }
-      
     }
   }
   /**Multiple Image Delete */
@@ -85,52 +80,43 @@ const Roompic = (props) => {
         }));
     }))
     .then(images => {
-      console.log("images==",images)
-      console.log("RoomImageFile==",RoomImageFile)
         /* Once all promises are resolved, update state with image URI array */
         updateRoomImage(images)
-       
-
     }, error => {        
         console.error(error);
     });
     
   };
-  console.log("RoomImageFile258==",RoomImageFile)
+  
   
   const roomImageUploadApi = async()=>{
-    console.log('hii',RoomImageFile);
       let sendData = new FormData();
       for (let i = 0; i < RoomImageFile.length; i++) {
         sendData.append('roomImage', RoomImageFile[i]);
       }
       let  {data}  = await axiosApiCall.put(`${LANDLORD_URL}/roomImage/${props.userId}`, sendData,
-      {
-        header:{
-        'Content-Type': 'multipart/form-data'
-  
-      }
-    });
-                // set token in localStorage
-                const details = data.msg;
-                console.log("history===",data)
-                if(data.ack===true){
-                  let  {data}  = await axiosApiCall.get(`${LANDLORD_URL}/${props.userId}`, null);
-                  //props.history.push({pathname: `/home`});
-                    let roomDetailsStore = localStorage.setItem('roomDetails',JSON.stringify(data.data))
-                    setRoomDetails(JSON.parse(roomDetailsStore))
-                    updateRoomImage(null)
-                    toast.info(details, {
-                        position: toast.POSITION.TOP_CENTER
-                    });
-                }else{
-                    toast.error(details, {
-                        position: toast.POSITION.TOP_CENTER
-                    });
-                }
+        {
+          header:{
+          'Content-Type': 'multipart/form-data'
     
+        }
+      });    
+          const details = data.msg;
+          if(data.ack===true){
+            updateRoomImage(null)
+            setImageUploadCheck(true)
+            toast.info(details, {
+            position: toast.POSITION.TOP_CENTER
+            });
+          }else{
+            toast.error(details, {
+            position: toast.POSITION.TOP_CENTER
+            });
+          }
   }
-console.log("roomDetails===",roomDetails)
+    const handleFileDeleteApi = async(roomId,imageId) =>{
+      let  {data}  = await axiosApiCall.delete(`${LANDLORD_URL}/${roomId}/${imageId}`, null);
+    }
     return (
                 <div className="">
 
@@ -156,11 +142,10 @@ console.log("roomDetails===",roomDetails)
                       {
                           roomDetails && roomDetails.roomImage && roomDetails.roomImage.length >0 &&
                           roomDetails.roomImage.map((value ,key) => {
-                          console.log("value",value)
                             return (
                               <div className="uPic">
                                 <img key ={key} src={getImageUrl(value.image)} alt="Image Preview" />
-                                <a href="#" onClick={e => handleFileDelete(value._id)} >
+                                <a href="#" onClick={e => handleFileDeleteApi(roomDetails._id,value._id)} >
                                   <FontAwesomeIcon icon={faTimesCircle} />
                                 </a>
                               </div>
@@ -170,7 +155,6 @@ console.log("roomDetails===",roomDetails)
                     {
                        RoomImage && RoomImage.length >0 &&
                        RoomImage.map((value ,key) => {
-                       
                          return (
                            <div className="uPic">
                               <img key ={key} src={value} alt="Image Preview" />
@@ -184,7 +168,6 @@ console.log("roomDetails===",roomDetails)
                     </div>
                     <Form >
                         <FormGroup className="mb-5 th">
-                           
                                 <div className="addImages">
                                   <input type="file" id="exampleCustomFileBrowser" name="customFile"    label="Pick a file!" accept=".png, .jpg, .jpeg"maxlength ={1024}         maxCount={10} minCount={4} multiple onChange={e => handlemultipleFileChange(e)} />
                                 </div>
