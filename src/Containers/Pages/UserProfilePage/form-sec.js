@@ -98,7 +98,9 @@ email:''
                 <div className="left-box text-center">
                     <div className="profile-img mb-2">
                       {/* <img src={fields.profilePicture} alt="image"/> */}
-                      <img src={getImageUrl(fields.profilePicture)} className="img-avatar" alt="admin" />
+                     {fields.profilePicture?<img src={getImageUrl(fields.profilePicture)} className="img-avatar" alt="admin" />
+                     :<img src={imagePath.noImage} className="img-avatar" alt="admin" />}
+                     
                     </div>
                       <h2>{fields.firstName + ' ' + fields.lastName}</h2>
                        <h6 className="mb-3">{fields.gender?fields.gender:''}  |  Age: {fields.age}</h6>
@@ -115,10 +117,10 @@ email:''
                     </div>
                     <a href="#" className="login-bt mb-2">Messsage</a>
                     <div className="mt-3 d-flex align-items-center justify-content-center">
-                    <a href= {fields.facebookLink} target="_blank"><Facebook></Facebook></a>
-                    <a href= {fields.twitterLink} target="_blank">  <Twitter></Twitter></a>
-                    <a href= {fields.gsuiteLink} target="_blank">  <Gsuite></Gsuite></a>
-                    <a href={`mailto:${fields.email}`} target="_blank">  <Email></Email></a>
+                    {fields.facebookLink?<a href= {fields.facebookLink} target="_blank"><Facebook></Facebook></a>:""}
+                    {fields.twitterLink?<a href= {fields.twitterLink} target="_blank">  <Twitter></Twitter></a>:""}
+                    {fields.gsuiteLink?<a href= {fields.gsuiteLink} target="_blank">  <Gsuite></Gsuite></a>:""}
+                    {/* <a href={`mailto:${fields.email}`} target="_blank">  <Email></Email></a> */}
                      {/* <a class="btn btn-primay" href={`mailto:${val.email}`}>Reply</a> */}
                       {/* <Facebook></Facebook> */}
                       {/* <Twitter></Twitter> */}

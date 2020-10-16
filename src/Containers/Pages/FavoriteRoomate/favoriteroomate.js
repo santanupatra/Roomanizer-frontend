@@ -16,12 +16,14 @@ import { FAV_URL} from '../../../shared/allApiUrl';
 const RoomMateSearch =(props)=>{
   let loginUserId = props.match.params.userId;
   console.log(props.match.params.userId)
-
+ // let loginUserId = localStorage.getItem('userId')
 
 
   const getCityList = () => {
     props.crudActionCall(`${FAV_URL}/${loginUserId}`, null, "GET_ALL")
 }
+
+
 
  useEffect(() => {
      getCityList();
@@ -29,6 +31,8 @@ const RoomMateSearch =(props)=>{
          // cleanup
      }
  }, []);
+
+ 
  console.log(props.favorite)
  
  console.log(props.favorite.favoriteList)
@@ -64,7 +68,7 @@ useEffect(() => {
 
                           return (
                           <Col xs={12} sm={12} md={6} lg={4} className="px-4">  
-                            <Cardbox val={val}  ></Cardbox>
+                            <Cardbox val={val}  getCityList={getCityList} ></Cardbox>
                           </Col>
 
                              );
@@ -108,6 +112,6 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(RoomMateSearch));
+export default  connect(mapStateToProps, mapDispatchToProps)(withRouter(RoomMateSearch));
 
 //export default RoomMateSearch;
