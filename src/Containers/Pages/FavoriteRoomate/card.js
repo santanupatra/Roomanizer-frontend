@@ -15,23 +15,42 @@ import { Nav, NavItem, NavLink } from 'reactstrap';
 import { Button, Form, FormGroup, Label, Input, FormFeedback, FormText } from 'reactstrap';
 import { InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
 import moment from 'moment';
+import { Link } from "react-router-dom";
+import { connect } from 'react-redux';
+import { withRouter, useHistory } from "react-router";
+import { crudAction } from '../../../store/actions/common';
+import { FAV_URL } from '../../../shared/allApiUrl';
 
 import { getImageUrl } from '../../../shared/helpers';
 
 
 const Cardbox = (props) => {
-  const[fav,setFav]=useState(false);
+  const[fav,setFav]=useState();
   const val = (props.val) 
   console.log(val.roomMateId)
+  const click2 = () => {
+    const a = true
+    const data = {
+      loginUserId: localStorage.getItem('userId'),
+      roomMateId: val.roomMateId._id,
+      type: "roomMate",
+    }
+    console.log(data)
+    props.crudActionCall(FAV_URL, data, "ADD");
+    setFav(a)
+
+  }
   return (
 
     <Card>
       <div className="listingImgBox">
+      <Link to={`/viewProfile/${val.roomMateId._id}`}>
         {val.roomMateId.profilePicture ?
         <CardImg  src={getImageUrl(val.roomMateId.profilePicture)} alt="Card image cap" />
         
         :<CardImg  src={imagePath.noImage} alt="Card image cap" />
           }
+      </Link>    
       </div>
       <CardBody>
         <div className="d-flex justify-content-between align-items-center">
@@ -48,8 +67,8 @@ const Cardbox = (props) => {
       <div className="py-2"><h6 className="org">${val.roomMateId.maxBudget}</h6></div>
       {fav?
         <div className="border-left border-right p-2"><button className="wishlistbtn"><img src={imagePath.heartoutLine}/></button></div>:
-        <div className="border-left border-right p-2"><button className="wishlistbtn"><img src={imagePath.heartsolid}/></button></div>
-     }
+        <div className="border-left border-right p-2"><button className="wishlistbtn" onClick={click2} ><img src={imagePath.heartsolid}/></button></div>
+      }
           
           <div className="py-2"><FontAwesomeIcon icon={faShareAlt} /></div>
         </div>
@@ -59,4 +78,20 @@ const Cardbox = (props) => {
     );
   }
   
-  export default Cardbox;
+  const mapStateToProps = state => {
+    const { favorite } = state;
+    return {
+      favorite
+      
+    }
+  }
+  
+  const mapDispatchToProps = dispatch => {
+    return {
+      crudActionCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "FAVORITE")),
+      //loginApiCall: (data) => dispatch(login(data))
+    }
+  }
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Cardbox));
+ // export default Cardbox;

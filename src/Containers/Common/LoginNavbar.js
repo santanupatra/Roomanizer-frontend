@@ -33,7 +33,7 @@ const LoginNavbaar = (props) => {
 
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
-
+console.log(props.user.user)
    
   useEffect(() => {
     if (props.user.user) {
@@ -102,14 +102,14 @@ const LoginNavbaar = (props) => {
                 <NavLink className="border-0 pr-0">
                   <Dropdown isOpen={dropdownOpen} toggle={toggle1}>
                     <DropdownToggle caret className="login-hd">
-                      <img src={getImageUrl(fields && fields?fields.profilePicture:pImage)} href="/" alt="image"/>
+                      <img src={getImageUrl(pImage)} href="/" alt="image"/>
                     </DropdownToggle>
                     <DropdownMenu>
                       <Link to={`/editProfile/${userId}`}>My Account</Link>
                       <Link to={`/changePassword/${userId}`}>Settings</Link>
                       <Link to={`/favoriteroom/${userId}`}>My Favorites Room </Link>
                       <Link to={`/favoriteroomate/${userId}`}>My Favorites Roommate</Link>
-                      <Link to="#">My Favorites</Link>
+                      {/* <Link to="#">My Favorites</Link> */}
                       <Link to="#">My Messages</Link>
                       <Link to="#">Notifications</Link>
                       <Link to="#" onClick={logout}>Logout</Link>

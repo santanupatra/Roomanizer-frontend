@@ -46,7 +46,7 @@ const Cardbox = (props) => {
 
   const history = useHistory();
   console.log(localStorage.getItem('userId'))
-  const [fav, setFav] = useState();
+  const [fav, setFav] = useState(false);
   const onSubmit = (data) => {
     props.loginApiCall(data);
     handleClose();
@@ -110,7 +110,7 @@ const Cardbox = (props) => {
     }
   }
   const click2 = () => {
-    let a = false
+    const a = false
     const data = {
       loginUserId: localStorage.getItem('userId'),
       roomMateId: val._id,
@@ -122,7 +122,7 @@ const Cardbox = (props) => {
 
   }
   const val = (props.val)
-  console.log(val._id)
+  console.log(val,"fav")
   return (
 
     <Card>
@@ -149,9 +149,8 @@ const Cardbox = (props) => {
       <CardFooter className="">
         <div className="d-flex justify-content-between">
           <div className="py-2"><h6 className="org">${val.maxBudget}</h6></div>
-          {fav ?
-
-            <div className="border-left border-right p-2"><button type="checkbox" onClick={click2} className="wishlistbtn"><img src={imagePath.heartsolid} /></button></div>
+          {(val.isFav || fav) || (val.isFav && fav) ?
+              <div className="border-left border-right p-2"><button type="checkbox" onClick={click2} className="wishlistbtn"><img src={imagePath.heartsolid} /></button></div>
             : <div className="border-left border-right p-2"><Button type="checkbox" onClick={click} className="wishlistbtn"><img src={imagePath.heartoutLine} /></Button></div>
           }
           {/* <Button variant="primary" onClick={handleShow}>
