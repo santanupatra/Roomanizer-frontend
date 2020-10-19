@@ -71,14 +71,14 @@ function Footer(props) {
                 <Col sm={3}>
                   
                   <div className="mt-3">
-                    <img src={getImageUrl(fields.siteLogo)} alt="image"/>
+                    <img src={getImageUrl(fields.siteLogo?fields.siteLogo:imagePath.LogoImage)} alt="image"/>
                     
                     <div className="social-ft mt-2">
                     
-                      <a href= {fields.twitterUrl} target="_blank"> <img src={imagePath.ft1Image} alt="image"/></a>
-                      <a href={fields.pinterestUrl} target="_blank"> <img src={imagePath.ft2Image} alt="image"/></a>
-                      <a href= {fields.facebookUrl} target="_blank"> <img src={imagePath.ft3Image} alt="image"/></a>
-                      <a href={fields.instagramUrl} target="_blank"> <img src={imagePath.ft4Image} alt="image"/></a>
+                      <a href= {fields.twitterUrl?fields.twitterUrl:''} target="_blank"> <img src={imagePath.ft1Image} alt="image"/></a>
+                      <a href={fields.pinterestUrl?fields.pinterestUrl:''} target="_blank"> <img src={imagePath.ft2Image} alt="image"/></a>
+                      <a href= {fields.facebookUrl?fields.facebookUrl:''} target="_blank"> <img src={imagePath.ft3Image} alt="image"/></a>
+                      <a href={fields.instagramUrl?fields.instagramUrl:''} target="_blank"> <img src={imagePath.ft4Image} alt="image"/></a>
                     
                        </div>
                   </div>
