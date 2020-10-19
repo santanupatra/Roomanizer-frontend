@@ -32,46 +32,62 @@ const Formsec = () => {
     cityList:"",
     duration:"",
   //  address:"",
+    budget:"",
   }
-
+console.log("loginuseId",localStorage.getItem('userId'))
+  const loginUserId = localStorage.getItem('userId');
   const [activeTab, setActiveTab] = useState('1');
-  const [startDate, setStartDate] = useState(null);
-  const [startTime, setStartTime] = useState(null);
-
+  const [startDate, setStartDate] = useState('');
   const [fields, setFields] = useState(initialFields);
   const [cityList, setCityList] = useState([]);
   const [address, setAddress] = useState('');
   const [age, setAge] = useState('');
   const history = useHistory();
-
   const toggle = tab => {
     if(activeTab !== tab) setActiveTab(tab);
   }
 
   useEffect(() => {
-
     callApi(apiBaseUrl+"/web/"+CITY_URL,'GET','').then(
       response => {
         let option = response.data;
         setCityList(option);
       }
     )
-
   },[]);
 
   const searchSubmit = (data) => {
-    
     let city = fields.city;
     let occupation = fields.occupation;
     let gender = fields.gender;
-
-    let searchpara = '?city='+city+'&occupation='+occupation+'&gender='
-                    +gender+'&age='+age+'&location='+address+'&bedrooms=&amenities=&houserules=&page=0';
-
+    let searchpara;
+    if(loginUserId){
+        searchpara = '?city='+city+'&occupation='+occupation+'&gender='
+        +gender+'&age='+age+'&location='+address+'&bedrooms=&amenities=&houserules=&page=0&loginUserId='+loginUserId;
+    }else{
+        searchpara = '?city='+city+'&occupation='+occupation+'&gender='
+                        +gender+'&age='+age+'&location='+address+'&bedrooms=&amenities=&houserules=&page=0';
+    }
     history.push('/roomMateSearch/'+searchpara);
     
   }
+const searchRoom = (data) =>{
+   
+    let city = fields.city;
+    let duration = fields.duration;
+    let budget = fields.budget;
+    let searchpara;
+    if(loginUserId){
+       searchpara = '?city='+city+'&moveIn='+startDate+'&duration='
+      +duration+'&budget='+budget+'&location='+address+'&bedrooms=&amenities=&houserules=&page=0&loginUserId='+loginUserId;
+    }else {
+        searchpara = '?city='+city+'&moveIn='+startDate+'&duration='
+                        +duration+'&budget='+budget+'&location='+address+'&bedrooms=&amenities=&houserules=&page=0';
+    }
+    
 
+        history.push('/roomSearch/'+searchpara);
+}
   const handleChange = (name,value)=>{
     setFields((prevState) => ({ ...prevState, [name]: value }));
   }
@@ -195,7 +211,7 @@ const Formsec = () => {
                         type="select" 
                         name="duration" 
                         id="duration"
-                        value={fields.city}
+                        value={fields.duration}
                         onChange={(e) =>
                           handleChange(e.target.name, e.target.value)
                         }
@@ -205,39 +221,20 @@ const Formsec = () => {
                       <option value="3-6 Months">3-6 Months</option>
                       <option value="6+ Months">6+ Months</option>
                   </Input>
-                {/* <InputUI
-                                  type="select"
-                                  name="duration"
-                                  id="duration"
-                                  placeholder="Duration"
-                                  errors={errors}
-                                  innerRef={register({
-                                  required: 'This is required field',
-                                  })}
-                                  value={field.duration}
-                                  onChange={(e) =>
-                                    handleChange2(e.target.name, e.target.value)
-                                  }
-                                  >
-                                  <option selected disabled>Choose your Duration </option>
-                                  <option value="1-3 Months">1-3 Months</option>
-                                  <option value="3-6 Months">3-6 Months</option>
-                                  <option value="6+ Months">6+ Months</option>
-
-                                  
-                                  </InputUI> */}
                 </FormGroup>
             </Col>
             <Col xs={12} sm={12} md={3} lg={3}>
               <FormGroup>
                 <InputGroup>
-                  <Input placeholder="Budget" className="numberfild" min={0} max={100} type="number" step="1" />
+                  <Input placeholder="Budget" className="numberfild" min={0} max={100} type="number" name="budget" id="budget" step="1" onChange={(e) =>
+                          handleChange(e.target.name, e.target.value)
+                        }/>
                   <InputGroupAddon addonType="icon"><img src={imagePath.moneyImage} alt="image" /></InputGroupAddon>
                 </InputGroup>
               </FormGroup>
             </Col>
             <Col xs={12} sm={12} md={3} lg={3}>
-              <span><Button color="" className="black-bt">Search Now</Button></span>
+              <span><Button color="" className="black-bt" onClick={searchRoom}>Search Now</Button></span>
             </Col>
             </Row>
         </TabPane>
