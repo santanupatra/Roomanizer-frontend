@@ -14,14 +14,24 @@ import { callApi} from '../../../api';
 import { apiBaseUrl } from "../../../shared/helpers";
 import { CITY_URL} from '../../../shared/allApiUrl';
 import { BrowserRouter as Router, Route, useHistory } from "react-router-dom";
-
+import PlacesAutocomplete, {
+  geocodeByAddress,
+  getLatLng,
+} from 'react-places-autocomplete';
+//import 'react-google-places-autocomplete/dist/index.min.css';
+import Geocode from "react-geocode";
+const palceKey = "AIzaSyA5LrPhIokuSBO5EgKEcfu859gog6fRF8w";
+  Geocode.setApiKey(palceKey);
+  Geocode.setLanguage("en");
+// import 'moment-timezone';
 const Formsec = () => {
   const initialFields = {
     gender: "",
     occupation: "",
     city:"",
     cityList:"",
-    duration:""
+    duration:"",
+  //  address:"",
   }
 
   const [activeTab, setActiveTab] = useState('1');
@@ -65,6 +75,32 @@ const Formsec = () => {
   const handleChange = (name,value)=>{
     setFields((prevState) => ({ ...prevState, [name]: value }));
   }
+  const searchOptions = {
+    componentRestrictions: { country: ['us','ca','uy'] },
+    //types: ['city']
+  }
+  const handleChangeAddress = address => {
+    console.log(address)
+    setAddress(address);
+  };
+  const handleSelect = address => {
+    //setFields((prevState) => ({ ...prevState, ["street"]: address.structured_formatting.main_text }));
+   // setFields((prevState) => ({ ...prevState, ["street"]: address })); 
+    geocodeByAddress(address)
+      .then(results => getLatLng(results[0]))
+    //  .then(latLng => console.log('Success', latLng))
+    //  .catch(error => console.error('Error', error));
+
+      .then(({ lat, lng }) => {
+              console.log("lat==",lat,"lng==",lng)
+              console.log(address);
+              setAddress(address);
+              
+              // setFields((prevState) => ({ ...prevState, ["address"]: address }));
+              // setFields((prevState) => ({ ...prevState, ["longitude"]: lng }));
+              // setFields((prevState) => ({ ...prevState, ["latitude"]: lat }));
+            });
+  };
 
     return (
        
@@ -124,6 +160,7 @@ const Formsec = () => {
                     placeholder="Enter a street, area or city"
                     onChange={event => setAddress(event.target.value)}
                   />
+                 
               </FormGroup>
             </Col>
             </Row>
@@ -233,14 +270,54 @@ const Formsec = () => {
             </Col>
             <Col xs={12} sm={12} md={8} lg={8}>
               <FormGroup>
-                <Input 
+                {/* <Input 
                   className="search" 
                   type="text" 
                   name="address" 
                   id="address"
                   placeholder="Enter a street, area or city"
                   onChange={event => setAddress(event.target.value)}
-                />
+                /> */}
+                 <PlacesAutocomplete
+                    onChange={handleChangeAddress}
+                    //onChange={event => setAddress(event.target.value)}
+                    onSelect={handleSelect}
+                    searchOptions={searchOptions}
+                    value={address}
+                  >
+                    {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                      <Col xs={12} sm={12} md={12} lg={12}>
+                        <input
+                          {...getInputProps({
+                            placeholder: 'Enter a street, area or city',
+                            className: 'form-control',
+                          })}
+                        />
+                        <div className="autocomplete-dropdown-container">
+                          {loading && <div>Loading...</div>}
+                          {suggestions.map(suggestion => {
+                            const className = suggestion.active
+                              ? 'suggestion-item--active'
+                              : 'suggestion-item';
+                            // inline style for demonstration purpose
+                            const style = suggestion.active
+                              ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                              : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                            return (
+                              <div
+                                {...getSuggestionItemProps(suggestion, {
+                                  className,
+                                  style,
+                                })}
+                              >
+                                <span>{suggestion.description}</span>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </Col>
+                    )}
+                  </PlacesAutocomplete>
               </FormGroup>
             </Col>
             </Row>
