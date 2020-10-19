@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import './style.css';
 import imagePath from '../../../Config/imageConstants';
 import { Container, Row, Col } from 'reactstrap';
@@ -8,9 +8,54 @@ import Pageno from '../pageno';
 import Formsec from './form-sec';
 import Searchlist from './RoomSearchlist';
 import Footer from '../../Common/footer';
+import { callApi} from '../.../../../../api/index';
+import { apiBaseUrl } from "../../../shared/helpers";
+import { CITY_URL,AMINITIES_URL,HOUSE_RULE_URL} from '../../../shared/allApiUrl';
+
+const RoomSearch =(props)=>{
+  const perPage = 6;
+  const [showList, setShowList] = useState(false);
+  const [listCount, setListCount] = useState(0);
+  const [searchList, setSearchList] = useState([]);
+  const [pageCount, setPageCount] = useState('');
 
 
-const Home =(props)=>{
+  useEffect(() => {
+
+    let params = new URLSearchParams(props.location.search);
+    let city = params.get('city');
+    let moveIn = params.get('moveIn');
+    let duration = params.get('duration');
+    let budget = params.get('budget');
+    let location = params.get('location');
+    let bedrooms = params.get('bedrooms');
+    let amenities = params.get('amenities');
+    let houserules = params.get('houserules');
+    let page = params.get('page');
+    
+    let searchpara;
+    if(localStorage.getItem('userId')!=null){
+            searchpara = '?city='+city+'&moveIn='+moveIn+'&duration='
+                            +duration+'&budget='+budget+'&location='+location+'&bedrooms='
+                            +bedrooms+'&amenities='+amenities+'&houserules='
+                            +houserules+'&loginUserId='+localStorage.getItem('userId')+'&page='+page+'&perpage='+perPage+'&perpage='+perPage;
+    }else{
+            searchpara = '?city='+city+'&moveIn='+moveIn+'&duration='
+                  +duration+'&budget='+budget+'&location='+location+'&bedrooms='
+                  +bedrooms+'&amenities='+amenities+'&houserules='
+                  +houserules+'&page='+page+'&perpage='+perPage+'&perpage='+perPage;
+          }
+                    callApi(apiBaseUrl+"/web/landlord-api/"+searchpara,'GET','').then(
+                      response => {
+                        let totalpagecount = Math.ceil(response.data.count/perPage);
+                        setShowList(true);
+                        setListCount(response.data.count);
+                        setSearchList(response.data);
+                        setPageCount(totalpagecount);
+                      }
+                    )
+    },[props.location.search]);
+    console.log("searchList",searchList)
     return (
       <div className="home">
         <div className="header">
@@ -24,7 +69,7 @@ const Home =(props)=>{
                           <Row className="align-items-center">
                             <Col xs={12} sm={12} md={12} lg={8}>
                                 <div className="form-bg2">
-                                  <h3 className="mt-3 mb-4">Find A Roommate :</h3>
+                                  <h3 className="mt-3 mb-4">Find A Room :</h3>
                                   <Formsec></Formsec>
                                 </div>
                             </Col>
@@ -43,7 +88,7 @@ const Home =(props)=>{
                         <Row className="px-2 py-4">
                           <Col xs={12} sm={12} md={12} lg={7} className="pl-4 pr-0">  
 
-                            <Searchlist></Searchlist>
+                            <Searchlist searchList={searchList}/>
 
                           </Col>
 
@@ -74,4 +119,4 @@ const Home =(props)=>{
     )
   
 }
-export default Home;
+export default RoomSearch;

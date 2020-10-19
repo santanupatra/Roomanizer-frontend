@@ -19,27 +19,27 @@ import {getImageUrl} from '../../../shared/helpers'
 const FormSec = (props) => {
 console.log(props.user.user)
 const initialFields = {
-aboutMe: " ",
-createdDate: " ",
-dateOfBirth: " ",
-email: " ",
-firstName: " ",
-gender: " ",
-houseRules: [],
-lastLogin: " ",
-lastName: " ",
-//location: {type: "Point", coordinates: Array(0)}
-maxBudget: " ",
-profilePicture: " ",
-readyToMove: " ",
-userType: " ",
-occupation:" ",
-age:" ",
-facebookLink:'',
-twitterLink:'',
-gsuiteLink:'',
-email:''
-    }
+      aboutMe: " ",
+      createdDate: " ",
+      dateOfBirth: " ",
+      email: " ",
+      firstName: " ",
+      gender: " ",
+      houseRules: [],
+      lastLogin: " ",
+      lastName: " ",
+      //location: {type: "Point", coordinates: Array(0)}
+      maxBudget: " ",
+      profilePicture: " ",
+      readyToMove: " ",
+      userType: " ",
+      occupation:" ",
+      age:" ",
+      facebookLink:'',
+      twitterLink:'',
+      gsuiteLink:'',
+      email:''
+  }
   
   
   
@@ -55,14 +55,9 @@ email:''
   useEffect(() => {
     props.crudActionCall(`${USER_URL}/${userId}`, null, "GET")
     //setUserDate(props.user.action.data);
-    
-
-    
   },[userId]);
   const handleChnage =(e)=>{
-    
     if(e.target.checked==true){
-       
        localStorage.setItem('userType','landlord')
        setUserType({userType:'landlord'});
        props.crudActionCall(`${USER_URL}` + `/${userId}`, {'userType':'landlord'}, "UPDATE");

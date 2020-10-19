@@ -8,11 +8,7 @@ import Cardbox from './card';
 import Footer from '../../Common/footer';
 import { connect } from "react-redux";
 import { crudAction } from "../../../store/actions/common";
-import { USER_URL } from '../../../shared/allApiUrl';
-import { getImageUrl } from '../../../shared/helpers';
 import { withRouter } from 'react-router-dom';
-import moment from 'moment';
-
 import { Modal, ModalHeader, ModalBody, ModalFooter, CustomInput, Form, } from 'reactstrap';
 import ReactSimpleRange from 'react-simple-range';
 import { callApi} from '../../../api';
@@ -33,11 +29,9 @@ const RoomMateSearch =(props)=> {
   const [cityList, setCityList] = useState([]);
   const [amenitiesList, setAmenitiesList] = useState([]);
   const [houserulesList, setHouseRulesList] = useState([]);
-  
   const [searchList, setSearchList] = useState([]);
   const [showList, setShowList] = useState(false);
   const [listCount, setListCount] = useState(0);
-
   const [gender, setGender] = useState('');
   const [occupation, setOccupation] = useState('');
   const [city, setCity] = useState('');
@@ -161,17 +155,12 @@ const RoomMateSearch =(props)=> {
               +bedrooms+'&amenities='+amenities+'&houserules='
               +houserules+'&page='+selectedPage+'&perpage='+perPage;
          }
-               
                    callApi(apiBaseUrl+"/web/user-api/"+searchpara,'GET','').then(
                   response => {
                     setShowList(true);
                     setSearchList(response.data.list);
                   }
                 )
-    
-  
-    
-   
   }
 
   
