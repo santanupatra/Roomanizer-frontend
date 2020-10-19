@@ -19,7 +19,7 @@ import {getImageUrl} from '../../../shared/helpers'
 
 //export default class Home extends React.Component {
   const Home = (props) => {
-    console.log(props.room.room)
+    console.log(props.room)
     const initialFields = {
       user_Id: "",
       roomNo: "",
@@ -79,7 +79,7 @@ import {getImageUrl} from '../../../shared/helpers'
     
       }, [props.room]);
        console.log(fields.houseRules)
-       console.log(fields)
+       console.log(fields.roomImage)
   
     return (
       <div className="home">

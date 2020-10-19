@@ -45,6 +45,8 @@ const Formsec = (props) => {
     const [fields, setFields] = useState(initialFields);
     const [userData, setUserDate] = useState(null);
     const [settingId, setSettingId] = useState(null);
+  const [userType, setUserType] = useState({'userType':localStorage.getItem('userType')});
+
   
   
     useEffect(() => {
@@ -55,6 +57,29 @@ const Formsec = (props) => {
       
     },[userId]);
   
+    const handleChnage =(e)=>{
+    
+      if(e.target.checked==true){
+         
+         localStorage.setItem('userType','landlord')
+         setUserType({userType:'landlord'});
+         props.crudActionCall(`${USER_URL}` + `/${userId}`, {'userType':'landlord'}, "UPDATE");
+  
+      }else{
+        localStorage.setItem('userType','customer')
+        setUserType({userType:'customer'});
+        props.crudActionCall(`${USER_URL}` + `/${userId}`, {'userType':'customer'}, "UPDATE");
+  
+      }
+    }
+    let checked;
+    if(fields.userType ==='customer'){
+     checked=false;
+    }else if(fields.userType ==='landlord'){
+     checked=true;
+    }
+
+
     useEffect(() => {
       const action = props.user.user;
   
@@ -81,9 +106,9 @@ const Formsec = (props) => {
                       <h2>{fields.firstName + ' ' + fields.lastName}</h2>
                       <h6 className="mb-3">Mail  |  Age: {fields.age}</h6>
                             
-                    <div>
+                      <div>
                       <label class="switch">
-                        <input type="checkbox"/>
+                      <input type="checkbox" name="userType" value={fields.userType} onClick={handleChnage} defaultChecked={checked}/>
                         <span class="slider round"></span>
                       </label>
                       <span className="mt-2 mb-5 d-md-flex d-lg-flex justify-content-between">
