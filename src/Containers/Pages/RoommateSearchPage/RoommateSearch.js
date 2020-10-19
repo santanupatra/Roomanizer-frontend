@@ -131,13 +131,16 @@ const RoomMateSearch =(props)=> {
     history.push('/roomMateSearch/'+searchpara);
     window.location.reload();
     }else{
+
       let searchpara = '?city='+city+'&occupation='+occupation+'&gender='
                     +gender+'&age='+age+'&location='+location+'&bedrooms='
                     +bedrooms+'&amenities='+amenities+'&houserules='
                     +houserules+'&page='+page+'&perpage='+perPage;
-    
+  
     history.push('/roomMateSearch/'+searchpara);
     window.location.reload();
+    
+
 }
  
 }
@@ -185,6 +188,7 @@ const RoomMateSearch =(props)=> {
       }
     }
     if(name=="houserules"){
+      console.log(houserules)
       if(houserules){
         setHouseRules(houserules+','+e);
       } else {
@@ -343,6 +347,7 @@ const RoomMateSearch =(props)=> {
                                                   <CustomInput 
                                                     type="checkbox" 
                                                     id={val._id} 
+                                                    //checked={houserules==val._id} 
                                                     label={val.name}
                                                     value={val._id}
                                                     onChange={(e) =>createFilterString("houserules",e.target.value)} 
