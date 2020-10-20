@@ -126,6 +126,7 @@ const Formsec = (props) => {
   }
   
   const handleChangeAddress = address => {
+    console.log(address)
     setFields((prevState) => ({ ...prevState, address }));
   };
 
