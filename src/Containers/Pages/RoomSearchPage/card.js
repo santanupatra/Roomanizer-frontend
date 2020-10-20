@@ -174,7 +174,6 @@ const Cardbox = (props) => {
                       innerRef={register}
                       required
                     />
-
                     <Input
                       type="password"
                       name="password"
