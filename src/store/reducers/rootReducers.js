@@ -9,6 +9,7 @@ import room from './room'
 import city from './city'
 import landlord from './landlord';
 import favorite from './favorite'
+import favoriteRoom from './favoriteRoom'
 export default combineReducers({
     auth,
     user,
@@ -20,4 +21,5 @@ export default combineReducers({
     city,
     landlord,
     favorite,
+    favoriteRoom
 })
