@@ -49,10 +49,15 @@ const Cardbox = (props) => {
   const [fav, setFav] = useState(false);
   const onSubmit = (data) => {
     props.loginApiCall(data);
-   // window.location.reload();
-    props.history.push("/roomMateSearch/?city=&occupation=&gender=&age=&location=&bedrooms=&amenities=&houserules=&page=0");
+    //window.location.reload();
     handleClose();
-   // window.location.reload();
+
+    props.history.push("/roomMateSearch/?city=&occupation=&gender=&age=&location=&bedrooms=&amenities=&houserules=&page=0");
+    //handleClose();
+    setTimeout(function() {
+      window.location.reload();
+    }, 500)
+    //window.location.reload();
     
   };
   const click3 = () =>{
