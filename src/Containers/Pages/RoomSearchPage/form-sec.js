@@ -1,14 +1,28 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import './style.css';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import imagePath from '../../../Config/imageConstants';
 import {FormGroup, Button, Label, Col, Input, Row } from 'reactstrap';
 import { Modal, ModalHeader, ModalBody, ModalFooter, CustomInput, Form, } from 'reactstrap';
-
+import { callApi} from '../../../api';
+import { apiBaseUrl } from "../../../shared/helpers";
+import { CITY_URL} from '../../../shared/allApiUrl';
 
 
 const Formsec = (props) => {
+  console.log("props8++++++++",props.urlData)
+  const initialFields = {
+    gender: "",
+    occupation: "",
+    city:"",
+    cityList:"",
+    duration:"",
+    budget:"",
+    address:''
+  }
+ const [cityList, setCityList] = useState([]);
+ const [fields, setFields] = useState(initialFields);
 
   const {
     buttonLabel,
@@ -18,25 +32,57 @@ const Formsec = (props) => {
   const [modal, setModal] = useState(false);
 
   const toggle = () => setModal(!modal);
-
+  useEffect(() => {
+    callApi(apiBaseUrl+"/web/"+CITY_URL,'GET','').then(
+      response => {
+        let option = response.data;
+        setCityList(option);
+      }
+    )
+  },[]);
+  const handleChange = (name,value)=>{
+    setFields((prevState) => ({ ...prevState, [name]: value }));
+  }
     return (
       <div className="">
         <Row>
             <Col xs={12} sm={12} md={3} lg={3}>
-            <Input type="select" name="select" id="exampleSelect" className="mb-2">
-                <option>Luxembourg</option>
-                <option>2</option>
-                <option>3</option>
-            </Input>
+            <Input 
+                  type="select" 
+                  name="city" 
+                  id="city"
+                  value={fields.city}
+                  onChange={(e) =>
+                    handleChange(e.target.name, e.target.value)
+                  }
+                >
+                  <option value="">City</option>
+                  {
+                    cityList!='' && cityList.map((val) =>{
+                      return(
+                        <option value={val.cityName}>{val.cityName}</option>
+                      );
+                    })
+                  } 
+                </Input>
             </Col>
             <Col xs={12} sm={12} md={5} lg={5}>
-              <Input className="search mb-2" type="email" name="email" id="exampleEmail" placeholder="Enter a street, area or city" />
+            <Input 
+                    className="search" 
+                    type="text" 
+                    name="address" 
+                    id="address"
+                    placeholder="Enter a street, area or city"
+                    onChange={(e) =>
+                      handleChange(e.target.name, e.target.value)
+                    }
+                  />
             </Col>
             <Col xs={12} sm={12} md={2} lg={2}>
               <button className="filter mb-2 d-sm-block w-100" onClick={toggle}>{buttonLabel}<img src={imagePath.filterImage} alt="image"/></button>
             </Col>
             <Col xs={12} sm={12} md={2} lg={2}>
-              <button className="black-bt d-sm-block w-100 mb-2">Search</button>
+              <button className="black-bt d-sm-block w-100 mb-2" type="button" onClick={(e)=>props.formData(fields)}>Search</button>
             </Col>
       </Row>
 
