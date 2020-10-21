@@ -44,7 +44,7 @@ const Cardbox = (props) => {
           <CardImg className="roomimg" top width="100%" src={val.roomId.roomImage && val.roomId.roomImage.length > 0 ? getImageUrl(val.roomId.roomImage[0] ? val.roomId.roomImage[0].image : "") : imagePath.roomImage1} alt="Card image cap"/>
             <div className="roomuser">
               <img src={val.roomId.user_Id && val.roomId.user_Id.profilePicture ? getImageUrl(val.roomId.user_Id.profilePicture) : imagePath.roomuserImage} alt="image"/>
-              <a href="#"><img src={imagePath.userfbImage} alt="image"/></a>
+              {/* <a href="#"><img src={imagePath.userfbImage} alt="image"/></a> */}
             </div>
           </div>
           <CardBody className="px-3 py-2">
