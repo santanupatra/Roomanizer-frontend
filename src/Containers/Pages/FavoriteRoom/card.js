@@ -16,10 +16,10 @@ import { crudAction } from '../../../store/actions/common';
 
 
 const Cardbox = (props) => {
-  console.log(props.val)
+  //console.log(props.val)
   const val=props.val
-  console.log(val.roomId.user_Id)
-  console.log(val.roomId.roomImage.length)
+  //console.log(val.roomId.user_Id)
+  //console.log(val.roomId.roomImage.length)
   const[fav,setFav]=useState(false);
   const[fa,setFa]=useState(false);
 
