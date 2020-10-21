@@ -11,7 +11,7 @@ import { CITY_URL} from '../../../shared/allApiUrl';
 
 
 const Formsec = (props) => {
-  console.log("props8++++++++",props.urlData)
+ 
   const initialFields = {
     gender: "",
     occupation: "",
@@ -19,11 +19,15 @@ const Formsec = (props) => {
     cityList:"",
     duration:"",
     budget:"",
-    address:''
+    address:'',
+    isSearch:false
   }
  const [cityList, setCityList] = useState([]);
  const [fields, setFields] = useState(initialFields);
-
+ useEffect(() => {
+  setFields((prevState) => ({ ...prevState, city: props.urlData[0].city, }));
+  setFields((prevState) => ({ ...prevState, address: props.urlData[1].location }));
+ },[props.urlData])
   const {
     buttonLabel,
     className
@@ -41,8 +45,9 @@ const Formsec = (props) => {
     )
   },[]);
   const handleChange = (name,value)=>{
-    setFields((prevState) => ({ ...prevState, [name]: value }));
+    setFields((prevState) => ({ ...prevState, [name]: value,isSearch:true }));
   }
+  console.log("fields+++++++",fields);
     return (
       <div className="">
         <Row>
@@ -76,6 +81,7 @@ const Formsec = (props) => {
                     onChange={(e) =>
                       handleChange(e.target.name, e.target.value)
                     }
+                    value={fields.address}
                   />
             </Col>
             <Col xs={12} sm={12} md={2} lg={2}>

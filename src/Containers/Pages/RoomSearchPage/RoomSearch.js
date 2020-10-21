@@ -29,7 +29,7 @@ const RoomSearch =(props)=>{
   const [houserules, setHouserules] = useState('');
   const [page, setPage] = useState('');
   const [formData, setFormData] = useState('');
- 
+  
 
   useEffect(() => {
 
@@ -76,7 +76,53 @@ const RoomSearch =(props)=>{
                     )
     },[props.location.search]);
     console.log("asmita====",formData)
-
+    // if(formData.isSearch == true){
+    //   if(formData.city !=''){
+    //     setCity(formData.city);
+    //   }
+    //   if(formData.address !=''){
+    //     setLocation(formData.address);
+    //   }
+     
+    // }
+   useEffect(() => {
+      let searchpara;
+      if(formData.isSearch == true){
+        if(formData.city !=''){
+          setCity(formData.city);
+        }
+        if(formData.address !=''){
+          setLocation(formData.address);
+        }
+       
+      
+    if(localStorage.getItem('userId')!=null){
+            searchpara = '?city='+city+'&moveIn='+moveIn+'&duration='
+                            +duration+'&budget='+budget+'&location='+location+'&bedrooms='
+                            +bedrooms+'&amenities='+amenities+'&houserules='
+                            +houserules+'&loginUserId='+localStorage.getItem('userId')+'&page='+page+'&perpage='+perPage;
+    }else{
+            searchpara = '?city='+city+'&moveIn='+moveIn+'&duration='
+                  +duration+'&budget='+budget+'&location='+location+'&bedrooms='
+                  +bedrooms+'&amenities='+amenities+'&houserules='
+                  +houserules+'&page='+page+'&perpage='+perPage;
+          }
+        
+           console.log("searchpara==",searchpara)
+          // props.history.push('/roomSearch/'+searchpara);
+          // window.location.reload();
+           
+                    callApi(apiBaseUrl+"/web/landlord-api/"+searchpara,'GET','').then(
+                      response => {
+                        let totalpagecount = Math.ceil(response.data.count/perPage);
+                        setShowList(true);
+                        setListCount(response.data.count);
+                        setSearchList(response.data.list);
+                        setPageCount(totalpagecount);
+                      }
+                    )
+      }
+     },[formData.isSearch==true])
     const paginationCallFunction = (e) => {
       const selectedPage = e.selected;
       setShowList(false);

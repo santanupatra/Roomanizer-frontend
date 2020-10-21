@@ -23,7 +23,7 @@ const RoomMateSearch =(props)=> {
 
   const perPage = 4;
   const {buttonLabel,className} = props;
-  const toggle = () => setModal(!modal);
+  const toggle = () => setModal(!modal) ;
   const [modal, setModal] = useState(false);
   const [cityList, setCityList] = useState([]);
   const [amenitiesList, setAmenitiesList] = useState([]);
@@ -40,7 +40,6 @@ const RoomMateSearch =(props)=> {
   const [houserules, setHouseRules] = useState('');
   const [pageCount, setPageCount] = useState('');
   const history = useHistory();
-  
 
   useEffect(() => {
 
@@ -60,6 +59,7 @@ const RoomMateSearch =(props)=> {
     setOccupation(occupation);
     setAge(age);
     setBedrooms(bedrooms);
+    //setAmenities(amenities); 
     
     let searchpara;
     if(localStorage.getItem('userId')!=null){
@@ -124,13 +124,16 @@ const RoomMateSearch =(props)=> {
     history.push('/roomMateSearch/'+searchpara);
     window.location.reload();
     }else{
+
       let searchpara = '?city='+city+'&occupation='+occupation+'&gender='
                     +gender+'&age='+age+'&location='+location+'&bedrooms='
                     +bedrooms+'&amenities='+amenities+'&houserules='
                     +houserules+'&page='+page+'&perpage='+perPage;
-    
+  
     history.push('/roomMateSearch/'+searchpara);
     window.location.reload();
+    
+
 }
  
 }
@@ -173,6 +176,7 @@ const RoomMateSearch =(props)=> {
       }
     }
     if(name=="houserules"){
+      console.log(houserules)
       if(houserules){
         setHouseRules(houserules+','+e);
       } else {
@@ -315,6 +319,8 @@ const RoomMateSearch =(props)=> {
                                                     type="checkbox" 
                                                     id={val._id} 
                                                     label={val.name}
+                                                   // checked={amenities===val._id} 
+
                                                     value={val._id}
                                                     onChange={(e) =>createFilterString("amenities",e.target.value)} 
                                                   />
@@ -331,6 +337,9 @@ const RoomMateSearch =(props)=> {
                                                   <CustomInput 
                                                     type="checkbox" 
                                                     id={val._id} 
+                                                    //checked={houserules==val._id}
+                                                    //fields={houserules}
+
                                                     label={val.name}
                                                     value={val._id}
                                                     onChange={(e) =>createFilterString("houserules",e.target.value)} 
