@@ -43,7 +43,7 @@ const Cardbox = (props) => {
   // handleShow_1
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const handleShow_1 = () => setShow(true);
+  const handleShow_1 = () => setShoww(true);
   const handleClose_1 = () => setShoww(false);
 
   const history = useHistory();
@@ -52,7 +52,15 @@ const Cardbox = (props) => {
   const onSubmit = (data) => {
     props.loginApiCall(data);
     handleClose();
+    props.history.push("/roomSearch/?city=&moveIn=&duration=&budget=&location=&bedrooms=&amenities=&houserules=&page=0");
+    //handleClose();
+    setTimeout(function() {
+      window.location.reload();
+    }, 1000)
   };
+  const click3 = () =>{
+    props.history.push('/signUP')
+  }
   const onSubmit_1 = async (data) => {
     console.log(data)
     if (status === false) {
@@ -82,8 +90,8 @@ const Cardbox = (props) => {
           position: toast.POSITION.TOP_CENTER
         });
 
-        props.history.push("/roomMateSearch");
-
+        props.history.push("/roomSearch/?city=&moveIn=&duration=&budget=&location=&bedrooms=&amenities=&houserules=&page=0");
+        handleClose_1()   
       }
       catch (error) {
         console.log("Error");
@@ -175,6 +183,7 @@ const Cardbox = (props) => {
                       required
                     />
                     <Input
+                      style={{marginTop:"20px"}}
                       type="password"
                       name="password"
                       placeholder="Password"
@@ -183,7 +192,7 @@ const Cardbox = (props) => {
                       required
                     />
                     <a className="forgot" onClick={handleShow_1}><p>Forgot Password?</p></a>
-                    <Modal showw={showw} onHide={handleClose_1}>
+                    <Modal show={showw} onHide={handleClose_1}>
                       <Modal.Header closeButton>
                         <Modal.Title> <h1>Forget Password</h1></Modal.Title>
                       </Modal.Header>
@@ -276,7 +285,7 @@ const Cardbox = (props) => {
                       Login
                         </Button>
 
-                    <NavLink to="/signUP" className="forgot mt-3 mb-0">Don’t have an account? <span>Register</span></NavLink>
+                    <NavLink onClick={click3} className="forgot mt-3 mb-0">Don’t have an account? <span>Register</span></NavLink>
                   </Col>
                 </FormGroup>
               </Form>
