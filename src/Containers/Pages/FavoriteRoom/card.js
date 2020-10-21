@@ -9,19 +9,41 @@ import {
   Card, CardImg, CardBody, CardFooter,
   CardTitle, CardSubtitle,Row, Col} from 'reactstrap';
 import { getImageUrl } from '../../../shared/helpers';
+import { FAV_URL } from '../../../shared/allApiUrl';
+import { connect } from 'react-redux';
+import { withRouter, useHistory } from "react-router";
+import { crudAction } from '../../../store/actions/common';
 
 
 const Cardbox = (props) => {
   console.log(props.val)
   const val=props.val
-  console.log(val.roomId.roomImage.image)
+  console.log(val.roomId.user_Id)
+  console.log(val.roomId.roomImage.length)
+  const[fav,setFav]=useState(false);
+  const[fa,setFa]=useState(false);
+
+  // const val = (props.val) 
+  console.log(props.getCityList)
+  const click2 = () => {
+    const a = true
+    const data = {
+      loginUserId: localStorage.getItem('userId'),
+      roomId: val.roomId._id,
+      type: "room",
+    }
+    console.log(data)
+    props.crudActionCall(FAV_URL, data, "ADD");
+    console.log('run')
+     props.getCityList()
+  }
     return (
 
         <Card className="mt-5">
           <div className="">
-          <CardImg className="roomimg" top width="100%" src={val.roomId.roomImage!==''?getImageUrl(val.roomId.roomImage[0]):imagePath.roomImage1} alt="Card image cap"/>
+          <CardImg className="roomimg" top width="100%" src={val.roomId.roomImage && val.roomId.roomImage.length > 0 ? getImageUrl(val.roomId.roomImage[0] ? val.roomId.roomImage[0].image : "") : imagePath.roomImage1} alt="Card image cap"/>
             <div className="roomuser">
-              <img src={val.loginUserId.profilePicture!=''?getImageUrl(val.loginUserId.profilePicture):imagePath.roomuserImage} alt="image"/>
+              <img src={val.roomId.user_Id && val.roomId.user_Id.profilePicture ? getImageUrl(val.roomId.user_Id.profilePicture) : imagePath.roomuserImage} alt="image"/>
               <a href="#"><img src={imagePath.userfbImage} alt="image"/></a>
             </div>
           </div>
@@ -38,7 +60,18 @@ const Cardbox = (props) => {
           <CardFooter className="">
             <div className="d-flex justify-content-between">
             <div className="py-2"><h6 className="org">${val.roomId.charges} / {val.roomId.chargesType}</h6></div>
-              <div className="border-left border-right p-2"><FontAwesomeIcon color="red" icon={faHeart} /></div>
+              {/* <div className="border-left border-right p-2"><FontAwesomeIcon color="red" icon={faHeart} /></div>
+               */}
+               {fav  ?
+        <div className="border-left border-right p-2"><button className="wishlistbtn"><img src={imagePath.heartoutLine}/></button></div> 
+        :
+        <div className="border-left border-right p-2"><button className="wishlistbtn" 
+        onClick={() => {
+          click2();
+          props.getCityList();
+       }} >
+        <img src={imagePath.heartsolid}/></button></div>
+      }
               <div className="py-2"><FontAwesomeIcon icon={faShareAlt} /></div>
             </div>
           </CardFooter>
@@ -46,5 +79,18 @@ const Cardbox = (props) => {
 
     );
   }
+  const mapStateToProps = state => {
+    const { favorite } = state;
+    return {
+      favorite
+      
+    }
+  }
   
-  export default Cardbox;
+  const mapDispatchToProps = dispatch => {
+    return {
+      crudActionCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "FAVORITE")),
+    }
+  }
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Cardbox));
