@@ -5,8 +5,8 @@ import { Container, Row, Col, Navbar } from 'reactstrap';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHome, faShareAlt, } from "@fortawesome/free-solid-svg-icons";
-import { faHeart, faCalendarAlt } from "@fortawesome/free-regular-svg-icons";
+import { faHome, faShareAlt, faHeart as faHeartSolid } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as faHeartRegular, faCalendarAlt } from "@fortawesome/free-regular-svg-icons";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {
   Card, CardImg, CardText, CardBody, CardFooter,
@@ -138,16 +138,20 @@ const Cardbox = (props) => {
 
     <Card className="mt-5">
       <div className="">
-        <CardImg className="roomimg" top width="100%" src={roomData.roomImage && roomData.roomImage.length > 0 ? getImageUrl(roomData.roomImage[0] ? roomData.roomImage[0].image : '') : imagePath.roomImage1} alt="Card image cap" />
+        <div className="roomPic">
+          <CardImg className="roomimg" top width="100%" src={roomData.roomImage && roomData.roomImage.length > 0 ? getImageUrl(roomData.roomImage[0] ? roomData.roomImage[0].image : '') : imagePath.roomImage1} alt="Card image cap" />
+        </div>
         <div className="roomuser">
-          <img src={roomData.user_Id && roomData.user_Id.profilePicture ? getImageUrl(roomData.user_Id.profilePicture) : imagePath.roomuserImage} alt="image" />
+          
+            <img src={roomData.user_Id && roomData.user_Id.profilePicture ? getImageUrl(roomData.user_Id.profilePicture) : imagePath.roomuserImage} alt="image" />
+          
           {/* <a href="#"><img src={imagePath.userfbImage} alt="image"/></a> */}
         </div>
       </div>
       <CardBody className="px-3 py-2">
         <div className="">
           <CardTitle>{roomData ? roomData.roomName : "...."}</CardTitle>
-          <CardSubtitle><img src={imagePath.mappinImage} alt="image" />{roomData.address ? roomData.address : "......"}</CardSubtitle>
+          <CardSubtitle className="d-flex"><img src={imagePath.mappinImage} alt="image" style={{width:'18px', height:'18px', marginRight:'10px'}} /><p className="text-management" title={roomData.address ? roomData.address : "......"}>{roomData.address ? roomData.address : "......"}</p></CardSubtitle>
         </div>
         <div className="d-flex justify-content-between mt-2">
           <h6><img src={imagePath.bedImage} className="pr-2" alt="image" />{roomData.noOfBedRoom ? roomData.noOfBedRoom : 'No bedroom'}</h6>
@@ -160,8 +164,8 @@ const Cardbox = (props) => {
           <div className="py-2"><h6 className="org">{roomData.charges ? '$' + roomData.charges + '/' + roomData.chargesType : 'No charges'}</h6></div>
           {/* <div className="border-left border-right p-2"><FontAwesomeIcon color="red" icon={faHeart} /></div> */}
           {(val.isFav || fav) || (val.isFav && fav) ?
-            <div className="border-left border-right p-2"><button type="checkbox" onClick={click2} className="wishlistbtn"><img src={imagePath.heartsolid} /></button></div>
-            : <div className="border-left border-right p-2"><Button type="checkbox" onClick={click} className="wishlistbtn"><img src={imagePath.heartoutLine} /></Button></div>
+            <div className="border-left border-right p-2">{/*<img src={imagePath.heartsolid} />*/} <FontAwesomeIcon icon={faHeartSolid} onClick={click2} className="wishlistbtn" /></div>
+            : <div className="border-left border-right p-2">{/*<img src={imagePath.heartoutLine} /> */} <FontAwesomeIcon icon={faHeartRegular} onClick={click} className="wishlistbtn" /></div>
           }
           <div className="py-2"><FontAwesomeIcon icon={faShareAlt} /></div>
           <Modal show={show} onHide={handleClose}>
