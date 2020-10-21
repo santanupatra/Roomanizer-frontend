@@ -21,7 +21,7 @@ import { BrowserRouter as Router, Route, useHistory } from "react-router-dom";
 
 const RoomMateSearch =(props)=> {
 
-  const perPage = 4;
+  const perPage = 6;
   const {buttonLabel,className} = props;
   const toggle = () => setModal(!modal) ;
   const [modal, setModal] = useState(false);

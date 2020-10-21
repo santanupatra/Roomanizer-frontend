@@ -63,6 +63,7 @@ console.log("startDate",startDate);
     let occupation = fields.occupation;
     let gender = fields.gender;
     let searchpara;
+    
     if(loginUserId){
         searchpara = '?city='+city+'&occupation='+occupation+'&gender='
         +gender+'&age='+age+'&location='+address+'&bedrooms=&amenities=&houserules=&page=0&loginUserId='+loginUserId;
@@ -78,12 +79,18 @@ const searchRoom = (data) =>{
     let city = fields.city;
     let duration = fields.duration;
     let budget = fields.budget;
+    let sendDate;
+    if(startDate==''){
+      sendDate=startDate;
+    }else{
+      sendDate=moment(startDate).format('YYYY-MM-DD');
+    }
     let searchpara;
     if(loginUserId){
-       searchpara = '?city='+city+'&moveIn='+moment(startDate).format('YYYY-MM-DD')+'&duration='
+       searchpara = '?city='+city+'&moveIn='+sendDate+'&duration='
       +duration+'&budget='+budget+'&location='+address+'&bedrooms=&amenities=&houserules=&page=0&loginUserId='+loginUserId;
     }else {
-        searchpara = '?city='+city+'&moveIn='+moment(startDate).format('YYYY-MM-DD')+'&duration='
+        searchpara = '?city='+city+'&moveIn='+sendDate+'&duration='
                         +duration+'&budget='+budget+'&location='+address+'&bedrooms=&amenities=&houserules=&page=0';
     }
     
