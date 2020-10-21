@@ -17,7 +17,7 @@ const Cardbox = (props) => {
           <CardImg className="roomimg" top width="100%" src={imagePath.roomImage1} alt="Card image cap"/>
             <div className="roomuser">
               <img src={imagePath.roomuserImage} alt="image"/>
-              <a href="#"><img src={imagePath.userfbImage} alt="image"/></a>
+              {/* <a href="#"><img src={imagePath.userfbImage} alt="image"/></a> */}
             </div>
           </div>
           <CardBody className="px-3 py-2">
