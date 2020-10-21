@@ -25,7 +25,7 @@ const Cardlist = (props) => {
       </div>
       <CardBody className="px-3 pt-3 pb-0">
         <div className="">
-        <CardTitle>{roomData?roomData.roomName:"...."}</CardTitle>
+              <CardTitle>{roomData?roomData.roomName:"...."}</CardTitle>
               <CardSubtitle><img src={imagePath.mappinImage} alt="image"/>{roomData.address?roomData.address:"......"}</CardSubtitle>
         </div>
         <div className="d-flex justify-content-between mt-2">

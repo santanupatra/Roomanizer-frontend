@@ -21,10 +21,9 @@ import { BrowserRouter as Router, Route, useHistory } from "react-router-dom";
 
 const RoomMateSearch =(props)=> {
 
-  const perPage = 1;
+  const perPage = 4;
   const {buttonLabel,className} = props;
   const toggle = () => setModal(!modal) ;
-
   const [modal, setModal] = useState(false);
   const [cityList, setCityList] = useState([]);
   const [amenitiesList, setAmenitiesList] = useState([]);
@@ -41,12 +40,6 @@ const RoomMateSearch =(props)=> {
   const [houserules, setHouseRules] = useState('');
   const [pageCount, setPageCount] = useState('');
   const history = useHistory();
-   
-  console.log(amenities)
-  console.log(bedrooms)
-  console.log(amenitiesList)
-
-
 
   useEffect(() => {
 

@@ -11,14 +11,25 @@ import Footer from '../../Common/footer';
 import { callApi} from '../.../../../../api/index';
 import { apiBaseUrl } from "../../../shared/helpers";
 import { CITY_URL,AMINITIES_URL,HOUSE_RULE_URL} from '../../../shared/allApiUrl';
+import ReactPaginate from 'react-paginate';
 
 const RoomSearch =(props)=>{
-  const perPage = 6;
+  const perPage = 3;
   const [showList, setShowList] = useState(false);
   const [listCount, setListCount] = useState(0);
   const [searchList, setSearchList] = useState([]);
   const [pageCount, setPageCount] = useState('');
-
+  const [city, setCity] = useState('');
+  const [moveIn, setMoveIn] = useState('');
+  const [duration, setDuration] = useState('');
+  const [location, setLocation] = useState('');
+  const [budget, setBudget] = useState('');
+  const [bedrooms, setBedrooms] = useState('');
+  const [amenities, setAmenities] = useState('');
+  const [houserules, setHouserules] = useState('');
+  const [page, setPage] = useState('');
+  const [formData, setFormData] = useState('');
+  
 
   useEffect(() => {
 
@@ -32,30 +43,112 @@ const RoomSearch =(props)=>{
     let amenities = params.get('amenities');
     let houserules = params.get('houserules');
     let page = params.get('page');
-    
+    setCity(city);
+    setMoveIn(moveIn);
+    setDuration(duration);
+    setBudget(budget);
+    setLocation(location);
+    setBedrooms(bedrooms);
+    setAmenities(amenities);
+    setHouserules(houserules);
+    setPage(page);
+
     let searchpara;
     if(localStorage.getItem('userId')!=null){
             searchpara = '?city='+city+'&moveIn='+moveIn+'&duration='
                             +duration+'&budget='+budget+'&location='+location+'&bedrooms='
                             +bedrooms+'&amenities='+amenities+'&houserules='
-                            +houserules+'&loginUserId='+localStorage.getItem('userId')+'&page='+page+'&perpage='+perPage+'&perpage='+perPage;
+                            +houserules+'&loginUserId='+localStorage.getItem('userId')+'&page='+page+'&perpage='+perPage;
     }else{
             searchpara = '?city='+city+'&moveIn='+moveIn+'&duration='
                   +duration+'&budget='+budget+'&location='+location+'&bedrooms='
                   +bedrooms+'&amenities='+amenities+'&houserules='
-                  +houserules+'&page='+page+'&perpage='+perPage+'&perpage='+perPage;
+                  +houserules+'&page='+page+'&perpage='+perPage;
           }
                     callApi(apiBaseUrl+"/web/landlord-api/"+searchpara,'GET','').then(
                       response => {
                         let totalpagecount = Math.ceil(response.data.count/perPage);
                         setShowList(true);
                         setListCount(response.data.count);
-                        setSearchList(response.data);
+                        setSearchList(response.data.list);
                         setPageCount(totalpagecount);
                       }
                     )
     },[props.location.search]);
-    console.log("searchList",searchList)
+    console.log("asmita====",formData)
+    // if(formData.isSearch == true){
+    //   if(formData.city !=''){
+    //     setCity(formData.city);
+    //   }
+    //   if(formData.address !=''){
+    //     setLocation(formData.address);
+    //   }
+     
+    // }
+   useEffect(() => {
+      let searchpara;
+      if(formData.isSearch == true){
+        if(formData.city !=''){
+          setCity(formData.city);
+        }
+        if(formData.address !=''){
+          setLocation(formData.address);
+        }
+       
+      
+    if(localStorage.getItem('userId')!=null){
+            searchpara = '?city='+city+'&moveIn='+moveIn+'&duration='
+                            +duration+'&budget='+budget+'&location='+location+'&bedrooms='
+                            +bedrooms+'&amenities='+amenities+'&houserules='
+                            +houserules+'&loginUserId='+localStorage.getItem('userId')+'&page='+page+'&perpage='+perPage;
+    }else{
+            searchpara = '?city='+city+'&moveIn='+moveIn+'&duration='
+                  +duration+'&budget='+budget+'&location='+location+'&bedrooms='
+                  +bedrooms+'&amenities='+amenities+'&houserules='
+                  +houserules+'&page='+page+'&perpage='+perPage;
+          }
+        
+           console.log("searchpara==",searchpara)
+          // props.history.push('/roomSearch/'+searchpara);
+          // window.location.reload();
+           
+                    callApi(apiBaseUrl+"/web/landlord-api/"+searchpara,'GET','').then(
+                      response => {
+                        let totalpagecount = Math.ceil(response.data.count/perPage);
+                        setShowList(true);
+                        setListCount(response.data.count);
+                        setSearchList(response.data.list);
+                        setPageCount(totalpagecount);
+                      }
+                    )
+      }
+     },[formData.isSearch==true])
+    const paginationCallFunction = (e) => {
+      const selectedPage = e.selected;
+      setShowList(false);
+      let params = new URLSearchParams(props.location.search);
+      // let flocation = '';
+      let location = params.get('location');
+      
+      let searchpara
+      if(localStorage.getItem('userId')!=null){
+            searchpara = '?city='+city+'&moveIn='+moveIn+'&duration='
+              +duration+'&budget='+budget+'&location='+location+'&bedrooms='
+              +bedrooms+'&amenities='+amenities+'&houserules='
+              +houserules+'&loginUserId='+localStorage.getItem('userId')+'&page='+selectedPage+'&perpage='+perPage;
+      }else{   
+          searchpara = '?city='+city+'&moveIn='+moveIn+'&duration='
+            +duration+'&budget='+budget+'&location='+location+'&bedrooms='
+            +bedrooms+'&amenities='+amenities+'&houserules='
+            +houserules+'&page='+selectedPage+'&perpage='+perPage;
+           }
+                   callApi(apiBaseUrl+"/web/landlord-api/"+searchpara,'GET','').then(
+                    response => {
+                      setShowList(true);
+                      setSearchList(response.data.list);
+                    }
+                  )
+    }
     return (
       <div className="home">
         <div className="header">
@@ -70,7 +163,7 @@ const RoomSearch =(props)=>{
                             <Col xs={12} sm={12} md={12} lg={8}>
                                 <div className="form-bg2">
                                   <h3 className="mt-3 mb-4">Find A Room :</h3>
-                                  <Formsec></Formsec>
+                                  <Formsec formData={(data)=>setFormData(data)} urlData={[{city:city},{location:location}]}></Formsec>
                                 </div>
                             </Col>
 
@@ -87,8 +180,8 @@ const RoomSearch =(props)=>{
                         
                         <Row className="px-2 py-4">
                           <Col xs={12} sm={12} md={12} lg={7} className="pl-4 pr-0">  
-
-                            <Searchlist searchList={searchList}/>
+                           
+                            <Searchlist searchList={searchList} show={showList} listCount={listCount}/>
 
                           </Col>
 
@@ -101,9 +194,34 @@ const RoomSearch =(props)=>{
                           </Col>
                         </Row>
 
-                        <Row>
+                        {/* <Row>
                           <Col>
                             <Pageno></Pageno>
+                          </Col>
+                        </Row> */}
+                        <Row>
+                          <Col>
+                            {searchList && listCount > 0 ?
+                              <ReactPaginate
+                                previousLabel={"<"}
+                                nextLabel={">"}
+                                breakLabel={"..."}
+                                pageCount={pageCount}
+                                marginPagesDisplayed={1}
+                                pageRangeDisplayed={2}
+                                onPageChange={paginationCallFunction}
+                                containerClassName={"pagination pagination-sm"}
+                                pageLinkClassName = {"page-link"}
+                                previousLinkClassName =  {"page-link"}
+                                nextLinkClassName =  {"page-link"}
+                                activeClassName={"page-item active"}
+                                activeLinkClassName = {"page-link"}
+                                disabledClassName = {"page-item disabled"}
+                                breakClassName={"page-item"}
+                                breakLinkClassName={"page-link"}
+
+                              />
+                            : null }
                           </Col>
                         </Row>
                         

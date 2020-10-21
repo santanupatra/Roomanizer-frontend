@@ -14,6 +14,8 @@ import { callApi} from '../../../api';
 import { apiBaseUrl } from "../../../shared/helpers";
 import { CITY_URL} from '../../../shared/allApiUrl';
 import { BrowserRouter as Router, Route, useHistory } from "react-router-dom";
+import moment from 'moment';
+
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
@@ -23,7 +25,7 @@ import Geocode from "react-geocode";
 const palceKey = "AIzaSyA5LrPhIokuSBO5EgKEcfu859gog6fRF8w";
   Geocode.setApiKey(palceKey);
   Geocode.setLanguage("en");
-// import 'moment-timezone';
+
 const Formsec = () => {
   const initialFields = {
     gender: "",
@@ -46,7 +48,7 @@ console.log("loginuseId",localStorage.getItem('userId'))
   const toggle = tab => {
     if(activeTab !== tab) setActiveTab(tab);
   }
-
+console.log("startDate",startDate);
   useEffect(() => {
     callApi(apiBaseUrl+"/web/"+CITY_URL,'GET','').then(
       response => {
@@ -78,10 +80,10 @@ const searchRoom = (data) =>{
     let budget = fields.budget;
     let searchpara;
     if(loginUserId){
-       searchpara = '?city='+city+'&moveIn='+startDate+'&duration='
+       searchpara = '?city='+city+'&moveIn='+moment(startDate).format('YYYY-MM-DD')+'&duration='
       +duration+'&budget='+budget+'&location='+address+'&bedrooms=&amenities=&houserules=&page=0&loginUserId='+loginUserId;
     }else {
-        searchpara = '?city='+city+'&moveIn='+startDate+'&duration='
+        searchpara = '?city='+city+'&moveIn='+moment(startDate).format('YYYY-MM-DD')+'&duration='
                         +duration+'&budget='+budget+'&location='+address+'&bedrooms=&amenities=&houserules=&page=0';
     }
     
@@ -184,7 +186,7 @@ const searchRoom = (data) =>{
             <Col xs={12} sm={12} md={3} lg={3}>
               <FormGroup>
                 <InputGroup>
-                  <DatePicker selected={startDate} placeholderText="Move Date" className="form-control" name="date" id="exampleDate" onChange={date => setStartDate(date)} />
+                  <DatePicker selected={startDate} placeholderText="Move Date" className="form-control" name="date" id="exampleDate" onChange={date => setStartDate(moment(date).toDate())} />
                   <InputGroupAddon addonType="icon"><FontAwesomeIcon icon={faCalendarAlt} /></InputGroupAddon>
                 </InputGroup>
               </FormGroup>
