@@ -47,9 +47,9 @@ const Cardbox = (props) => {
     handleClose();
     props.history.push("/roomSearch/?city=&moveIn=&duration=&budget=&location=&bedrooms=&amenities=&houserules=&page=0");
     //handleClose();
-    setTimeout(function () {
-      window.location.reload();
-    }, 1000)
+    // setTimeout(function() {
+    //   window.location.reload();
+    // }, 1000)
   };
   const clickToSignup = () => {
     props.history.push('/signUP')
