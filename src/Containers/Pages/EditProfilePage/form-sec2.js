@@ -442,20 +442,20 @@ const Formsec2 = (props) => {
                                   name= "noOfBedRoom"
                                   onChange={(value) => handlechange1(value)}
                                     // defaultChecked={value === "2 Bedroom"}    
-                                  checked={field.noOfBedRoom === "2 Bedroom"}
+                                  checked={field.noOfBedRoom === "2"}
                                       // {...plaftormInputProps}
                                   /> 2 Bedroom
                                   </Label>
                                   <Label>
                                     <input type="radio" value="3" name= "noOfBedRoom"
-                                      checked={field.noOfBedRoom === "3 Bedroom"}
+                                      checked={field.noOfBedRoom === "3"}
                                       onChange={(value) =>
                                           handlechange1(value)}
                                     /> 3 Bedroom
                                   </Label>
                                   <Label>
                                     <input type="radio" value="5" name= "noOfBedRoom"
-                                      checked={field.noOfBedRoom === "4+ Bedroom"}
+                                      checked={field.noOfBedRoom === "5"}
                                       //defaultChecked={value === "4+ Bedroom"}  
                                       onChange={(value) =>
                                         handlechange1(value)}
