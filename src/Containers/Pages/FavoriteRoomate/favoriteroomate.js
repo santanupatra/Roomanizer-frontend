@@ -19,14 +19,14 @@ const RoomMateSearch =(props)=>{
  // let loginUserId = localStorage.getItem('userId')
 
 
-  const getCityList = () => {
+  const getFavRoommateList = () => {
     props.crudActionCall(`${FAV_URL}/${loginUserId}`, null, "GET_ALL")
 }
 
 
 
  useEffect(() => {
-     getCityList();
+  getFavRoommateList();
      return () => {
          // cleanup
      }
@@ -40,7 +40,7 @@ const RoomMateSearch =(props)=>{
 useEffect(() => {
     const { type, isSuccess } = props.favorite.action;
     if (type === "DELETE" && isSuccess)
-        getCityList();
+    getFavRoommateList();
 }, [props.favorite]);
     return (
       <div className="home">
@@ -68,22 +68,11 @@ useEffect(() => {
 
                           return (
                           <Col xs={12} sm={12} md={6} lg={4} className="px-4">  
-                            <Cardbox val={val}  getCityList={getCityList} ></Cardbox>
+                            <Cardbox val={val}  getFavRoommateList={getFavRoommateList} ></Cardbox>
                           </Col>
-
                              );
                            })
-
                            : null}  
-
-                           {/* <Col xs={12} sm={12} md={6} lg={4} className="px-4">  
-                             <Cardbox></Cardbox>
-                           </Col>
-
-                           <Col xs={12} sm={12} md={6} lg={4} className="px-4">  
-                             <Cardbox></Cardbox>
-                          </Col> */}
-
                         </Row>
                         
                       </div>
@@ -96,22 +85,16 @@ useEffect(() => {
       <Footer></Footer>
       </div>
     )
-  
 }
-
 const mapStateToProps = state => {
   const { favorite } = state;
   return {
     favorite
   }
 }
-
 const mapDispatchToProps = dispatch => {
   return {
     crudActionCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "FAVORITE")),
   }
 }
-
-export default  connect(mapStateToProps, mapDispatchToProps)(withRouter(RoomMateSearch));
-
-//export default RoomMateSearch;
+export default  connect(mapStateToProps, mapDispatchToProps)(withRouter(RoomMateSearch))

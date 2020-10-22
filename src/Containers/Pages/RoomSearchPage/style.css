@@ -208,6 +208,23 @@ a{
       padding: 0;
   }
 
+  .roomPic{
+      width: 100%;
+      height: 172px;
+  }
+  .roomPic img{
+    height: 172px;
+  }
+.text-management{
+    width: 247px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.wishlistbtn{
+    color: #f00;
+}
+
 @media(max-width:767px){
     .form-bg2 .view-bt{
         width: 100%;
