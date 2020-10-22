@@ -131,16 +131,20 @@ const Cardbox = (props) => {
 
     <Card className="mt-5">
       <div className="">
-        <CardImg className="roomimg" top width="100%" src={roomData.roomImage && roomData.roomImage.length > 0 ? getImageUrl(roomData.roomImage[0] ? roomData.roomImage[0].image : '') : imagePath.roomImage1} alt="Card image cap" />
+        <div className="roomPic">
+          <CardImg className="roomimg" top width="100%" src={roomData.roomImage && roomData.roomImage.length > 0 ? getImageUrl(roomData.roomImage[0] ? roomData.roomImage[0].image : '') : imagePath.roomImage1} alt="Card image cap" />
+        </div>
         <div className="roomuser">
-          <img src={roomData.user_Id && roomData.user_Id.profilePicture ? getImageUrl(roomData.user_Id.profilePicture) : imagePath.roomuserImage} alt="image" />
+          
+            <img src={roomData.user_Id && roomData.user_Id.profilePicture ? getImageUrl(roomData.user_Id.profilePicture) : imagePath.roomuserImage} alt="image" />
+          
           {/* <a href="#"><img src={imagePath.userfbImage} alt="image"/></a> */}
         </div>
       </div>
       <CardBody className="px-3 py-2">
         <div className="">
           <CardTitle>{roomData ? roomData.roomName : "...."}</CardTitle>
-          <CardSubtitle><img src={imagePath.mappinImage} alt="image" />{roomData.address ? roomData.address : "......"}</CardSubtitle>
+          <CardSubtitle className="d-flex"><img src={imagePath.mappinImage} alt="image" style={{width:'18px', height:'18px', marginRight:'10px'}} /><p className="text-management" title={roomData.address ? roomData.address : "......"}>{roomData.address ? roomData.address : "......"}</p></CardSubtitle>
         </div>
         <div className="d-flex justify-content-between mt-2">
           <h6><img src={imagePath.bedImage} className="pr-2" alt="image" />{roomData.noOfBedRoom ? roomData.noOfBedRoom : 'No bedroom'}</h6>

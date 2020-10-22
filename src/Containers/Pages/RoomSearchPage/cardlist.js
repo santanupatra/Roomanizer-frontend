@@ -19,7 +19,9 @@ const Cardlist = (props) => {
       <div className="">
       <CardImg className="roomimg" top width="100%" src={roomData.roomImage && roomData.roomImage.length>0?getImageUrl(roomData.roomImage[0]?roomData.roomImage[0].image:''):imagePath.roomImage1} alt="Card image cap"/>
         <div className="roomuser">
-          <img src={roomData.user_Id && roomData.user_Id.profilePicture?getImageUrl(roomData.user_Id.profilePicture):imagePath.roomuserImage} alt="image"/>
+          
+            <img src={roomData.user_Id && roomData.user_Id.profilePicture?getImageUrl(roomData.user_Id.profilePicture):imagePath.roomuserImage} alt="image"/>
+          
           {/* <a href="#"><img src={imagePath.userfbImage} alt="image"/></a> */}
         </div>
       </div>
