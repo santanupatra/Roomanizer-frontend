@@ -1,32 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './style.css';
 import imagePath from '../../../Config/imageConstants';
-import { Container, Row, Col, Navbar } from 'reactstrap';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { fab } from '@fortawesome/free-brands-svg-icons';
+import { Row, Col } from 'reactstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHome, faShareAlt, faHeart as faHeartSolid } from "@fortawesome/free-solid-svg-icons";
-import { faHeart as faHeartRegular, faCalendarAlt } from "@fortawesome/free-regular-svg-icons";
+import {  faShareAlt, } from "@fortawesome/free-solid-svg-icons";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {
-  Card, CardImg, CardText, CardBody, CardFooter,
+  Card, CardImg, CardBody, CardFooter,
   CardTitle, CardSubtitle
 } from 'reactstrap';
-import { Button, ButtonToolbar, Modal } from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
 import { withRouter, useHistory } from "react-router";
 import { connect } from 'react-redux';
 import { crudAction } from '../../../store/actions/common';
 import { FAV_URL } from '../../../shared/allApiUrl';
 import { useForm } from "react-hook-form";
 import { login } from "../../../store/actions/auth";
-import { Link } from "react-router-dom";
-import { Nav, NavItem, NavLink } from 'reactstrap';
-import { Form, FormGroup, Label, Input, FormFeedback, FormText } from 'reactstrap';
+import { NavLink } from 'reactstrap';
+import { Form, FormGroup, Input} from 'reactstrap';
 import { InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
-import moment from 'moment';
-
 import { getImageUrl } from '../../../shared/helpers';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { callApi } from "../../../api";
 import { FORGET_PASSWORD_URL } from '../../../shared/allApiUrl';
 import { SET_PASSWORD_URL } from '../../../shared/allApiUrl';
@@ -40,11 +34,10 @@ const Cardbox = (props) => {
   const [show, setShow] = useState(false);
   const [showw, setShoww] = useState(false);
 
-  // handleShow_1
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const handleShow_1 = () => setShoww(true);
-  const handleClose_1 = () => setShoww(false);
+  const handleShowForget = () => setShoww(true);
+  const handleCloseForget = () => setShoww(false);
 
   const history = useHistory();
   console.log(localStorage.getItem('userId'))
@@ -54,14 +47,14 @@ const Cardbox = (props) => {
     handleClose();
     props.history.push("/roomSearch/?city=&moveIn=&duration=&budget=&location=&bedrooms=&amenities=&houserules=&page=0");
     //handleClose();
-    setTimeout(function() {
-      window.location.reload();
-    }, 1000)
+    // setTimeout(function() {
+    //   window.location.reload();
+    // }, 1000)
   };
-  const click3 = () =>{
+  const clickToSignup = () => {
     props.history.push('/signUP')
   }
-  const onSubmit_1 = async (data) => {
+  const onSubmitForget = async (data) => {
     console.log(data)
     if (status === false) {
       try {
@@ -91,7 +84,7 @@ const Cardbox = (props) => {
         });
 
         props.history.push("/roomSearch/?city=&moveIn=&duration=&budget=&location=&bedrooms=&amenities=&houserules=&page=0");
-        handleClose_1()   
+        handleCloseForget()
       }
       catch (error) {
         console.log("Error");
@@ -102,7 +95,7 @@ const Cardbox = (props) => {
 
     }
   }
-  const click = () => {
+  const clickToOutLineHeart = () => {
     if (localStorage.getItem('userId') == null) {
       handleShow();
 
@@ -119,7 +112,7 @@ const Cardbox = (props) => {
       setFav(a)
     }
   }
-  const click2 = () => {
+  const clickToSolidHeart = () => {
     const a = false
     const data = {
       loginUserId: localStorage.getItem('userId'),
@@ -164,8 +157,8 @@ const Cardbox = (props) => {
           <div className="py-2"><h6 className="org">{roomData.charges ? '$' + roomData.charges + '/' + roomData.chargesType : 'No charges'}</h6></div>
           {/* <div className="border-left border-right p-2"><FontAwesomeIcon color="red" icon={faHeart} /></div> */}
           {(val.isFav || fav) || (val.isFav && fav) ?
-            <div className="border-left border-right p-2">{/*<img src={imagePath.heartsolid} />*/} <FontAwesomeIcon icon={faHeartSolid} onClick={click2} className="wishlistbtn" /></div>
-            : <div className="border-left border-right p-2">{/*<img src={imagePath.heartoutLine} /> */} <FontAwesomeIcon icon={faHeartRegular} onClick={click} className="wishlistbtn" /></div>
+            <div className="border-left border-right p-2"><button type="checkbox" onClick={clickToSolidHeart} className="wishlistbtn"><img src={imagePath.heartsolid} /></button></div>
+            : <div className="border-left border-right p-2"><Button type="checkbox" onClick={clickToOutLineHeart} className="wishlistbtn"><img src={imagePath.heartoutLine} /></Button></div>
           }
           <div className="py-2"><FontAwesomeIcon icon={faShareAlt} /></div>
           <Modal show={show} onHide={handleClose}>
@@ -176,18 +169,16 @@ const Cardbox = (props) => {
               <Form >
                 <FormGroup row>
                   <Col sm={12}>
-
                     <Input
                       type="email"
                       name="email"
-
                       placeholder="Email"
                       autoComplete="username"
                       innerRef={register}
                       required
                     />
                     <Input
-                      style={{marginTop:"20px"}}
+                      style={{ marginTop: "20px" }}
                       type="password"
                       name="password"
                       placeholder="Password"
@@ -195,8 +186,8 @@ const Cardbox = (props) => {
                       innerRef={register}
                       required
                     />
-                    <a className="forgot" onClick={handleShow_1}><p>Forgot Password?</p></a>
-                    <Modal show={showw} onHide={handleClose_1}>
+                    <a className="forgot" onClick={handleShowForget}><p>Forgot Password?</p></a>
+                    <Modal show={showw} onHide={handleCloseForget}>
                       <Modal.Header closeButton>
                         <Modal.Title> <h1>Forget Password</h1></Modal.Title>
                       </Modal.Header>
@@ -266,18 +257,10 @@ const Cardbox = (props) => {
                             </InputGroup> </> : null}
                           <Row>
                             <Col xs="3">
-                              <Button variant="secondary" onClick={handleClose}>
-                                Close
-                    </Button>
-
-
+                              <Button variant="secondary" onClick={handleClose}>Close</Button>
                             </Col>
                             <Col xs="3">
-
-                              <Button type="button" onClick={handleSubmit(onSubmit_1)} style={{ marginLeft: "236px" }} color="primary" className="px-4 mr-4">
-                                Submit
-                          </Button>
-
+                              <Button type="button" onClick={handleSubmit(onSubmitForget)} style={{ marginLeft: "236px" }} color="primary" className="px-4 mr-4">Submit</Button>
                             </Col>
                           </Row>
                         </Form>
@@ -285,11 +268,8 @@ const Cardbox = (props) => {
                       <Modal.Footer>
                       </Modal.Footer>
                     </Modal>
-                    <Button type="button" onClick={handleSubmit(onSubmit)} color="primary" className="login-bt mb-2">
-                      Login
-                        </Button>
-
-                    <NavLink onClick={click3} className="forgot mt-3 mb-0">Don’t have an account? <span>Register</span></NavLink>
+                    <Button type="button" onClick={handleSubmit(onSubmit)} color="primary" className="login-bt mb-2">Login</Button>
+                    <NavLink onClick={clickToSignup} className="forgot mt-3 mb-0">Don’t have an account? <span>Register</span></NavLink>
                   </Col>
                 </FormGroup>
               </Form>
@@ -298,7 +278,6 @@ const Cardbox = (props) => {
         </div>
       </CardFooter>
     </Card>
-
   );
 }
 const mapStateToProps = state => {
@@ -308,12 +287,10 @@ const mapStateToProps = state => {
     auth
   }
 }
-
 const mapDispatchToProps = dispatch => {
   return {
     crudActionCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "FAVORITE")),
     loginApiCall: (data) => dispatch(login(data))
   }
 }
-
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Cardbox));

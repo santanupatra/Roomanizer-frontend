@@ -17,14 +17,14 @@ const Home =(props)=>{
  // let loginUserId = localStorage.getItem('userId')
 
 
-  const getCityList = () => {
+  const getFavRoomList = () => {
     props.crudActionCall(`${FAVROOM_URL}/${loginUserId}`, null, "GET_ALL")
 }
 
 
 
  useEffect(() => {
-     getCityList();
+  getFavRoomList();
      return () => {
          // cleanup
      }
@@ -38,7 +38,7 @@ const Home =(props)=>{
 useEffect(() => {
     const { type, isSuccess } = props.favoriteRoom.action;
     if (type === "DELETE" && isSuccess)
-        getCityList();
+    getFavRoomList();
 }, [props.favoriteRoom]);
     return (
       <div className="home">
@@ -67,41 +67,24 @@ useEffect(() => {
 
                           return (
                           <Col xs={12} sm={12} md={6} lg={4} className="px-4">  
-                            <Cardbox val={val}  getCityList={getCityList} ></Cardbox>
+                            <Cardbox val={val}  getFavRoomList={getFavRoomList} ></Cardbox>
                           </Col>
 
                              );
                            })
 
                            : null}
-                          {/* <Col xs={12} sm={12} md={6} lg={4} className="px-4">   */}
-                            {/* <Cardbox></Cardbox> */}
-                          {/* </Col> */}
-
-                          {/* <Col xs={12} sm={12} md={6} lg={4} className="px-4">  
-                            <Cardbox></Cardbox>
-                          </Col>
-
-                          <Col xs={12} sm={12} md={6} lg={4} className="px-4">  
-                            <Cardbox></Cardbox>
-                          </Col> */}
-
                         </Row>
-                        
                       </div>
                   </Col>
                 </Row>
-
               </Container>
             </div>
         </div>
       <Footer></Footer>
       </div>
     )
-  
 }
-// export default Home;
-
 const mapStateToProps = state => {
   const { favoriteRoom } = state;
   return {

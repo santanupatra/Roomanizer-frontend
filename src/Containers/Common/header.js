@@ -70,7 +70,7 @@ import { NavLink, withRouter } from 'react-router-dom';
                   </NavLink>
                 </Col>
                 <Col xs={12} sm={12} md={9} lg={9}>
-                  {userToken?<LoginNavbar />:<Navbaar />}
+                  {userId?<LoginNavbar />:<Navbaar />}
                 </Col>
               </Row>
             </Container>

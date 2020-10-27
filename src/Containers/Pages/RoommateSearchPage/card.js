@@ -1,18 +1,16 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState} from 'react';
 import './style.css';
 import imagePath from '../../../Config/imageConstants';
-import { Container, Row, Col, Navbar } from 'reactstrap';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { fab } from '@fortawesome/free-brands-svg-icons';
+import { Row, Col} from 'reactstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHome, faShareAlt, } from "@fortawesome/free-solid-svg-icons";
-import { faHeart, faCalendarAlt } from "@fortawesome/free-regular-svg-icons";
+import { faShareAlt, } from "@fortawesome/free-solid-svg-icons";
+import { faCalendarAlt } from "@fortawesome/free-regular-svg-icons";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {
-  Card, CardImg, CardText, CardBody, CardFooter,
+  Card, CardImg,CardBody, CardFooter,
   CardTitle, CardSubtitle
 } from 'reactstrap';
-import { Button, ButtonToolbar, Modal } from 'react-bootstrap';
+import { Button,Modal } from 'react-bootstrap';
 import { withRouter, useHistory } from "react-router";
 import { connect } from 'react-redux';
 import { crudAction } from '../../../store/actions/common';
@@ -20,13 +18,13 @@ import { FAV_URL } from '../../../shared/allApiUrl';
 import { useForm } from "react-hook-form";
 import { login } from "../../../store/actions/auth";
 import { Link } from "react-router-dom";
-import { Nav, NavItem, NavLink } from 'reactstrap';
-import { Form, FormGroup, Label, Input, FormFeedback, FormText } from 'reactstrap';
+import { NavLink } from 'reactstrap';
+import { Form, FormGroup,Input} from 'reactstrap';
 import { InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
 import moment from 'moment';
+import { toast } from 'react-toastify';
 
 import { getImageUrl } from '../../../shared/helpers';
-import { ToastContainer, toast } from 'react-toastify';
 import { callApi } from "../../../api";
 import { FORGET_PASSWORD_URL } from '../../../shared/allApiUrl';
 import { SET_PASSWORD_URL } from '../../../shared/allApiUrl';
@@ -38,32 +36,24 @@ const Cardbox = (props) => {
   const [show, setShow] = useState(false);
   const [showw, setShoww] = useState(false);
 
-  // handleShow_1
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const handleShow_1 = () => setShoww(true);
-  const handleClose_1 = () => setShoww(false);
+  const handleShowForget = () => setShoww(true);
+  const handleCloseForget = () => setShoww(false);
 
   const history = useHistory();
   console.log(localStorage.getItem('userId'))
   const [fav, setFav] = useState(false);
   const onSubmit = (data) => {
     props.loginApiCall(data);
-    //window.location.reload();
     handleClose();
-
     props.history.push("/roomMateSearch/?city=&occupation=&gender=&age=&location=&bedrooms=&amenities=&houserules=&page=0");
-    //handleClose();
-    setTimeout(function() {
-      window.location.reload();
-    }, 500)
-    //window.location.reload();
     
   };
-  const click3 = () =>{
+  const clickToSignup = () =>{
     props.history.push('/signUP')
   }
-  const onSubmit_1 = async (data) => {
+  const onSubmitForget = async (data) => {
     console.log(data)
     if (status === false) {
       try {
@@ -91,9 +81,8 @@ const Cardbox = (props) => {
         toast.info('Password changed succesfully!', {
           position: toast.POSITION.TOP_CENTER
         });
-
         props.history.push("/roomMateSearch/?city=&occupation=&gender=&age=&location=&bedrooms=&amenities=&houserules=&page=0");
-        handleClose_1() 
+        handleCloseForget() 
       }
       catch (error) {
         console.log("Error");
@@ -104,24 +93,21 @@ const Cardbox = (props) => {
 
     }
   }
-  const click = () => {
+  const clickToOutLineHeart = () => {
     if (localStorage.getItem('userId') == null) {
       handleShow();
-
     } else {
       let a = true
-      
       const data = {
         loginUserId: localStorage.getItem('userId'),
         roomMateId: val._id,
-        // type :    "roomMate"    ,
       }
       console.log(data)
       props.crudActionCall(FAV_URL, data, "ADD");
       setFav(a)
     }
   }
-  const click2 = () => {
+  const clickToSolidHeart = () => {
     const a = false
     const data = {
       loginUserId: localStorage.getItem('userId'),
@@ -131,12 +117,10 @@ const Cardbox = (props) => {
     console.log(data)
     props.crudActionCall(FAV_URL, data, "ADD");
     setFav(a)
-
   }
   const val = (props.val)
   console.log(val,"fav")
   return (
-
     <Card>
       <div className="listingImgBox">
         <Link to={`/viewProfile/${val._id}`}
@@ -162,13 +146,9 @@ const Cardbox = (props) => {
         <div className="d-flex justify-content-between">
           <div className="py-2"><h6 className="org">${val.maxBudget}</h6></div>
           {(val.isFav || fav) || (val.isFav && fav) ?
-              <div className="border-left border-right p-2"><button type="checkbox" onClick={click2} className="wishlistbtn"><img src={imagePath.heartsolid} /></button></div>
-            : <div className="border-left border-right p-2"><Button type="checkbox" onClick={click} className="wishlistbtn"><img src={imagePath.heartoutLine} /></Button></div>
+              <div className="border-left border-right p-2"><button type="checkbox" onClick={clickToSolidHeart} className="wishlistbtn"><img src={imagePath.heartsolid} /></button></div>
+            : <div className="border-left border-right p-2"><Button type="checkbox" onClick={clickToOutLineHeart} className="wishlistbtn"><img src={imagePath.heartoutLine} /></Button></div>
           }
-          {/* <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
-      </Button> */}
-
           <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
               <Modal.Title>Login</Modal.Title>
@@ -177,7 +157,6 @@ const Cardbox = (props) => {
               <Form >
                 <FormGroup row>
                   <Col sm={12}>
-
                     <Input
                       type="email"
                       name="email"
@@ -186,7 +165,6 @@ const Cardbox = (props) => {
                       innerRef={register}
                       required
                     />
-                      
                     <Input
                       style={{marginTop:"20px"}}
                       type="password"
@@ -196,8 +174,8 @@ const Cardbox = (props) => {
                       innerRef={register}
                       required
                     />
-                    <a className="forgot" onClick={handleShow_1}><p>Forgot Password?</p></a>
-                    <Modal show={showw} onHide={handleClose_1}>
+                    <a className="forgot" onClick={handleShowForget}><p>Forgot Password?</p></a>
+                    <Modal show={showw} onHide={handleCloseForget}>
                       <Modal.Header closeButton>
                         <Modal.Title> <h1>Forget Password</h1></Modal.Title>
                       </Modal.Header>
@@ -245,7 +223,6 @@ const Cardbox = (props) => {
                                 type="password"
                                 name="password"
                                 placeholder="New Password"
-                                //   autoComplete="current-password"
                                 innerRef={register}
                                 required
                               />
@@ -260,29 +237,16 @@ const Cardbox = (props) => {
                                 type="password"
                                 name="confirmPassword"
                                 placeholder="Confirm Password"
-                                // autoComplete="current-password"
                                 innerRef={register}
                                 required
                               />
                             </InputGroup> </> : null}
                           <Row>
                             <Col xs="3">
-                              <Button variant="secondary" onClick={handleClose_1}>
-                                Close
-                    </Button>
-                              {/* <Button type="submit" color="primary" className="px-4 mr-4">
-                            Submit
-                          </Button> */}
-
+                              <Button variant="secondary" onClick={handleCloseForget}>Close</Button>
                             </Col>
                             <Col xs="3">
-                              {/* <Button variant="secondary" onClick={handleClose}>
-                    Close
-                    </Button> */}
-                              <Button type="button" onClick={handleSubmit(onSubmit_1)} style={{ marginLeft: "236px" }} color="primary" className="px-4 mr-4">
-                                Submit
-                          </Button>
-
+                              <Button type="button" onClick={handleSubmit(onSubmitForget)} style={{ marginLeft: "236px" }} color="primary" className="px-4 mr-4">Submit</Button>
                             </Col>
                           </Row>
                         </Form>
@@ -290,16 +254,8 @@ const Cardbox = (props) => {
                       <Modal.Footer>
                       </Modal.Footer>
                     </Modal>
-                    {/* <a href="#" className="login-bt mb-2">Login</a> */}
-                    <Button type="button" onClick={handleSubmit(onSubmit)} color="primary" className="login-bt mb-2">
-                      Login
-                        </Button>
-                    {/* <div className="text-center">
-                          <img src={imagePath.orImage} alt="image" />
-                          <NavLink to="#"><img src={imagePath.fbImage} alt="image" /></NavLink>
-                          <NavLink to="#"><img src={imagePath.gsImage} alt="image" /></NavLink>
-                        </div> */}
-                    <NavLink onClick={click3} className="forgot mt-3 mb-0">Don’t have an account? <span>Register</span></NavLink>
+                    <Button type="button" onClick={handleSubmit(onSubmit)} color="primary" className="login-bt mb-2">Login</Button>
+                    <NavLink onClick={clickToSignup} className="forgot mt-3 mb-0">Don’t have an account? <span>Register</span></NavLink>
                   </Col>
                 </FormGroup>
               </Form>
@@ -309,10 +265,8 @@ const Cardbox = (props) => {
         </div>
       </CardFooter>
     </Card>
-
   );
 }
-
 const mapStateToProps = state => {
   const { favorite, auth } = state;
   return {
@@ -320,12 +274,10 @@ const mapStateToProps = state => {
     auth
   }
 }
-
 const mapDispatchToProps = dispatch => {
   return {
     crudActionCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "FAVORITE")),
     loginApiCall: (data) => dispatch(login(data))
   }
 }
-
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Cardbox));

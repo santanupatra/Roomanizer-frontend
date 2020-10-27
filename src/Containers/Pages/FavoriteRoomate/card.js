@@ -20,7 +20,6 @@ import { connect } from 'react-redux';
 import { withRouter, useHistory } from "react-router";
 import { crudAction } from '../../../store/actions/common';
 import { FAV_URL } from '../../../shared/allApiUrl';
-//import {RoomMateSearch} from './favoriteroomate'
 import { getImageUrl } from '../../../shared/helpers';
 
 
@@ -29,9 +28,9 @@ const Cardbox = (props) => {
   const[fa,setFa]=useState(false);
 
   const val = (props.val) 
-  console.log(props.getCityList)
+  console.log(props.getFavRoommateList)
   
-  const click2 = () => {
+  const clickToSolidHeart = () => {
     const a = true
     const data = {
       loginUserId: localStorage.getItem('userId'),
@@ -41,31 +40,9 @@ const Cardbox = (props) => {
     console.log(data)
     props.crudActionCall(FAV_URL, data, "ADD");
     console.log('run')
-     props.getCityList()
-    //  props.getCityList()
-
-    // props.crudActionCall(`${FAV_URL}/${loginUserId}`, null, "GET_ALL")
-    //setFav(a)
-    
-
-
+     props.getFavRoommateList()
   }
-  // function refreshPage() {
-  //   window.location.reload(false);
-  // }
-  // const loginUserId = localStorage.getItem('userId')
-  // const getCityList = () => {
-  //   props.crudActionCall_1(`${FAV_URL}/${loginUserId}`, null, "GET_ALL")
-  // }
-//   useEffect(() => {
-//     // const { type, isSuccess } = props.favorite.action;
-//     // if (type === "DELETE" && isSuccess)
-//         getCityList();
-// }, [localStorage.getItem('userId')]);
-
-
   return (
-
     <Card>
       <div className="listingImgBox">
       <Link to={`/viewProfile/${val.roomMateId._id}`}>
@@ -87,27 +64,25 @@ const Cardbox = (props) => {
         </div>
       </CardBody>
       <CardFooter className="">
-        <div className="d-flex justify-content-between">
-      <div className="py-2"><h6 className="org">${val.roomMateId.maxBudget}</h6></div>
-      {fav  ?
-        <div className="border-left border-right p-2"><button className="wishlistbtn"><img src={imagePath.heartoutLine}/></button></div> 
-        :
-        <div className="border-left border-right p-2"><button className="wishlistbtn" 
-        onClick={() => {
-          click2();
-          props.getCityList();
-       }} >
-        <img src={imagePath.heartsolid}/></button></div>
-      }
-          
-          <div className="py-2"><FontAwesomeIcon icon={faShareAlt} /></div>
-        </div>
+          <div className="d-flex justify-content-between">
+            <div className="py-2"><h6 className="org">${val.roomMateId.maxBudget}</h6></div>
+                {fav  ?
+                  <div className="border-left border-right p-2"><button className="wishlistbtn"><img src={imagePath.heartoutLine}/></button></div> 
+                  :
+                  <div className="border-left border-right p-2"><button className="wishlistbtn" 
+                  onClick={() => {
+                    clickToSolidHeart();
+                    props.getFavRoommateList();
+                }} >
+                  <img src={imagePath.heartsolid}/></button></div>
+                }
+              <div className="py-2"><FontAwesomeIcon icon={faShareAlt} /></div>
+          </div>
       </CardFooter>
     </Card>
 
     );
   }
-  
   const mapStateToProps = state => {
     const { favorite } = state;
     return {
@@ -115,14 +90,9 @@ const Cardbox = (props) => {
       
     }
   }
-  
   const mapDispatchToProps = dispatch => {
     return {
-      crudActionCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "FAVORITE")),
-     // crudActionCall_1: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "FAVORITE")),
-      //loginApiCall: (data) => dispatch(login(data))
+      crudActionCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "FAVORITE"))
     }
   }
-  
   export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Cardbox));
- // export default Cardbox;

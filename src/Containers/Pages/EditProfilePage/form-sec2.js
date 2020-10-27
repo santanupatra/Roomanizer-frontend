@@ -85,15 +85,12 @@ const Formsec2 = (props) => {
   const [aminitiesOption, setAminitiesOption] = useState([]);
  
   useEffect(() => {
-    const  cmsDetail = async()=>{
+    
     setUserId(params.userId)
     if (params.userId) props.crudActionCall(`${USER_URL}/${params.userId}`, null, "GET")
+    if (params.userId) props.crudActionRoomCall(`${ROOM_URL}/${params.userId}`, null, "GET")
     props.crudActionHouseCall(HOUSE_RULE_URL, null, "GET_ALL")
     props.crudActionCityCall(CITY_URL, null, "GET_ALL")
-
-    let {data}  =  await axiosApiCall.get(`${ROOM_URL}/${params.userId}`, null)
-    
-    setField({ ...field, ...data.data })
     callApi(apiBaseUrl+"/web/"+AMINITIES_URL,'GET','').then(
       response => {
         let option = response.data.map((val) =>  
@@ -102,19 +99,13 @@ const Formsec2 = (props) => {
         setAminitiesOption(option);
       }
     )
-    if(data.data){
-    setmoveIn(moment(data.data.moveIn).toDate())
-    }  
-    console.log(data.data)
     
-    }
-  cmsDetail()
   
 
   }, [params]);
   
   
-  
+  console.log(props.room)
   console.log(props.user.user)
  
 
@@ -122,6 +113,12 @@ const Formsec2 = (props) => {
 
   useEffect(() => {
     const action = props.user.action;
+    if (props.room.room) {
+      setField({ ...field, ...props.room.room });
+      setmoveIn(moment(props.room.room.moveIn).toDate())
+    
+     
+    }
     const { type, isSuccess } = props.house.action;
     
     if (props.user.user && params.userId) {
@@ -133,7 +130,7 @@ const Formsec2 = (props) => {
     }
     if (action.isSuccess && action.type === "UPDATE")
       props.history.push(`/editProfile/${userId}`)
-  }, [props.user,props.house]);
+  }, [props.user,props.house,props.room]);
   // console.log(fields.socialMediaLink.facebookLink)
  
   const onSubmit = (data) => {
@@ -442,20 +439,20 @@ const Formsec2 = (props) => {
                                   name= "noOfBedRoom"
                                   onChange={(value) => handlechange1(value)}
                                     // defaultChecked={value === "2 Bedroom"}    
-                                  checked={field.noOfBedRoom === "2 Bedroom"}
+                                  checked={field.noOfBedRoom === "2"}
                                       // {...plaftormInputProps}
                                   /> 2 Bedroom
                                   </Label>
                                   <Label>
                                     <input type="radio" value="3" name= "noOfBedRoom"
-                                      checked={field.noOfBedRoom === "3 Bedroom"}
+                                      checked={field.noOfBedRoom === "3"}
                                       onChange={(value) =>
                                           handlechange1(value)}
                                     /> 3 Bedroom
                                   </Label>
                                   <Label>
                                     <input type="radio" value="5" name= "noOfBedRoom"
-                                      checked={field.noOfBedRoom === "4+ Bedroom"}
+                                      checked={field.noOfBedRoom === "5"}
                                       //defaultChecked={value === "4+ Bedroom"}  
                                       onChange={(value) =>
                                         handlechange1(value)}
@@ -772,7 +769,7 @@ const Formsec2 = (props) => {
     return {
       crudActionCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "USER")),
       resetAction: () => dispatch({ type: "RESET_USER_ACTION" }),
-     // crudActionHouseCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "ROOM")),
+    crudActionRoomCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "ROOM")),
     crudActionCityCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "CITY")),
     crudActionHouseCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "HOUSE"))
 
