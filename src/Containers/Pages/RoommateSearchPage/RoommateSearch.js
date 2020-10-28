@@ -48,11 +48,14 @@ const RoomMateSearch =(props)=> {
     let occupation = params.get('occupation');
     let gender = params.get('gender');
     let age = params.get('age');
-    let location = params.get('location');
+    //let location = params.get('location');
     let bedrooms = params.get('bedrooms');
     let amenities = params.get('amenities');
     let houserules = params.get('houserules');
     let page = params.get('page');
+    let latitude = params.get('lat');
+    let longitude = params.get('lng');
+    
 
     setGender(gender);
     setCity(city);
@@ -64,12 +67,12 @@ const RoomMateSearch =(props)=> {
     let searchpara;
     if(localStorage.getItem('userId')!=null){
             searchpara = '?city='+city+'&occupation='+occupation+'&gender='
-                            +gender+'&age='+age+'&location='+location+'&bedrooms='
+                            +gender+'&age='+age+'&lat='+latitude+'&lng='+longitude+'&bedrooms='
                             +bedrooms+'&amenities='+amenities+'&houserules='
                             +houserules+'&loginUserId='+localStorage.getItem('userId')+'&page='+page+'&perpage='+perPage;
     }else{
            searchpara = '?city='+city+'&occupation='+occupation+'&gender='
-                          +gender+'&age='+age+'&location='+location+'&bedrooms='
+                          +gender+'&age='+age+'&lat='+latitude+'&lng='+longitude+'&bedrooms='
                           +bedrooms+'&amenities='+amenities+'&houserules='
                           +houserules+'&page='+page+'&perpage='+perPage;
           }
@@ -113,11 +116,13 @@ const RoomMateSearch =(props)=> {
     setShowList(false);
     let params = new URLSearchParams(props.location.search);
     // let flocation = '';
-    let location = params.get('location');
+    //let location = params.get('location');
+    let latitude = params.get('lat');
+    let longitude = params.get('lng');
      
     if(localStorage.getItem('userId')!=null){
     let searchpara = '?city='+city+'&occupation='+occupation+'&gender='
-                    +gender+'&age='+age+'&location='+location+'&bedrooms='
+                    +gender+'&age='+age+'&lat='+latitude+'&lng='+longitude+'&bedrooms='
                     +bedrooms+'&amenities='+amenities+'&houserules='
                     +houserules+'&loginUserId='+localStorage.getItem('userId')+'&page='+page+'&perpage='+perPage;
     
@@ -126,7 +131,7 @@ const RoomMateSearch =(props)=> {
     }else{
 
       let searchpara = '?city='+city+'&occupation='+occupation+'&gender='
-                    +gender+'&age='+age+'&location='+location+'&bedrooms='
+                    +gender+'&age='+age+'&lat='+latitude+'&lng='+longitude+'&bedrooms='
                     +bedrooms+'&amenities='+amenities+'&houserules='
                     +houserules+'&page='+page+'&perpage='+perPage;
   
@@ -143,17 +148,19 @@ const RoomMateSearch =(props)=> {
     setShowList(false);
     let params = new URLSearchParams(props.location.search);
     // let flocation = '';
-    let location = params.get('location');
+   // let location = params.get('location');
+   let latitude = params.get('lat');
+    let longitude = params.get('lng');
     
     let searchpara
     if(localStorage.getItem('userId')!=null){
      searchpara = '?city='+city+'&occupation='+occupation+'&gender='
-                    +gender+'&age='+age+'&location='+location+'&bedrooms='
+                    +gender+'&age='+age+'&lat='+latitude+'&lng='+longitude+'&bedrooms='
                     +bedrooms+'&amenities='+amenities+'&houserules='
                     +houserules+'&loginUserId='+localStorage.getItem('userId')+'&page='+selectedPage+'&perpage='+perPage;
     }else{   
     searchpara = '?city='+city+'&occupation='+occupation+'&gender='
-              +gender+'&age='+age+'&location='+location+'&bedrooms='
+              +gender+'&age='+age+'&lat='+latitude+'&lng='+longitude+'&bedrooms='
               +bedrooms+'&amenities='+amenities+'&houserules='
               +houserules+'&page='+selectedPage+'&perpage='+perPage;
          }
