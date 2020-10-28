@@ -42,6 +42,10 @@ console.log("loginuseId",localStorage.getItem('userId'))
   const [startDate, setStartDate] = useState('');
   const [fields, setFields] = useState(initialFields);
   const [cityList, setCityList] = useState([]);
+  const [latitude, setLatitude] = useState('');
+  const [longitude, setLongitude] = useState('');
+
+
   const [address, setAddress] = useState('');
   const [age, setAge] = useState('');
   const history = useHistory();
@@ -66,10 +70,10 @@ console.log("startDate",startDate);
     
     if(loginUserId){
         searchpara = '?city='+city+'&occupation='+occupation+'&gender='
-        +gender+'&age='+age+'&location='+address+'&bedrooms=&amenities=&houserules=&page=0&loginUserId='+loginUserId;
+        +gender+'&age='+age+'&lat='+latitude+'&lng='+longitude+'&bedrooms=&amenities=&houserules=&page=0&loginUserId='+loginUserId;
     }else{
         searchpara = '?city='+city+'&occupation='+occupation+'&gender='
-                        +gender+'&age='+age+'&location='+address+'&bedrooms=&amenities=&houserules=&page=0';
+                        +gender+'&age='+age+'&lat='+latitude+'&lng='+longitude+'&bedrooms=&amenities=&houserules=&page=0';
     }
     history.push('/roomMateSearch/'+searchpara);
     
@@ -120,6 +124,9 @@ const searchRoom = (data) =>{
               console.log("lat==",lat,"lng==",lng)
               console.log(address);
               setAddress(address);
+              setLatitude(lat)
+              setLongitude(lng)
+
               
               // setFields((prevState) => ({ ...prevState, ["address"]: address }));
               // setFields((prevState) => ({ ...prevState, ["longitude"]: lng }));
