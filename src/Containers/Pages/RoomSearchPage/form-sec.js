@@ -8,10 +8,11 @@ import { Modal, ModalHeader, ModalBody, ModalFooter, CustomInput, Form, } from '
 import { callApi} from '../../../api';
 import { apiBaseUrl } from "../../../shared/helpers";
 import { CITY_URL} from '../../../shared/allApiUrl';
+import { propTypes } from 'react-bootstrap/esm/Image';
 
 
 const Formsec = (props) => {
- 
+ console.log(props)
   const initialFields = {
     gender: "",
     occupation: "",
@@ -96,7 +97,7 @@ const Formsec = (props) => {
             <Modal isOpen={modal} toggle={toggle} className={className}>
               <ModalHeader toggle={toggle}>Filter</ModalHeader>
               <ModalBody className="p-4">
-                <Form>
+                {/* <Form>
                   <FormGroup>
                     <Label for="exampleCheckbox" className="filter-modal">No of Bedrooms</Label>
                     <div className="filt d-flex justify-content-between flex-wrap">
@@ -116,31 +117,96 @@ const Formsec = (props) => {
                   <FormGroup>
                     <Label for="exampleCheckbox" className="filter-modal">Listing Amenities</Label>
                     <div className="filt d-flex justify-content-between flex-wrap">
-                      <CustomInput type="checkbox" id="exampleCustomCheckbox" label="In-unit Washer" />
-                      <CustomInput type="checkbox" id="exampleCustomCheckbox" label="Cleaning Personnel" />
-                      <CustomInput type="checkbox" id="exampleCustomCheckbox" label="Furnished" />                     
+                      <CustomInput type="checkbox" id="exampleCustomCheckbox1" label="In-unit Washer" />
+                      <CustomInput type="checkbox" id="exampleCustomCheckbox2" label="Cleaning Personnel" />
+                      <CustomInput type="checkbox" id="exampleCustomCheckbox3" label="Furnished" />                     
                     
-                      <CustomInput type="checkbox" id="exampleCustomCheckbox" label="Private Bathroom" />
-                      <CustomInput type="checkbox" id="exampleCustomCheckbox" label="Parking" />
-                      <CustomInput type="checkbox" id="exampleCustomCheckbox" label="Outdoor Space" />
+                      <CustomInput type="checkbox" id="exampleCustomCheckbox4" label="Private Bathroom" />
+                      <CustomInput type="checkbox" id="exampleCustomCheckbox5" label="Parking" />
+                      <CustomInput type="checkbox" id="exampleCustomCheckbox6" label="Outdoor Space" />
                     </div>
                   </FormGroup>
                   <FormGroup>
                     <Label for="exampleCheckbox" className="filter-modal">House Rules</Label>
                     <div className="filt d-flex justify-content-between flex-wrap">
-                      <CustomInput type="checkbox" id="exampleCustomCheckbox" label="No Smoking" />
+                      <CustomInput type="checkbox" id="exampleCustomCheckbox1" label="No Smoking" />
                       <CustomInput type="checkbox" id="exampleCustomCheckbox2" label="No Pets" />
                       <CustomInput type="checkbox" id="exampleCustomCheckbox3" label="No Drugs" />
-                      <CustomInput type="checkbox" id="exampleCustomCheckbox3" label="No Drinking" />               
+                      <CustomInput type="checkbox" id="exampleCustomCheckbox4" label="No Drinking" />               
                     
-                      <CustomInput type="checkbox" id="exampleCustomCheckbox3" label="Dogs Ok" />
-                      <CustomInput type="checkbox" id="exampleCustomCheckbox3" label="Cats Ok" />
-                      <CustomInput type="checkbox" id="exampleCustomCheckbox3" label="Other Pets Ok" />
-                      <CustomInput type="checkbox" id="exampleCustomCheckbox3" label="Couples Ok" />
+                      <CustomInput type="checkbox" id="exampleCustomCheckbox5" label="Dogs Ok" />
+                      <CustomInput type="checkbox" id="exampleCustomCheckbox6" label="Cats Ok" />
+                      <CustomInput type="checkbox" id="exampleCustomCheckbox7" label="Other Pets Ok" />
+                      <CustomInput type="checkbox" id="exampleCustomCheckbox8" label="Couples Ok" />
                     
-                      <CustomInput type="checkbox" id="exampleCustomCheckbox3" label="vegan Only" />
-                      <CustomInput type="checkbox" id="exampleCustomCheckbox3" label="420 Friendly" />
-                      <CustomInput type="checkbox" id="exampleCustomCheckbox3" label="Drinking Friendly" />
+                      <CustomInput type="checkbox" id="exampleCustomCheckbox9" label="vegan Only" />
+                      <CustomInput type="checkbox" id="exampleCustomCheckbox10" label="420 Friendly" />
+                      <CustomInput type="checkbox" id="exampleCustomCheckbox11" label="Drinking Friendly" />
+                    </div>
+                  </FormGroup>
+                </Form> */}
+                <Form>
+                  <FormGroup>
+                    <Label for="exampleCheckbox" className="filter-modal">No of Bedrooms</Label>
+                    <div className="filt d-flex justify-content-between flex-wrap">
+                      <CustomInput type="checkbox" id="no_bedrooms1" label="2 Bedroom" />
+                      <CustomInput type="checkbox" id="no_bedrooms2" label="3 Bedroom" />
+                      <CustomInput type="checkbox" id="no_bedrooms3" label="4+ Bedroom" />
+                    </div>
+                  </FormGroup>
+                  <FormGroup>
+                    <Label for="exampleCheckbox" className="filter-modal">Preferred Gender</Label>
+                    <div className="filt d-flex justify-content-between flex-wrap">
+                      <CustomInput type="radio" id="exampleCustomRadio" name="customRadio" label="Male" />
+                      <CustomInput type="radio" id="exampleCustomRadio1" name="customRadio" label="Female" />
+                      <CustomInput type="radio" id="exampleCustomRadio2" name="customRadio" label="Either" />
+                    </div>
+                  </FormGroup>
+                  <FormGroup>
+                    <Label for="exampleCheckbox" className="filter-modal">Listing Amenities</Label>
+                    <div className="filt d-flex justify-content-between flex-wrap">
+                      {/* <CustomInput type="checkbox" id="listing_amenities1" label="In-unit Washer" />
+                      <CustomInput type="checkbox" id="listing_amenities2" label="Furnished" />
+                      <CustomInput type="checkbox" id="listing_amenities3" label="Private Bathroom" />
+                   
+                      <CustomInput type="checkbox" id="listing_amenities4" label="Outdoor Space" /> */}
+                      <CustomInput type="checkbox" id="listing_amenities1" label="In-unit Washer" />
+                      <CustomInput type="checkbox" id="listing_amenities2" label="Cleaning Personnel" />
+                      <CustomInput type="checkbox" id="listing_amenities3" label="Furnished" />                     
+                    
+                      <CustomInput type="checkbox" id="listing_amenities4" label="Private Bathroom" />
+                      <CustomInput type="checkbox" id="listing_amenities5" label="Parking" />
+                      <CustomInput type="checkbox" id="listing_amenities6" label="Outdoor Space" />
+
+                      
+                    </div>
+                  </FormGroup>
+                  <FormGroup>
+                    <Label for="exampleCheckbox" className="filter-modal">Home Rules</Label>
+                    <div className="filt d-flex justify-content-between flex-wrap">
+                      {/* <CustomInput type="checkbox" id="home_rules1" label="No Smoking" />
+                      <CustomInput type="checkbox" id="home_rules2" label="No Pets" />
+                      <CustomInput type="checkbox" id="home_rules3" label="No Drugs" />
+                      <CustomInput type="checkbox" id="home_rules4" label="No Drinking" />               
+                    
+                      <CustomInput type="checkbox" id="home_rules5" label="Dogs Ok" />
+                      <CustomInput type="checkbox" id="home_rules6" label="Cats Ok" />
+                      <CustomInput type="checkbox" id="home_rules7" label="Other Pets Ok" />
+                      <CustomInput type="checkbox" id="home_rules8" label="Couples Ok" /> */}
+                      <CustomInput type="checkbox" id="home_rules1" label="No Smoking" />
+                      <CustomInput type="checkbox" id="home_rules2" label="No Pets" />
+                      <CustomInput type="checkbox" id="home_rules3" label="No Drugs" />
+                      <CustomInput type="checkbox" id="home_rules4" label="No Drinking" />               
+                    
+                      <CustomInput type="checkbox" id="home_rules5" label="Dogs Ok" />
+                      <CustomInput type="checkbox" id="home_rules6" label="Cats Ok" />
+                      <CustomInput type="checkbox" id="home_rules7" label="Other Pets Ok" />
+                      <CustomInput type="checkbox" id="home_rules8" label="Couples Ok" />
+                    
+                      <CustomInput type="checkbox" id="home_rules9" label="vegan Only" />
+                      <CustomInput type="checkbox" id="home_rules10" label="420 Friendly" />
+                      <CustomInput type="checkbox" id="home_rules11" label="Drinking Friendly" />
+
                     </div>
                   </FormGroup>
                 </Form>
