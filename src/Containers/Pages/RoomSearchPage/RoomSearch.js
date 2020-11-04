@@ -88,43 +88,44 @@ const RoomSearch = (props) => {
       }
     )
   }, []);
-  const handleChange = (name, value) => {
-    setFields((prevState) => ({ ...prevState, [name]: value, isSearch: true }));
-  }
+  // const handleChange = (name, value) => {
+  //   setFields((prevState) => ({ ...prevState, [name]: value, isSearch: true }));
+  // }
 
-  const filterSubmit = (page) => {
-    setShowList(false);
-    let params = new URLSearchParams(props.location.search);
-    // let flocation = '';
-    //let location = params.get('location');
-    let latitude = params.get('lat');
-    let longitude = params.get('lng');
-    // setBedrooms(bedrooms);
+  // const filterSubmit = (page) => {
+  //   setShowList(false);
+  //   let params = new URLSearchParams(props.location.search);
+  //   console.log(props.location.search)
+  //   // let flocation = '';
+  //   //let location = params.get('location');
+  //   let latitude = params.get('lat');
+  //   let longitude = params.get('lng');
+  //   // setBedrooms(bedrooms);
 
-    if (localStorage.getItem('userId') != null) {
-      let searchpara = '?city=' + city + '&gender='
-        + gender + '&address='
-        + address + latitude + '&lng=' + longitude + '&bedrooms='
-        + bedrooms + '&amenities=' + amenities + '&houserules='
-        + houserules + '&loginUserId=' + localStorage.getItem('userId') + '&page=' + page + '&perpage=' + perPage;
+  //   if (localStorage.getItem('userId') != null) {
+  //     let searchpara = '?city=' + city + '&gender='
+  //       + gender + '&address='
+  //       + address + latitude + '&lng=' + longitude + '&bedrooms='
+  //       + bedrooms + '&amenities=' + amenities + '&houserules='
+  //       + houserules + '&loginUserId=' + localStorage.getItem('userId') + '&page=' + page + '&perpage=' + perPage;
 
-      history.push('/roomSearch/' + searchpara);
-      window.location.reload();
-    } else {
+  //     history.push('/roomSearch/' + searchpara);
+  //     window.location.reload();
+  //   } else {
 
-      let searchpara = '?city=' + city + '&gender='
-        + gender + '&address='
-        + address + '&lat=' + latitude + '&lng=' + longitude + '&bedrooms='
-        + bedrooms + '&amenities=' + amenities + '&houserules='
-        + houserules + '&page=' + page + '&perpage=' + perPage;
+  //     let searchpara = '?city=' + city + '&gender='
+  //       + gender + '&address='
+  //       + address + '&lat=' + latitude + '&lng=' + longitude + '&bedrooms='
+  //       + bedrooms + '&amenities=' + amenities + '&houserules='
+  //       + houserules + '&page=' + page + '&perpage=' + perPage;
 
-      history.push('/roomSearch/' + searchpara);
-      window.location.reload();
+  //     history.push('/roomSearch/' + searchpara);
+  //     window.location.reload();
 
 
-    }
+  //   }
 
-  }
+  // }
   useEffect(() => {
     callApi(apiBaseUrl + "/web/" + CITY_URL, 'GET', '').then(
       response => {
@@ -148,24 +149,24 @@ const RoomSearch = (props) => {
     )
 
   }, []);
-  const createFilterString = (name, e) => {
+  // const createFilterString = (name, e) => {
 
-    if (name == "amenities") {
-      if (amenities) {
-        setAmenities(amenities + ',' + e);
-      } else {
-        setAmenities(e);
-      }
-    }
-    if (name == "houserules") {
-      console.log(houserules)
-      if (houserules) {
-        setHouseRules(houserules + ',' + e);
-      } else {
-        setHouseRules(e);
-      }
-    }
-  }
+  //   if (name == "amenities") {
+  //     if (amenities) {
+  //       setAmenities(amenities + ',' + e);
+  //     } else {
+  //       setAmenities(e);
+  //     }
+  //   }
+  //   if (name == "houserules") {
+  //     console.log(houserules)
+  //     if (houserules) {
+  //       setHouseRules(houserules + ',' + e);
+  //     } else {
+  //       setHouseRules(e);
+  //     }
+  //   }
+  // }
 
   useEffect(() => {
 
@@ -301,8 +302,8 @@ const RoomSearch = (props) => {
                       <Col xs={12} sm={12} md={12} lg={8}>
                         <div className="form-bg2">
                           <h3 className="mt-3 mb-4">Find A Room :</h3>
-                          {/* <Formsec formData={(data)=>setFormData(data)} urlData={[{city:city},{location:location}]}></Formsec> */}
-                          <Row>
+                          <Formsec formData={(data)=>setFormData(data)} urlData={[{city:city},{location:location}]}></Formsec>
+                          {/* <Row>
                             <Col xs={12} sm={12} md={3} lg={3}>
                               <Input
                                 type="select"
@@ -338,12 +339,12 @@ const RoomSearch = (props) => {
                             {/* <Col xs={12} sm={12} md={2} lg={2}>
               <button className="black-bt d-sm-block w-100 mb-2" type="button" onClick={(e)=>props.formData(fields)}>Search</button>
             </Col> */}
-                            <Col xs={12} sm={12} md={6} lg={2}>
+                            {/* <Col xs={12} sm={12} md={6} lg={2}>
                               <button
                                 onClick={(e) => filterSubmit(0)}
                                 className="black-bt d-sm-block w-100 mb-2">Search</button>
-                            </Col>
-                          </Row>
+                            </Col> */}
+                          {/* </Row>  */}
                         </div>
                       </Col>
                       <Col xs={12} sm={12} md={12} lg={4}>
@@ -361,7 +362,7 @@ const RoomSearch = (props) => {
                     </Col>
                     <Col xs={12} sm={12} md={12} lg={5} className="px-4">
                       <div className="mapview mt-5">
-                        {/* {
+                        {
                           searchList != '' && searchList.map((val) => {
                             return (
                               //  <option value={val.cityName}>{val.cityName}</option>
@@ -371,14 +372,14 @@ const RoomSearch = (props) => {
                               </>
                             );
                           })
-                        } */}
+                        }
                         {/* <div className=""><img src={imagePath.mapmarkImage} alt="image"/></div> */}
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d659064.2706871205!2d5.572872077027312!3d49.814834630019895!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479545b9ca212147%3A0x64db60f602d392ef!2sLuxembourg!5e0!3m2!1sen!2sin!4v1600248985937!5m2!1sen!2sin"
+                        {/* <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d659064.2706871205!2d5.572872077027312!3d49.814834630019895!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479545b9ca212147%3A0x64db60f602d392ef!2sLuxembourg!5e0!3m2!1sen!2sin!4v1600248985937!5m2!1sen!2sin"
                                  width="100%"
                                  height="650px" 
                                  frameborder="0"
                                   >
-                                  </iframe>
+                                  </iframe> */}
 
                       </div>
                     </Col>
@@ -422,7 +423,7 @@ const RoomSearch = (props) => {
           </Container>
         </div>
       </div>
-      <Modal isOpen={modal} toggle={toggle} className={className}>
+      {/* <Modal isOpen={modal} toggle={toggle} className={className}>
         <ModalHeader toggle={toggle}>Filter</ModalHeader>
         <ModalBody className="p-4">
           <Form>
@@ -535,7 +536,7 @@ const RoomSearch = (props) => {
           <Button color="primary" onClick={toggle}>Reset</Button>{' '}
           <Button color="secondary" onClick={toggle}>Cancel</Button>
         </ModalFooter>
-      </Modal>
+      </Modal> */}
       <Footer></Footer>
     </div>
   )

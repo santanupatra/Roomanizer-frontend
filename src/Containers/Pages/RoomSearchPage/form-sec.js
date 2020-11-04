@@ -9,26 +9,154 @@ import { callApi} from '../../../api';
 import { apiBaseUrl } from "../../../shared/helpers";
 import { CITY_URL} from '../../../shared/allApiUrl';
 import { propTypes } from 'react-bootstrap/esm/Image';
-
+import { BrowserRouter as Router, Route, useHistory } from "react-router-dom";
+import { withRouter } from 'react-router-dom';
+import { connect } from "react-redux";
+import { crudAction } from "../../../store/actions/common";
+import { AMINITIES_URL,HOUSE_RULE_URL} from '../../../shared/allApiUrl';
 
 const Formsec = (props) => {
  console.log(props)
-  const initialFields = {
-    gender: "",
-    occupation: "",
-    city:"",
-    cityList:"",
-    duration:"",
-    budget:"",
-    address:'',
-    isSearch:false
-  }
+  // const initialFields = {
+  //   // gender: "",
+  //   // occupation: "",
+  //   city:"",
+  //   // cityList:"",
+  //   // duration:"",
+  //   // budget:"",
+  //   // address:'',
+  //   isSearch:false
+  // }
+  const perPage = 6;
+
  const [cityList, setCityList] = useState([]);
- const [fields, setFields] = useState(initialFields);
+ const [bedrooms, setBedrooms] = useState('');
+ const [city, setCity] = useState('');
+ const [address, setAddress] = useState('');
+ const [amenities, setAmenities] = useState('');
+ const [houserules, setHouseRules] = useState('');
+ const [pageCount, setPageCount] = useState('');
+ const [amenitiesList, setAmenitiesList] = useState([]);
+ const [houserulesList, setHouseRulesList] = useState([]);
+ const [showList, setShowList] = useState(false);
+ const [gender, setGender] = useState('');
+ const [listCount, setListCount] = useState(0);
+ const [searchList, setSearchList] = useState([]);
+ const [checked, setChecked] = useState(false);
+
+ const history = useHistory();
+
+
+
  useEffect(() => {
-  setFields((prevState) => ({ ...prevState, city: props.urlData[0].city, }));
-  setFields((prevState) => ({ ...prevState, address: props.urlData[1].location }));
- },[props.urlData])
+
+  let params = new URLSearchParams(props.location.search);
+  let city = params.get('city');
+  let occupation = params.get('occupation');
+  let gender = params.get('gender');
+  let age = params.get('age');
+  //let location = params.get('location');
+  let bedrooms = params.get('bedrooms');
+  let amenities = params.get('amenities');
+  let houserules = params.get('houserules');
+  let page = params.get('page');
+  let latitude = params.get('lat');
+  let longitude = params.get('lng');
+  
+
+  setGender(gender);
+  setCity(city);
+  setBedrooms(bedrooms);
+  //setAmenities(amenities); 
+  
+  let searchpara;
+  if(localStorage.getItem('userId')!=null){
+          searchpara = '?city='+city+'&gender='
+                          +gender+'&lat='+latitude+'&lng='+longitude+'&bedrooms='
+                          +bedrooms+'&amenities='+amenities+'&houserules='
+                          +houserules+'&loginUserId='+localStorage.getItem('userId')+'&page='+page+'&perpage='+perPage;
+  }else{
+         searchpara = '?city='+city+'&gender='
+                        +gender+'&lat='+latitude+'&lng='+longitude+'&bedrooms='
+                        +bedrooms+'&amenities='+amenities+'&houserules='
+                        +houserules+'&page='+page+'&perpage='+perPage;
+        }
+                  callApi(apiBaseUrl+"/web/user-api/"+searchpara,'GET','').then(
+                    response => {
+                      let totalpagecount = Math.ceil(response.data.count/perPage);
+                      setShowList(true);
+                      setListCount(response.data.count);
+                      setSearchList(response.data.list);
+                      setPageCount(totalpagecount);
+                    }
+                  )
+  },[]);
+
+
+
+ const filterSubmit = (page) => {
+  setShowList(false);
+  let params = new URLSearchParams(props.location.search);
+  console.log(params)
+  // let flocation = '';
+  //let location = params.get('location');
+  // let latitude = params.get('lat');
+  // let longitude = params.get('lng');
+  
+  if(localStorage.getItem('userId')!=null && gender!=null && bedrooms!=null && city!=null){
+    setGender(gender)
+  setCity(city)
+  setAddress(address)
+  setBedrooms(bedrooms)
+  let searchpara = '?city='+city+'&address='+address+'&bedrooms='
+                  +bedrooms+'&gender='+gender+'&amenities='+amenities+'&houserules='
+                  +houserules+'&loginUserId='+localStorage.getItem('userId')+'&page='+page;
+  
+  history.push('/roomSearch/'+searchpara);
+  // window.location.reload();
+  }else{
+    setGender('')
+    setCity('')
+    setAddress('')
+    setBedrooms('')
+    let searchpara = '?city='+city+'&address='+address+'&bedrooms='
+                  +bedrooms+'&gender='+gender+'&amenities='+amenities+'&houserules='
+                  +houserules+'&page='+page;
+
+  history.push('/roomSearch/'+searchpara);
+  // window.location.reload();
+  
+
+}
+
+}
+const createFilterString = (name,e) => {
+
+  if(name=="amenities"){
+    if(amenities){
+      setAmenities(amenities+','+e);
+      // setChecked(!checked)
+    } else {
+      setAmenities(e);
+      // setChecked(!checked)
+    }
+  }
+  if(name=="houserules"){
+    console.log(houserules)
+    if(houserules){
+      setHouseRules(houserules+','+e);
+      // setChecked(!checked)
+    } else {
+      setHouseRules(e);
+      // setChecked(!checked)
+    }
+  }
+}
+//  const [fields, setFields] = useState(initialFields);
+//  useEffect(() => {
+//   setFields((prevState) => ({ ...prevState, city: props.urlData[0].city, }));
+//   setFields((prevState) => ({ ...prevState, address: props.urlData[1].address }));
+//  },[props.urlData])
   const {
     buttonLabel,
     className
@@ -44,11 +172,26 @@ const Formsec = (props) => {
         setCityList(option);
       }
     )
+
+    callApi(apiBaseUrl+"/web/"+AMINITIES_URL,'GET','').then(
+      response => {
+        let option = response.data;
+        setAmenitiesList(option);
+      }
+    )
+
+    callApi(apiBaseUrl+"/web/"+HOUSE_RULE_URL,'GET','').then(
+      response => {
+        let option = response.data;
+        setHouseRulesList(option);
+      }
+    )
+
   },[]);
-  const handleChange = (name,value)=>{
-    setFields((prevState) => ({ ...prevState, [name]: value,isSearch:true }));
-  }
-  console.log("fields+++++++",fields);
+  // const handleChange = (name,value)=>{
+  //   setFields((prevState) => ({ ...prevState, [name]: value,isSearch:true }));
+  // }
+  console.log("amenitiesList+++++++",amenitiesList);
     return (
       <div className="">
         <Row>
@@ -57,10 +200,11 @@ const Formsec = (props) => {
                   type="select" 
                   name="city" 
                   id="city"
-                  value={fields.city}
-                  onChange={(e) =>
-                    handleChange(e.target.name, e.target.value)
-                  }
+                  value={city}
+                  onChange={(e) =>setCity(e.target.value)}
+                  // onChange={(e) =>
+                  //   handleChange(e.target.name, e.target.value)
+                  // }
                 >
                   <option value="">City</option>
                   {
@@ -78,18 +222,22 @@ const Formsec = (props) => {
                     type="text" 
                     name="address" 
                     id="address"
+                    value={address}
                     placeholder="Enter a street, area or city"
-                    onChange={(e) =>
-                      handleChange(e.target.name, e.target.value)
-                    }
-                    value={fields.address}
+                    onChange={(e) =>setAddress(e.target.value)}
+                    // onChange={(e) =>
+                    //   handleChange(e.target.name, e.target.value)
+                    // }
+                    // value={address}
                   />
             </Col>
             <Col xs={12} sm={12} md={2} lg={2}>
               <button className="filter mb-2 d-sm-block w-100" onClick={toggle}>{buttonLabel}<img src={imagePath.filterImage} alt="image"/></button>
             </Col>
             <Col xs={12} sm={12} md={2} lg={2}>
-              <button className="black-bt d-sm-block w-100 mb-2" type="button" onClick={(e)=>props.formData(fields)}>Search</button>
+              {/* <button className="black-bt d-sm-block w-100 mb-2" type="button" onClick={(e)=>props.formData(fields)}>Search</button> */}
+              <button onClick={(e)=>filterSubmit(0)} className="black-bt d-sm-block w-100 mb-2">Search</button>
+
             </Col>
       </Row>
 
@@ -149,17 +297,65 @@ const Formsec = (props) => {
                   <FormGroup>
                     <Label for="exampleCheckbox" className="filter-modal">No of Bedrooms</Label>
                     <div className="filt d-flex justify-content-between flex-wrap">
-                      <CustomInput type="checkbox" id="no_bedrooms1" label="2 Bedroom" />
-                      <CustomInput type="checkbox" id="no_bedrooms2" label="3 Bedroom" />
-                      <CustomInput type="checkbox" id="no_bedrooms3" label="4+ Bedroom" />
+                      <CustomInput 
+                      type="radio" 
+                      name="no_bedrooms" 
+                      id="no_bedrooms1" 
+                      value="2"
+                      checked={bedrooms==2} 
+                      label="2 Bedroom"
+                      onChange={(e) =>setBedrooms(e.target.value)} 
+                     />
+                      <CustomInput 
+                      type="radio" 
+                      name="no_bedrooms" 
+                      id="no_bedrooms2" 
+                      value="3"
+                      checked={bedrooms==3} 
+                      label="3 Bedroom"
+                      onChange={(e) =>setBedrooms(e.target.value)} 
+                      />
+                      <CustomInput
+                      type="radio" 
+                      name="no_bedrooms" 
+                      id="no_bedrooms3" 
+                      value="5"
+                      checked={bedrooms==5} 
+                      label="4+ Bedroom"
+                      onChange={(e) =>setBedrooms(e.target.value)} 
+                      />
                     </div>
                   </FormGroup>
                   <FormGroup>
                     <Label for="exampleCheckbox" className="filter-modal">Preferred Gender</Label>
                     <div className="filt d-flex justify-content-between flex-wrap">
-                      <CustomInput type="radio" id="exampleCustomRadio" name="customRadio" label="Male" />
-                      <CustomInput type="radio" id="exampleCustomRadio1" name="customRadio" label="Female" />
-                      <CustomInput type="radio" id="exampleCustomRadio2" name="customRadio" label="Either" />
+                      <CustomInput
+                      type="radio" 
+                      name="gender" 
+                      id="gender1" 
+                      value="male"
+                      checked={gender=="male"} 
+                      label="Male"
+                      onChange={(e) =>setGender(e.target.value)} 
+                      />
+                      <CustomInput
+                      type="radio" 
+                      name="gender" 
+                      id="gender2" 
+                      value="female"
+                      checked={gender=="female"} 
+                      label="Female"
+                      onChange={(e) =>setGender(e.target.value)} 
+                       />
+                      <CustomInput
+                      type="radio" 
+                      name="gender" 
+                      id="gender3" 
+                      value="either"
+                      checked={gender=="either"} 
+                      label="Either"
+                      onChange={(e) =>setGender(e.target.value)} 
+                     />
                     </div>
                   </FormGroup>
                   <FormGroup>
@@ -170,15 +366,27 @@ const Formsec = (props) => {
                       <CustomInput type="checkbox" id="listing_amenities3" label="Private Bathroom" />
                    
                       <CustomInput type="checkbox" id="listing_amenities4" label="Outdoor Space" /> */}
-                      <CustomInput type="checkbox" id="listing_amenities1" label="In-unit Washer" />
+                      {/* <CustomInput type="checkbox" id="listing_amenities1" label="In-unit Washer" />
                       <CustomInput type="checkbox" id="listing_amenities2" label="Cleaning Personnel" />
                       <CustomInput type="checkbox" id="listing_amenities3" label="Furnished" />                     
                     
                       <CustomInput type="checkbox" id="listing_amenities4" label="Private Bathroom" />
                       <CustomInput type="checkbox" id="listing_amenities5" label="Parking" />
-                      <CustomInput type="checkbox" id="listing_amenities6" label="Outdoor Space" />
-
-                      
+                      <CustomInput type="checkbox" id="listing_amenities6" label="Outdoor Space" /> */}
+                       { amenitiesList!='' && amenitiesList.map((val,i) =>{
+                                                return(
+                                                  <CustomInput 
+                                                    type="checkbox" 
+                                                    id={val._id} 
+                                                    value={val._id}
+                                                    label={val.name}
+                                                  //  checked={amenities===val.name} 
+                                                  // checked={checked}
+                                                    onChange={(e) =>createFilterString("amenities",e.target.value)} 
+                                                  />
+                                                );
+                                              })
+                                            }
                     </div>
                   </FormGroup>
                   <FormGroup>
@@ -193,7 +401,7 @@ const Formsec = (props) => {
                       <CustomInput type="checkbox" id="home_rules6" label="Cats Ok" />
                       <CustomInput type="checkbox" id="home_rules7" label="Other Pets Ok" />
                       <CustomInput type="checkbox" id="home_rules8" label="Couples Ok" /> */}
-                      <CustomInput type="checkbox" id="home_rules1" label="No Smoking" />
+                      {/* <CustomInput type="checkbox" id="home_rules1" label="No Smoking" />
                       <CustomInput type="checkbox" id="home_rules2" label="No Pets" />
                       <CustomInput type="checkbox" id="home_rules3" label="No Drugs" />
                       <CustomInput type="checkbox" id="home_rules4" label="No Drinking" />               
@@ -205,7 +413,22 @@ const Formsec = (props) => {
                     
                       <CustomInput type="checkbox" id="home_rules9" label="vegan Only" />
                       <CustomInput type="checkbox" id="home_rules10" label="420 Friendly" />
-                      <CustomInput type="checkbox" id="home_rules11" label="Drinking Friendly" />
+                      <CustomInput type="checkbox" id="home_rules11" label="Drinking Friendly" /> */}
+                      { houserulesList!='' && houserulesList.map((val) =>{
+                                                return(
+                                                  <CustomInput 
+                                                    type="checkbox" 
+                                                    id={val._id} 
+                                                    value={val._id}
+                                                    // checked={houserules==val.name}
+                                                    // checked={checked}
+                                                    //fields={houserules}
+                                                    label={val.name}
+                                                    onChange={(e) =>createFilterString("houserules",e.target.value)} 
+                                                  />
+                                                );
+                                              })
+                                            }
 
                     </div>
                   </FormGroup>
@@ -222,4 +445,19 @@ const Formsec = (props) => {
     );
   }
   
-  export default Formsec;
+  // export default Formsec;
+  const mapStateToProps = state => {
+    const { room } = state;
+    return {
+        room
+    }
+  }
+  
+  const mapDispatchToProps = dispatch => {
+    return {
+        crudActionCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "ROOM"))
+  
+    }
+  }
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Formsec));
