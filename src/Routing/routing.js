@@ -36,7 +36,7 @@ const Routes=(props) =>{
                 {/* <Navbar isAuth={loggedIn} /> */}
                 <Route path="/" exact component={HomePage} />
                 <Route path="/home" exact component={HomePage} />
-                <Route path="/home/:userId" exact component={HomePage} />
+                {/* <Route path="/home/:userId" exact component={HomePage} /> */}
                 <Route path="/login" exact component={LoginPage} />
                 <Route path="/signUP" exact component={SignupPage} />
                 <Route path="/editProfile/:userId" exact component={EditprofilePage} />

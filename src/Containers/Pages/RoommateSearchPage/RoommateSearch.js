@@ -327,7 +327,6 @@ const RoomMateSearch =(props)=> {
                                                     id={val._id} 
                                                     label={val.name}
                                                    // checked={amenities===val._id} 
-
                                                     value={val._id}
                                                     onChange={(e) =>createFilterString("amenities",e.target.value)} 
                                                   />
@@ -346,7 +345,6 @@ const RoomMateSearch =(props)=> {
                                                     id={val._id} 
                                                     //checked={houserules==val._id}
                                                     //fields={houserules}
-
                                                     label={val.name}
                                                     value={val._id}
                                                     onChange={(e) =>createFilterString("houserules",e.target.value)} 
