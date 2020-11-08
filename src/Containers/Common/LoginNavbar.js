@@ -76,7 +76,8 @@ console.log(props.user.user)
                 {
                 (localStorage.getItem('userId') === null)
                 ?<NavLink href="/home">Home</NavLink>
-                :<NavLink href={`/home/${userId}`}>Home</NavLink>
+                :<NavLink href="/home">Home</NavLink>
+                // <NavLink href={`/home/${userId}`}>Home</NavLink>
                 }
               </NavItem>
               <NavItem>

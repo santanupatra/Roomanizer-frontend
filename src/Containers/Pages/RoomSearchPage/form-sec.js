@@ -42,7 +42,7 @@ const Formsec = (props) => {
  const [gender, setGender] = useState('');
  const [listCount, setListCount] = useState(0);
  const [searchList, setSearchList] = useState([]);
- const [checked, setChecked] = useState(false);
+ const [location, setLocation] = useState('');
 
  const history = useHistory();
 
@@ -55,7 +55,7 @@ const Formsec = (props) => {
   let occupation = params.get('occupation');
   let gender = params.get('gender');
   let age = params.get('age');
-  //let location = params.get('location');
+  let location = params.get('location');
   let bedrooms = params.get('bedrooms');
   let amenities = params.get('amenities');
   let houserules = params.get('houserules');
@@ -72,12 +72,16 @@ const Formsec = (props) => {
   let searchpara;
   if(localStorage.getItem('userId')!=null){
           searchpara = '?city='+city+'&gender='
-                          +gender+'&lat='+latitude+'&lng='+longitude+'&bedrooms='
+                          +gender+
+                          // '&lat='+latitude+'&lng='+longitude+
+                          '&bedrooms='
                           +bedrooms+'&amenities='+amenities+'&houserules='
                           +houserules+'&loginUserId='+localStorage.getItem('userId')+'&page='+page+'&perpage='+perPage;
   }else{
          searchpara = '?city='+city+'&gender='
-                        +gender+'&lat='+latitude+'&lng='+longitude+'&bedrooms='
+                        +gender+
+                        // '&lat='+latitude+'&lng='+longitude+
+                        '&bedrooms='
                         +bedrooms+'&amenities='+amenities+'&houserules='
                         +houserules+'&page='+page+'&perpage='+perPage;
         }
@@ -93,43 +97,40 @@ const Formsec = (props) => {
   },[]);
 
 
+  console.log("location===>",location)
 
  const filterSubmit = (page) => {
   setShowList(false);
   let params = new URLSearchParams(props.location.search);
   console.log(params)
+  console.log("location===>",location)
   // let flocation = '';
   //let location = params.get('location');
   // let latitude = params.get('lat');
   // let longitude = params.get('lng');
   
   if(localStorage.getItem('userId')!=null && gender!=null && bedrooms!=null && city!=null){
-    setGender(gender)
-  setCity(city)
-  setAddress(address)
-  setBedrooms(bedrooms)
-  let searchpara = '?city='+city+'&address='+address+'&bedrooms='
+  
+  let searchpara = '?city='+city+'&location='+location+'&bedrooms='
                   +bedrooms+'&gender='+gender+'&amenities='+amenities+'&houserules='
                   +houserules+'&loginUserId='+localStorage.getItem('userId')+'&page='+page;
   
   history.push('/roomSearch/'+searchpara);
-  // window.location.reload();
+  window.location.reload();
   }else{
-    setGender('')
-    setCity('')
-    setAddress('')
-    setBedrooms('')
-    let searchpara = '?city='+city+'&address='+address+'&bedrooms='
+
+    let searchpara = '?city='+city+'&location='+location+'&bedrooms='
                   +bedrooms+'&gender='+gender+'&amenities='+amenities+'&houserules='
                   +houserules+'&page='+page;
 
   history.push('/roomSearch/'+searchpara);
-  // window.location.reload();
+  window.location.reload();
   
 
 }
 
 }
+// console.log()
 const createFilterString = (name,e) => {
 
   if(name=="amenities"){
@@ -152,6 +153,8 @@ const createFilterString = (name,e) => {
     }
   }
 }
+console.log("location===>",location)
+
 //  const [fields, setFields] = useState(initialFields);
 //  useEffect(() => {
 //   setFields((prevState) => ({ ...prevState, city: props.urlData[0].city, }));
@@ -191,7 +194,7 @@ const createFilterString = (name,e) => {
   // const handleChange = (name,value)=>{
   //   setFields((prevState) => ({ ...prevState, [name]: value,isSearch:true }));
   // }
-  console.log("amenitiesList+++++++",amenitiesList);
+  console.log("houserulesList+++++++",houserulesList);
     return (
       <div className="">
         <Row>
@@ -222,15 +225,30 @@ const createFilterString = (name,e) => {
                     type="text" 
                     name="address" 
                     id="address"
-                    value={address}
+                    value={location}
                     placeholder="Enter a street, area or city"
-                    onChange={(e) =>setAddress(e.target.value)}
+                    onChange={(e) =>setLocation(e.target.value)}
                     // onChange={(e) =>
                     //   handleChange(e.target.name, e.target.value)
                     // }
                     // value={address}
                   />
             </Col>
+            {/* <Col xs={12} sm={12} md={6} lg={2}>
+                                      {/* <Label for="">Gender</Label> */}
+                                      {/* <Input 
+                                        type="select"
+                                        name="fgender" 
+                                        id="fgender"
+                                        value={gender}
+                                        onChange={(e) =>setGender(e.target.value)}
+                                      >
+                                        <option value="">Gender</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                        <option value="either">Other</option>
+                                      </Input> */}
+                                    {/* </Col> */} 
             <Col xs={12} sm={12} md={2} lg={2}>
               <button className="filter mb-2 d-sm-block w-100" onClick={toggle}>{buttonLabel}<img src={imagePath.filterImage} alt="image"/></button>
             </Col>
@@ -380,7 +398,7 @@ const createFilterString = (name,e) => {
                                                     id={val._id} 
                                                     value={val._id}
                                                     label={val.name}
-                                                  //  checked={amenities===val.name} 
+                                                  //  checked={amenities===val._id} 
                                                   // checked={checked}
                                                     onChange={(e) =>createFilterString("amenities",e.target.value)} 
                                                   />

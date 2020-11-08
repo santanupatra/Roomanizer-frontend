@@ -23,6 +23,8 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from 'react-places-autocomplete';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 //import 'react-google-places-autocomplete/dist/index.min.css';
 import Geocode from "react-geocode";
 const palceKey = "AIzaSyA5LrPhIokuSBO5EgKEcfu859gog6fRF8w";
@@ -109,6 +111,9 @@ const Formsec = (props) => {
     // console.log(data)
     props.crudActionCall(USER_URL + `/${userId}`, data, "UPDATE");
     props.resetAction();
+    toast.info('Submitted successfully', {
+      position: toast.POSITION.TOP_CENTER
+  });
   }
 
   

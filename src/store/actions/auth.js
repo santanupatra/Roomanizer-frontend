@@ -44,7 +44,9 @@ export const login = (val) => {
             
             //console.log("su")
             // set token in redux
-            dispatch({ type: AUTH_SUCCESS, payload: {token: data.data.token, userId:data.data.userDetails._id,profileImg:data.data.profilePicture,userType:data.data.userType?data.data.userType:'',permission:data.data.permission?data.data.permission:''} });
+            dispatch({ type: AUTH_SUCCESS, payload: {token: data.data.token, 
+                userId:data.data.userDetails._id,
+                profileImg:data.data.profilePicture,userType:data.data.userType?data.data.userType:'',permission:data.data.permission?data.data.permission:''} });
             
            // return data;
         } else {
