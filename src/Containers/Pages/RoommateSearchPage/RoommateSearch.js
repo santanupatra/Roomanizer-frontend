@@ -174,7 +174,7 @@ const RoomMateSearch =(props)=> {
 
   
   const createFilterString = (name,e) => {
-
+console.log(e.target)
     if(name=="amenities"){
       if(amenities){
         setAmenities(amenities+','+e);

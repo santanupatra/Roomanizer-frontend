@@ -235,7 +235,7 @@ const searchRoom = (data) =>{
                       <option selected >Choose your Duration </option>
                       <option value="1-3 Months">1-3 Months</option>
                       <option value="3-6 Months">3-6 Months</option>
-                      <option value="6+ Months">6+ Months</option>
+                      <option value="6 Months">6+ Months</option>
                   </Input>
                 </FormGroup>
             </Col>
