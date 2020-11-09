@@ -8,11 +8,16 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import InputUI from '../../../UI/InputUI';
+import { ToastContainer, toast } from 'react-toastify';
+import bcrypt from 'bcryptjs';
 
 const ChangePasswordForm = (props) => {
+  console.log(props.user.user)
   const initialFields = {
+    currentPassword:null,
     newPassword: null,
-    confirmPassword: null
+    confirmPassword: null,
+    password:''
   }
   
   const [fields, setFields] = useState(initialFields);
@@ -25,16 +30,38 @@ const ChangePasswordForm = (props) => {
     if (props.user.user && params.userId) {
       setFields({ ...fields, ...props.user.user })
     }
-    if (action.isSuccess && action.type === "UPDATE")
-      props.history.push(`/viewProfile/${userId}`)
-
+    if (action.isSuccess && action.type === "UPDATE"){
+      toast.info('Password changed successfully', {
+        position: toast.POSITION.TOP_CENTER
+    });
+    props.history.push(`/viewProfile/${userId}`)
+    }
+    
   }, [props.user]);
   
   const onSubmit = (data) => {
+    console.log("data====>",fields.password)
+    if(data.newPassword!==data.confirmPassword){
+      toast.info('New password and confirm password does not match', {
+        position: toast.POSITION.TOP_CENTER
+    });
+    }
+  //   var currentPassword=bcrypt.genSalt(10, function(err, salt) {
+  //     bcrypt.hash(data.currentPassword, salt, function(err, hash) {
+  //       currentPassword=hash
+  //     });
+  // });
+  // console.log("currentPassword",currentPassword)
+  // if(currentPassword!==fields.password){
+  //   toast.info('Please enter valid current password', {
+  //     position: toast.POSITION.TOP_CENTER
+  // });
+  // }
     if (userId) data.userId = userId;
     props.crudActionCall(CHANGEPASSWORD_URL + `/${userId}`, data, "UPDATE");
     props.resetAction();
   }
+  console.log("fields.password",fields)
     return (
       <div className="">
         
@@ -42,6 +69,17 @@ const ChangePasswordForm = (props) => {
                       <Form onSubmit={handleSubmit(onSubmit)}>
                         <FormGroup row>
                           <Col sm={12}>
+                          <InputUI
+                            type="password" 
+                            name="currentPassword" 
+                            id="currentPassword" 
+                            placeholder="current Password" 
+                            errors={errors}
+                            innerRef={register({
+                             required: 'This is required field',
+                            })}
+                            fields={fields}
+                            />
                             <InputUI
                             type="password" 
                             name="newPassword" 
