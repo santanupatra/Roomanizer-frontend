@@ -46,17 +46,17 @@ const ChangePasswordForm = (props) => {
         position: toast.POSITION.TOP_CENTER
     });
     }
-  //   var currentPassword=bcrypt.genSalt(10, function(err, salt) {
-  //     bcrypt.hash(data.currentPassword, salt, function(err, hash) {
-  //       currentPassword=hash
-  //     });
-  // });
+  console.log(fields.password)
+  console.log(data.currentPassword)
+
+      var compering=bcrypt.compareSync(data.currentPassword, fields.password);
+      console.log(compering)
   // console.log("currentPassword",currentPassword)
-  // if(currentPassword!==fields.password){
-  //   toast.info('Please enter valid current password', {
-  //     position: toast.POSITION.TOP_CENTER
-  // });
-  // }
+  if(!compering){
+    toast.info('Your current password is not valid', {
+      position: toast.POSITION.TOP_CENTER
+  });
+  }
     if (userId) data.userId = userId;
     props.crudActionCall(CHANGEPASSWORD_URL + `/${userId}`, data, "UPDATE");
     props.resetAction();
