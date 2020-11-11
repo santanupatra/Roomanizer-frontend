@@ -5,7 +5,8 @@ const initialState = {
     action: {
         type: null,
         isSuccess: false,
-        data: null
+        data: null,
+        response:null
     },
     isLoading: false
 }

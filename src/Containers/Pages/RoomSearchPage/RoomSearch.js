@@ -26,6 +26,7 @@ const RoomSearch = (props) => {
   const [showList, setShowList] = useState(false);
   const [listCount, setListCount] = useState(0);
   const [searchList, setSearchList] = useState([]);
+  const [checked1, setChecked] = useState([]);
   const [pageCount, setPageCount] = useState('');
   const [city, setCity] = useState('');
   const [moveIn, setMoveIn] = useState('');
@@ -289,34 +290,35 @@ const RoomSearch = (props) => {
 
 
   const createFilterString = (name, e) => {
-// console.log(e.target.checked)
-// var checkedBoxes = [checkedBoxess];
-let array = []
+
+    // var checked = e.target.checked;
+    console.log(e.target.checked)
     if (name == "amenities") {
       if (amenities) {
-        setAmenities(
-          // amenities + ',' + e.target.value
-          amenities + ',' + e.target.value
-        );
-        // setCheckedBoxes(checkedBoxess.push(e.target.value))
-        // checkedBoxess.push(e.target.value)
-        array.push(e.target.value)
+        setAmenities(amenities + ',' + e.target.value);
+        setChecked( e.target.checked?e.target.value:'')
       } else {
         setAmenities(e.target.value);
       }
-      // setCheckedBoxes({checkedBoxess})
     }
     if (name == "houserules") {
-      console.log("houserules===>", houserules)
+      // console.log("houserules===>", houserules)
       if (houserules) {
-        setHouseRules(houserules + ',' + e.target.value);
+        setHouseRules(houserules + ',' + e.target.value, e.target.checked);
+        // setChecked( e.target.checked)
       } else {
         setHouseRules(e.target.value);
       }
     }
-    console.log(array)
   }
-  // console.log(arra)
+  const toggle1 = () => {
+    setModal(!modal)
+    setAmenities('');
+    setHouseRules('');
+    setBedrooms('')
+    // window.location.reload();
+  };
+  console.log("houserules",houserules)
   return (
     <div className="home">
       <div className="header">
@@ -351,7 +353,8 @@ let array = []
                                 }
                               </Input>
                             </Col>
-                            <Col xs={12} sm={12} md={6} lg={5} style={{ marginTop: "2rem" }}>
+                            <Col xs={12} sm={12} md={6} lg={5}>
+                            <Label for="">Location</Label>
                               <Input
                                 className="search"
                                 type="text"
@@ -434,8 +437,8 @@ let array = []
                                       label={val.name}
                                       name={val.name}
                                       value={val._id}
-                                      checked={amenities ==val._id.split(',')}
-                                      // checked={amenities.find((ch) => ch== val._id)}
+                                      // checked={checked1}
+                                      checked={amenities===val._id}
                                       onChange={(e) => createFilterString("amenities", e)}
                                     />
                                   );
@@ -452,10 +455,11 @@ let array = []
                                       type="checkbox"
                                       id={val._id}
                                       value={val._id}
-                                      checked={houserules == val._id}
-                                      //fields={houserules}
                                       label={val.name}
-                                      onChange={(e) => createFilterString("houserules", e.target.value)}
+                                      name={val.name}
+                                    // checked={houserules == val._id}
+                                      checked={houserules === val._id}
+                                      onChange={(e) => createFilterString("houserules", e)}
                                     />
                                   );
                                 })
@@ -465,7 +469,7 @@ let array = []
                           </Form>
                         </ModalBody>
                         <ModalFooter>
-                          <Button color="primary" onClick={toggle}>Reset</Button>{' '}
+                          <Button color="primary" onClick={toggle1}>Reset</Button>{' '}
                           <Button color="secondary" onClick={toggle}>Cancel</Button>
                         </ModalFooter>
                       </Modal>
