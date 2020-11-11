@@ -191,7 +191,13 @@ console.log(e.target)
       }
     }
   }
-  
+  const toggle1 = () => {
+    setModal(!modal)
+    setAmenities('');
+    setHouseRules('');
+    setBedrooms('')
+    // window.location.reload();
+  };
 
   return (
       <div className="home">
@@ -357,7 +363,7 @@ console.log(e.target)
                                       </Form>
                                     </ModalBody>
                                     <ModalFooter>
-                                      <Button color="primary" onClick={toggle}>Reset</Button>{' '}
+                                      <Button color="primary" onClick={toggle1}>Reset</Button>{' '}
                                       <Button color="secondary" onClick={toggle}>Cancel</Button>
                                     </ModalFooter>
                                   </Modal>

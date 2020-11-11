@@ -9,30 +9,48 @@ import { crudAction } from '../../../store/actions/common';
 import { NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import InputUI from '../../../UI/InputUI';
-
-
+import { ToastContainer, toast } from 'react-toastify';
+import { callApi} from '../../../api';
+import { apiBaseUrl } from "../../../shared/helpers";
+import axios from 'axios';
 const SignUpFrom = (props) => {
   const initialFields = {
-    email: "",
+    email: '',
     password: null,
     confirmPassword: null,
     errorMessage: null,
   }
-  
   const [fields, setFields] = useState(initialFields);
-  // const [userId, setUserId] = useState(null);
+ 
   const { handleSubmit, register, errors } = useForm();
-  useEffect(() => {
-    const action = props.user.action;
-    setFields({ ...fields, ...props.user.user })
-    if (action.isSuccess && action.type === "ADD")
-      props.history.push("/activeMail")
-  }, [props.user]);
-
+ 
+console.log("fields",fields)
 
   const onSubmit = (data) => {
-    props.crudActionCall(SIGNUP_URL, data,"ADD");
-  }
+    console.log(data)
+
+    axios.post(apiBaseUrl+"/web/"+SIGNUP_URL,data )
+      .then(res => {
+        console.log(res.data.msg);
+        if (res.data.ack==false&&res.data.msg=="Parameter missing..."){
+              toast.info('Parameter missing...', {
+                position: toast.POSITION.TOP_CENTER
+            }); 
+            }
+       if (res.data.ack==false&&res.data.msg=="Email already exist"){
+              toast.info('Email already exist', {
+                position: toast.POSITION.TOP_CENTER
+            });
+            }
+            if (res.data.ack==true){
+              toast.info('Signup successfully', {
+                position: toast.POSITION.TOP_CENTER
+            });
+            
+            props.history.push("/activeMail")
+            }
+      })
+}
 
   const  handleChange = (name,value)=>{
     setFields((prevState) => ({ ...prevState, [name]: value }));
@@ -116,17 +134,17 @@ const SignUpFrom = (props) => {
   }
   
 
-  const mapStateToProps = state => {
-    const { user } = state;
-    return {
-      user
-    }
-  }
+  // const mapStateToProps = state => {
+  //   const { user } = state;
+  //   return {
+  //     user
+  //   }
+  // }
   
-  const mapDispatchToProps = dispatch => {
-    return {
-      crudActionCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "USER")),
-    }
-  }
+  // const mapDispatchToProps = dispatch => {
+  //   return {
+  //     crudActionCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "USER")),
+  //   }
+  // }
 
-  export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SignUpFrom));
+  export default (withRouter(SignUpFrom));
