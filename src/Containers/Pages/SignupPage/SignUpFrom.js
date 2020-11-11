@@ -100,11 +100,11 @@ const SignUpFrom = (props) => {
                               Sign Up
                             </Button>
                             {/* <Link to="/activeMail" className="login-bt mt-4">Sign up</Link> */}
-                            <div className="text-center">
+                            {/* <div className="text-center">
                             <img src={imagePath.orImage} alt="image"/>
                               <NavLink to="#"><img src={imagePath.fbImage} alt="image"/></NavLink>
                               <NavLink to="#"><img src={imagePath.gsImage} alt="image"/></NavLink>
-                            </div>
+                            </div> */}
                             <NavLink to="/login" className="forgot mt-3 mb-0">Already have an account? <span>Login</span></NavLink>
                           </Col>
                         </FormGroup>

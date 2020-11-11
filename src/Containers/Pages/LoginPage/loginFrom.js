@@ -236,11 +236,11 @@ else  {
               <Button type="button" onClick={handleSubmit(onSubmit)} color="primary" className="login-bt mb-2">
                 Login
                         </Button>
-                        <div className="text-center">
+                        {/* <div className="text-center">
                           <img src={imagePath.orImage} alt="image" />
                           <NavLink to="#"><img src={imagePath.fbImage} alt="image" /></NavLink>
                           <NavLink to="#"><img src={imagePath.gsImage} alt="image" /></NavLink>
-                        </div>
+                        </div> */}
                         <NavLink to="/signUP" className="forgot mt-3 mb-0">Don’t have an account? <span>Register</span></NavLink>
             </Col>
           </FormGroup>
