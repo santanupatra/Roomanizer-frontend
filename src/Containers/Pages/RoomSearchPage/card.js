@@ -24,6 +24,8 @@ import { toast } from 'react-toastify';
 import { callApi } from "../../../api";
 import { FORGET_PASSWORD_URL } from '../../../shared/allApiUrl';
 import { SET_PASSWORD_URL } from '../../../shared/allApiUrl';
+import { Link } from "react-router-dom";
+
 const Cardbox = (props) => {
   console.log("Cardbox", props.val)
   const roomData = props.val;
@@ -132,14 +134,20 @@ const Cardbox = (props) => {
     <Card className="mt-5">
       <div className="">
         <div className="roomPic">
+        <Link to={`/roomRent/${val.user_Id._id}`}
+        >
           <CardImg className="roomimg" top width="100%" src={roomData.roomImage && roomData.roomImage.length > 0 ? getImageUrl(roomData.roomImage[0] ? roomData.roomImage[0].image : '') : imagePath.roomImage1} alt="Card image cap" />
+          </Link>
+          
         </div>
+        
         <div className="roomuser">
           
             <img src={roomData.user_Id && roomData.user_Id.profilePicture ? getImageUrl(roomData.user_Id.profilePicture) : imagePath.roomuserImage} alt="image" />
           
           {/* <a href="#"><img src={imagePath.userfbImage} alt="image"/></a> */}
         </div>
+
       </div>
       <CardBody className="px-3 py-2">
         <div className="">

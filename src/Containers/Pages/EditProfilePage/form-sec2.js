@@ -85,7 +85,8 @@ const Formsec2 = (props) => {
   const [setDate, setStartDate] = useState(new Date());
   const [setRtoM, setmoveIn] = useState(null);
   const [aminitiesOption, setAminitiesOption] = useState([]);
- 
+  const [err, setErr] = useState('');
+  const [errAdd, setErrAdd] = useState('');
   useEffect(() => {
     
     setUserId(params.userId)
@@ -147,11 +148,24 @@ const Formsec2 = (props) => {
     if (field.houseRules) data.houseRules=field.houseRules
     if (field.noOfBedRoom) data.noOfBedRoom=field.noOfBedRoom
     if (field.aminities) data.aminities=field.aminities
-    props.crudActionCall(LANDLORD_URL + `/${userId}`, data, "UPDATE");
+  //   props.crudActionCall(LANDLORD_URL + `/${userId}`, data, "UPDATE");
+  //   props.resetAction();
+  //   toast.info('Updated  successfully', {
+  //     position: toast.POSITION.TOP_CENTER
+  // });
+   if(data.aminities.length>0&&data.houseRules.length>0&&data.address!==" "){
+      setErrAdd(' ')
+      setErr(' ')
+      props.crudActionCall(LANDLORD_URL + `/${userId}`, data, "UPDATE");
     props.resetAction();
     toast.info('Updated  successfully', {
       position: toast.POSITION.TOP_CENTER
   });
+}
+else{
+  setErrAdd('This field is required')
+  setErr('This field is required')
+}
   }
 
   // const options1 =  [
@@ -201,7 +215,13 @@ const Formsec2 = (props) => {
   // };
 
   const handleChangeAddress = address => {
-    setField((prevState) => ({ ...prevState, address }));
+    if(address===''){
+      setErrAdd('This field is required')
+    }else{
+      setErrAdd(' ')
+    }
+    setFields((prevState) => ({ ...prevState, address }));
+ 
   };
   const  handleDatechange = date => {
     setStartDate(date);
@@ -273,11 +293,12 @@ const Formsec2 = (props) => {
                                 {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                                   <Col xs={12} sm={12} md={12} lg={12}>
                                     <input
-                                      {...getInputProps({
+                                     {...getInputProps({
                                         placeholder: 'Search Places ...',
-                                        className: 'form-control',
-                                      })}
-                                    />
+                                         className: 'form-control',
+                                       })}
+                                      />
+                                    <p style={{color:"red"}}>{errAdd}</p>
                                     <div className="autocomplete-dropdown-container">
                                       {loading && <div>Loading...</div>}
                                       {suggestions.map(suggestion => {
@@ -517,7 +538,7 @@ const Formsec2 = (props) => {
                                     handleChange3(e.target.name, e.target.value)
                                   }
                                   >
-                                  <option selected disabled>Choose your Flatmates </option>
+                                  <option value="">Choose your Flatmates </option>
                                   <option value="male">Male</option>
                                   <option value="female">Female</option>
                                   <option value="other">Other</option>
@@ -543,7 +564,7 @@ const Formsec2 = (props) => {
                                     handleChange3(e.target.name, e.target.value)
                                   }
                                   >
-                                  <option selected disabled>Choose your Age Range </option>
+                                  <option value="">Choose your Age Range </option>
                                   <option value="Early 20s">Early 20s</option>
                                   <option value="Late 20s">Late 20s</option>
                                   <option value="30s">30s</option>
@@ -590,7 +611,7 @@ const Formsec2 = (props) => {
                                     handleChange2(e.target.name, e.target.value)
                                   }
                                   >
-                                  <option selected disabled>Choose your Duration </option>
+                                  <option value="">Choose your Duration </option>
                                   <option value="1-3 Months">1-3 Months</option>
                                   <option value="3-6 Months">3-6 Months</option>
                                   <option value="6+ Months">6+ Months</option>
@@ -666,7 +687,7 @@ const Formsec2 = (props) => {
                                     handleChange4(e.target.name, e.target.value)
                                   }
                                   >
-                                  <option selected disabled>Choose your Charges Type </option>
+                                  <option value="">Choose your Charges Type </option>
                                   <option value="monthly">monthly</option>
                                   <option value="yearly">yearly</option>
                                   

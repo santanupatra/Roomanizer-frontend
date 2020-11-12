@@ -1,4 +1,4 @@
-//export const apiBaseUrl = `http://127.0.0.1:5073`;
+// export const apiBaseUrl = `http://127.0.0.1:5073`;
 export const apiBaseUrl = `http://111.93.169.90:7082`;
 export const updateObject = (oldObj, newObj) => {
     return { ...oldObj, ...newObj };
@@ -14,6 +14,15 @@ export const getMethod = (type)=>{
     }
     return obj[type];
 }
+
+export const firebaseConfig = {
+    apiKey: "AIzaSyD9tWbkQzOP6L9rf4w-tgodJPeOURgsybo",
+    authDomain: "neybor-f1cc9.firebaseapp.com",
+    databaseURL: "https://neybor-f1cc9.firebaseio.com",
+    projectId: "neybor-f1cc9",
+    storageBucket: "neybor-f1cc9.appspot.com",
+    messagingSenderId: "505568010159",
+    }
 
 export const getAuthToken = localStorage.getItem("access-token");
 export const getAuthUserId = localStorage.getItem("adminId");

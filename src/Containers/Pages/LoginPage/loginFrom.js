@@ -44,7 +44,11 @@ function LoginFrom(props) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const onSubmit = (data) => {
+
+
     props.loginApiCall(data);
+
+    
   };
 
 
