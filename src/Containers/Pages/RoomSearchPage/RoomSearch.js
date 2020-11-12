@@ -35,7 +35,6 @@ const RoomSearch = (props) => {
   const [budget, setBudget] = useState('');
   const [bedrooms, setBedrooms] = useState('');
   const [amenities, setAmenities] = useState('');
-  // const [houserules, setHouserules] = useState('');
   const [page, setPage] = useState('');
   const [gender, setGender] = useState('');
   const [cityList, setCityList] = useState([]);
@@ -43,58 +42,14 @@ const RoomSearch = (props) => {
   const [houserulesList, setHouseRulesList] = useState([]);
   const [formData, setFormData] = useState('');
   const [checkedBoxess, setCheckedBoxes] = useState([]);
-
-  // const [amenities, setAmenities] = useState('');
-  // const [houserules, setHouseRules] = useState('');
   const [houserules, setHouseRules] = useState('');
+  const [houseRuleArr,setHouseRuleArr]=useState([])
+  const [aminitiesArr,setAminitiesArr]=useState([])
   const [address, setAddress] = useState('');
 
   const history = useHistory();
 
-  // useEffect(() => {
-
-  //   let params = new URLSearchParams(props.location.search);
-  //   let city = params.get('city');
-  //   let moveIn = params.get('moveIn');
-  //   let duration = params.get('duration');
-  //   let budget = params.get('budget');
-  //   let location = params.get('location');
-  //   let bedrooms = params.get('bedrooms');
-  //   let amenities = params.get('amenities');
-  //   let houserules = params.get('houserules');
-  //   let page = params.get('page');
-  //   setCity(city);
-  //   setMoveIn(moveIn);
-  //   setDuration(duration);
-  //   setBudget(budget);
-  //   setLocation(location);
-  //   setBedrooms(bedrooms);
-  //   setAmenities(amenities);
-  //   setHouserules(houserules);
-  //   setPage(page);
-
-  //   let searchpara;
-  //   if(localStorage.getItem('userId')!=null){
-  //           searchpara = '?city='+city+'&moveIn='+moveIn+'&duration='
-  //                           +duration+'&budget='+budget+'&location='+location+'&bedrooms='
-  //                           +bedrooms+'&amenities='+amenities+'&houserules='
-  //                           +houserules+'&loginUserId='+localStorage.getItem('userId')+'&page='+page+'&perpage='+perPage;
-  //   }else{
-  //           searchpara = '?city='+city+'&moveIn='+moveIn+'&duration='
-  //                 +duration+'&budget='+budget+'&location='+location+'&bedrooms='
-  //                 +bedrooms+'&amenities='+amenities+'&houserules='
-  //                 +houserules+'&page='+page+'&perpage='+perPage;
-  //         }
-  //                   callApi(apiBaseUrl+"/web/landlord-api/"+searchpara,'GET','').then(
-  //                     response => {
-  //                       let totalpagecount = Math.ceil(response.data.count/perPage);
-  //                       setShowList(true);
-  //                       setListCount(response.data.count);
-  //                       setSearchList(response.data.list);
-  //                       setPageCount(totalpagecount);
-  //                     }
-  //                   )
-  //   },[props.location.search]);
+  
   useEffect(() => {
 
     let params = new URLSearchParams(props.location.search);
@@ -119,8 +74,13 @@ const RoomSearch = (props) => {
     // setOccupation(occupation);
     // setAge(age);
     setBedrooms(bedrooms);
-    setAmenities(amenities);
     setAddress(address)
+    setAmenities(amenities); 
+    let animitiesArray = amenities.split(',');
+    setAminitiesArr(animitiesArray)
+    setHouseRules(houserules); 
+    let houseRulesArray = houserules.split(',');
+    setHouseRuleArr(houseRulesArray)
     let searchpara;
     if (localStorage.getItem('userId') != null) {
       searchpara = '?city=' + city +
@@ -176,53 +136,7 @@ const RoomSearch = (props) => {
     )
 
   }, []);
-  // if(formData.isSearch == true){
-  //   if(formData.city !=''){
-  //     setCity(formData.city);
-  //   }
-  //   if(formData.address !=''){
-  //     setLocation(formData.address);
-  //   }
-
-  // }
-  //  useEffect(() => {
-  //     let searchpara;
-  //     if(formData.isSearch == true){
-  //       if(formData.city !=''){
-  //         setCity(formData.city);
-  //       }
-  //       if(formData.address !=''){
-  //         setLocation(formData.address);
-  //       }
-
-
-  //   if(localStorage.getItem('userId')!=null){
-  //           searchpara = '?city='+city+'&moveIn='+moveIn+'&duration='
-  //                           +duration+'&budget='+budget+'&location='+location+'&bedrooms='
-  //                           +bedrooms+'&amenities='+amenities+'&houserules='
-  //                           +houserules+'&loginUserId='+localStorage.getItem('userId')+'&page='+page+'&perpage='+perPage;
-  //   }else{
-  //           searchpara = '?city='+city+'&moveIn='+moveIn+'&duration='
-  //                 +duration+'&budget='+budget+'&location='+location+'&bedrooms='
-  //                 +bedrooms+'&amenities='+amenities+'&houserules='
-  //                 +houserules+'&page='+page+'&perpage='+perPage;
-  //         }
-
-  //          console.log("searchpara==",searchpara)
-  //         // props.history.push('/roomSearch/'+searchpara);
-  //         // window.location.reload();
-
-  //                   callApi(apiBaseUrl+"/web/landlord-api/"+searchpara,'GET','').then(
-  //                     response => {
-  //                       let totalpagecount = Math.ceil(response.data.count/perPage);
-  //                       setShowList(true);
-  //                       setListCount(response.data.count);
-  //                       setSearchList(response.data.list);
-  //                       setPageCount(totalpagecount);
-  //                     }
-  //                   )
-  //     }
-  //    },[formData.isSearch==true])
+  
   const filterSubmit = (page) => {
     console.log(address)
     setShowList(false);
@@ -267,18 +181,30 @@ const RoomSearch = (props) => {
     let params = new URLSearchParams(props.location.search);
     // let flocation = '';
     let location = params.get('location');
-
+    let latitude = params.get('lat');
+    let longitude = params.get('lng');
     let searchpara
     if (localStorage.getItem('userId') != null) {
-      searchpara = '?city=' + city + '&moveIn=' + moveIn + '&duration='
-        + duration + '&budget=' + budget + '&location=' + location + '&bedrooms='
+      searchpara = '?city=' + city +
+        '&location=' + address +
+        '&gender='
+        + gender + '&moveIn=' + moveIn + '&duration='
+        + duration + '&budget=' + budget +
+        // '&age='+age+
+        '&lat=' + latitude + '&lng=' + longitude + '&bedrooms='
         + bedrooms + '&amenities=' + amenities + '&houserules='
         + houserules + '&loginUserId=' + localStorage.getItem('userId') + '&page=' + selectedPage + '&perpage=' + perPage;
     } else {
-      searchpara = '?city=' + city + '&moveIn=' + moveIn + '&duration='
-        + duration + '&budget=' + budget + '&location=' + location + '&bedrooms='
+      searchpara = '?city=' + city +
+        '&location=' + address +
+        '&gender=' + gender + '&moveIn=' + moveIn + '&duration='
+        + duration + '&budget=' + budget +
+        // '&age='+age+
+        '&lat=' + latitude + '&lng=' + longitude + '&bedrooms='
         + bedrooms + '&amenities=' + amenities + '&houserules='
         + houserules + '&page=' + selectedPage + '&perpage=' + perPage;
+        
+
     }
     callApi(apiBaseUrl + "/web/landlord-api/" + searchpara, 'GET', '').then(
       response => {
@@ -291,24 +217,44 @@ const RoomSearch = (props) => {
 
   const createFilterString = (name, e) => {
 
-    // var checked = e.target.checked;
-    console.log(e.target.checked)
-    if (name == "amenities") {
-      if (amenities) {
-        setAmenities(amenities + ',' + e.target.value);
-        setChecked( e.target.checked?e.target.value:'')
-      } else {
-        setAmenities(e.target.value);
+    if(name=="amenities"){
+      if(!aminitiesArr.includes(e.value)){
+          aminitiesArr.push(e.value)
+          setAminitiesArr(aminitiesArr)
+      }else{
+          remove_array_element(aminitiesArr,e.value)
       }
+      function remove_array_element(array, n)
+      {
+        var index = array.indexOf(n);
+        if (index > -1) {
+          array.splice(index, 1);
+      }
+        return array;
+      }
+
+    setAmenities(aminitiesArr.toString())
+  }
+
+  
+    if(name=="houserules"){
+      console.log(houserules)
+      if(!houseRuleArr.includes(e.value)){
+        houseRuleArr.push(e.value)
+        setHouseRuleArr(houseRuleArr)
+      }else{
+          remove_rules_element(houseRuleArr,e.value)
+      }
+    function remove_rules_element(rules, n)
+    {
+      var index = rules.indexOf(n);
+      if (index > -1) {
+        rules.splice(index, 1);
     }
-    if (name == "houserules") {
-      // console.log("houserules===>", houserules)
-      if (houserules) {
-        setHouseRules(houserules + ',' + e.target.value, e.target.checked);
-        // setChecked( e.target.checked)
-      } else {
-        setHouseRules(e.target.value);
-      }
+      return rules;
+    }
+    setHouseRules(houseRuleArr.toString())
+      
     }
   }
   const toggle1 = () => {
@@ -438,8 +384,8 @@ const RoomSearch = (props) => {
                                       name={val.name}
                                       value={val._id}
                                       // checked={checked1}
-                                      checked={amenities===val._id}
-                                      onChange={(e) => createFilterString("amenities", e)}
+                                      checked={aminitiesArr.includes(val._id)}
+                                      onChange={(e) => createFilterString("amenities", e.target)}
                                     />
                                   );
                                 })
@@ -458,8 +404,8 @@ const RoomSearch = (props) => {
                                       label={val.name}
                                       name={val.name}
                                     // checked={houserules == val._id}
-                                      checked={houserules === val._id}
-                                      onChange={(e) => createFilterString("houserules", e)}
+                                      checked={houseRuleArr.includes(val._id)}
+                                      onChange={(e) => createFilterString("houserules", e.target)}
                                     />
                                   );
                                 })
