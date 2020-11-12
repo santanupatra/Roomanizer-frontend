@@ -29,6 +29,7 @@ export const login = (val) => {
             if(data.ack===true) {
             // set token in localStorage
             localStorage.setItem('profileImg', data.data.userDetails.profilePicture);
+            localStorage.setItem('username', data.data.userDetails.firstName+" "+data.data.userDetails.lastName);
             localStorage.setItem('access-token', data.data.token);
             localStorage.setItem('userId', data.data.userDetails._id);
            // localStorage.setItem('itemName', "#")
