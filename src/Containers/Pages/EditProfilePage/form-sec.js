@@ -66,7 +66,9 @@ const Formsec = (props) => {
   const [setDate, setStartDate] = useState(new Date());
   const [setRtoM, setReadyToMove] = useState(null);
   const [aminitiesOption, setAminitiesOption] = useState([]);
-  
+  const [err, setErr] = useState('');
+  const [errAdd, setErrAdd] = useState('');
+
  
   useEffect(() => {
     setUserId(params.userId)
@@ -84,6 +86,7 @@ const Formsec = (props) => {
     )
 
   }, [params]);
+
 
 
   useEffect(() => {
@@ -108,12 +111,21 @@ const Formsec = (props) => {
     if (fields.houseRules) data.houseRules=fields.houseRules
     if (fields.noOfBedRoom) data.noOfBedRoom=fields.noOfBedRoom
     if (fields.aminities) data.aminities=fields.aminities
-    // console.log(data)
-    props.crudActionCall(USER_URL + `/${userId}`, data, "UPDATE");
+    console.log(fields)
+    console.log(fields.aminities)
+    if(fields.aminities.length>0&&fields.houseRules.length>0&&fields.address){
+      setErrAdd(' ')
+      setErr(' ')
+      props.crudActionCall(USER_URL + `/${userId}`, data, "UPDATE");
     props.resetAction();
     toast.info('Submitted successfully', {
       position: toast.POSITION.TOP_CENTER
   });
+}
+else{
+  setErrAdd('This field is required')
+  setErr('This field is required')
+}
   }
 
   
@@ -122,7 +134,14 @@ const Formsec = (props) => {
   ); 
   
   const handleChange = (name,value)=>{
+    console.log(value)
     setFields((prevState) => ({ ...prevState, [name]: value }));
+    // if(value==''){
+    //   setErr('This field is required')
+    // }else{
+    //   setErr(' ')
+    // }
+    
   }
   const  handlechange1 = e => {
     console.log(e.target.value)
@@ -132,6 +151,11 @@ const Formsec = (props) => {
   
   const handleChangeAddress = address => {
     console.log(address)
+    if(address===''){
+      setErrAdd('This field is required')
+    }else{
+      setErrAdd(' ')
+    }
     setFields((prevState) => ({ ...prevState, address }));
   };
 
@@ -166,6 +190,7 @@ const Formsec = (props) => {
               setFields((prevState) => ({ ...prevState, ["latitude"]: lat }));
             });
   };
+  console.log(fields.city)
       return (
         <div className="">
           <Form onSubmit={handleSubmit(onSubmit)}>
@@ -215,6 +240,7 @@ const Formsec = (props) => {
                             className: 'form-control',
                           })}
                         />
+                        <p style={{color:"red"}}>{errAdd}</p>
                         <div className="autocomplete-dropdown-container">
                           {loading && <div>Loading...</div>}
                           {suggestions.map(suggestion => {
@@ -247,7 +273,9 @@ const Formsec = (props) => {
                       type="select"
                       name="city"
                       id="city"
-                      innerRef={register}
+                      innerRef={register({
+                        required: 'This is required field',
+                        })}
                       value={fields.city}
                       onChange={(e) =>
                         handleChange(e.target.name, e.target.value)
@@ -283,6 +311,10 @@ const Formsec = (props) => {
                       selected={setDate} 
                       className="form-control"
                       placeholderText="Date of Birth"
+                      errors={errors}
+                      innerRef={register({
+                      required: 'This is required field',
+                      })}
                       onChange={date => handleDatechange(date)}
                       // value={fields.dateOfBirth}
                     />
@@ -329,7 +361,7 @@ const Formsec = (props) => {
                         handleChange(e.target.name, e.target.value)
                       }
                     >
-                      <option>Choose your gender</option>
+                      <option value="">Choose your gender</option>
                       <option value="Male">Male</option>
                       <option value="Female">Female</option>
                       <option value="Other">Other</option>
@@ -342,15 +374,15 @@ const Formsec = (props) => {
                   id="occupation"
                   placeholder="occupation"
                   errors={errors}
-                  innerRef={register({
-                  required: 'This is required field',
-                  })}
+                      innerRef={register({
+                      required: 'This is required field',
+                      })}
                   value={fields.occupation}
                   onChange={(e) =>
                     handleChange(e.target.name, e.target.value)
                   }
                   >
-                  <option>Choose your occupation</option>
+                  <option value="">Choose your occupation</option>
                   <option value="Student">Student</option>
                   <option value="Engineer">Engineer</option>
                   <option value="Other">Other</option>
@@ -410,10 +442,6 @@ const Formsec = (props) => {
                                           />4+ Bedroom
                                 </div>
                               </FormGroup>
-                              
-              
-                
-                              
                 <div className="form-group my-4 py-2">
                   <DatePicker 
                     selected={setRtoM} 
@@ -434,13 +462,17 @@ const Formsec = (props) => {
                     }
                     labelledBy={"Preferences for house rules"}
                   />
+                  {/* <p style={{color:"red"}}>{errAdd}</p> */}
                 </div>
                 
-
                 <MultiSelect
                   options={options}
                   value={fields.houseRules}
                   className="MultiSelect-input"
+                  errors={errors}
+                      innerRef={register({
+                      required: 'This is required field',
+                      })}
                   onChange={(value) =>
                     handleChange("houseRules",value) 
                   }
