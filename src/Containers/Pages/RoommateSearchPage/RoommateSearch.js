@@ -37,9 +37,12 @@ const RoomMateSearch =(props)=> {
   const [age, setAge] = useState('');
   const [bedrooms, setBedrooms] = useState('');
   const [amenities, setAmenities] = useState('');
+  const [aminitiesArr,setAminitiesArr]=useState([])
   const [houserules, setHouseRules] = useState('');
+  const [houseRuleArr,setHouseRuleArr]=useState([])
   const [pageCount, setPageCount] = useState('');
   const history = useHistory();
+ 
 
   useEffect(() => {
 
@@ -62,8 +65,13 @@ const RoomMateSearch =(props)=> {
     setOccupation(occupation);
     setAge(age);
     setBedrooms(bedrooms);
-    //setAmenities(amenities); 
-    
+    setAmenities(amenities); 
+    let animitiesArray = amenities.split(',');
+    setAminitiesArr(animitiesArray)
+    setHouseRules(houserules); 
+    let houseRulesArray = houserules.split(',');
+    setHouseRuleArr(houseRulesArray)
+
     let searchpara;
     if(localStorage.getItem('userId')!=null){
             searchpara = '?city='+city+'&occupation='+occupation+'&gender='
@@ -174,21 +182,44 @@ const RoomMateSearch =(props)=> {
 
   
   const createFilterString = (name,e) => {
-console.log(e.target)
-    if(name=="amenities"){
-      if(amenities){
-        setAmenities(amenities+','+e);
-      } else {
-        setAmenities(e);
+  if(name=="amenities"){
+      if(!aminitiesArr.includes(e.value)){
+          aminitiesArr.push(e.value)
+          setAminitiesArr(aminitiesArr)
+      }else{
+          remove_array_element(aminitiesArr,e.value)
       }
-    }
+      function remove_array_element(array, n)
+      {
+        var index = array.indexOf(n);
+        if (index > -1) {
+          array.splice(index, 1);
+      }
+        return array;
+      }
+
+    setAmenities(aminitiesArr.toString())
+  }
+
+  
     if(name=="houserules"){
       console.log(houserules)
-      if(houserules){
-        setHouseRules(houserules+','+e);
-      } else {
-        setHouseRules(e);
+      if(!houseRuleArr.includes(e.value)){
+        houseRuleArr.push(e.value)
+        setHouseRuleArr(houseRuleArr)
+      }else{
+          remove_rules_element(houseRuleArr,e.value)
       }
+    function remove_rules_element(rules, n)
+    {
+      var index = rules.indexOf(n);
+      if (index > -1) {
+        rules.splice(index, 1);
+    }
+      return rules;
+    }
+    setHouseRules(houseRuleArr.toString())
+      
     }
   }
   const toggle1 = () => {
@@ -326,15 +357,17 @@ console.log(e.target)
                                         <FormGroup>
                                           <Label for="exampleCheckbox" className="filter-modal">Listing Amenities</Label>
                                           <div className="filt d-flex justify-content-between flex-wrap">
-                                            { amenitiesList!='' && amenitiesList.map((val) =>{
+                                            { 
+
+                                            amenitiesList!='' && amenitiesList.map((val) =>{
                                                 return(
                                                   <CustomInput 
                                                     type="checkbox" 
                                                     id={val._id} 
                                                     label={val.name}
-                                                   // checked={amenities===val._id} 
+                                                    checked={aminitiesArr.includes(val._id)} 
                                                     value={val._id}
-                                                    onChange={(e) =>createFilterString("amenities",e.target.value)} 
+                                                    onChange={(e) =>createFilterString("amenities",e.target)} 
                                                   />
                                                 );
                                               })
@@ -349,11 +382,11 @@ console.log(e.target)
                                                   <CustomInput 
                                                     type="checkbox" 
                                                     id={val._id} 
-                                                    //checked={houserules==val._id}
+                                                    checked={houseRuleArr.includes(val._id)}
                                                     //fields={houserules}
                                                     label={val.name}
                                                     value={val._id}
-                                                    onChange={(e) =>createFilterString("houserules",e.target.value)} 
+                                                    onChange={(e) =>createFilterString("houserules",e.target)} 
                                                   />
                                                 );
                                               })
