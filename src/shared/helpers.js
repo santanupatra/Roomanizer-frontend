@@ -15,6 +15,15 @@ export const getMethod = (type)=>{
     return obj[type];
 }
 
+export const firebaseConfig = {
+    apiKey: "AIzaSyD9tWbkQzOP6L9rf4w-tgodJPeOURgsybo",
+    authDomain: "neybor-f1cc9.firebaseapp.com",
+    databaseURL: "https://neybor-f1cc9.firebaseio.com",
+    projectId: "neybor-f1cc9",
+    storageBucket: "neybor-f1cc9.appspot.com",
+    messagingSenderId: "505568010159",
+    }
+
 export const getAuthToken = localStorage.getItem("access-token");
 export const getAuthUserId = localStorage.getItem("adminId");
 export const getAuthUserImage = localStorage.getItem("profileImg");
