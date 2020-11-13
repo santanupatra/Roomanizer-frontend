@@ -231,13 +231,11 @@ else{
     setFields((prevState) => ({ ...prevState, "age": realAge }));
   }
   const handleSelect = address => {
-    //setFields((prevState) => ({ ...prevState, ["street"]: address.structured_formatting.main_text }));
     setField((prevState) => ({ ...prevState, ["street"]: address })); 
     geocodeByAddress(address)
       .then(results => getLatLng(results[0]))
     //  .then(latLng => console.log('Success', latLng))
     //  .catch(error => console.error('Error', error));
-
       .then(({ lat, lng }) => {
               console.log("lat==",lat,"lng==",lng)
               console.log(address);
@@ -247,8 +245,6 @@ else{
               setField((prevState) => ({ ...prevState, ["latitude"]: lat }));
             });
   };
-  
-
     return (
       <div className="">
         

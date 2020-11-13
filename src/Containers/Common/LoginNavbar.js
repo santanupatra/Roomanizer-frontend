@@ -27,7 +27,7 @@ const LoginNavbaar = (props) => {
   const history = useHistory();
   const [isView, setIsView] = useState(true);
   const [fields, setFields] = useState();
-  const [pImage,setPImage] = useState(localStorage.getItem('profileImg'));
+  const profileImg = localStorage.getItem('profileImg');
   console.log('imafe',localStorage.getItem('profileImg'));
   const tgl = () => setIsView(!isView);
 
@@ -38,6 +38,7 @@ console.log(props.user.user)
   useEffect(() => {
     if (props.user.user) {
       setFields({...fields,...props.user.user})
+
     }
 }, [props.user]);
 
@@ -103,7 +104,7 @@ console.log(props.user.user)
                 <NavLink className="border-0 pr-0">
                   <Dropdown isOpen={dropdownOpen} toggle={toggle1}>
                     <DropdownToggle caret className="login-hd">
-                      <img src={getImageUrl(pImage)} href="/" alt="image"/>
+                      <img src={getImageUrl(profileImg)} href="/" alt="image"/>
                     </DropdownToggle>
                     <DropdownMenu>
                       <Link to={`/editProfile/${userId}`}>My Account</Link>
