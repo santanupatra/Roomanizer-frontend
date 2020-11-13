@@ -231,7 +231,6 @@ else{
     setFields((prevState) => ({ ...prevState, "age": realAge }));
   }
   const handleSelect = address => {
-    //setFields((prevState) => ({ ...prevState, ["street"]: address.structured_formatting.main_text }));
     setField((prevState) => ({ ...prevState, ["street"]: address })); 
     geocodeByAddress(address)
       .then(results => getLatLng(results[0]))
