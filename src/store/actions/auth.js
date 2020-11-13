@@ -53,7 +53,7 @@ export const login = (val) => {
         } else {
             //console.log(err)
             console.log(details)
-            toast.error(details, {
+            toast.error(details+'  and Invalid email', {
                 position: toast.POSITION.TOP_CENTER
             });
             dispatch({ type: AUTH_FAIL, payload: {} })

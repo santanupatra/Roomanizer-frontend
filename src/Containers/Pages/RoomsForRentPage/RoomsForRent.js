@@ -116,7 +116,7 @@ import {getImageUrl} from '../../../shared/helpers'
                             <ul className="ab pl-0 d-flex mb-4">
                             {fields.aminities.map(val => {
                                    return (
-                                   <li><img src={fields.aminitiesImage} className="pr-1" alt="image"/>{val.label}</li>
+                                   <li><img src={fields.aminitiesImage?fields.aminitiesImage:imagePath.bedImage} className="pr-1" alt="image"/>{val.label}</li>
                                    )
                             })}
                               {/* <li><img src={imagePath.cleanImage} className="pl-4 pr-1" alt="image"/>Weekly Cleaning Personnel</li> */}
@@ -127,19 +127,20 @@ import {getImageUrl} from '../../../shared/helpers'
                               <Row>
                                 <Col xs={12} sm={6} md={3} lg={3}>
                                   <h4>Move in:</h4>
-                                      <p>{fields.moveIn}</p>
+                                  {/* {(val.readyToMove) ? moment(val.readyToMove).format('YYYY-MM-DD') : ''} */}
+                                      <p>{fields.moveIn? moment(fields.moveIn).format('YYYY-MM-DD') : ''}</p>
                                 </Col>
                                 <Col xs={12} sm={6} md={3} lg={3}>
                                   <h4>Duration:</h4>
-                                     <p>{fields.duration}</p>
+                                     <p>{fields.duration?fields.duration:"00"}</p>
                                 </Col>
                                 <Col xs={12} sm={6} md={3} lg={3}>
                                   <h4>Deposit:</h4>
-                                      <p>${fields.deposite}</p>
+                                      <p>${fields.deposite?fields.deposite:"00"}</p>
                                 </Col>
                                 <Col xs={12} sm={6} md={3} lg={3}>
                                   <h4>Charges:</h4>
-                                  <p>${fields.charges} or Included</p>
+                                  <p>${fields.charges?fields.charges:"00"} or Included</p>
                                 </Col>
                               </Row>
                             </div>
@@ -156,7 +157,7 @@ import {getImageUrl} from '../../../shared/helpers'
                             <div className="about border-0">
                               <h4>Looking for a room in:</h4>
                             <div className="locat mb-3">{fields.address}</div>
-                              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d659064.2706871205!2d5.572872077027312!3d49.814834630019895!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479545b9ca212147%3A0x64db60f602d392ef!2sLuxembourg!5e0!3m2!1sen!2sin!4v1600248985937!5m2!1sen!2sin" width="100%" height="200px" frameborder="0"></iframe>
+                              {/* <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d659064.2706871205!2d5.572872077027312!3d49.814834630019895!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479545b9ca212147%3A0x64db60f602d392ef!2sLuxembourg!5e0!3m2!1sen!2sin!4v1600248985937!5m2!1sen!2sin" width="100%" height="200px" frameborder="0"></iframe> */}
                             </div>
                           </Col>
                         </Row>
