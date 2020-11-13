@@ -215,13 +215,13 @@ else{
   // };
 
   const handleChangeAddress = address => {
+    console.log(address)
     if(address===''){
       setErrAdd('This field is required')
     }else{
       setErrAdd(' ')
     }
-    setFields((prevState) => ({ ...prevState, address }));
- 
+    setField((prevState) => ({ ...prevState, address }));
   };
   const  handleDatechange = date => {
     setStartDate(date);
@@ -241,6 +241,7 @@ else{
       .then(({ lat, lng }) => {
               console.log("lat==",lat,"lng==",lng)
               console.log(address);
+            
               setField((prevState) => ({ ...prevState, ["address"]: address }));
               setField((prevState) => ({ ...prevState, ["longitude"]: lng }));
               setField((prevState) => ({ ...prevState, ["latitude"]: lat }));
@@ -283,47 +284,46 @@ else{
                               </Col>
                             </Row>
                             <Row>
-                  
-                              <PlacesAutocomplete
-                                onChange={handleChangeAddress}
-                                onSelect={handleSelect}
-                                searchOptions={searchOptions}
-                                value={field.address}
+                            <PlacesAutocomplete
+                    onChange={handleChangeAddress}
+                    onSelect={handleSelect}
+                    searchOptions={searchOptions}
+                    value={field.address}
+                  >
+                    {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                      <Col xs={12} sm={12} md={12} lg={12}>
+                        <input
+                          {...getInputProps({
+                            placeholder: 'Search Places ...',
+                            className: 'form-control',
+                          })}
+                        />
+                        <p style={{color:"red"}}>{errAdd}</p>
+                        <div className="autocomplete-dropdown-container">
+                          {loading && <div>Loading...</div>}
+                          {suggestions.map(suggestion => {
+                            const className = suggestion.active
+                              ? 'suggestion-item--active'
+                              : 'suggestion-item';
+                            // inline style for demonstration purpose
+                            const style = suggestion.active
+                              ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                              : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                            return (
+                              <div
+                                {...getSuggestionItemProps(suggestion, {
+                                  className,
+                                  style,
+                                })}
                               >
-                                {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                                  <Col xs={12} sm={12} md={12} lg={12}>
-                                    <input
-                                     {...getInputProps({
-                                        placeholder: 'Search Places ...',
-                                         className: 'form-control',
-                                       })}
-                                      />
-                                    <p style={{color:"red"}}>{errAdd}</p>
-                                    <div className="autocomplete-dropdown-container">
-                                      {loading && <div>Loading...</div>}
-                                      {suggestions.map(suggestion => {
-                                        const className = suggestion.active
-                                          ? 'suggestion-item--active'
-                                          : 'suggestion-item';
-                                        // inline style for demonstration purpose
-                                        const style = suggestion.active
-                                          ? { backgroundColor: '#fafafa', cursor: 'pointer' }
-                                          : { backgroundColor: '#ffffff', cursor: 'pointer' };
-                                        return (
-                                        <div
-                                          {...getSuggestionItemProps(suggestion, {
-                                            className,
-                                            style,
-                                          })}
-                                        >
-                                          <span>{suggestion.description}</span>
-                                        </div>
-                                      );
-                                    })}
-                                  </div>
-                                </Col>
-                              )}
-                            </PlacesAutocomplete>
+                                <span>{suggestion.description}</span>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </Col>
+                    )}
+                  </PlacesAutocomplete>
                           </Row>
                                       
                             
