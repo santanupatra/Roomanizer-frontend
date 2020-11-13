@@ -5,10 +5,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Media } from 'reactstrap';
 import { Row, Col} from 'reactstrap';
 import firebase from 'firebase';
-import {firebaseConfig} from '../../../shared/helpers';
+import {firebaseConfig,apiBaseUrl} from '../../../shared/helpers';
 
 
-const BASE_URL = 'http://111.93.169.90:5021';
+const BASE_URL = apiBaseUrl;
 const ChatLeft = (props) => {
 
 const [chatList, setChatList] = useState([]);
@@ -37,8 +37,8 @@ const [userId,setuserId] = useState();
   const getChat = () => {
     
     //loader: true;
-      //let userId = localStorage.getItem('userId');
-      let userId = "5ecf9765572989a18fd91d07";
+      let userId = localStorage.getItem('userId');
+      //let userId = "5ecf9765572989a18fd91d07";
       setuserId(userId)
       chatRef
         .orderByChild('date')
