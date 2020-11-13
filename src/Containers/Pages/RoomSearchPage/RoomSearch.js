@@ -313,7 +313,19 @@ const RoomSearch = (props) => {
                             </Col>
                             <Col xs={12} sm={12} md={6} lg={2}>
                               <Label for="">Gender</Label>
-                              <Input
+                              <Input 
+                                type="select"
+                                name="fgender" 
+                                id="fgender"
+                                value={gender}
+                                onChange={(e) =>setGender(e.target.value)}
+                                >
+                                <option value="">Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                                </Input>
+                              {/* <Input
                                 type="select"
                                 name="fgender"
                                 id="fgender"
@@ -324,7 +336,7 @@ const RoomSearch = (props) => {
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
                                 <option value="other">Other</option>
-                              </Input>
+                              </Input> */}
                             </Col>
                             <Col xs={12} sm={12} md={6} lg={2}>
                               <Label for="">Filter</Label>
