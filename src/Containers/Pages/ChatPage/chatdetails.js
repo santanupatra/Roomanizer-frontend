@@ -9,14 +9,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 
 import firebase from 'firebase';
-import {firebaseConfig} from '../../../shared/helpers';
+import {firebaseConfig,apiBaseUrl} from '../../../shared/helpers';
 
 class Chatdetails extends PureComponent {
 
     constructor(props) {
         super(props);
         this.state = {
-          senderId: '',
+          senderId: localStorage.getItem("userId"),
           senderName: '',
           senderImage: '',
           userId: this.props.goToChatDetails
@@ -74,9 +74,9 @@ class Chatdetails extends PureComponent {
     async componentDidMount() {
       
        await this.getStorageValue();
-        if (this.state.senderId != this.state.messageSender) {
-          this.state.chatRef.child(this.state.uniqueKey).update({msgCount: 0});
-        }
+        // if (this.state.senderId != this.state.messageSender) {
+        //   this.state.chatRef.child(this.state.uniqueKey).update({msgCount: 0});
+        // }
         this.getStorageValue();
       }
       
@@ -109,9 +109,9 @@ class Chatdetails extends PureComponent {
         //localStorage.getItem("username")
         //localStorage.getItem("userId")
         this.setState({
-          senderId: "5ecf9765572989a18fd91d07",
-          senderImage: "/userImage/profilePicture-1594301815811-image-fb002436-8479-41a6-a631-e9a7d07b8513.jpg",
-          senderName: "Spandanuser",
+          senderId: localStorage.getItem("userId"),
+          senderImage: localStorage.getItem("profileImg"),
+          senderName: localStorage.getItem("username"),
           //chatRoomId: roomId,
           chatList: this.state.chatList,
         });
@@ -172,7 +172,7 @@ class Chatdetails extends PureComponent {
       };
 
     render() {
-      const BASE_URL = 'http://111.93.169.90:5021';
+      const BASE_URL = apiBaseUrl;
     return (
        
                             <Col xs={12} sm={12} md={12} lg={7} className="pl-0">

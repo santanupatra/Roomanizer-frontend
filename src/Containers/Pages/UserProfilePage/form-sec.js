@@ -12,8 +12,12 @@ import { USER_URL } from '../../../shared/allApiUrl';
 //import { getImageUrl } from '../../../hared/helpers';
 import moment from 'moment'
 import { NavLink, withRouter } from 'react-router-dom';
-import {getImageUrl} from '../../../shared/helpers'
+import {getImageUrl,firebaseConfig} from '../../../shared/helpers'
+import firebase from 'firebase';
+import { Button, Modal } from 'react-bootstrap';
+import { Form, FormGroup, Input,Alert, Col} from 'reactstrap';
 
+import { useForm } from "react-hook-form";
 
 
 const FormSec = (props) => {
@@ -41,17 +45,47 @@ const initialFields = {
       email:''
   }
   
-  
-  
+  // localStorage.getItem('profileImg');
+  //           localStorage.getItem('username');
+  //           localStorage.getItem('userId');
+  console.log(" props.match.params------", localStorage.getItem('profileImg'),'name==',localStorage.getItem('username'),'userId==',localStorage.getItem('userId'))
     //const params = props.match.params;
   let userId = props.match.params.userId;
   // const userData = props.user.user;
+  const { handleSubmit, register } = useForm();
+
   const [fields, setFields] = useState(initialFields);
   const [userData, setUserDate] = useState(null);
   const [settingId, setSettingId] = useState(null);
   const [userType, setUserType] = useState({'userType':localStorage.getItem('userType')});
+  const [typeMessage,setTypeMessage]= useState('');
+  //const [chatRef,setChatRef] = useState();
+  const [chatList,setChatList] = useState([]);
+  const [msgCount,setMsgCount] = useState();
+  const [uniqueKey,setUniqueKey] =useState();
+  const [chatRoomId,setChatRoomId] = useState();
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleModal = () => setShow(true);
+  console.log("fields==",fields)
 
+  if (!firebase.apps.length) {
+    
+    firebase.initializeApp(firebaseConfig);
+    var chatRef = firebase
+       .database()
+       .ref()
+       .child('chatMessages');
+       console.log('chatRef:', chatRef)
+   } else {
+    
 
+     chatRef = firebase
+       .database()
+       .ref()
+       .child('chatMessages');
+     console.log('chatRef:', chatRef)
+   }
   useEffect(() => {
     props.crudActionCall(`${USER_URL}/${userId}`, null, "GET")
     //setUserDate(props.user.action.data);
@@ -84,10 +118,76 @@ const initialFields = {
      setSettingId(props.user.user._id);
      
     }
+    //getChat()
     
 
   }, [props.user]);
-   console.log(props.user.user)
+const getChat = async()=>{
+  //var chatRef = chatRef;
+  await chatRef.on('child_added', snapshot => {
+    const snapShotVal = snapshot.val();
+    if (
+      (snapShotVal.userId == localStorage.getItem('userId') &&
+        snapShotVal.senderId == fields._id) ||
+      (snapShotVal.senderId == localStorage.getItem('userId') &&
+        snapShotVal.userId == fields._id)
+    ) {
+       setChatRoomId(snapShotVal.chatRoomId);
+    }
+  });
+  chatRef
+    .orderByChild('chatRoomId')
+    .equalTo(chatRoomId)
+    .once('value')
+    .then(snapshot => {
+      if (snapshot.val()) {
+        var listMesage = [];
+        var unique = '';
+        for (let key in snapshot.val()) {
+          listMesage.push(snapshot.val()[key]);
+          unique = key;
+        }
+        setChatList(listMesage)
+        setUniqueKey(unique)
+      }
+    })
+    .catch(Err => {
+      this.setState({
+        loader: false,
+      });
+    });
+}
+  console.log('typeMessage',typeMessage);
+
+  const sendMessage = (e) => {
+   e.preventDefault()
+    const nowDate = Date.now();
+    if (typeMessage && typeMessage.trim()) {
+        chatRef.push({
+        senderId: localStorage.getItem('userId'),
+        senderName: localStorage.getItem('username'),
+        senderImage: localStorage.getItem('profileImg'),
+        Message: typeMessage,
+        userId: fields._id,
+        username: fields.firstName,
+        userImage: fields.profilePicture,
+        chatRoomId: chatRoomId
+          ? chatRoomId
+          : localStorage.getItem('userId') + '_' + fields._id,
+        date: nowDate,
+        msgCount: chatList[chatList.length - 1]
+        ? chatList[chatList.length - 1].msgCount + 1
+        : 1,
+      });
+      //console.log("receiverId",fields._id);
+      //console.log("token",this.props.details.token);
+     
+      setShow(false);
+    } else {
+      alert('Plesae type message to send.');
+    }
+  };
+   
     return (
     
                 <div className="left-box text-center">
@@ -110,7 +210,8 @@ const initialFields = {
                         <NavLink to="#" className="toggle border-right-0 pl-3">I have an available room</NavLink>
                       </span>
                     </div>
-                    <a href="#" className="login-bt mb-2">Messsage</a>
+                    
+                    <button onClick={handleModal} className="login-bt mb-2">Messsage</button>
                     <div className="mt-3 d-flex align-items-center justify-content-center">
                     {fields.facebookLink?<a href= {fields.facebookLink} target="_blank"><Facebook></Facebook></a>:""}
                     {fields.twitterLink?<a href= {fields.twitterLink} target="_blank">  <Twitter></Twitter></a>:""}
@@ -122,7 +223,32 @@ const initialFields = {
                       {/* <Gsuite></Gsuite>
                       <Email></Email> */}
                     </div>
+                    <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                  <Modal.Title>Type Message</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <Form >
+                    <FormGroup row>
+                      <Col sm={12}>
+                      <Input type="textarea" 
+                             value={typeMessage}
+                             name="text" 
+                             id="exampleText" 
+                             onChange={e => setTypeMessage(e.target.value)}
+                        />          
+                      <button onClick={sendMessage} className="chat-bt"><img src={imagePath.chatbtImage} alt="image"/></button>
+                       
+                        {/* <Button type="button" onClick={handleSubmit(onSubmit)} color="primary" className="login-bt mb-2">Send</Button> */}
+                        
+                      </Col>
+                    </FormGroup>
+                  </Form>
+                </Modal.Body>
+              </Modal>
                 </div>
+                
+                
        
     );
   }
