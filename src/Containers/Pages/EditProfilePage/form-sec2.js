@@ -237,7 +237,6 @@ else{
       .then(results => getLatLng(results[0]))
     //  .then(latLng => console.log('Success', latLng))
     //  .catch(error => console.error('Error', error));
-
       .then(({ lat, lng }) => {
               console.log("lat==",lat,"lng==",lng)
               console.log(address);
@@ -247,8 +246,6 @@ else{
               setField((prevState) => ({ ...prevState, ["latitude"]: lat }));
             });
   };
-  
-
     return (
       <div className="">
         
