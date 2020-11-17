@@ -40,26 +40,32 @@ const ChangePasswordForm = (props) => {
   }, [props.user]);
   
   const onSubmit = (data) => {
-    console.log("data====>",fields.password)
-    if(data.newPassword!==data.confirmPassword){
-      toast.info('New password and confirm password does not match', {
-        position: toast.POSITION.TOP_CENTER
-    });
-    }
+    console.log("data====>",fields)
   console.log(fields.password)
-  console.log(data.currentPassword)
+  console.log(data)
 
-      var compering=bcrypt.compareSync(data.currentPassword, fields.password);
+    var compering=bcrypt.compareSync(data.currentPassword, fields.password);
       console.log(compering)
   // console.log("currentPassword",currentPassword)
   if(!compering){
-    toast.info('Your current password is not valid', {
+    toast.error('Your current password is not valid', {
       position: toast.POSITION.TOP_CENTER
   });
   }
-    if (userId) data.userId = userId;
-    props.crudActionCall(CHANGEPASSWORD_URL + `/${userId}`, data, "UPDATE");
-    props.resetAction();
+  if(data.newPassword.length<6){
+    toast.error('Password length should be at least 6', {
+      position: toast.POSITION.TOP_CENTER
+  });
+} else{
+  if(data.newPassword!==data.confirmPassword){
+    toast.error('New password and confirm password does not match', {
+      position: toast.POSITION.TOP_CENTER
+  });
+  }
+}
+  if (userId) data.userId = userId;
+  props.crudActionCall(CHANGEPASSWORD_URL + `/${userId}`, data, "UPDATE");
+  props.resetAction()
   }
   console.log("fields.password",fields)
     return (

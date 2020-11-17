@@ -83,6 +83,7 @@ const searchRoom = (data) =>{
     let city = fields.city;
     let duration = fields.duration;
     let budget = fields.budget;
+    let gender = fields.gender;
     let sendDate;
     if(startDate==''){
       sendDate=startDate;
@@ -91,10 +92,12 @@ const searchRoom = (data) =>{
     }
     let searchpara;
     if(loginUserId){
-       searchpara = '?city='+city+'&moveIn='+sendDate+'&duration='
+       searchpara = '?city='+city+'&moveIn='+sendDate+'&gender='
+       +gender+'&duration='
       +duration+'&budget='+budget+'&location='+address+'&bedrooms=&amenities=&houserules=&page=0&loginUserId='+loginUserId;
     }else {
-        searchpara = '?city='+city+'&moveIn='+sendDate+'&duration='
+        searchpara = '?city='+city+'&moveIn='+sendDate+'&gender='
+        +gender+'&duration='
                         +duration+'&budget='+budget+'&location='+address+'&bedrooms=&amenities=&houserules=&page=0';
     }
     
