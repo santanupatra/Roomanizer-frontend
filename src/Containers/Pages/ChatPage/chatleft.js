@@ -14,6 +14,7 @@ const ChatLeft = (props) => {
 const [chatList, setChatList] = useState([]);
 const [userId,setuserId] = useState();
 
+console.log("count===",props.count);
   if (!firebase.apps.length) {
    firebase.initializeApp(firebaseConfig);
    var chatRef = firebase
@@ -85,7 +86,7 @@ const [userId,setuserId] = useState();
     return axb;
   };
 
-
+  //const f2 = ()=>{setCount(true)}
 
     return (
       <>
@@ -112,6 +113,7 @@ const [userId,setuserId] = useState();
                             }>
                     <h6>{item.username}</h6>
                     <p>{item.Message}</p>
+                    
                 </div>
                 <div>
                   <h6>{convertDate(item.date)}</h6>
@@ -139,15 +141,19 @@ const [userId,setuserId] = useState();
                                 item.senderName,
                                 item.senderImage,
                                 item.chatRoomId,
-                                item.senderId
+                                item.senderId,
                               )
-                            }>
+                              
+                            }
+                            
+                              >
                     <h6>{item.senderName}</h6>
                     <p>{item.Message}</p>
                 </div>
                 <div>
                   <h6>{convertDate(item.date)}</h6>
-                  {item.msgCount !== 0 ?
+                  
+                  {item.msgCount !== 0 && !props.count ?
                   <span className="ch-green">{item.msgCount}</span> : ""}
                 </div>
               </Col>

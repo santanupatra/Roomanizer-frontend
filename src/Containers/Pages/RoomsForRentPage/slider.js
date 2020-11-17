@@ -121,7 +121,7 @@ const Slider = (props) => {
         onExited={() => setAnimating(false)}
         key={item.src}
       >
-        <img src={item.src}  />
+        <img src={item.src}  className="img-fluid slider-img"/>
         <CarouselCaption captionText={item.caption} captionHeader={item.caption} />
       </CarouselItem>
     );

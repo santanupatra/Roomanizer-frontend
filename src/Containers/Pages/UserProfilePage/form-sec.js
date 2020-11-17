@@ -11,13 +11,13 @@ import { crudAction } from "../../../store/actions/common";
 import { USER_URL } from '../../../shared/allApiUrl';
 //import { getImageUrl } from '../../../hared/helpers';
 import moment from 'moment'
-import { NavLink, withRouter } from 'react-router-dom';
+import { NavLink, withRouter ,useHistory} from 'react-router-dom';
 import {getImageUrl,firebaseConfig} from '../../../shared/helpers'
 import firebase from 'firebase';
 import { Button, Modal } from 'react-bootstrap';
 import { Form, FormGroup, Input,Alert, Col} from 'reactstrap';
-
 import { useForm } from "react-hook-form";
+
 
 
 const FormSec = (props) => {
@@ -59,7 +59,7 @@ const initialFields = {
   const [settingId, setSettingId] = useState(null);
   const [userType, setUserType] = useState({'userType':localStorage.getItem('userType')});
   const [typeMessage,setTypeMessage]= useState('');
-  //const [chatRef,setChatRef] = useState();
+  const [chatRef,setChatRef] = useState();
   const [chatList,setChatList] = useState([]);
   const [msgCount,setMsgCount] = useState();
   const [uniqueKey,setUniqueKey] =useState();
@@ -67,25 +67,29 @@ const initialFields = {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleModal = () => setShow(true);
-  console.log("fields==",fields)
+  const history = useHistory();
 
+  console.log("fields==",fields)
+  useEffect(() => {
   if (!firebase.apps.length) {
-    
     firebase.initializeApp(firebaseConfig);
-    var chatRef = firebase
+    var chatRefOpt = firebase
        .database()
        .ref()
        .child('chatMessages');
-       console.log('chatRef:', chatRef)
+       setChatRef(chatRefOpt)
    } else {
     
 
-     chatRef = firebase
+    chatRefOpt = firebase
        .database()
        .ref()
        .child('chatMessages');
-     console.log('chatRef:', chatRef)
+       setChatRef(chatRefOpt)
+
+     //console.log('chatRef:', chatRef)
    }
+  }, [props.user])
   useEffect(() => {
     props.crudActionCall(`${USER_URL}/${userId}`, null, "GET")
     //setUserDate(props.user.action.data);
@@ -118,12 +122,13 @@ const initialFields = {
      setSettingId(props.user.user._id);
      
     }
-    //getChat()
+    getChat()
     
 
-  }, [props.user]);
+  }, [props.user,chatRef]);
+  console.log("chatRef+++++++++",chatRef)
 const getChat = async()=>{
-  //var chatRef = chatRef;
+  
   await chatRef.on('child_added', snapshot => {
     const snapShotVal = snapshot.val();
     if (
@@ -183,6 +188,8 @@ const getChat = async()=>{
       //console.log("token",this.props.details.token);
      
       setShow(false);
+      history.push('/chat');
+
     } else {
       alert('Plesae type message to send.');
     }
