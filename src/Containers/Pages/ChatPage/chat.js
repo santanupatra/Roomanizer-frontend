@@ -15,12 +15,14 @@ import Chatdetails from './chatdetails';
 import Footer from '../../Common/footer';
 import firebase from 'firebase';
 import {firebaseConfig} from '../../../shared/helpers';
+import { Scrollbars } from 'react-custom-scrollbars';
 
 
 const Home =(props)=>{
 
   const [data,setData] = useState();
   const [childShow,setchildShow] = useState(false)
+  const [count,setCount] = useState(false);
   
  /* const [chatList, setChatList] = useState([]);
   const [typeMessage, setTypeMessage] = useState("");
@@ -148,7 +150,8 @@ const Home =(props)=>{
         //debugger
         setData(data1)
         setchildShow(true)
-        console.log("ddddddddddddd0",data)
+        setCount(true)
+        
     }
 
     return (
@@ -167,14 +170,17 @@ const Home =(props)=>{
                                   <h3 className="mt-4 mb-0">Chats</h3>
                                 </div>
 
-                                <div className="px-4 py-4 border-bottom chat">
+                                {/* <div className="px-4 py-4 border-bottom chat">
                                   <FormGroup className="mb-0">
                                     <Input type="email" name="email" id="exampleEmail" className="search" placeholder="search" />
                                   </FormGroup>
-                                </div>
+                                </div> */}
 
                                 <div className="chat-scrool">
-                                  <ChatLeft goToChat ={goToChat}></ChatLeft>
+                                  <Scrollbars>
+                                    <ChatLeft goToChat ={goToChat} count={count}></ChatLeft>
+                                  </Scrollbars>
+                                  
                                   
                                 </div>
 

@@ -89,16 +89,16 @@ console.log(props.user.user)
               </NavItem>
 
               <NavItem>
-                <NavLink className="nav-icon">
+                <NavLink className="nav-icon" href="/chat">
                   <FontAwesomeIcon color="white" icon={faEnvelope} />
                   <div className="blink">8</div>
                 </NavLink>
               </NavItem>
-              <NavItem>
+              {/* <NavItem>
                 <NavLink>
                   <FontAwesomeIcon color="white" icon={faBell} />
                 </NavLink>
-              </NavItem>
+              </NavItem> */}
 
               <NavItem>
                 <NavLink className="border-0 pr-0">
