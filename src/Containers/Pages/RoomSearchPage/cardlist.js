@@ -13,7 +13,7 @@ import{getImageUrl} from '../../../shared/helpers';
 
 const Cardlist = (props) => {
   const roomData = props.val;
-
+console.log("props.val",props.val.user_Id._id)
     return (
     <Card className="mt-5 d-block d-sm-flex d-md-flex d-lg-flex">
       <div className="">
