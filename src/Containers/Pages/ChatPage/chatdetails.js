@@ -204,7 +204,7 @@ class Chatdetails extends PureComponent {
                               </div>
 
                               <div className="light-bg chat-list-body">
-                                <Scrollbars style={{height:560,width:"100%"}}>
+                                <Scrollbars style={{height:480,width:"100%"}}>
                               {this.state.chatList.map((data, key) =>
                               data.senderId == this.state.senderId ? (
                                 
