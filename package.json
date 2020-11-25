@@ -21,7 +21,10 @@
     "react-custom-scrollbars": "^4.2.1",
     "react-datepicker": "^3.2.2",
     "react-dom": "^16.13.1",
+    "react-facebook-login": "^4.1.1",
     "react-geocode": "^0.2.2",
+    "react-google-login": "^5.1.23",
+    "react-google-maps": "^9.4.5",
     "react-hook-form": "^6.8.6",
     "react-multi-select-component": "^3.0.2",
     "react-notifications": "^1.7.2",
@@ -34,6 +37,7 @@
     "react-toastify": "^6.0.8",
     "react-toggle-button": "^2.2.0",
     "reactstrap": "^8.5.1",
+    "recompose": "^0.30.0",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0"

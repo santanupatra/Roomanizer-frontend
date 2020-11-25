@@ -92,13 +92,11 @@ const searchRoom = (data) =>{
     }
     let searchpara;
     if(loginUserId){
-       searchpara = '?city='+city+'&moveIn='+sendDate+'&gender='
-       +gender+'&duration='
-      +duration+'&budget='+budget+'&location='+address+'&bedrooms=&amenities=&houserules=&page=0&loginUserId='+loginUserId;
+       searchpara = '?city='+city+'&moveIn='+sendDate+'&duration='
+      +duration+'&budget='+budget+'&location='+address+'&lat='+latitude+'&lng='+longitude+'&bedrooms=&amenities=&houserules=&page=0&loginUserId='+loginUserId;
     }else {
-        searchpara = '?city='+city+'&moveIn='+sendDate+'&gender='
-        +gender+'&duration='
-                        +duration+'&budget='+budget+'&location='+address+'&bedrooms=&amenities=&houserules=&page=0';
+        searchpara = '?city='+city+'&moveIn='+sendDate+'&duration='
+                        +duration+'&budget='+budget+'&location='+address+'&lat='+latitude+'&lng='+longitude+'&bedrooms=&amenities=&houserules=&page=0';
     }
     
 
@@ -116,24 +114,14 @@ const searchRoom = (data) =>{
     setAddress(address);
   };
   const handleSelect = address => {
-    //setFields((prevState) => ({ ...prevState, ["street"]: address.structured_formatting.main_text }));
-   // setFields((prevState) => ({ ...prevState, ["street"]: address })); 
     geocodeByAddress(address)
       .then(results => getLatLng(results[0]))
-    //  .then(latLng => console.log('Success', latLng))
-    //  .catch(error => console.error('Error', error));
-
       .then(({ lat, lng }) => {
               console.log("lat==",lat,"lng==",lng)
               console.log(address);
               setAddress(address);
               setLatitude(lat)
               setLongitude(lng)
-
-              
-              // setFields((prevState) => ({ ...prevState, ["address"]: address }));
-              // setFields((prevState) => ({ ...prevState, ["longitude"]: lng }));
-              // setFields((prevState) => ({ ...prevState, ["latitude"]: lat }));
             });
   };
 
@@ -187,15 +175,54 @@ const searchRoom = (data) =>{
             </Col>
             <Col xs={12} sm={12} md={8} lg={8}>
               <FormGroup>
-                <Input 
-                    className="search" 
-                    type="text" 
-                    name="address" 
-                    id="address"
-                    placeholder="Enter a street, area or city"
-                    onChange={event => setAddress(event.target.value)}
-                  />
-                 
+                {/* <Input 
+                  className="search" 
+                  type="text" 
+                  name="address" 
+                  id="address"
+                  placeholder="Enter a street, area or city"
+                  onChange={event => setAddress(event.target.value)}
+                /> */}
+                 <PlacesAutocomplete
+                    onChange={handleChangeAddress}
+                    //onChange={event => setAddress(event.target.value)}
+                    onSelect={handleSelect}
+                    searchOptions={searchOptions}
+                    value={address}
+                  >
+                    {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                      <Col xs={12} sm={12} md={12} lg={12}>
+                        <input
+                          {...getInputProps({
+                            placeholder: 'Enter a street, area or city',
+                            className: 'form-control',
+                          })}
+                        />
+                        <div className="autocomplete-dropdown-container">
+                          {loading && <div>Loading...</div>}
+                          {suggestions.map(suggestion => {
+                            const className = suggestion.active
+                              ? 'suggestion-item--active'
+                              : 'suggestion-item';
+                            // inline style for demonstration purpose
+                            const style = suggestion.active
+                              ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                              : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                            return (
+                              <div
+                                {...getSuggestionItemProps(suggestion, {
+                                  className,
+                                  style,
+                                })}
+                              >
+                                <span>{suggestion.description}</span>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </Col>
+                    )}
+                  </PlacesAutocomplete>
               </FormGroup>
             </Col>
             </Row>
