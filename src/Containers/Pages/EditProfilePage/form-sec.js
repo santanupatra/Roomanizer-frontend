@@ -281,10 +281,11 @@ else{
                         handleChange(e.target.name, e.target.value)
                       }
                     >
-                    <option selected disabled>Select A City....</option>
+                    <option selected>Select A City....</option>
                     {
                       props.city && props.city.cityList.map((val) =>{
                         return(
+                          
                           <option value={val.cityName}>{val.cityName}</option>
                         );
                       })

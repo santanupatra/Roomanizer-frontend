@@ -59,7 +59,6 @@ const initialFields = {
   const [settingId, setSettingId] = useState(null);
   const [userType, setUserType] = useState({'userType':localStorage.getItem('userType')});
   const [typeMessage,setTypeMessage]= useState('');
-  const [chatRef,setChatRef] = useState();
   const [chatList,setChatList] = useState([]);
   const [msgCount,setMsgCount] = useState();
   const [uniqueKey,setUniqueKey] =useState();
@@ -69,27 +68,20 @@ const initialFields = {
   const handleModal = () => setShow(true);
   const history = useHistory();
 
-  console.log("fields==",fields)
-  useEffect(() => {
-  if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
-    var chatRefOpt = firebase
-       .database()
-       .ref()
-       .child('chatMessages');
-       setChatRef(chatRefOpt)
-   } else {
-    
-
-    chatRefOpt = firebase
-       .database()
-       .ref()
-       .child('chatMessages');
-       setChatRef(chatRefOpt)
-
-     //console.log('chatRef:', chatRef)
-   }
-  }, [props.user])
+  let chatRef = null;
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+       chatRef = firebase
+         .database()
+         .ref()
+         .child('chatMessages');
+     } else {
+      chatRef = firebase
+         .database()
+         .ref()
+         .child('chatMessages');
+      
+     }
   useEffect(() => {
     props.crudActionCall(`${USER_URL}/${userId}`, null, "GET")
     //setUserDate(props.user.action.data);
@@ -122,47 +114,55 @@ const initialFields = {
      setSettingId(props.user.user._id);
      
     }
-    getChat()
+     getChat()
+
+  }, [props.user]);
+   
+  useEffect(() => {
+    console.log('abvr',chatRoomId)
+    if(chatRoomId != undefined){
+      chatRef
+      .orderByChild('chatRoomId')
+      .equalTo(chatRoomId)
+      .once('value')
+      .then(snapshot => {
+        if (snapshot.val()) {
+          var listMesage = [];
+          var unique = '';
+          for (let key in snapshot.val()) {
+            listMesage.push(snapshot.val()[key]);
+            unique = key;
+          }
+          setChatList(listMesage)
+          setUniqueKey(unique)
+        }
+      })
+      .catch(Err => {
+        this.setState({
+          loader: false,
+        });
+      });
+    }
     
 
-  }, [props.user,chatRef]);
-  console.log("chatRef+++++++++",chatRef)
-const getChat = async()=>{
-  
-  await chatRef.on('child_added', snapshot => {
-    const snapShotVal = snapshot.val();
-    if (
-      (snapShotVal.userId == localStorage.getItem('userId') &&
-        snapShotVal.senderId == fields._id) ||
-      (snapShotVal.senderId == localStorage.getItem('userId') &&
-        snapShotVal.userId == fields._id)
-    ) {
-       setChatRoomId(snapShotVal.chatRoomId);
-    }
-  });
-  chatRef
-    .orderByChild('chatRoomId')
-    .equalTo(chatRoomId)
-    .once('value')
-    .then(snapshot => {
-      if (snapshot.val()) {
-        var listMesage = [];
-        var unique = '';
-        for (let key in snapshot.val()) {
-          listMesage.push(snapshot.val()[key]);
-          unique = key;
-        }
-        setChatList(listMesage)
-        setUniqueKey(unique)
+  }, [chatRoomId]);
+   const getChat = async()=>{
+     let roomId;
+    await chatRef.on('child_added', snapshot => {
+      const snapShotVal = snapshot.val();
+      
+      if (
+        (snapShotVal.userId == localStorage.getItem('userId') &&
+          snapShotVal.senderId == userId) ||
+        (snapShotVal.senderId == localStorage.getItem('userId') &&
+          snapShotVal.userId == userId)
+      ) {
+       
+         setChatRoomId(snapShotVal.chatRoomId);
+         roomId = snapShotVal.chatRoomId;
       }
-    })
-    .catch(Err => {
-      this.setState({
-        loader: false,
-      });
     });
-}
-  console.log('typeMessage',typeMessage);
+  }
 
   const sendMessage = (e) => {
    e.preventDefault()
