@@ -53,7 +53,14 @@ console.log("fields",fields)
 }
 
   const  handleChange = (name,value)=>{
+    console.log(value.length )
     setFields((prevState) => ({ ...prevState, [name]: value }));
+    if(value.length<6){
+      fields.errorMessage="Password length should be at least 6"
+    }
+    else{
+      fields.errorMessage=""
+    }
     if(value!==null && name==='confirmPassword')
     {
       if(fields.password!==value)

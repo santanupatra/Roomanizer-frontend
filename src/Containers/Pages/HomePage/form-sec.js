@@ -83,6 +83,7 @@ const searchRoom = (data) =>{
     let city = fields.city;
     let duration = fields.duration;
     let budget = fields.budget;
+    let gender = fields.gender;
     let sendDate;
     if(startDate==''){
       sendDate=startDate;
