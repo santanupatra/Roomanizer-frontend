@@ -29,9 +29,10 @@ import PlacesAutocomplete, {
 } from 'react-places-autocomplete';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {mapApiKey} from '../RoomSearchPage/mapConfig';
 //import 'react-google-places-autocomplete/dist/index.min.css';
 import Geocode from "react-geocode";
-const palceKey = "AIzaSyA5LrPhIokuSBO5EgKEcfu859gog6fRF8w";
+const palceKey = mapApiKey;
   Geocode.setApiKey(palceKey);
   Geocode.setLanguage("en");
 
@@ -153,7 +154,7 @@ const Formsec2 = (props) => {
   //   toast.info('Updated  successfully', {
   //     position: toast.POSITION.TOP_CENTER
   // });
-   if(data.aminities.length>0&&data.houseRules.length>0&&data.address!==" "){
+   if(data.aminities && data.aminities.length>0&& data.houseRules && data.houseRules.length>0&&data.address!==" "){
       setErrAdd(' ')
       setErr(' ')
       props.crudActionCall(LANDLORD_URL + `/${userId}`, data, "UPDATE");
@@ -281,11 +282,11 @@ else{
                             </Row>
                             <Row>
                             <PlacesAutocomplete
-                    onChange={handleChangeAddress}
-                    onSelect={handleSelect}
-                    searchOptions={searchOptions}
-                    value={field.address}
-                  >
+                              onChange={handleChangeAddress}
+                              onSelect={handleSelect}
+                              searchOptions={searchOptions}
+                              value={field.address}
+                          >
                     {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                       <Col xs={12} sm={12} md={12} lg={12}>
                         <input
@@ -460,9 +461,7 @@ else{
                                   value="2" 
                                   name= "noOfBedRoom"
                                   onChange={(value) => handlechange1(value)}
-                                    // defaultChecked={value === "2 Bedroom"}    
                                   checked={field.noOfBedRoom === "2"}
-                                      // {...plaftormInputProps}
                                   /> 2 Bedroom
                                   </Label>
                                   <Label>
@@ -475,10 +474,9 @@ else{
                                   <Label>
                                     <input type="radio" value="5" name= "noOfBedRoom"
                                       checked={field.noOfBedRoom === "5"}
-                                      //defaultChecked={value === "4+ Bedroom"}  
                                       onChange={(value) =>
                                         handlechange1(value)}
-                                    // checked={field.noOfBedRoom}
+                                      checked={field.noOfBedRoom}
                                       // {...plaftormInputProps}
                                       /> 4+ Bedroom
                                   </Label>

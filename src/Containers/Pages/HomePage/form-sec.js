@@ -15,14 +15,14 @@ import { apiBaseUrl } from "../../../shared/helpers";
 import { CITY_URL} from '../../../shared/allApiUrl';
 import { BrowserRouter as Router, Route, useHistory } from "react-router-dom";
 import moment from 'moment';
-
+import {mapApiKey} from '../RoomSearchPage/mapConfig'
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from 'react-places-autocomplete';
 //import 'react-google-places-autocomplete/dist/index.min.css';
 import Geocode from "react-geocode";
-const palceKey = "AIzaSyA5LrPhIokuSBO5EgKEcfu859gog6fRF8w";
+const palceKey = mapApiKey;
   Geocode.setApiKey(palceKey);
   Geocode.setLanguage("en");
 

@@ -23,11 +23,13 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from 'react-places-autocomplete';
+import {mapApiKey} from '../RoomSearchPage/mapConfig';
+
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 //import 'react-google-places-autocomplete/dist/index.min.css';
 import Geocode from "react-geocode";
-const palceKey = "AIzaSyA5LrPhIokuSBO5EgKEcfu859gog6fRF8w";
+const palceKey = mapApiKey;
   Geocode.setApiKey(palceKey);
   Geocode.setLanguage("en");
 // import 'moment-timezone';

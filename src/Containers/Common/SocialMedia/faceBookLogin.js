@@ -33,8 +33,12 @@ export default class FacebookLogin extends Component {
               console.log("data++++++",data.data)
               localStorage.setItem('access-token', data.token);
               localStorage.setItem('userId', data.data._id);
-
+              localStorage.setItem("profileImg",data.data.profilePicture)
+              localStorage.setItem("username",data.data.lastName?(data.data.firstName+" "+data.data.lastName):data.data.firstName)
               const userId = localStorage.getItem('userId')
+               //localStorage.getItem("profileImg")
+        //localStorage.getItem("username")
+        //localStorage.getItem("userId")
               console.log("userId",userId)
               if(userId){
                 history.push(`/editProfile/${userId}`);
@@ -65,7 +69,8 @@ export default class FacebookLogin extends Component {
       <React.Fragment>
         <NavLink className="facebook" to="/login">
           <FacebookLoginCom
-            appId="373120140605031"
+            //appId="373120140605031"
+            appId="697039197852821"
             autoLoad={false}
             fields="name,email,picture"
             //onClick={this.componentClicked}
