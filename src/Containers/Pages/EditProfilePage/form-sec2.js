@@ -768,6 +768,7 @@ else{
                               {/* <a href="#" className="login-bt mt-4 mb-2">Submit</a> */}
                               <Button type="submit" className="login-bt mt-4 mb-2"> Submit </Button>
                               <img src={imagePath.orImage} alt="image"/>
+                              <div className="d-block"></div>
                               <a href="#"><img src={imagePath.fbImage} alt="image"/></a>
                               <a href="#"><img src={imagePath.gsImage} alt="image"/></a>
                               </div>

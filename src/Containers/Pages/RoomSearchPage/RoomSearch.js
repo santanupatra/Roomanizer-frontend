@@ -534,7 +534,7 @@ const RoomSearch = (props) => {
                  {/* List view */}
                   {view=="listView"?<div>
                     <Row className="px-2 py-4">
-                      <Col xs={12} sm={12} md={12} lg={12} className="pl-4 pr-0">
+                      <Col xs={12} sm={12} md={12} lg={12}>
                         <Searchlist searchList={searchList} show={showList} listCount={listCount} />
 
                       </Col>
@@ -558,7 +558,7 @@ const RoomSearch = (props) => {
                 {/* split view */}
                 {view=="splitView"?<div>
                     <Row className="px-2 py-4">
-                      <Col xs={12} sm={12} md={12} lg={7} className="pl-4 pr-0">
+                      <Col xs={12} sm={12} md={12} lg={7} className="splitView">
 
                         <Searchlist searchList={searchList} show={showList} listCount={listCount} />
 
