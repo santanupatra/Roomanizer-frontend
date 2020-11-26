@@ -223,9 +223,11 @@ const RoomMateSearch =(props)=> {
     }
   }
   const toggle1 = () => {
-    setModal(!modal)
+    //setModal(!modal)
     setAmenities('');
+    setAminitiesArr([]);
     setHouseRules('');
+    setHouseRuleArr([]);
     setBedrooms('')
     // window.location.reload();
   };

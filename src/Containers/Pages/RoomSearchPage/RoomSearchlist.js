@@ -11,7 +11,7 @@ import Cardlist from './cardlist';
 
 
 const Searchlist = (props) => {
-  console.log("propssearchList",props);
+  
   const [activeTab, setActiveTab] = useState('1');
 
   const toggle = tab => {

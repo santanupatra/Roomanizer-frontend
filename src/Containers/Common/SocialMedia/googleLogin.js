@@ -21,7 +21,7 @@ export default class GoogleLogin extends Component {
             email:response.profileObj?response.profileObj.email:'',
             name:response.profileObj?response.profileObj.name:'',
             socialMediaType:'Google',
-            profilePicture:response.profileObj?response.profileObj.imageUrl:'',
+            //profilePicture:response.profileObj?response.profileObj.imageUrl:'',
             socialId:response.profileObj?response.profileObj.googleId:''
         }
        
@@ -32,7 +32,8 @@ export default class GoogleLogin extends Component {
                 if(data.ack===true && data.token){
                     localStorage.setItem('access-token', data.token);
                     localStorage.setItem('userId', data.data._id);
-
+                    localStorage.setItem("profileImg",data.data.profilePicture)
+                    localStorage.setItem("username",data.data.lastName?(data.data.firstName+" "+data.data.lastName):data.data.firstName)
               const userId = localStorage.getItem('userId')
               console.log("userId",userId)
               if(userId){
@@ -65,7 +66,8 @@ export default class GoogleLogin extends Component {
             <NavLink className="g-plus" to="/login">            
             {/* </NavLink> */}
             <GoogleLoginCom
-                clientId="691070581672-dtncmeao6uettl9cigrrdip699gcnvvb.apps.googleusercontent.com"
+                //clientId="691070581672-dtncmeao6uettl9cigrrdip699gcnvvb.apps.googleusercontent.com"
+                clientId="1012541957608-jdn0he0mqkprfan0ecihv3gpk9miqued.apps.googleusercontent.com"
                 buttonText="Google"
                 onSuccess={this.responseGoogle}
                 onFailure={this.responseGoogle}

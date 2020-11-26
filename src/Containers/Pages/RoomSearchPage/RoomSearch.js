@@ -18,6 +18,7 @@ import { crudAction } from "../../../store/actions/common";
 import { withRouter } from 'react-router-dom';
 import { BrowserRouter as Router, Route, useHistory } from "react-router-dom";
 import GoogleMap from './googleMap';
+import {mapApiKey} from './mapConfig';
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
@@ -26,7 +27,7 @@ import PlacesAutocomplete, {
 import Geocode from "react-geocode";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { fas, faList, faMapMarkedAlt, faColumns, faMapMarked, faMapMarker } from '@fortawesome/free-solid-svg-icons';
-const palceKey = "AIzaSyA5LrPhIokuSBO5EgKEcfu859gog6fRF8w";
+const palceKey = mapApiKey;
   Geocode.setApiKey(palceKey);
   Geocode.setLanguage("en");
 const RoomSearch = (props) => {
