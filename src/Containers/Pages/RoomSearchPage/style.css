@@ -273,11 +273,17 @@ a{
     color: #f00;
 }
 .mapheight{
-    height: 100vh;
-    }
+    height: 540px;
+}
 .mapSection{
     height: calc(100vh - 120px);
 }
+
+.splitView .col-lg-4{
+    flex: 0 0 50% !important;
+    max-width: 50% !important;
+}
+
 /* @media(max-width:991px){
 .mapSection{
     height: auto;
