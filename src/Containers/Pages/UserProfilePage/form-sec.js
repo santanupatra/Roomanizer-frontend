@@ -244,7 +244,7 @@ const initialFields = {
                              id="exampleText" 
                              onChange={e => setTypeMessage(e.target.value)}
                         />          
-                      <button onClick={sendMessage} className="chat-bt"><img src={imagePath.chatbtImage} alt="image"/></button>
+                      <button onClick={sendMessage} className="chat-bt"><img src={imagePath.chatbtImage} alt="image" style={{width:'40px', marginRight:'10px'}} /></button>
                        
                         {/* <Button type="button" onClick={handleSubmit(onSubmit)} color="primary" className="login-bt mb-2">Send</Button> */}
                         

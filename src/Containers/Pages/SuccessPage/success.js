@@ -21,7 +21,7 @@ import Footer from '../../Common/footer';
                         <div className="Row d-flex w-100 justify-content-center">
                           <div className="col-8 text-center thank">
                             
-                            <img src={imagePath.thankImage} alt="image"/>
+                            <img src={imagePath.thankImage} alt="image" className="img-fluid" />
                             <h2><b>Thank You</b></h2>
                             <p>Thank you for choosing Us.</p>
 
