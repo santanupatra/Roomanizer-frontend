@@ -357,7 +357,7 @@ const RoomSearch = (props) => {
                                   //className="search"
                               >
                     {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                      <Col xs={12} sm={12} md={12} lg={12}>
+                      <div>
                         <input
                           {...getInputProps({
                             placeholder: 'Enter a street, area or city',
@@ -386,12 +386,12 @@ const RoomSearch = (props) => {
                             );
                           })}
                         </div>
-                      </Col>
+                        </div>
                     )}
                   </PlacesAutocomplete>
                             </Col>
 
-                            <Col xs={12} sm={12} md={6} lg={2}>
+                            <Col xs={12} sm={12} md={6} lg={3}>
                               <Label for="">Gender</Label>
                               <Input
                                 type="select"
