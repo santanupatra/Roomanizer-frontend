@@ -41,10 +41,10 @@ input:-internal-autofill-selected {
     display: block;
 }
 .kep-login-facebook{
-    color: rgba(0, 0, 0, 0.54) !important;
+    color: #fff !important;
     padding: 11px !important;
     border-radius: 4px !important;
-    background-color: #fff !important;
+    background-color: #4c69ba !important;
     box-shadow:rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
     height: 46px !important;
     position: relative !important;
@@ -57,14 +57,20 @@ input:-internal-autofill-selected {
     font-family: 'Poppins', sans-serif !important;
 }
 .kep-login-facebook i{
-    color: #4c69ba;
+    color: #fff;
 }
 .kep-login-facebook:hover{
-    color: rgba(0, 0, 0, 0.40) !important;
+    color: #fff !important;
 }
 .g-plus.active span{
     font-family: 'Poppins', sans-serif !important;
     font-weight: 500 !important;
+}
+.g-plus.active button{
+    background-color: rgb(234 67 53) !important;
+}
+.g-plus.active button span{
+    color: #fff !important;
 }
 
 
