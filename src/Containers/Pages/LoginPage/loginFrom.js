@@ -100,6 +100,8 @@ else  {
 
 }
 }
+const gotoEdit = (userId)=>
+    history.push(`/editProfile/${userId}`)
   useEffect(() => {
 
     if (props.auth.isAuthenticated && getAuthToken !== "")
@@ -243,9 +245,9 @@ else  {
                         <div className="text-center">
                           <img src={imagePath.orImage} alt="image" />
                           {/* <NavLink to="#" onClick={()=>{setFbComponent(true)}}><img src={imagePath.fbImage} alt="image" /></NavLink> */}
-                          <FbLoginCom />
+                          <FbLoginCom  gotoEdit={gotoEdit}/>
                           {/* <NavLink to="#"><img src={imagePath.gsImage} alt="image" /></NavLink> */}
-                          <GoogleLoginCom />
+                          <GoogleLoginCom  gotoEdit={gotoEdit}/>
                         </div>
                         <NavLink to="/signUP" className="forgot mt-3 mb-0">Don’t have an account? <span>Register</span></NavLink>
             </Col>
