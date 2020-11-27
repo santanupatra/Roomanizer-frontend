@@ -37,6 +37,7 @@ export default class GoogleLogin extends Component {
               const userId = localStorage.getItem('userId')
               console.log("userId",userId)
               if(userId){
+                this.props.gotoEdit(userId)
                 history.push(`/editProfile/${userId}`);
                
               }
@@ -63,7 +64,7 @@ export default class GoogleLogin extends Component {
     render() {
         return (
             <React.Fragment>
-            <NavLink className="g-plus" to="/login">            
+            {/* <NavLink className="g-plus" to="/editProfile/${userId}">*/}
             {/* </NavLink> */}
             <GoogleLoginCom
                 //clientId="691070581672-dtncmeao6uettl9cigrrdip699gcnvvb.apps.googleusercontent.com"
@@ -79,7 +80,7 @@ export default class GoogleLogin extends Component {
                 //   }}      
             />
             {/* <div ><img src={imagePath.gsImage} alt="image" /><span></span></div> */}
-            </NavLink>
+            {/* </NavLink> */}
             </React.Fragment>
         )
     }

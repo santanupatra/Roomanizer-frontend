@@ -65,7 +65,7 @@ const Formsec = (props) => {
   const [userId, setUserId] = useState(null);
   const { handleSubmit, register, errors } = useForm();
   const params = props.match.params;
-  const [setDate, setStartDate] = useState(new Date());
+  const [setDate, setStartDate] = useState();
   const [setRtoM, setReadyToMove] = useState(null);
   const [aminitiesOption, setAminitiesOption] = useState([]);
   const [err, setErr] = useState('');
@@ -96,8 +96,8 @@ const Formsec = (props) => {
     const { type, isSuccess } = props.house.action;
     if (props.user.user && params.userId) {
       setFields({ ...fields, ...props.user.user })
-      setStartDate(moment(props.user.user.dateOfBirth).toDate())
-      setReadyToMove(moment(props.user.user.readyToMove).toDate())
+      if(props.user.user.dateOfBirth)setStartDate(moment(props.user.user.dateOfBirth).toDate())
+      if(props.user.user.readyToMove)setReadyToMove(moment(props.user.user.readyToMove).toDate())
     }
     if (action.isSuccess && action.type === "UPDATE")
       props.history.push(`/editProfile/${userId}`)
@@ -138,12 +138,6 @@ else{
   const handleChange = (name,value)=>{
     console.log(value)
     setFields((prevState) => ({ ...prevState, [name]: value }));
-    // if(value==''){
-    //   setErr('This field is required')
-    // }else{
-    //   setErr(' ')
-    // }
-    
   }
   const  handlechange1 = e => {
     console.log(e.target.value)
@@ -192,7 +186,7 @@ else{
               setFields((prevState) => ({ ...prevState, ["latitude"]: lat }));
             });
   };
-  console.log(fields.city)
+  
       return (
         <div className="">
           <Form onSubmit={handleSubmit(onSubmit)}>
@@ -271,10 +265,11 @@ else{
                 </Row>  
                 <Row>
                   <Col>
-                    <Input
+                    <InputUI
                       type="select"
                       name="city"
                       id="city"
+                      errors={errors}
                       innerRef={register({
                         required: 'This is required field',
                         })}
@@ -283,7 +278,7 @@ else{
                         handleChange(e.target.name, e.target.value)
                       }
                     >
-                    <option selected>Select A City....</option>
+                    <option value="">Select A City....</option>
                     {
                       props.city && props.city.cityList.map((val) =>{
                         return(
@@ -292,7 +287,7 @@ else{
                         );
                       })
                     } 
-                    </Input>
+                    </InputUI>
                   </Col>
                   <Col>
                     <InputUI
@@ -314,12 +309,8 @@ else{
                       selected={setDate} 
                       className="form-control"
                       placeholderText="Date of Birth"
-                      errors={errors}
-                      innerRef={register({
-                      required: 'This is required field',
-                      })}
                       onChange={date => handleDatechange(date)}
-                      // value={fields.dateOfBirth}
+                      required
                     />
                   </Col>
                   <Col xs={12} sm={6} md={6} lg={6}>
@@ -405,57 +396,44 @@ else{
                  <FormGroup className="mt-3">
                               <Label for="exampleCheckbox" className="filter-mod">No of Bedrooms</Label>
                               <div className="filt d-flex justify-content-between">
-                                {/* <Input type="radio" id="radio1" name="noOfBedRoom" value="2 Bedroom" label="2 Bedroom" onChange={(value) =>
-                                    handlechange1(value)
-                                  }/>2 Bedroom
-                                <Input type="radio" id="radio2" name="noOfBedRoom" value="3 Bedroom" label="3 Bedroom" onChange={(value) =>
-                                    handlechange1(value)
-                                  }/>3 Bedroom
-                                <Input type="radio" id="radio3" name= "noOfBedRoom" value="4+ Bedroom" label="4+ Bedroom" onChange={(value) =>
-                                    handlechange1(value)
-                                  }/>4+ Bedroom */}
                                     <input
                                       type="radio"
                                       value="2"
                                       name= "noOfBedRoom"
-                                      onChange={(value) =>
-                                          handlechange1(value)}
-                                     // defaultChecked={value === "2 Bedroom"}    
+                                      onChange={(e) => handleChange(e.target.name,e.target.value)}
+                                      required 
                                       checked={fields.noOfBedRoom === "2"}
-                                       // {...plaftormInputProps}
                                       />2 Bedroom
                                       <input
                                         type="radio"
                                         value="3"
                                         name= "noOfBedRoom"
                                         checked={fields.noOfBedRoom === "3"}
-                                        onChange={(value) =>
-                                          handlechange1(value)}
+                                        onChange={(e) => handleChange(e.target.name,e.target.value)}
+                                        required 
                                         />3 Bedroom
                                         <input
                                           type="radio"
                                           value="5"
                                           name= "noOfBedRoom"
                                           checked={fields.noOfBedRoom === "5"}
-                                          //defaultChecked={value === "4+ Bedroom"}  
-                                          onChange={(value) =>
-                                            handlechange1(value)}
-                                        // checked={field.noOfBedRoom}
-                                          // {...plaftormInputProps}
+                                          onChange={(e) => handleChange(e.target.name,e.target.value)}
+                                          required 
                                           />4+ Bedroom
                                 </div>
                               </FormGroup>
-                <div className="form-group my-4 py-2">
-                  <DatePicker 
-                    selected={setRtoM} 
-                    className="form-control w-100"
-                    //placeholder= "Ready to Move"
-                    placeholderText="Ready to Move"
-                    onChange={e => setReadyToMove(e)} 
-                  />
-                </div>
+                                  <div className="form-group my-4 py-2">
+                                    <DatePicker 
+                                      selected={setRtoM} 
+                                      className="form-control w-100"
+                                      placeholderText="Ready to Move"
+                                      onChange={e => setReadyToMove(e)} 
+                                      required
+                                    />
+                                  </div>
                 
                 <div className="form-group my-4 py-2">
+                <Label for="exampleCheckbox" className="filter-mod">Listing Amenities</Label>
                   <MultiSelect
                     options={aminitiesOption}
                     value={fields.aminities}
@@ -465,23 +443,27 @@ else{
                     }
                     labelledBy={"Preferences for house rules"}
                   />
-                  {/* <p style={{color:"red"}}>{errAdd}</p> */}
+                  <p style={{color:"red"}}>{errAdd}</p>
+                </div>
+                <div className="form-group my-4 py-2">
+                    <Label for="exampleCheckbox" className="filter-mod">Listing HouseRules</Label>
+                    <MultiSelect
+                      options={options}
+                      value={fields.houseRules}
+                      className="MultiSelect-input"
+                      errors={errors}
+                          innerRef={register({
+                          required: 'This is required field',
+                          })}
+                      onChange={(value) =>
+                        handleChange("houseRules",value) 
+                      }
+                      // onChange={handlechange}
+                      labelledBy={"Preferences for house rules"}
+                    />
+                     <p style={{color:"red"}}>{errAdd}</p>
                 </div>
                 
-                <MultiSelect
-                  options={options}
-                  value={fields.houseRules}
-                  className="MultiSelect-input"
-                  errors={errors}
-                      innerRef={register({
-                      required: 'This is required field',
-                      })}
-                  onChange={(value) =>
-                    handleChange("houseRules",value) 
-                  }
-                  // onChange={handlechange}
-                  labelledBy={"Preferences for house rules"}
-                />
                 <div className="mt-4 d-flex align-items-center">
                               <h6 className="social mr-2">Link social media accounts:</h6>
                                 <div id="facebookLink" className="d-flex">

@@ -41,6 +41,7 @@ export default class FacebookLogin extends Component {
         //localStorage.getItem("userId")
               console.log("userId",userId)
               if(userId){
+                this.props.gotoEdit(userId)
                 history.push(`/editProfile/${userId}`);
                 const details = data.details;
                 toast.info(details, {
@@ -67,18 +68,19 @@ export default class FacebookLogin extends Component {
   render() {
     return (
       <React.Fragment>
-        <NavLink className="facebook" to="/login">
+        {/* <NavLink className="facebook" to={`/editProfile/${localStorage.getItem('userId')}`}> */}
           <FacebookLoginCom
             //appId="373120140605031"
             appId="697039197852821"
             autoLoad={false}
             fields="name,email,picture"
             //onClick={this.componentClicked}
+            //onClick={() => this.props.gotoEdit()}
             callback={this.responseFacebook}
             icon="fa-facebook"
             textButton="&nbsp;&nbsp;Facebook"
           />
-        </NavLink>
+        {/* </NavLink> */}
       </React.Fragment>
     );
   }

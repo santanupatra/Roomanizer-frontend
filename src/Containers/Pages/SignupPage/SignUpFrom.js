@@ -13,6 +13,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import { callApi} from '../../../api';
 import { apiBaseUrl } from "../../../shared/helpers";
 import axios from 'axios';
+import FbLoginCom from '../../Common/SocialMedia/faceBookLogin';
+import GoogleLoginCom from '../../Common/SocialMedia/googleLogin';
 const SignUpFrom = (props) => {
   const initialFields = {
     email: '',
@@ -24,8 +26,9 @@ const SignUpFrom = (props) => {
  
   const { handleSubmit, register, errors } = useForm();
  
-console.log("fields",fields)
 
+const gotoEdit = (userId)=>
+   props.history.push(`/editProfile/${userId}`)
   const onSubmit = (data) => {
     console.log(data)
 
@@ -130,6 +133,13 @@ console.log("fields",fields)
                               <NavLink to="#"><img src={imagePath.fbImage} alt="image"/></NavLink>
                               <NavLink to="#"><img src={imagePath.gsImage} alt="image"/></NavLink>
                             </div> */}
+                            <div className="text-center">
+                                <img src={imagePath.orImage} alt="image" />
+                                {/* <NavLink to="#" onClick={()=>{setFbComponent(true)}}><img src={imagePath.fbImage} alt="image" /></NavLink> */}
+                                <FbLoginCom  gotoEdit={gotoEdit}/>
+                                {/* <NavLink to="#"><img src={imagePath.gsImage} alt="image" /></NavLink> */}
+                                <GoogleLoginCom  gotoEdit={gotoEdit}/>
+                           </div>
                             <NavLink to="/login" className="forgot mt-3 mb-0">Already have an account? <span>Login</span></NavLink>
                           </Col>
                         </FormGroup>
