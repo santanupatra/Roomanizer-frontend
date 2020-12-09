@@ -57,7 +57,6 @@
 }
 .chat-scrool{
     height: 542px;
-    overflow-y: scroll;
 }
 .greybox{
     background: #e3e3e3;
@@ -122,7 +121,14 @@
 .chat-icon a{
     color: #8a8a8a;
 }
-
+.chatfooter{
+    position: absolute;
+    bottom: -15px;
+    left: 0;
+    right: 16px;
+    max-width: 100%;
+    width: auto;
+}
 @media(max-width:575px){
     .chatpic,
     .chatpic img{

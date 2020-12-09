@@ -89,9 +89,9 @@ console.log(props.user.user)
               </NavItem>
 
               <NavItem>
-                <NavLink className="nav-icon">
+                <NavLink className="nav-icon" href="/chat">
                   <FontAwesomeIcon color="white" icon={faEnvelope} />
-                  <div className="blink">8</div>
+                  {/* <div className="blink">8</div> */}
                 </NavLink>
               </NavItem>
               <NavItem>
@@ -112,8 +112,8 @@ console.log(props.user.user)
                       <Link to={`/favoriteroom/${userId}`}>My Favorites Room </Link>
                       <Link to={`/favoriteroomate/${userId}`}>My Favorites Roommate</Link>
                       {/* <Link to="#">My Favorites</Link> */}
-                      <Link to="#">My Messages</Link>
-                      <Link to="#">Notifications</Link>
+                      <Link to="/chat">My Messages</Link>
+                      {/* <Link to="#">Notifications</Link> */}
                       <Link to="#" onClick={logout}>Logout</Link>
                     </DropdownMenu>
                   </Dropdown> 

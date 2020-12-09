@@ -7,7 +7,7 @@ import { faHome, faShareAlt, faPhone, faVideo, faEllipsisH, faEllipsisV, } from 
 import { faCalendar } from "@fortawesome/free-regular-svg-icons";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
-
+import { Scrollbars } from 'react-custom-scrollbars';
 import firebase from 'firebase';
 import {firebaseConfig,apiBaseUrl} from '../../../shared/helpers';
 
@@ -72,6 +72,7 @@ class Chatdetails extends PureComponent {
       }
 
     async componentDidMount() {
+      console.log("key++++++",this.state.uniqueKey)
       
        await this.getStorageValue();
         // if (this.state.senderId != this.state.messageSender) {
@@ -79,7 +80,17 @@ class Chatdetails extends PureComponent {
         // }
         this.getStorageValue();
       }
-      
+    async componentDidUpdate(prevProps, prevState){
+        console.log("prevState==",prevState)
+        if(this.state.uniqueKey != prevState.uniqueKey){
+          await this.getStorageValue();
+              if (this.state.senderId != this.state.messageSender) {
+                console.log('asmita');
+                this.state.chatRef.child(this.state.uniqueKey).update({msgCount: 0});
+              }
+              this.getStorageValue();
+        }
+      }
 
       UNSAFE_componentWillReceiveProps(nextProps) {
         if(this.props != nextProps) {
@@ -122,17 +133,19 @@ class Chatdetails extends PureComponent {
           .equalTo(this.state.chatRoomId)
           .once('value')
           .then(snapshot => {
+            console.log("snapshot++++",snapshot.val());
             if (snapshot.val()) {
               var listMesage = [];
               var unique = '';
               for (let key in snapshot.val()) {
+                console.log("key",key)
                 listMesage.push(snapshot.val()[key]);
                 unique = key;
               }
               this.setState({
                 chatList: listMesage,
                 uniqueKey: unique,
-                loader: false,
+                //loader: false,
               });
             }
           })
@@ -175,24 +188,27 @@ class Chatdetails extends PureComponent {
       const BASE_URL = apiBaseUrl;
     return (
        
-                            <Col xs={12} sm={12} md={12} lg={7} className="pl-0">
+                            <Col xs={12} sm={12} md={12} lg={7} className="pl-0 chat-main-body position-relative">
                               <div className="px-4 py-3 border-bottom">
                                 <Row>
-                                  <Col sm={2} className="">
+                                  <Col sm={12} className="">
+                                    <div className="d-flex align-items-center">
                                     <div className="chatpic">
                                       <img src={BASE_URL+this.state.userImage} alt="image"/>
-                                      <div className="green-ball"><span>{this.state.username}</span></div>
-                                      
+                                      <div className="green-ball"></div>                                     
+                                    </div>
+                                    <span className="d-block ml-2">{this.state.username}</span>
                                     </div>
                                   </Col>
                                 </Row>
                               </div>
 
-                              <div className="light-bg">
+                              <div className="light-bg chat-list-body">
+                                <Scrollbars style={{height:480,width:"100%"}}>
                               {this.state.chatList.map((data, key) =>
                               data.senderId == this.state.senderId ? (
-                                <Row>
-                                  <Col>
+                                
+                                  <div className="innerChatBody">
                                   <div className="p-4 d-flex justify-content-end w-100">
 
                                     <div className="greybox">
@@ -202,8 +218,8 @@ class Chatdetails extends PureComponent {
                                     </div>
 
                                     </div>
-                                  </Col>
-                                </Row>
+                                  </div>
+                                
                               ) : <div className="p-4 d-flex justify-content-start w-100">
 
                               <div className="whitebox">
@@ -215,17 +231,17 @@ class Chatdetails extends PureComponent {
                             </div>)}
 
 
-                                <Row>
-                                  <Col>
+                            </Scrollbars>
+                                  <div className="chatfooter">
                                     <FormGroup className="chat-fl">
                                       <Input type="textarea" onChange={e => this.setState({typeMessage: e.target.value})}
             value={this.state.typeMessage}  name="text" id="exampleText" />
                                         {/* <a href="#" className="attach"><img src={imagePath.attachImage} alt="image"/></a> */}
                                         <button onClick={this.sendMessage} className="chat-bt"><img src={imagePath.chatbtImage} alt="image"/></button>
                                     </FormGroup>
-                                  </Col>
-                                </Row>
-
+                                  </div>
+                                
+                                  
                               </div>
 
                             </Col>
