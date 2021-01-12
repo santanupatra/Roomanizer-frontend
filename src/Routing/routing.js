@@ -25,6 +25,9 @@ import FavoriteRoom from '../Containers/Pages/FavoriteRoom/favoriteroom';
 import FavoriteRoomate from '../Containers/Pages/FavoriteRoomate/favoriteroomate';
 import HowItWorksPage from '../Containers/Pages/HowItWorksPage/HowItWorks';
 import ChatPage from '../Containers/Pages/ChatPage/chat';
+import AgentLogin from '../Containers/Pages/AgentLogin/AgentLogin';
+import AgentSignup from '../Containers/Pages/AgentSignup/signup';
+import Dashboard from '../Containers/Pages/Dashboard/Dashboard';
 
 
 
@@ -57,6 +60,10 @@ const Routes=(props) =>{
                 <Route path="/favoriteroomate/:userId" exact component={FavoriteRoomate} />
                 <Route path="/howItWorks" exact component={HowItWorksPage} />
                 <Route path="/chat" exact component={ChatPage} />
+                <Route path="/AgentLogin" exact component={AgentLogin} />
+                <Route path="/AgentSignup" exact component={AgentSignup} />
+                <Route path="/Dashboard" exact component={Dashboard} />
+                
             </Switch>
         </Router>
       )
