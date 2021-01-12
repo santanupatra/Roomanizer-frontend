@@ -1,0 +1,59 @@
+.userDetailsBox{
+  border: 1px solid #ccc;
+}
+.userDetailsBox label{
+  width: 100%;
+  display: block;
+}
+.userDetailsBox .input{
+  width: 100%;
+  height: 40px;
+  padding: 0px 15px;
+  border: 1px solid #ccc;
+  display: block;
+}
+.userDetailsBox .input:focus{
+  outline: 0px;
+}
+.userDetailsBox textarea.input{
+  height: 80px;
+}
+.btn.btn-blue{
+  background-color: #014d81;
+  color: #fff;
+}
+.AgentDP{
+  position: relative;
+  width: 200px;
+  height: auto;
+  margin: -100px auto 0px auto;
+}
+.AgentDP img{
+  width: 200px;
+  height: 200px;
+  border-radius: 360px;
+  border: 2px solid #014d81;
+}
+.uploadAgentDP{
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 360px;
+  position: absolute;
+  right: 0px;
+  bottom: 20px;
+  overflow: hidden;
+  background-color: #014d81;
+  color: #fff;
+  cursor: pointer;
+}
+.uploadAgentDP input{
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  top: 0px;
+  left: 0px;
+  opacity: 0;
+  cursor: pointer;
+}
