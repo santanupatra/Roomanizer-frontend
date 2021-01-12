@@ -245,7 +245,9 @@ if (!firebase.apps.length) {
                   </Dropdown> 
                 </NavLink>             
               </NavItem>
-      
+              <NavItem>
+                <NavLink href="/AgentLogin">Agent</NavLink>
+              </NavItem>
             </Nav>
           </Collapse>
         </Navbar>

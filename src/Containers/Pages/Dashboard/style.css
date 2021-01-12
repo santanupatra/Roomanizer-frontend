@@ -1,0 +1,67 @@
+.dashboard .dropdown-menu{
+    padding: 10px;
+}
+.dashboard .dropdown-menu a{
+    width: 100%;
+    display: block;
+    font-size: 14px;
+    font-weight: 400;
+    color: #333;
+}
+.dashboard .login-hd{
+    color: #333 !important;
+    border: 1px solid #ccc !important;
+}
+.dashboard .login-hd:active,
+.dashboard .login-hd:focus{
+    box-shadow: none;
+}
+.searchbox{
+    width: 100%;
+}
+.searchbox input{
+    width: calc(100% - 50px);
+    height: 40px;
+    background-color: #fff;
+    padding: 0px 15px;
+    border: 1px solid #ccc;
+}
+.searchbox input:focus{
+    outline: 0px;
+}
+.searchbox button{
+    width: 50px;
+    height: 40px;
+    background-color: #00457b;
+    cursor: pointer;
+    border: none;
+    color: #fff;
+    font-size: 14px;
+    vertical-align: top;
+    line-height: 40px;
+}
+.dashboard .maindata{
+    background-color: #f1f1f1;
+}
+.dashboard .maindata h2{
+    color: #00447b;
+    font-size: 24px;
+}
+.dashboard .maindata p{
+    font-size: 14px;
+}
+.filterDashboard .btn.btn-white{
+    border: 1px solid #ccc;
+    border-radius: 360px;
+    background-color: #fff;
+    margin: 0px 5px;
+    font-size: 14px;
+}
+.filterDashboard .btn.btn-white:focus{
+    box-shadow: none;
+}
+.filterDashboard .btn.btn-white.active{
+    background-color: #00447b;
+    border: 1px solid #00447b;
+    color: #fff;
+}
