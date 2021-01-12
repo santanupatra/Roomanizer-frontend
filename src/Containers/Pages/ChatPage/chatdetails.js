@@ -214,7 +214,7 @@ class Chatdetails extends PureComponent {
                                     <div className="greybox">
                                     <div className="grey-shape"></div>
                                     <h6>{data.Message}</h6>
-                                    <p className="mb-0">{this.convertDate(data.date)}</p>
+                                    <p className="chatdate">{this.convertDate(data.date)}</p>
                                     </div>
 
                                     </div>
@@ -225,7 +225,7 @@ class Chatdetails extends PureComponent {
                               <div className="whitebox">
                                 <div className="white-shape"></div>
                                 <h6>{data.Message}</h6>
-                                <p className="mb-0">{this.convertDate(data.date)}</p>
+                                <p className="chatdate">{this.convertDate(data.date)}</p>
                               </div>
                   
                             </div>)}

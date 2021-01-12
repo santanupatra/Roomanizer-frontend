@@ -222,6 +222,7 @@ input:-internal-autofill-selected {
 .uploadImgs{
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   margin-bottom: 10px;
 }
 .uPic{

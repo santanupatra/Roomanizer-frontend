@@ -74,12 +74,24 @@
     width: 10px;
     height: 17px;
 }
+.chatdate{
+    margin-bottom: 0px;
+    font-size: 12px;
+    color: #afacac;
+}
 .whitebox{
     background: #fff;
     padding: 10px;
     border-radius: 2px;
     position: relative;
     width: 60%;
+}
+.whitebox .chatdate{
+    color: #ccc;
+}
+.greybox h6,
+.whitebox h6{
+    font-size: 14px;
 }
 .white-shape{
     background-image: url('../../../assets/images/chat-left.png') ;

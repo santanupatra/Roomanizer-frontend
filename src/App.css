@@ -57,14 +57,14 @@ button:focus{
 }
 .footer-sec{
   background: url(./assets/images/lower-bg.png);
-    background-position: left;
+    background-position: left bottom;
     background-repeat: no-repeat;
     min-height: 297px;
     display: flex;
     align-items: center;
 }
 .footer-bg{
-  background: url(./assets/images/footer-bg.png);
+  background: url(./assets/images/footer-bg.png) no-repeat left bottom;
 }
 .black-bt{
     background: #191919 !important;

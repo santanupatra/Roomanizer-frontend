@@ -13,7 +13,7 @@ const ChatBoxLight = (props) => {
               <div className="white-shape"></div>
               <h6>I'm just looking around.
 Will you tell me something about yourself?</h6>
-              <p className="mb-0">8:10 PM</p>
+              <p className="chatdate">8:10 PM</p>
             </div>
 
           </div>

@@ -14,6 +14,8 @@ import {callApi} from "../../../api";
 import { FORGET_PASSWORD_URL } from '../../../shared/allApiUrl';
 import { SET_PASSWORD_URL } from '../../../shared/allApiUrl';
 import { NotificationManager} from 'react-notifications';
+import FbLoginCom from '../../Common/SocialMedia/faceBookLogin';
+import GoogleLoginCom from '../../Common/SocialMedia/googleLogin';
 
 import {
   Button,
@@ -37,9 +39,7 @@ function LoginFrom(props) {
   const { handleSubmit, register } = useForm();
   // const { handleSubmit, register } = useForm();
   const [status, setStatus] = useState(false);
-  
-  
-  
+  const [fbComponent,setFbComponent] = useState(false);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -100,6 +100,8 @@ else  {
 
 }
 }
+const gotoEdit = (userId)=>
+    history.push(`/editProfile/${userId}`)
   useEffect(() => {
 
     if (props.auth.isAuthenticated && getAuthToken !== "")
@@ -240,11 +242,13 @@ else  {
               <Button type="button" onClick={handleSubmit(onSubmit)} color="primary" className="login-bt mb-2">
                 Login
                         </Button>
-                        {/* <div className="text-center">
+                        <div className="text-center">
                           <img src={imagePath.orImage} alt="image" />
-                          <NavLink to="#"><img src={imagePath.fbImage} alt="image" /></NavLink>
-                          <NavLink to="#"><img src={imagePath.gsImage} alt="image" /></NavLink>
-                        </div> */}
+                          {/* <NavLink to="#" onClick={()=>{setFbComponent(true)}}><img src={imagePath.fbImage} alt="image" /></NavLink> */}
+                          <FbLoginCom  gotoEdit={gotoEdit}/>
+                          {/* <NavLink to="#"><img src={imagePath.gsImage} alt="image" /></NavLink> */}
+                          <GoogleLoginCom  gotoEdit={gotoEdit}/>
+                        </div>
                         <NavLink to="/signUP" className="forgot mt-3 mb-0">Don’t have an account? <span>Register</span></NavLink>
             </Col>
           </FormGroup>

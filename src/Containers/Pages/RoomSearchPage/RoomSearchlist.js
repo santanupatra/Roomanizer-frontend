@@ -11,7 +11,7 @@ import Cardlist from './cardlist';
 
 
 const Searchlist = (props) => {
-  console.log("propssearchList",props);
+  
   const [activeTab, setActiveTab] = useState('1');
 
   const toggle = tab => {
@@ -79,7 +79,7 @@ const Searchlist = (props) => {
                             {props.show?
                               props.searchList && props.listCount > 0 ? props.searchList.map((val) => {
                               return (
-                                <Col xs={12} sm={6} md={6} lg={6} className="mt-3">
+                                <Col xs={12} sm={6} md={6} lg={4} className="mb-3">
                                   <div>
                                     <Cardbox val={val}></Cardbox>
                                   </div>
@@ -87,7 +87,7 @@ const Searchlist = (props) => {
                                   );
                                 })
                                 :
-                                 <Col xs={12} sm={6} md={6} lg={6} className="mt-3">
+                                 <Col xs={12} sm={6} md={6} lg={6} className="mb-3">
                                   <div>No Roommates found!</div>
                                 </Col>
                                  :

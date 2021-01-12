@@ -17,9 +17,21 @@ import { connect } from "react-redux";
 import { crudAction } from "../../../store/actions/common";
 import { withRouter } from 'react-router-dom';
 import { BrowserRouter as Router, Route, useHistory } from "react-router-dom";
-
+import GoogleMap from './googleMap';
+import {mapApiKey} from './mapConfig';
+import PlacesAutocomplete, {
+  geocodeByAddress,
+  getLatLng,
+} from 'react-places-autocomplete';
+//import 'react-google-places-autocomplete/dist/index.min.css';
+import Geocode from "react-geocode";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { fas, faList, faMapMarkedAlt, faColumns, faMapMarked, faMapMarker } from '@fortawesome/free-solid-svg-icons';
+const palceKey = mapApiKey;
+  Geocode.setApiKey(palceKey);
+  Geocode.setLanguage("en");
 const RoomSearch = (props) => {
-  const perPage = 3;
+  const perPage = 4;
   const { buttonLabel, className } = props;
   const toggle = () => setModal(!modal);
   const [modal, setModal] = useState(false);
@@ -40,15 +52,16 @@ const RoomSearch = (props) => {
   const [cityList, setCityList] = useState([]);
   const [amenitiesList, setAmenitiesList] = useState([]);
   const [houserulesList, setHouseRulesList] = useState([]);
-  const [formData, setFormData] = useState('');
-  const [checkedBoxess, setCheckedBoxes] = useState([]);
   const [houserules, setHouseRules] = useState('');
   const [houseRuleArr,setHouseRuleArr]=useState([])
   const [aminitiesArr,setAminitiesArr]=useState([])
   const [address, setAddress] = useState('');
+  const [latitude, setLatitude] = useState('');
+  const [longitude, setLongitude] = useState('');
+  const [activeInfoWindow, setActiveInfoWindow] = useState('');
+  const [view, setView] = useState('splitView');
 
   const history = useHistory();
-
   
   useEffect(() => {
 
@@ -62,17 +75,14 @@ const RoomSearch = (props) => {
     let amenities = params.get('amenities');
     let houserules = params.get('houserules');
     let page = params.get('page');
-    let latitude = params.get('lat');
-    let longitude = params.get('lng');
-    // let longitude = params.get('lng');
+    let getlatitude = params.get('lat');
+    let getlongitude = params.get('lng');
     let address = params.get('location');
-
-
 
     setGender(gender);
     setCity(city);
-    // setOccupation(occupation);
-    // setAge(age);
+    setLatitude(getlatitude)
+    setLongitude(getlongitude)
     setBedrooms(bedrooms);
     setAddress(address)
     setAmenities(amenities); 
@@ -88,7 +98,8 @@ const RoomSearch = (props) => {
         '&gender='
         + gender + '&moveIn=' + moveIn + '&duration='
         + duration + '&budget=' + budget +
-        // '&age='+age+'&lat='+latitude+'&lng='+longitude+
+         //'&age='+age+
+         '&lat='+getlatitude+'&lng='+getlongitude+
         '&bedrooms='
         + bedrooms + '&amenities=' + amenities + '&houserules='
         + houserules + '&loginUserId=' + localStorage.getItem('userId') + '&page=' + page + '&perpage=' + perPage;
@@ -97,7 +108,8 @@ const RoomSearch = (props) => {
         '&location=' + address +
         '&gender=' + gender + '&moveIn=' + moveIn + '&duration='
         + duration + '&budget=' + budget +
-        //  '&age='+age+'&lat='+latitude+'&lng='+longitude+
+         //'&age='+age+
+         '&lat='+getlatitude+'&lng='+getlongitude+
         '&bedrooms='
         + bedrooms + '&amenities=' + amenities + '&houserules='
         + houserules + '&page=' + page + '&perpage=' + perPage;
@@ -112,7 +124,9 @@ const RoomSearch = (props) => {
       }
     )
   }, []);
-  // console.log("asmita====",formData)
+  
+  const navToRoomDetailsPage = _id =>
+  props.history.push(`/roomRent/${_id}`);
   useEffect(() => {
     callApi(apiBaseUrl + "/web/" + CITY_URL, 'GET', '').then(
       response => {
@@ -138,30 +152,29 @@ const RoomSearch = (props) => {
   }, []);
   
   const filterSubmit = (page) => {
-    console.log(address)
+    
     setShowList(false);
     let params = new URLSearchParams(props.location.search);
     // let flocation = '';
     //let location = params.get('location');
-    let latitude = params.get('lat');
-    let longitude = params.get('lng');
-
+    //let latitude = params.get('lat');
+    //let longitude = params.get('lng');
+     let searchpara;
     if (localStorage.getItem('userId') != null) {
-      let searchpara = '?city=' + city +
+       searchpara = '?city=' + city +
         '&location=' + address +
         '&gender='
         + gender + '&moveIn=' + moveIn + '&duration='
         + duration + '&budget=' + budget +
-        // '&age='+age+
         '&lat=' + latitude + '&lng=' + longitude + '&bedrooms='
         + bedrooms + '&amenities=' + amenities + '&houserules='
         + houserules + '&loginUserId=' + localStorage.getItem('userId') + '&page=' + page + '&perpage=' + perPage;
 
       history.push('/roomSearch/' + searchpara);
-      window.location.reload();
+     
     } else {
 
-      let searchpara = '?city=' + city +
+       searchpara = '?city=' + city +
         '&location=' + address +
         '&gender=' + gender + '&moveIn=' + moveIn + '&duration='
         + duration + '&budget=' + budget +
@@ -171,8 +184,17 @@ const RoomSearch = (props) => {
         + houserules + '&page=' + page + '&perpage=' + perPage;
 
       history.push('/roomMateSearch/' + searchpara);
-      window.location.reload();
+     // window.location.reload();
     }
+    callApi(apiBaseUrl + "/web/landlord-api/" + searchpara, 'GET', '').then(
+      response => {
+        let totalpagecount = Math.ceil(response.data.count / perPage);
+        setShowList(true);
+        setListCount(response.data.count);
+        setSearchList(response.data.list);
+        setPageCount(totalpagecount);
+      }
+    )
 
   }
   const paginationCallFunction = (e) => {
@@ -238,7 +260,6 @@ const RoomSearch = (props) => {
 
   
     if(name=="houserules"){
-      console.log(houserules)
       if(!houseRuleArr.includes(e.value)){
         houseRuleArr.push(e.value)
         setHouseRuleArr(houseRuleArr)
@@ -258,13 +279,30 @@ const RoomSearch = (props) => {
     }
   }
   const toggle1 = () => {
-    setModal(!modal)
     setAmenities('');
+    setAminitiesArr([]);
+    setHouseRuleArr([]);
     setHouseRules('');
     setBedrooms('')
-    // window.location.reload();
+    //setModal(!modal)
   };
-  console.log("houserules",houserules)
+  const searchOptions = {
+    componentRestrictions: { country: ['us','ca','uy'] },
+    //types: ['city']
+  }
+  const handleChangeAddress = address => {
+    setAddress(address);
+  };
+  const handleSelect = address => {
+    geocodeByAddress(address)
+      .then(results => getLatLng(results[0]))
+      .then(({ lat, lng }) => {
+              setAddress(address);
+              setLatitude(lat)
+              setLongitude(lng)
+            });
+  };
+
   return (
     <div className="home">
       <div className="header">
@@ -301,7 +339,7 @@ const RoomSearch = (props) => {
                             </Col>
                             <Col xs={12} sm={12} md={6} lg={5}>
                             <Label for="">Location</Label>
-                              <Input
+                              {/* <Input
                                 className="search"
                                 type="text"
                                 name="address"
@@ -309,9 +347,51 @@ const RoomSearch = (props) => {
                                 placeholder="Enter a street, area or city"
                                 onChange={(e) => setAddress(e.target.value)}
                                 value={address}
-                              />
+                              /> */}
+                               <PlacesAutocomplete
+                                  onChange={handleChangeAddress}
+                                  //onChange={event => setAddress(event.target.value)}
+                                  onSelect={handleSelect}
+                                  searchOptions={searchOptions}
+                                  value={address}
+                                  //className="search"
+                              >
+                    {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                      <div>
+                        <input
+                          {...getInputProps({
+                            placeholder: 'Enter a street, area or city',
+                            className: 'form-control search',
+                          })}
+                        />
+                        <div className="autocomplete-dropdown-container">
+                          {loading && <div>Loading...</div>}
+                          {suggestions.map(suggestion => {
+                            const className = suggestion.active
+                              ? 'suggestion-item--active'
+                              : 'suggestion-item';
+                            // inline style for demonstration purpose
+                            const style = suggestion.active
+                              ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                              : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                            return (
+                              <div
+                                {...getSuggestionItemProps(suggestion, {
+                                  className,
+                                  style,
+                                })}
+                              >
+                                <span>{suggestion.description}</span>
+                              </div>
+                            );
+                          })}
+                        </div>
+                        </div>
+                    )}
+                  </PlacesAutocomplete>
                             </Col>
-                            <Col xs={12} sm={12} md={6} lg={2}>
+
+                            <Col xs={12} sm={12} md={6} lg={3}>
                               <Label for="">Gender</Label>
                               <Input
                                 type="select"
@@ -421,31 +501,82 @@ const RoomSearch = (props) => {
                       </Modal>
                       <Col xs={12} sm={12} md={12} lg={4}>
                         <div className="d-flex align-items-center flex-wrap form-bg2 px-lg-0">
-                          <button className="view-bt m-1 d-sm-block"><img src={imagePath.listviewImage} alt="image" />List view</button>
-                          <button className="view-bt m-1 d-sm-block"><img src={imagePath.maptviewImage} alt="image" />Map view</button>
-                          <button className="view-bt m-1 d-sm-block"><img src={imagePath.splitviewImage} alt="image" />Split view</button>
+                        
+                          <div className="swtich-radio">
+                            <input type="radio" className="radioC" name="view" id="swtich1" 
+                                  value="listView"
+                                  checked={view=="listView"}
+                                  onChange={(e) => setView(e.target.value)}
+                                  />
+                            <label for="swtich1"> <FontAwesomeIcon icon={faList} />  List View</label>
+                          </div>
+                          <div className="swtich-radio">
+                            <input type="radio" className="radioC" name="view" id="swtich2" 
+                                    value="mapView"
+                                    checked={view=="mapView"}
+                                    onChange={(e) => setView(e.target.value)}
+                            />
+                            <label for="swtich2"><FontAwesomeIcon icon={faMapMarker} />   Map View</label>
+                          </div>
+                          <div className="swtich-radio">
+                            <input type="radio" className="radioC" name="view" id="swtich3" 
+                                  value="splitView"
+                                  checked={view=="splitView"}
+                                  onChange={(e) => setView(e.target.value)}
+                              />
+                            <label for="swtich3"> <FontAwesomeIcon icon={faColumns} />  Split View</label>
+                          </div>
+                        
                         </div>
                       </Col>
 
                     </Row>
                   </div>
+                 {/* List view */}
+                  {view=="listView"?<div>
+                    <Row className="px-2 py-4">
+                      <Col xs={12} sm={12} md={12} lg={12}>
+                        <Searchlist searchList={searchList} show={showList} listCount={listCount} />
 
-                  <Row className="px-2 py-4">
-                    <Col xs={12} sm={12} md={12} lg={7} className="pl-4 pr-0">
+                      </Col>
+                    </Row>
+                </div>:''}
+                 {/* map view */}
+                {view=="mapView"?<div>
+                    <Row className="px-2 py-4">
+                      
+                      <Col xs={12} sm={12} md={12} lg={12} className="px-4">
+                      
+                      <GoogleMap
+                          properties={searchList}
+                          activeInfoWindow={activeInfoWindow}
+                          setActiveInfoWindow={setActiveInfoWindow}
+                          navToRoomDetailsPage={navToRoomDetailsPage}
+                    />
+                      </Col>
+                    </Row>
+                </div>:''}
+                {/* split view */}
+                {view=="splitView"?<div>
+                    <Row className="px-2 py-4">
+                      <Col xs={12} sm={12} md={12} lg={7} className="splitView">
 
-                      <Searchlist searchList={searchList} show={showList} listCount={listCount} />
+                        <Searchlist searchList={searchList} show={showList} listCount={listCount} />
 
-                    </Col>
-
-                    <Col xs={12} sm={12} md={12} lg={5} className="px-4">
-                      <div className="mapview mt-5">
-                        <div className=""><img src={imagePath.mapmarkImage} alt="image" /></div>
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d659064.2706871205!2d5.572872077027312!3d49.814834630019895!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479545b9ca212147%3A0x64db60f602d392ef!2sLuxembourg!5e0!3m2!1sen!2sin!4v1600248985937!5m2!1sen!2sin" width="100%" height="650px" frameborder="0"></iframe>
-
-                      </div>
-                    </Col>
-                  </Row>
-
+                      </Col>
+                      <Col xs={12} sm={12} md={12} lg={5} className="px-4">
+                      
+                      <GoogleMap
+                          properties={searchList}
+                          activeInfoWindow={activeInfoWindow}
+                          setActiveInfoWindow={setActiveInfoWindow}
+                          navToRoomDetailsPage={navToRoomDetailsPage}
+                    />
+                      </Col>
+                    </Row>
+                </div>:''}
+                 
+                  
                   {/* <Row>
                           <Col>
                             <Pageno></Pageno>

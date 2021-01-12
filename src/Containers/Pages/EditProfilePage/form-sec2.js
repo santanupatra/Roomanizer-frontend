@@ -2,11 +2,8 @@ import React,{useState,useEffect} from 'react';
 import './style.css';
 import imagePath from '../../../Config/imageConstants';
 import { Container, Row, Col, Navbar, UncontrolledCollapse } from 'reactstrap';
-import { fab } from '@fortawesome/free-brands-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Nav, NavItem, NavLink } from 'reactstrap';
 import { Button, CustomInput, Form, FormGroup, Label, Input, FormFeedback, FormText } from 'reactstrap';
-import { InputGroup, InputGroupAddon, InputGroupText, } from 'reactstrap';
 import Facebook from '../facebook';
 import Twitter from '../twitter';
 import Gsuite from '../gSuite';
@@ -29,9 +26,10 @@ import PlacesAutocomplete, {
 } from 'react-places-autocomplete';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {mapApiKey} from '../RoomSearchPage/mapConfig';
 //import 'react-google-places-autocomplete/dist/index.min.css';
 import Geocode from "react-geocode";
-const palceKey = "AIzaSyA5LrPhIokuSBO5EgKEcfu859gog6fRF8w";
+const palceKey = mapApiKey;
   Geocode.setApiKey(palceKey);
   Geocode.setLanguage("en");
 
@@ -78,17 +76,15 @@ const Formsec2 = (props) => {
   
   const [fields, setFields] = useState(initialFields);
   const [field, setField] = useState(initialField);
-
   const [userId, setUserId] = useState(null);
   const { handleSubmit, register, errors } = useForm();
   const params = props.match.params;
-  const [setDate, setStartDate] = useState(new Date());
+  const [setDate, setStartDate] = useState();
   const [setRtoM, setmoveIn] = useState(null);
   const [aminitiesOption, setAminitiesOption] = useState([]);
   const [err, setErr] = useState('');
   const [errAdd, setErrAdd] = useState('');
   useEffect(() => {
-    
     setUserId(params.userId)
     if (params.userId) props.crudActionCall(`${USER_URL}/${params.userId}`, null, "GET")
     if (params.userId) props.crudActionRoomCall(`${ROOM_URL}/${params.userId}`, null, "GET")
@@ -102,45 +98,28 @@ const Formsec2 = (props) => {
         setAminitiesOption(option);
       }
     )
-    
-  
-
   }, [params]);
-  
-  
-  console.log(props.room)
-  console.log(props.user.user)
- 
-
-
-
   useEffect(() => {
     const action = props.user.action;
     if (props.room.room) {
       setField({ ...field, ...props.room.room });
       setmoveIn(moment(props.room.room.moveIn).toDate())
-    
-     
     }
     const { type, isSuccess } = props.house.action;
     
     if (props.user.user && params.userId) {
       setFields({ ...fields, ...props.user.user })
-      setStartDate(moment(props.user.user.dateOfBirth).toDate())
-      //setmoveIn(moment(props.user.user.moveIn).toDate())
-     // setmoveIn(moment(data.data.moveIn).toDate())
-
+      if(props.user.user.dateOfBirth)setStartDate(moment(props.user.user.dateOfBirth).toDate())
     }
     if (action.isSuccess && action.type === "UPDATE")
       props.history.push(`/editProfile/${userId}`)
   }, [props.user,props.house,props.room]);
-  // console.log(fields.socialMediaLink.facebookLink)
- 
+  
   const onSubmit = (data) => {
+   
     data.longitude = field.longitude;
     data.latitude = field.latitude;
     data.address = field.address;
-    console.log(data)
     if (userId) data.userId = userId;
     data.user_Id = userId 
     if (setDate) data.dateOfBirth = setDate;
@@ -148,12 +127,7 @@ const Formsec2 = (props) => {
     if (field.houseRules) data.houseRules=field.houseRules
     if (field.noOfBedRoom) data.noOfBedRoom=field.noOfBedRoom
     if (field.aminities) data.aminities=field.aminities
-  //   props.crudActionCall(LANDLORD_URL + `/${userId}`, data, "UPDATE");
-  //   props.resetAction();
-  //   toast.info('Updated  successfully', {
-  //     position: toast.POSITION.TOP_CENTER
-  // });
-   if(data.aminities.length>0&&data.houseRules.length>0&&data.address!==" "){
+   if(data.aminities && data.aminities.length>0&& data.houseRules && data.houseRules.length>0&&data.address!==" "){
       setErrAdd(' ')
       setErr(' ')
       props.crudActionCall(LANDLORD_URL + `/${userId}`, data, "UPDATE");
@@ -167,16 +141,6 @@ else{
   setErr('This field is required')
 }
   }
-
-  // const options1 =  [
-  //   { label: "Furnished", value: "1" },
-  //   { label: "Private Bathroom", value: "2" },
-  //   { label: "Outdoor Space", value: "3" /*, disabled: true*/ },
-  //   { label: "In-unit Washer", value: "4" },
-
-   
-
-  // ];
   const options = props.house.houseList.map((val) =>  
   ({ label: val.name, value: val._id })  
   );
@@ -188,32 +152,10 @@ else{
      
   
   
-  const handleChange2 = (name,value)=>{
+  const handleChange = (name,value)=>{
     setField((prevState) => ({ ...prevState, [name]: value }));
   }
-  const handleChange3 = (name,value)=>{
-    setField((prevState) => ({ ...prevState, [name]: value }));
-  }
-  const handleChange4 = (name,value)=>{
-    setField((prevState) => ({ ...prevState, [name]: value }));
-  }
-  const  handlechange5 = (name,value)=>{
-    setField((prevState) => ({ ...prevState, [name]: value }));
-  }
-  
  
-  const  handlechange = value => {
-    setField((prevState) => ({ ...prevState, "houseRules": value }));
-  }
-  const  handlechange1 = e => {
-          console.log(e.target.value)
-          const val = e.target.value
-    setField((prevState) => ({ ...prevState, "noOfBedRoom": val }));
-  }
-  // const handleChang = address => {
-  //   setField((prevState) => ({ ...prevState, address }));
-  // };
-
   const handleChangeAddress = address => {
     console.log(address)
     if(address===''){
@@ -281,11 +223,12 @@ else{
                             </Row>
                             <Row>
                             <PlacesAutocomplete
-                    onChange={handleChangeAddress}
-                    onSelect={handleSelect}
-                    searchOptions={searchOptions}
-                    value={field.address}
-                  >
+                              onChange={handleChangeAddress}
+                              onSelect={handleSelect}
+                              searchOptions={searchOptions}
+                              value={field.address}
+                              
+                          >
                     {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                       <Col xs={12} sm={12} md={12} lg={12}>
                         <input
@@ -326,16 +269,20 @@ else{
                            <Row>
                             <Col xs={12} sm={12} md={6} lg={6}>
                               <FormGroup>
-                                <Input
+                                <InputUI
                                 type="select"
                                 name="city"
                                 id="city"
                                 innerRef={register}
                                 value={field.city}
+                                errors={errors}
+                                innerRef={register({
+                                  required: 'This is required field',
+                                  })}
                                 onChange={(e) =>
-                                  handlechange5(e.target.name, e.target.value)
+                                  handleChange(e.target.name, e.target.value)
                                 }>
-                                  <option selected disabled>Select A City....</option>
+                                  <option value="">Select A City....</option>
                                 {
                                     props.city && props.city.cityList.map((val) =>{
                                     return(
@@ -344,7 +291,7 @@ else{
                                     );
                                   })
                                   } 
-                                </Input>
+                                </InputUI>
                               </FormGroup>
                             </Col>
                             <Col xs={12} sm={12} md={6} lg={6}>
@@ -409,31 +356,15 @@ else{
                                 </FormGroup>
                               </Col>
                             </Row>
-                            {/* <Row>
-                              <Col xs={12} sm={12} md={12} lg={12}>
-                              <FormGroup>
-                              <InputUI
-                                      type="url"
-                                      name="socialMediaId"
-                                      id="socialMediaId"
-                                      placeholder="Social Media ID"
-                                      errors={errors}
-                                      innerRef={register({
-                                      // required: 'This is required field',
-                                      })}
-                                      fields={fields}
-                                    />
-                                </FormGroup>
-                              </Col>
-                            </Row> */}
                             <Row>
                               <Col xs={12} sm={12} md={6} lg={6}>
                                 <FormGroup>
                                   <DatePicker 
-                                  selected={setDate} 
-                                  className="form-control"
-                                  placeholderText="Date of Birth"
-                                  onChange={date => handleDatechange(date)}
+                                    selected={setDate} 
+                                    className="form-control"
+                                    placeholderText="Date of Birth"
+                                    onChange={date => handleDatechange(date)}
+                                    required
                                   />
                                   </FormGroup>
                               </Col>
@@ -459,27 +390,25 @@ else{
                                   type="radio" 
                                   value="2" 
                                   name= "noOfBedRoom"
-                                  onChange={(value) => handlechange1(value)}
-                                    // defaultChecked={value === "2 Bedroom"}    
+                                  onChange={(e) => handleChange(e.target.name,e.target.value)}
                                   checked={field.noOfBedRoom === "2"}
-                                      // {...plaftormInputProps}
+                                  required
                                   /> 2 Bedroom
                                   </Label>
                                   <Label>
                                     <input type="radio" value="3" name= "noOfBedRoom"
                                       checked={field.noOfBedRoom === "3"}
-                                      onChange={(value) =>
-                                          handlechange1(value)}
+                                      onChange={(e) =>
+                                        handleChange(e.target.name,e.target.value)}
+                                        required
                                     /> 3 Bedroom
                                   </Label>
                                   <Label>
                                     <input type="radio" value="5" name= "noOfBedRoom"
                                       checked={field.noOfBedRoom === "5"}
-                                      //defaultChecked={value === "4+ Bedroom"}  
-                                      onChange={(value) =>
-                                        handlechange1(value)}
-                                    // checked={field.noOfBedRoom}
-                                      // {...plaftormInputProps}
+                                      onChange={(e) =>
+                                        handleChange(e.target.name,e.target.value)}
+                                     required
                                       /> 4+ Bedroom
                                   </Label>
                                 </div>
@@ -493,30 +422,22 @@ else{
                                                 value={field.aminities}
                                                 className="MultiSelect-input"
                                                 onChange={(value) =>
-                                                  handleChange2("aminities",value) 
+                                                  handleChange("aminities",value) 
                                                 }
                                                 labelledBy={"Preferences for house rules"}
                                               />
-                            
-                                     {/* <MultiSelect
-                                        options={options1}
-                                        value={field.aminities}
-                                        className="MultiSelect-input"
-                                        onChange={(value) =>
-                                        handlechange1(value) 
-                                        }
-                                         labelledBy={"Preferences for house rules"}/> */}
+                                    <p style={{color:"red"}}>{errAdd}</p>
                                   <Label for="exampleCheckbox" className="filter-mod">House Rules</Label>
                                 <div className="filt d-flex justify-content-between flex-wrap"></div>    
-                                      <MultiSelect
-                                        options={options}
-                                        value={field.houseRules}
-                                        className="MultiSelect-input"
-                                        onChange={(value) =>
-                                        handlechange(value) 
-                                        }
-                                         labelledBy={"Preferences for house rules"}/>
-                                      
+                                          <MultiSelect
+                                            options={options}
+                                            value={field.houseRules}
+                                            className="MultiSelect-input"
+                                            onChange={(value) =>
+                                              handleChange("houseRules",value) 
+                                            }
+                                            labelledBy={"Preferences for house rules"}/>
+                                    <p style={{color:"red"}}>{errAdd}</p>
                                       
                               <Row>
                                 <Col className="pr-0">
@@ -531,7 +452,7 @@ else{
                                   })}
                                   value={field.flateMate}
                                   onChange={(e) =>
-                                    handleChange3(e.target.name, e.target.value)
+                                    handleChange(e.target.name, e.target.value)
                                   }
                                   >
                                   <option value="">Choose your Flatmates </option>
@@ -541,24 +462,20 @@ else{
                                   </InputUI>
                                 </Col>
                                 <Col>
-                                  {/* <Input type="select" name="select" id="exampleSelect">
-                                    <option>Age Range</option>
-                                    <option>20-30 Age</option>
-                                    <option>30-40 Age</option>
-                                  </Input> */}
+                                 
                                   <InputUI
-                                  type="select"
-                                  name="ageRange"
-                                  id="ageRange"
-                                  placeholder="Age Range"
-                                  errors={errors}
-                                  innerRef={register({
-                                  required: 'This is required field',
-                                  })}
-                                  value={field.ageRange}
-                                  onChange={(e) =>
-                                    handleChange3(e.target.name, e.target.value)
-                                  }
+                                      type="select"
+                                      name="ageRange"
+                                      id="ageRange"
+                                      placeholder="Age Range"
+                                      errors={errors}
+                                      innerRef={register({
+                                      required: 'This is required field',
+                                      })}
+                                      value={field.ageRange}
+                                      onChange={(e) =>
+                                        handleChange(e.target.name, e.target.value)
+                                      }
                                   >
                                   <option value="">Choose your Age Range </option>
                                   <option value="Early 20s">Early 20s</option>
@@ -580,12 +497,12 @@ else{
                                   <option>After 1 Month</option>
                                 </Input> */}
                                 <DatePicker 
-                                selected={setRtoM} 
-                                className="form-control w-100"
-                                
-                                placeholderText="Move In ?"
-                                onChange={e => setmoveIn(e)} 
-                              />
+                                    selected={setRtoM} 
+                                    className="form-control w-100"
+                                    placeholderText="Move In ?"
+                                    onChange={e => setmoveIn(e)} 
+                                    required
+                                />
                               </Col>
                               <Col>
                                 {/* <Input type="select" name="select" id="exampleSelect">
@@ -604,7 +521,7 @@ else{
                                   })}
                                   value={field.duration}
                                   onChange={(e) =>
-                                    handleChange2(e.target.name, e.target.value)
+                                    handleChange(e.target.name, e.target.value)
                                   }
                                   >
                                   <option value="">Choose your Duration </option>
@@ -680,7 +597,7 @@ else{
                                   })}
                                   value={field.chargesType}
                                   onChange={(e) =>
-                                    handleChange4(e.target.name, e.target.value)
+                                    handleChange(e.target.name, e.target.value)
                                   }
                                   >
                                   <option value="">Choose your Charges Type </option>
@@ -767,9 +684,10 @@ else{
                             <div className="text-center">
                               {/* <a href="#" className="login-bt mt-4 mb-2">Submit</a> */}
                               <Button type="submit" className="login-bt mt-4 mb-2"> Submit </Button>
-                              <img src={imagePath.orImage} alt="image"/>
+                              {/* <img src={imagePath.orImage} alt="image"/>
+                              <div className="d-block"></div>
                               <a href="#"><img src={imagePath.fbImage} alt="image"/></a>
-                              <a href="#"><img src={imagePath.gsImage} alt="image"/></a>
+                              <a href="#"><img src={imagePath.gsImage} alt="image"/></a> */}
                               </div>
                       </Form>
       </div>
