@@ -47,9 +47,11 @@ const Navbaar = (props) => {
                 <NavLink href="/login">Log In</NavLink>
               </NavItem>
               <NavItem>
-              <NavLink href="/signUp">Sign Up</NavLink>
+                <NavLink href="/signUp">Sign Up</NavLink>
               </NavItem>
-      
+              <NavItem>
+                <NavLink href="/AgentLogin">Agent</NavLink>
+              </NavItem>
             </Nav>
           </Collapse>
         </Navbar>
