@@ -47,8 +47,10 @@
     color: #00447b;
     font-size: 24px;
 }
-.dashboard .maindata p{
+.dashboard .maindata p,
+.dashboard .table-bordered td{
     font-size: 14px;
+    line-height: normal;
 }
 .filterDashboard .btn.btn-white{
     border: 1px solid #ccc;
@@ -64,4 +66,123 @@
     background-color: #00447b;
     border: 1px solid #00447b;
     color: #fff;
+}
+.dashboard .btn.btn-blue{
+    color: #fff;
+    background-color: #00447b;
+    font-size: 14px;
+}
+.dashboard .propertyImg{
+    width: 100px;
+    height: auto;
+    border-radius: 4px;
+}
+.dashboard .propertyDet{
+    display: flex;
+}
+.dashboard .propertyDet h6{
+    margin-bottom: 0px;
+    color: #00447b;
+}
+.dashboard .propertyDet p{
+    margin-bottom: 0px;
+    color: #555;
+    font-size: 12px !important;
+    line-height: normal;
+}
+.dashboard .stats p{
+    margin-bottom: 0px;
+}
+.dashboard .stats p span{
+    color: #00447b;
+}
+.dashboard .text-blue{
+    color: #00447b;
+}
+.dashboard .postdate span{
+    font-size: 12px;
+    display: block;
+    color: #00447b;
+}
+.dashboard .status span{
+    border-radius: 15px;
+    padding: 2px 5px;
+    font-size: 13px;
+    margin-bottom: 5px;
+    display: inline-block;
+}
+.dashboard .status span.active{
+    background-color: rgba(0, 128, 0, 0.20);
+    color: #156401;
+}
+.dashboard .status span.inactive{
+    background-color: rgba(211, 19, 12, 0.2);
+    color: #e41809;
+}
+.dashboard .status p{
+    font-size: 13px;
+}
+
+
+.dashboard .switch {
+	position: relative;
+	display: inline-block;
+	width: 40px;
+	height: 20px;
+}
+
+.dashboard .switch input {
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+
+.dashboard .slider {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #ccc;
+	-webkit-transition: .4s;
+	transition: .4s;
+	border: none;
+}
+
+.dashboard .slider:before {
+	position: absolute;
+	content: "";
+	height: 10px;
+	width: 10px;
+	left: 4px;
+	bottom: 5px;
+	background-color: white;
+	-webkit-transition: .4s;
+	transition: .4s;
+	border: none;
+}
+
+.dashboard .input:checked+.slider {
+	background-color: #00447b;
+	border: none;
+}
+
+.dashboard .input:focus+.slider {
+	box-shadow: 0 0 1px #00447b;
+	border: none;
+}
+
+.dashboard .input:checked+.slider:before {
+	-webkit-transform: translateX(20px);
+	-ms-transform: translateX(20px);
+	transform: translateX(20px);
+}
+
+.dashboard .slider.round {
+	border-radius: 34px;
+}
+
+.dashboard .slider.round:before {
+	border-radius: 50%;
 }
