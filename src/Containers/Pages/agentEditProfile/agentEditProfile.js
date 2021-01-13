@@ -91,11 +91,11 @@ const AgentEditProfile = (props) => {
   const onSubmit = (data) => {
     console.log("data======>",data)
     if (userId) data.userId = userId;
-    // data.longitude = fields.longitude;
-    // data.latitude = fields.latitude;
-    // data.address = fields.address;
+    data.longitude = fields.longitude;
+    data.latitude = fields.latitude;
+    data.address = fields.address;
     console.log(data)
-    // if(fields.address){
+    if(fields.address){
       setErrAdd(' ')
       setErr(' ')
       props.crudActionCall(USER_URL + `/${userId}`, data, "UPDATE");
@@ -103,11 +103,11 @@ const AgentEditProfile = (props) => {
     toast.info('Submitted successfully', {
       position: toast.POSITION.TOP_CENTER
   });
-// }
-// else{
-//   setErrAdd('This field is required')
-//   setErr('This field is required')
-// }
+}
+else{
+  setErrAdd('This field is required')
+  setErr('This field is required')
+}
   }
 
   
@@ -260,7 +260,7 @@ const AgentEditProfile = (props) => {
                         <FormGroup>
                           <Label>Address</Label>
                           {/* <textarea className="input" placeholder="Enter Address"></textarea> */}
-                          {/* <PlacesAutocomplete
+                          <PlacesAutocomplete
                     onChange={handleChangeAddress}
                     onSelect={handleSelect}
                     searchOptions={searchOptions}
@@ -299,7 +299,7 @@ const AgentEditProfile = (props) => {
                         </div>
                       </Col>
                     )}
-                  </PlacesAutocomplete> */}
+                  </PlacesAutocomplete>
                         </FormGroup>
                       </Col>
                     </Row>
