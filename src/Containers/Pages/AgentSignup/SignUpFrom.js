@@ -31,7 +31,9 @@ const gotoEdit = (userId)=>
    props.history.push(`/editProfile/${userId}`)
   const onSubmit = (data) => {
     console.log(data)
-
+        data.userType="agent"
+    console.log(data)
+        
     axios.post(apiBaseUrl+"/web/"+SIGNUP_URL,data )
       .then(res => {
         console.log(res.data.msg);
@@ -77,7 +79,7 @@ const gotoEdit = (userId)=>
     }
     
   }
-  
+
   
     return (
       <div className="">
@@ -136,11 +138,11 @@ const gotoEdit = (userId)=>
                             <div className="text-center">
                                 <img src={imagePath.orImage} alt="image" />
                                 {/* <NavLink to="#" onClick={()=>{setFbComponent(true)}}><img src={imagePath.fbImage} alt="image" /></NavLink> */}
-                                <FbLoginCom  gotoEdit={gotoEdit}/>
+                                {/* <FbLoginCom  gotoEdit={gotoEdit}/> */}
                                 {/* <NavLink to="#"><img src={imagePath.gsImage} alt="image" /></NavLink> */}
-                                <GoogleLoginCom  gotoEdit={gotoEdit}/>
+                                {/* <GoogleLoginCom  gotoEdit={gotoEdit}/> */}
                            </div>
-                            <NavLink to="/login" className="forgot mt-3 mb-0">Already have an account? <span>Login</span></NavLink>
+                            <NavLink to="/AgentLogin" className="forgot mt-3 mb-0">Already have an account? <span>Login</span></NavLink>
                           </Col>
                         </FormGroup>
                       </Form>

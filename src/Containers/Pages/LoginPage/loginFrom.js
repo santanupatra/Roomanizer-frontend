@@ -107,6 +107,9 @@ const gotoEdit = (userId)=>
     if (props.auth.isAuthenticated && getAuthToken !== "")
     {
       const userId = localStorage.getItem('userId')
+      toast.info('Successfully loggedIn!', {
+        position: toast.POSITION.TOP_CENTER
+      });
       history.push(`/editProfile/${userId}`);
     }
       

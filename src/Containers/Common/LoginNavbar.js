@@ -220,11 +220,11 @@ if (!firebase.apps.length) {
                   <div className="blink">{msgCountData}</div>
                 </NavLink>
               </NavItem>
-              {/* <NavItem>
+              <NavItem>
                 <NavLink>
                   <FontAwesomeIcon color="white" icon={faBell} />
                 </NavLink>
-              </NavItem> */}
+              </NavItem>
 
               <NavItem>
                 <NavLink className="border-0 pr-0">
@@ -246,7 +246,7 @@ if (!firebase.apps.length) {
                 </NavLink>             
               </NavItem>
               <NavItem>
-                <NavLink href="/AgentLogin">Agent</NavLink>
+                <NavLink href="/AgentSignup">Agent</NavLink>
               </NavItem>
             </Nav>
           </Collapse>

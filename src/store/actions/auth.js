@@ -20,7 +20,9 @@ export const login = (val) => {
     //console.log('data==>',data)
     //console.log('value==>',val)
     return async dispatch => {
-        
+        try{
+        if(val.email&&val.password){
+            
             // let  data  = await callApi(LOGIN_URL, 'POST', val);
             let  {data}  = await axiosLogin.post(LOGIN_URL, val);
             const details = data.msg;
@@ -39,9 +41,12 @@ export const login = (val) => {
            const a = localStorage.getItem('userId')
              //console.log(a)
           // console.log(details)
-            toast.info(details, {
-                position: toast.POSITION.TOP_CENTER
-            });
+        //   if(localStorage.getItem('userType')=='landlord'||localStorage.getItem('userType')=='customer'){
+        //     toast.info(details, {
+        //         position: toast.POSITION.TOP_CENTER
+        //     });
+        // }
+            
             
             //console.log("su")
             // set token in redux
@@ -53,12 +58,22 @@ export const login = (val) => {
         } else {
             //console.log(err)
             console.log(details)
-            toast.error(details+'  and Invalid email', {
+            toast.error(details, {
                 position: toast.POSITION.TOP_CENTER
             });
             dispatch({ type: AUTH_FAIL, payload: {} })
             
         }
+    }else{
+        toast.error('Please enter empty field', {
+            position: toast.POSITION.TOP_CENTER
+        });
+    }
+}catch{
+    toast.error('Invalid email', {
+        position: toast.POSITION.TOP_CENTER
+    });
+}
     }
 }
 

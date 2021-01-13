@@ -50,7 +50,7 @@ const Navbaar = (props) => {
                 <NavLink href="/signUp">Sign Up</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="/AgentLogin">Agent</NavLink>
+                <NavLink href="/AgentSignup">Agent</NavLink>
               </NavItem>
             </Nav>
           </Collapse>

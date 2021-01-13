@@ -110,10 +110,11 @@ const searchRoom = (data) =>{
     //types: ['city']
   }
   const handleChangeAddress = address => {
-    console.log(address)
+    console.log("113 home-formjs",address)
     setAddress(address);
   };
   const handleSelect = address => {
+    console.log("117",address)
     geocodeByAddress(address)
       .then(results => getLatLng(results[0]))
       .then(({ lat, lng }) => {
