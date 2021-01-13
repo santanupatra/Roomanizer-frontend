@@ -246,7 +246,7 @@ if (!firebase.apps.length) {
                 </NavLink>             
               </NavItem>
               <NavItem>
-                <NavLink href="/AgentLogin">Agent</NavLink>
+                <NavLink href="/AgentSignup">Agent</NavLink>
               </NavItem>
             </Nav>
           </Collapse>

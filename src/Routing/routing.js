@@ -28,6 +28,7 @@ import ChatPage from '../Containers/Pages/ChatPage/chat';
 import AgentLogin from '../Containers/Pages/AgentLogin/AgentLogin';
 import AgentSignup from '../Containers/Pages/AgentSignup/signup';
 import Dashboard from '../Containers/Pages/Dashboard/Dashboard';
+import AgentChangePassword from '../Containers/Pages/AgentChangePassword/AgentChangePassword';
 
 
 
@@ -63,6 +64,7 @@ const Routes=(props) =>{
                 <Route path="/AgentLogin" exact component={AgentLogin} />
                 <Route path="/AgentSignup" exact component={AgentSignup} />
                 <Route path="/Dashboard" exact component={Dashboard} />
+                <Route path="/agentchangePassword/:userId" exact component={AgentChangePassword} />
                 
             </Switch>
         </Router>

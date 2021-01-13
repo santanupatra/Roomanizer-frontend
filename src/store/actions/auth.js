@@ -41,9 +41,12 @@ export const login = (val) => {
            const a = localStorage.getItem('userId')
              //console.log(a)
           // console.log(details)
-            toast.info(details, {
-                position: toast.POSITION.TOP_CENTER
-            });
+        //   if(localStorage.getItem('userType')=='landlord'||localStorage.getItem('userType')=='customer'){
+        //     toast.info(details, {
+        //         position: toast.POSITION.TOP_CENTER
+        //     });
+        // }
+            
             
             //console.log("su")
             // set token in redux
