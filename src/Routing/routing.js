@@ -29,7 +29,8 @@ import AgentLogin from '../Containers/Pages/AgentLogin/AgentLogin';
 import AgentSignup from '../Containers/Pages/AgentSignup/signup';
 import Dashboard from '../Containers/Pages/Dashboard/Dashboard';
 import AgentEditProfile from '../Containers/Pages/agentEditProfile/agentEditProfile';
-
+import AddProperty from '../Containers/Pages/AddProperty/AddProperty';
+import AgentSettings from '../Containers/Pages/AgentSettings/AgentSettings';
 
 
 const Routes=(props) =>{
@@ -65,6 +66,9 @@ const Routes=(props) =>{
                 <Route path="/AgentSignup" exact component={AgentSignup} />
                 <Route path="/Dashboard" exact component={Dashboard} />
                 <Route path="/AgentEditProfile" exact component={AgentEditProfile} />
+                <Route path="/AddProperty" exact component={AddProperty} />
+                <Route path="/AgentSettings" exact component={AgentSettings} />
+                
                 
             </Switch>
         </Router>

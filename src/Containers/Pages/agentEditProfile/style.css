@@ -11,6 +11,7 @@
   padding: 0px 15px;
   border: 1px solid #ccc;
   display: block;
+  border-radius: 4px;
 }
 .userDetailsBox .input:focus{
   outline: 0px;
