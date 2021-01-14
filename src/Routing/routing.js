@@ -65,10 +65,10 @@ const Routes=(props) =>{
                 <Route path="/chat" exact component={ChatPage} />
                 <Route path="/AgentLogin" exact component={AgentLogin} />
                 <Route path="/AgentSignup" exact component={AgentSignup} />
-                <Route path="/Dashboard" exact component={Dashboard} />
+                <Route path="/Dashboard/:userId" exact component={Dashboard} />
                 <Route path="/agentchangePassword/:userId" exact component={AgentChangePassword} />
                 <Route path="/AgentEditProfile/:userId" exact component={AgentEditProfile} />
-                <Route path="/AddProperty" exact component={AddProperty} />
+                <Route path="/AddProperty/:userId" exact component={AddProperty} />
                 <Route path="/AgentSettings/:userId" exact component={AgentSettings} />
                 <Route path="/agentchangePassword/:userId" exact component={AgentChangePassword} />
                 

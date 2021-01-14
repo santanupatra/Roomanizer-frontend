@@ -103,20 +103,24 @@ else  {
 const gotoEdit = (userId)=>
     history.push(`/editProfile/${userId}`)
   useEffect(() => {
-
-    if (props.auth.isAuthenticated && getAuthToken !== "" && props.auth.userType !='agent')
+  
+    if (props.auth.isAuthenticated && getAuthToken !== "" && props.auth.isAuthenticated!='agent')
     {
       const userId = localStorage.getItem('userId')
       toast.info('Successfully loggedIn!', {
         position: toast.POSITION.TOP_CENTER
       });
-     // history.push(`/editProfile/${userId}`);
+      history.push(`/editProfile/${userId}`);
     }else{
       toast.info(`${props.auth.userType=='agent'?'Agent':''} can not login from here!`, {
         position: toast.POSITION.TOP_CENTER
       });
     }
-      
+ 
+  localStorage.removeItem("access-token");
+    localStorage.removeItem('userId')
+    localStorage.removeItem('userType')
+  
     return () => {
       // cleanup
     };

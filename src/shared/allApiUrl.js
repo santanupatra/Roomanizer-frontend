@@ -23,3 +23,7 @@ export const AMINITIES_URL = 'setting-api/aminities';
 export const FAV_URL = 'favorite-api/fav'
 export const FAVROOM_URL = 'favorite-api/favRoomList';
 export const SOCIALLOGIN_URL = 'auth-api/socialLogin';
+export const ADD_AGENT_URL = 'agent-api/AddAgentProperty';
+export const LIST_AGENT_URL = 'agent-api/agent';
+
+
