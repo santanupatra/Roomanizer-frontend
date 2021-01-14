@@ -1,7 +1,8 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import './style.css';
 import imagePath from '../../../Config/imageConstants';
 import { Container, Row, Col, Button, Dropdown, DropdownToggle, DropdownMenu, Table } from 'reactstrap';
+import {LIST_AGENT_URL} from '../../../shared/allApiUrl';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,11 +11,16 @@ import { faEdit } from '@fortawesome/free-regular-svg-icons';
 import { toast  } from 'react-toastify';
 import { withRouter } from 'react-router-dom';
 import { useHistory } from "react-router";
+import { connect } from "react-redux";
+import { crudAction } from "../../../store/actions/common";
+import {getImageUrl,firebaseConfig} from '../../../shared/helpers'
+
 // import Header from '../../Common/header'
 // import LoginFrom from './loginFrom';
 
 
 const Dashboard = (props) => {
+  console.log(props.agent.agentList)
   const userId = localStorage.getItem('userId')
   const history = useHistory();
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -31,6 +37,16 @@ const Dashboard = (props) => {
           
     history.push('/')
 } 
+const getLandlordList = () => {
+  props.crudActionCall(LIST_AGENT_URL, null, "GET_ALL")
+}
+
+useEffect(() => {
+  getLandlordList();
+  return () => {
+      // cleanup
+  }
+}, []);
     return (
       <React.Fragment>
         <div className="dashboard">
@@ -78,7 +94,7 @@ const Dashboard = (props) => {
               </Col>
               <Col xs={12} sm={12} md={4} lg={4}>
                 <div className="text-lg-right">
-                  <Button color="blue">Add New Properties</Button>
+                  <Button color="blue" href={`/AddProperty/${userId}`}>Add New Properties</Button>
                 </div>
               </Col>
             </Row>
@@ -131,13 +147,16 @@ const Dashboard = (props) => {
                     </div>
                   </td>
                 </tr>
-                <tr>
-                  <td>
+                {props.agent && props.agent.agentList.length > 0 ?
+                props.agent.agentList.map((val) => {
+                 return (
+                  <tr>
+                    <td>
                     <div className="propertyDet">
-                      <div className="mr-2"><img src={imagePath.roomImage1} className="propertyImg" alt="" /></div>
+                      <div className="mr-2"><img src={getImageUrl(val.roomImage?val.roomImage[0].image:imagePath.roomImage1)} className="propertyImg" alt="" /></div>
                       <div>
-                        <h6>3BHK Luxury Villa</h6>
-                        <p>711-2880 Nulla St.</p>
+                        <h6>3BHK {val.roomName}</h6>
+                        <p>{val.zipCode} {val.city}.</p>
                         <p>$1200</p>
                       </div>
                     </div>
@@ -152,7 +171,11 @@ const Dashboard = (props) => {
                   <td><div className="postdate">15 May - 13.55 P.M <span>18 days ago</span></div></td>
                   <td>
                     <div className="status">
-                      <span className="inactive">Inactive</span>
+                      {
+                        val.isActive==true?<span className="active">Active</span>:
+                        <span className="inactive">Inactive</span>
+                      }
+                      
                       <p>Till 3 Jun</p>
                     </div>
                   </td>
@@ -165,7 +188,11 @@ const Dashboard = (props) => {
                       </label>
                     </div>
                   </td>
-                </tr>
+                  </tr>
+                  );
+                })
+
+                : null}
                 <tr>
                   <td>
                     <div className="propertyDet">
@@ -459,4 +486,19 @@ const Dashboard = (props) => {
   
 }
 // export default Dashboard;
-export default withRouter(Dashboard);
+// export default withRouter(Dashboard);
+const mapStateToProps = state => {
+  const { agent } = state;
+  return {
+      agent
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+      crudActionCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, 'AGENT'))
+
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Dashboard));
