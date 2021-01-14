@@ -79,7 +79,7 @@ function AgentLogin (props) {
          position: toast.POSITION.TOP_CENTER
        });
  
-       props.history.push("/Dashboard");
+       props.history.push('/AgentLogin');
  
    }
    catch (error) {
@@ -101,7 +101,7 @@ function AgentLogin (props) {
         toast.info('Successfully loggedIn!', {
           position: toast.POSITION.TOP_CENTER
         });
-         history.push("/Dashboard");
+         history.push(`/Dashboard/${userId}`);
       }
   }
   if(userType==='landlord'||userType==='customer'){

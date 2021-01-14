@@ -103,7 +103,7 @@ else  {
 const gotoEdit = (userId)=>
     history.push(`/editProfile/${userId}`)
   useEffect(() => {
-
+   if( localStorage.getItem('userType')=='customer'||localStorage.getItem('userType')=='landlord'){
     if (props.auth.isAuthenticated && getAuthToken !== "")
     {
       const userId = localStorage.getItem('userId')
@@ -112,7 +112,15 @@ const gotoEdit = (userId)=>
       });
       history.push(`/editProfile/${userId}`);
     }
-      
+  }
+  if( localStorage.getItem('userType')=='agent'){
+    toast.error('You are a Agent' , {
+      position: toast.POSITION.TOP_CENTER
+  });
+  localStorage.removeItem("access-token");
+    localStorage.removeItem('userId')
+    localStorage.removeItem('userType')
+  }
     return () => {
       // cleanup
     };
