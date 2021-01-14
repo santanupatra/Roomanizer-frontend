@@ -4,15 +4,14 @@ import imagePath from '../../../Config/imageConstants';
 import { Container, Row, Col, Navbar } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Formsec from './agentchangePasswordForm';
-import Header from '../../Common/header'
+import Header from '../../Common/agentHeader'
 import { Collapse } from 'react-bootstrap';
 
 const changePassword =(props)=> {
 
  
     return (
-      <div className="home">
-        <div className="header">
+      <>
           <Header></Header>
             <div className="">
               <Container className="mb-3">
@@ -27,8 +26,7 @@ const changePassword =(props)=> {
                 </Row>
               </Container>
             </div>
-        </div>
-      </div>
+     </>
     )
   
 }

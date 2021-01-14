@@ -3,7 +3,7 @@ import './style.css';
 // import imagePath from '../../../Config/imageConstants';
 import { Container, Row, Col, FormGroup, Label, Button } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Header from '../../Common/header'
+import Header from '../../Common/agentHeader'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
 
@@ -153,8 +153,9 @@ else{
             });
   };
     return (
-      <div className="home">
-        <div className="header">
+      // <div className="home">
+        // <div className="header">
+        <React.Fragment>
           <Header></Header>
               <Container className="mb-3">
               
@@ -382,10 +383,9 @@ else{
                   </div>
                 </Col>
                 </Row>
-              
               </Container>
-        </div>
-      </div>
+              </React.Fragment>
+        
     )
 }
 // export default AgentEditProfile;

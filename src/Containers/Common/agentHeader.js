@@ -3,20 +3,27 @@ import '../Pages/HomePage/style.css';
 import { SETTING_URL } from '../../shared/allApiUrl';
 
 import imagePath from '../../Config/imageConstants';
-import { Container, Row, Col } from 'reactstrap';
+
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { getImageUrl } from '../../shared/helpers';
 //import { withRouter } from 'react-router-dom'
+import { Container, Row, Col, Button, Dropdown, DropdownToggle, DropdownMenu, Table } from 'reactstrap';
+import { toast  } from 'react-toastify';
 
 import { connect } from 'react-redux';
 import Navbaar from './Navbar';
 import LoginNavbar from './LoginNavbar';
 import { crudAction } from '../../store/actions/common';
 import { NavLink, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBolt, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { useHistory } from "react-router";
 
- const  Header =(props)=> {
+ const  AgentHeader =(props)=> {
+  const history = useHistory();
 
   const initialFields = {
     siteEmail: '',
@@ -34,7 +41,8 @@ import { NavLink, withRouter } from 'react-router-dom';
 
   const [fields, setFields] = useState(initialFields);
   const [settingId, setSettingId] = useState(null);
-  
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const toggle1 = () => setDropdownOpen(prevState => !prevState);
   const params = props.match.params;
 
 
@@ -57,23 +65,61 @@ import { NavLink, withRouter } from 'react-router-dom';
    //console.log('propsuser',props);
   const userId = localStorage.getItem('userId');
   const userToken = localStorage.getItem('access-token')
-
+  const logout = () =>{
+    localStorage.removeItem("access-token");
+    localStorage.removeItem('userId')
+    // this.setState({
+    //     Authtoken: '',
+    //   });
+      toast.info("Sucessfully logout", {
+        position: toast.POSITION.TOP_LEFT
+        });
+          
+    history.push('/')
+} 
     
         return (
-          <div className="header-sec">
-            <Container className="mb-3">
+          <div className="header-sec agent-header">
+            {/* <Container className="mb-3">
               <Row className="align-items-center">
                 <Col xs={12} sm={12} md={3} lg={3}>
                   <NavLink to="/">
                     <img src={getImageUrl(fields.siteLogo)} href="/" alt="image"/>
-                    {/* <img src={imagePath.LogoImage}  alt="image"/> */}
+                    
                   </NavLink>
                 </Col>
                 <Col xs={12} sm={12} md={9} lg={9}>
                   {userId?<LoginNavbar />:<Navbaar />}
                 </Col>
               </Row>
-            </Container>
+            </Container> */}
+         
+        <Container>
+          <Row className="align-items-center">
+            <Col xs={12} sm={12} md={4} lg={4}><Link to="/Dashboard"><img src={getImageUrl(fields.siteLogo)} alt="logo" /></Link></Col>
+            <Col xs={12} sm={12} md={4} lg={4}>
+              <div className="searchbox">
+                <input type="text" placeholder="Search ..." />
+                <button><FontAwesomeIcon icon={faSearch} /></button>
+              </div>
+            </Col>
+            <Col xs={12} sm={12} md={4} lg={4}>
+              <div className="text-right">
+                <Dropdown isOpen={dropdownOpen} toggle={toggle1}>
+                  <DropdownToggle className="login-hd">
+                    <img src={imagePath.userImage} href="/" alt="image"/> User Name 
+                  </DropdownToggle>
+                  <DropdownMenu>
+                    <Link to={`/AgentEditProfile/${userId}`}>My Account</Link>
+                    <Link to={`/agentchangePassword/${userId}`}>Settings</Link>
+                    <Link to="#" onClick={logout}>Logout</Link>
+                  </DropdownMenu>
+                </Dropdown>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+      
             
           </div>
         )
@@ -94,4 +140,4 @@ const mapDispatchToProps = dispatch => {
 
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Header));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AgentHeader));
