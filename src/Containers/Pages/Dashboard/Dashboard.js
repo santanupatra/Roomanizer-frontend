@@ -39,7 +39,7 @@ const Dashboard = (props) => {
     history.push('/')
 } 
 const getLandlordList = () => {
-  props.crudActionCall(LIST_AGENT_URL, null, "GET_ALL")
+  props.crudActionCall(LIST_AGENT_URL +`/${userId}`, null, "GET_ALL")
 }
 
 useEffect(() => {
@@ -48,6 +48,9 @@ useEffect(() => {
       // cleanup
   }
 }, []);
+const navToEditPage = (userId) => {
+  props.history.push(`/AddProperty/${userId}`);
+}
     return (
       <React.Fragment>
         <div className="dashboard">
@@ -155,7 +158,7 @@ useEffect(() => {
                   </td>
                   <td>
                     <div className="action">
-                      <button><FontAwesomeIcon icon={faEdit} /></button>
+                      <button onClick={() => navToEditPage(val._id)}><FontAwesomeIcon icon={faEdit} /></button>
                       <label class="switch">
                         <input type="checkbox" class="input" />
                         <span class="slider round"></span>
