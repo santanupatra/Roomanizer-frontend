@@ -12,9 +12,6 @@ import EditProfile2 from './editprofile2';
 import EditProfile1 from './editprofile1';
 import { USER_URL} from '../../../shared/allApiUrl';
 
-
-
-
 const EditProfile =(props)=> {
   
   const [fields, setImage] = useState({ preview: "", profilePicture: "" });

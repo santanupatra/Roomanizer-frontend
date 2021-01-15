@@ -5,8 +5,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import imagePath from '../../../Config/imageConstants';
 import Header from '../../Common/header';
 import Footer from '../../Common/footer';
-
-
 export default class Home extends React.Component {
 
   render() {

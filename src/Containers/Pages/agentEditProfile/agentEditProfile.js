@@ -39,7 +39,7 @@ import Geocode from "react-geocode";
 const palceKey = mapApiKey;
   Geocode.setApiKey(palceKey);
   Geocode.setLanguage("en");
-
+  
 const AgentEditProfile = (props) => {
   const initialFields = {
     firstName: "",
@@ -67,8 +67,6 @@ const AgentEditProfile = (props) => {
   const [setRtoM, setReadyToMove] = useState(null);
   const [err, setErr] = useState('');
   const [errAdd, setErrAdd] = useState('');
-
- 
   useEffect(() => {
     setUserId(params.userId)
     if (params.userId) props.crudActionCall(`${USER_URL}/${params.userId}`, null, "GET")

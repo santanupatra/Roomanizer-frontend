@@ -22,8 +22,8 @@ import {
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { white } from 'color-name';
 import {getImageUrl,firebaseConfig} from '../../shared/helpers'
-
 import firebase from 'firebase';
+
 const LoginNavbaar = (props) => {
   const history = useHistory();
   const [isView, setIsView] = useState(true);
