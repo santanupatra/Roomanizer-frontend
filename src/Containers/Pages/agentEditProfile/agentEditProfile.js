@@ -39,7 +39,7 @@ import Geocode from "react-geocode";
 const palceKey = mapApiKey;
   Geocode.setApiKey(palceKey);
   Geocode.setLanguage("en");
-
+  
 const AgentEditProfile = (props) => {
   const initialFields = {
     firstName: "",
@@ -67,16 +67,11 @@ const AgentEditProfile = (props) => {
   const [setRtoM, setReadyToMove] = useState(null);
   const [err, setErr] = useState('');
   const [errAdd, setErrAdd] = useState('');
-
- 
   useEffect(() => {
     setUserId(params.userId)
     if (params.userId) props.crudActionCall(`${USER_URL}/${params.userId}`, null, "GET")
     props.crudActionCityCall(CITY_URL, null, "GET_ALL")
   }, [params]);
-
-
-
   useEffect(() => {
     const action = props.user.action;
     if (props.user.user && params.userId) {
@@ -84,6 +79,8 @@ const AgentEditProfile = (props) => {
       if(props.user.user.dateOfBirth)setStartDate(moment(props.user.user.dateOfBirth).toDate())
       if(props.user.user.readyToMove)setReadyToMove(moment(props.user.user.readyToMove).toDate())
     }
+    if(props.user && props.user.user)
+    localStorage.setItem('profileImg', props.user.user.profilePicture);
     if (action.isSuccess && action.type === "UPDATE")
       props.history.push(`/AgentEditProfile/${userId}`)
   }, [props.user]);
