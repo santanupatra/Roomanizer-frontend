@@ -74,9 +74,6 @@ const AgentEditProfile = (props) => {
     if (params.userId) props.crudActionCall(`${USER_URL}/${params.userId}`, null, "GET")
     props.crudActionCityCall(CITY_URL, null, "GET_ALL")
   }, [params]);
-
-// console.log("==>",props.user.user.profilePicture)
-// console.log(localStorage.setItem('profileImg', props.user.user.profilePicture))
   useEffect(() => {
     const action = props.user.action;
     if (props.user.user && params.userId) {
