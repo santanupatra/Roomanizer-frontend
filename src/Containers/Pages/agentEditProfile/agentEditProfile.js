@@ -75,8 +75,8 @@ const AgentEditProfile = (props) => {
     props.crudActionCityCall(CITY_URL, null, "GET_ALL")
   }, [params]);
 
-
-
+// console.log("==>",props.user.user.profilePicture)
+// console.log(localStorage.setItem('profileImg', props.user.user.profilePicture))
   useEffect(() => {
     const action = props.user.action;
     if (props.user.user && params.userId) {
@@ -84,6 +84,8 @@ const AgentEditProfile = (props) => {
       if(props.user.user.dateOfBirth)setStartDate(moment(props.user.user.dateOfBirth).toDate())
       if(props.user.user.readyToMove)setReadyToMove(moment(props.user.user.readyToMove).toDate())
     }
+    if(props.user && props.user.user)
+    localStorage.setItem('profileImg', props.user.user.profilePicture);
     if (action.isSuccess && action.type === "UPDATE")
       props.history.push(`/AgentEditProfile/${userId}`)
   }, [props.user]);

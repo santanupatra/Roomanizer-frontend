@@ -68,6 +68,7 @@ import { useHistory } from "react-router";
   const username = localStorage.getItem('username');
 
   const userToken = localStorage.getItem('access-token')
+  console.log('imafe',localStorage.getItem('profileImg'));
   const logout = () =>{
     localStorage.removeItem("access-token");
     localStorage.removeItem('userId')
@@ -110,7 +111,8 @@ import { useHistory } from "react-router";
               <div className="text-right">
                 <Dropdown isOpen={dropdownOpen} toggle={toggle1}>
                   <DropdownToggle className="login-hd">
-                    <img src={getImageUrl(profileImg?profileImg:imagePath.userImage)} href="/" alt="image"/> {username} 
+                    <img src={getImageUrl(profileImg)} href="/" alt="image"/>
+                     {username?username: "User Name"} 
                   </DropdownToggle>
                   <DropdownMenu>
                     <Link to={`/AgentEditProfile/${userId}`}>My Account</Link>
