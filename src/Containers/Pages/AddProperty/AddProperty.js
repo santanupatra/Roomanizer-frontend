@@ -5,7 +5,7 @@ import { Container,Form, Row, Col, FormGroup, Label, Button } from 'reactstrap';
 // import { Button, Form, FormGroup, Label, Input, FormFeedback, FormText,UncontrolledCollapse } from 'reactstrap';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Header from '../../Common/header';
+import Header from '../../Common/agentHeader';
 import MultiSelect from "react-multi-select-component";
 import { faTimesCircle } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -149,7 +149,8 @@ const  handleDatechange = date => {
       
       <div className="home">
         <div className="header">
-          <Header/>
+        <Header/>
+        <div className="maindata py-4"></div>
               <Container className="mb-3">
                 <Row className="justify-content-center mt-5">
                   <Col xs={12} sm={12} md={12} lg={10}>
