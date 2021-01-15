@@ -64,6 +64,9 @@ import { useHistory } from "react-router";
   }, [props.setting]);
    //console.log('propsuser',props);
   const userId = localStorage.getItem('userId');
+  const profileImg = localStorage.getItem("profileImg");
+  const username = localStorage.getItem('username');
+
   const userToken = localStorage.getItem('access-token')
   const logout = () =>{
     localStorage.removeItem("access-token");
@@ -96,7 +99,7 @@ import { useHistory } from "react-router";
          
         <Container>
           <Row className="align-items-center">
-            <Col xs={12} sm={12} md={4} lg={4}><Link to="/Dashboard"><img src={getImageUrl(fields.siteLogo)} alt="logo" /></Link></Col>
+            <Col xs={12} sm={12} md={4} lg={4}><a href={`/Dashboard/${userId}`}><img src={getImageUrl(fields.siteLogo)} alt="logo" /></a></Col>
             <Col xs={12} sm={12} md={4} lg={4}>
               <div className="searchbox">
                 <input type="text" placeholder="Search ..." />
@@ -107,7 +110,7 @@ import { useHistory } from "react-router";
               <div className="text-right">
                 <Dropdown isOpen={dropdownOpen} toggle={toggle1}>
                   <DropdownToggle className="login-hd">
-                    <img src={imagePath.userImage} href="/" alt="image"/> User Name 
+                    <img src={getImageUrl(profileImg?profileImg:imagePath.userImage)} href="/" alt="image"/> {username} 
                   </DropdownToggle>
                   <DropdownMenu>
                     <Link to={`/AgentEditProfile/${userId}`}>My Account</Link>

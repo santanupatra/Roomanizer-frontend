@@ -156,7 +156,7 @@ else{
       // <div className="home">
         // <div className="header">
         <React.Fragment>
-          <Header></Header>
+          <Header/>
               <Container className="mb-3">
               
                 <Row className="justify-content-center mt-5">

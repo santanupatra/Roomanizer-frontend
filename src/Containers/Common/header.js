@@ -56,6 +56,7 @@ import { NavLink, withRouter } from 'react-router-dom';
   }, [props.setting]);
    //console.log('propsuser',props);
   const userId = localStorage.getItem('userId');
+  const userType = localStorage.getItem('userType');
   const userToken = localStorage.getItem('access-token')
 
     
@@ -64,10 +65,17 @@ import { NavLink, withRouter } from 'react-router-dom';
             <Container className="mb-3">
               <Row className="align-items-center">
                 <Col xs={12} sm={12} md={3} lg={3}>
-                  <NavLink to="/">
-                    <img src={getImageUrl(fields.siteLogo)} href="/" alt="image"/>
+                  {
+                    userType=="agent"?
+                  <NavLink to={`/Dashboard/${userId}`}>
+                    <img src={getImageUrl(fields.siteLogo)} alt="image"/>
                     {/* <img src={imagePath.LogoImage}  alt="image"/> */}
-                  </NavLink>
+                  </NavLink>:
+                  <NavLink to="/">
+                  <img src={getImageUrl(fields.siteLogo)} alt="image"/>
+                  {/* <img src={imagePath.LogoImage}  alt="image"/> */}
+                </NavLink>
+                  }
                 </Col>
                 <Col xs={12} sm={12} md={9} lg={9}>
                   {userId?<LoginNavbar />:<Navbaar />}
