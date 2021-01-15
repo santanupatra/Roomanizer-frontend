@@ -167,7 +167,7 @@ useEffect(() => {
                 })
 
                 : null}
-                <tr>
+                {/* <tr>
                   <td>
                     <div className="propertyDet">
                       <div className="mr-2"><img src={imagePath.roomImage1} className="propertyImg" alt="" /></div>
@@ -446,7 +446,7 @@ useEffect(() => {
                       </label>
                     </div>
                   </td>
-                </tr>
+                </tr> */}
               </tbody>
             </Table>
             </div>
