@@ -149,7 +149,7 @@ const  handleDatechange = date => {
       
       <div className="home">
         <div className="header">
-          <Header></Header>
+          <Header/>
               <Container className="mb-3">
                 <Row className="justify-content-center mt-5">
                   <Col xs={12} sm={12} md={12} lg={10}>

@@ -18,12 +18,11 @@ import {getImageUrl,firebaseConfig} from '../../../shared/helpers'
 // import Header from '../../Common/header'
 // import LoginFrom from './loginFrom';
 
+import Header from '../../Common/agentHeader'
 
 const Dashboard = (props) => {
   console.log(props.agent.agentList)
   const userId = localStorage.getItem('userId')
-  const profileImg = localStorage.getItem('profileImg');
-  const username = localStorage.getItem('username');
   const history = useHistory();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggle1 = () => setDropdownOpen(prevState => !prevState);
@@ -52,36 +51,7 @@ useEffect(() => {
     return (
       <React.Fragment>
         <div className="dashboard">
-        <header>
-        <Container>
-          <Row className="align-items-center">
-            <Col xs={12} sm={12} md={4} lg={4}><Link to="/"><img src={imagePath.LogoImage} alt="logo" /></Link></Col>
-            <Col xs={12} sm={12} md={4} lg={4}>
-              <div className="searchbox">
-                <input type="text" placeholder="Search ..." />
-                <button><FontAwesomeIcon icon={faSearch} /></button>
-              </div>
-            </Col>
-            <Col xs={12} sm={12} md={4} lg={4}>
-              <div className="text-right">
-                <Dropdown isOpen={dropdownOpen} toggle={toggle1}>
-                  <DropdownToggle className="login-hd">
-                    {/* <img src={imagePath.userImage} href="/" alt="image"/>  */}
-                    <img src={getImageUrl(profileImg?profileImg:imagePath.userImage)} href="/" alt="image"/>
-                    {username}
-                  </DropdownToggle>
-                  <DropdownMenu>
-                    <Link to={`/AgentEditProfile/${userId}`}>My Account</Link>
-                    <Link to={`/agentchangePassword/${userId}`}>Settings</Link>
-                    <Link to="#" onClick={logout}>Logout</Link>
-                  </DropdownMenu>
-                </Dropdown>
-              </div>
-            </Col>
-          </Row>
-        </Container>
-        </header>
-
+        <Header />
         <div className="maindata py-4">
           <Container>
             <Row className="align-items-center">

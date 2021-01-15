@@ -108,7 +108,7 @@ function AgentLogin (props) {
     toast.error(`You are a ${userType}`, {
       position: toast.POSITION.TOP_CENTER
   });
-  localStorage.removeItem("access-token");
+    localStorage.removeItem("access-token");
     localStorage.removeItem('userId')
     localStorage.removeItem('userType')
   }

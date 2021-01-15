@@ -36,7 +36,7 @@ export const login = (val) => {
             localStorage.setItem('userId', data.data.userDetails._id);
            // localStorage.setItem('itemName', "#")
             localStorage.setItem('userType', data.data.userDetails.userType?data.data.userDetails.userType:'');
-            localStorage.setItem('permission', data.data.permission?data.data.permission:'');
+            localStorage.setItem('permission', data.data.userDetails.permission?data.data.userDetails.permission:'');
            console.log(data.data.userDetails._id);
            const a = localStorage.getItem('userId')
              //console.log(a)
@@ -52,7 +52,7 @@ export const login = (val) => {
             // set token in redux
             dispatch({ type: AUTH_SUCCESS, payload: {token: data.data.token, 
                 userId:data.data.userDetails._id,
-                profileImg:data.data.profilePicture,userType:data.data.userType?data.data.userType:'',permission:data.data.permission?data.data.permission:''} });
+                profileImg:data.data.userDetails.profilePicture,userType:data.data.userDetails.userType?data.data.userDetails.userType:'',permission:data.data.userDetails.permission?data.data.userDetails.permission:''} });
             
            // return data;
         } else {
