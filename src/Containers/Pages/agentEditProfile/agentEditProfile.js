@@ -220,6 +220,8 @@ else{
                           required: 'This is required field',
                           })}
                          fields={fields}
+                         disabled
+
                          />
                         </FormGroup>
                       </Col>

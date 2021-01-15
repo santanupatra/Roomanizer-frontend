@@ -62,7 +62,7 @@ import { useHistory } from "react-router";
     
 
   }, [props.setting]);
-   //console.log('propsuser',props);
+   console.log('propsuser',props);
   const userId = localStorage.getItem('userId');
   const profileImg = localStorage.getItem("profileImg");
   const username = localStorage.getItem('username');
@@ -112,7 +112,7 @@ import { useHistory } from "react-router";
                 <Dropdown isOpen={dropdownOpen} toggle={toggle1}>
                   <DropdownToggle className="login-hd">
                     <img src={getImageUrl(profileImg)} href="/" alt="image"/>
-                     {username?username: "User Name"} 
+                     {props.user.user && props.user.username?username: "User Name"} 
                   </DropdownToggle>
                   <DropdownMenu>
                     <Link to={`/AgentEditProfile/${userId}`}>My Account</Link>
