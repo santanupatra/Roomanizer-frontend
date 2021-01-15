@@ -22,6 +22,8 @@ import {getImageUrl,firebaseConfig} from '../../../shared/helpers'
 const Dashboard = (props) => {
   console.log(props.agent.agentList)
   const userId = localStorage.getItem('userId')
+  const profileImg = localStorage.getItem('profileImg');
+  const username = localStorage.getItem('username');
   const history = useHistory();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggle1 = () => setDropdownOpen(prevState => !prevState);
@@ -64,7 +66,9 @@ useEffect(() => {
               <div className="text-right">
                 <Dropdown isOpen={dropdownOpen} toggle={toggle1}>
                   <DropdownToggle className="login-hd">
-                    <img src={imagePath.userImage} href="/" alt="image"/> User Name 
+                    {/* <img src={imagePath.userImage} href="/" alt="image"/>  */}
+                    <img src={getImageUrl(profileImg?profileImg:imagePath.userImage)} href="/" alt="image"/>
+                    {username}
                   </DropdownToggle>
                   <DropdownMenu>
                     <Link to={`/AgentEditProfile/${userId}`}>My Account</Link>

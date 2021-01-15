@@ -100,10 +100,13 @@ const AddProperty = (props) => {
       setErrAdd(' ')
       setErr(' ')
       props.crudActionCall(ADD_AGENT_URL,formData, "ADD");
-    props.resetAction();
+      props.resetAction();
     toast.info('Submitted successfully', {
       position: toast.POSITION.TOP_CENTER
   });
+      props.history.push(`/Dashboard/${params.userId}`)
+    
+
 }
 else{
   setErrAdd('This field is required')
@@ -433,8 +436,8 @@ const  handleDatechange = date => {
                         </div>
                       </Col>
                     </Row>
-
-                    <Button color="blue" type="submit" className="px-4"href={`/Dashboard/${params.userId}`} >Upload Property</Button>
+                    {/* href={`/Dashboard/${params.userId}`} */}
+                    <Button color="blue" type="submit" className="px-4"  >Upload Property</Button>
                     </Form>
 
                     </div>
@@ -447,9 +450,9 @@ const  handleDatechange = date => {
 }
 // export default AddProperty;
 const mapStateToProps = state => {
-  const { user , house ,city} = state;
+  const { agent , house ,city} = state;
   return {
-    user,
+    agent,
     house,
     city
   }
@@ -457,7 +460,7 @@ const mapStateToProps = state => {
   
 const mapDispatchToProps = dispatch => {
   return {
-    crudActionCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "ADD")),
+    crudActionCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "AGENT")),
     resetAction: () => dispatch({ type: "RESET_USER_ACTION" }),
     crudActionHouseCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "HOUSE")),
     crudActionCityCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "CITY")),
