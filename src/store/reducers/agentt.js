@@ -1,7 +1,7 @@
 import {setItemAction,resetItemAction} from '../../shared/commonUpdateState';
 const initialState = {
-    agent: null,
-    agentList: [],
+    agentt: null,
+    agenttList: [],
     action: {
         type: null,
         isSuccess: false,
@@ -12,12 +12,12 @@ const initialState = {
 
 export default function (state = initialState, action) {
     const { type, payload } = action;
-    console.log("Add",payload)
+    console.log("Agentt",payload)
     switch (type) {
-        case 'SET_AGENT_ACTION':
-            return setItemAction(state, payload, 'AGENT');
-        case 'RESET_AGENT_ACTION':
-            return resetItemAction(state, 'AGENT');
+        case 'SET_AGENTT_ACTION':
+            return setItemAction(state, payload, 'AGENTT');
+        case 'RESET_AGENTT_ACTION':
+            return resetItemAction(state, 'AGENTT');
         default: return state
     }
 }

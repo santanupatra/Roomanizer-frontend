@@ -2,7 +2,7 @@ import React,{useState,useEffect} from 'react';
 import './style.css';
 import imagePath from '../../../Config/imageConstants';
 import { Container, Row, Col, Button, Dropdown, DropdownToggle, DropdownMenu, Table } from 'reactstrap';
-import {LIST_AGENT_URL} from '../../../shared/allApiUrl';
+import {LIST_AGENT_URL,LIST_AGENTT_URL} from '../../../shared/allApiUrl';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -48,8 +48,9 @@ useEffect(() => {
       // cleanup
   }
 }, []);
-const navToEditPage = (userId) => {
-  props.history.push(`/AddProperty/${userId}`);
+const navToEditPage = (Id) => {
+  console.log("52",Id)
+  props.history.push(`/AddProperty/${Id}`);
 }
     return (
       <React.Fragment>
@@ -130,7 +131,7 @@ const navToEditPage = (userId) => {
                   <tr>
                     <td>
                     <div className="propertyDet">
-                      <div className="mr-2"><img src={getImageUrl(val.roomImage?val.roomImage[0].image:imagePath.roomImage1)} className="propertyImg" alt="" /></div>
+                      {/* <div className="mr-2"><img src={getImageUrl(val.roomImage?val.roomImage[0].image:imagePath.roomImage1)} className="propertyImg" alt="" /></div> */}
                       <div>
                         <h6>3BHK {val.roomName}</h6>
                         <p>{val.zipCode} {val.city}.</p>

@@ -25,5 +25,7 @@ export const FAVROOM_URL = 'favorite-api/favRoomList';
 export const SOCIALLOGIN_URL = 'auth-api/socialLogin';
 export const ADD_AGENT_URL = 'agent-api/AddAgentProperty';
 export const LIST_AGENT_URL = 'agent-api/agent';
+export const LIST_AGENTT_URL = 'agent-api/agentt';
+export const UPDATE_AGENTT_URL = 'agent-api/updateAgentProperty';
 
 

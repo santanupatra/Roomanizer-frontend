@@ -11,6 +11,8 @@ import landlord from './landlord';
 import favorite from './favorite'
 import favoriteRoom from './favoriteRoom'
 import agent from './agent'
+import agentt from './agentt'
+
 export default combineReducers({
     auth,
     user,
@@ -23,5 +25,6 @@ export default combineReducers({
     landlord,
     favorite,
     favoriteRoom,
-    agent
+    agent,
+    agentt
 })

@@ -9,7 +9,7 @@ import Header from '../../Common/agentHeader';
 import MultiSelect from "react-multi-select-component";
 import { faTimesCircle } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ADD_AGENT_URL,HOUSE_RULE_URL ,CITY_URL,AMINITIES_URL} from '../../../shared/allApiUrl';
+import { ADD_AGENT_URL,HOUSE_RULE_URL ,CITY_URL,AMINITIES_URL,LIST_AGENTT_URL,UPDATE_AGENTT_URL} from '../../../shared/allApiUrl';
 import { crudAction } from '../../../store/actions/common';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -41,21 +41,22 @@ const AddProperty = (props) => {
     roomName:"",
     aboutRoom:"",
     noOfBedRoom:"",
-    houseRules:"",
-    aminities:"",
+    houseRules:[],
+    aminities:[],
     duration:"",
     moveIn:"",
+    readyToMove:"",
+    ageRange:"",
     area:"",
     roomImage:"",
     // address:allData.address,
     ageRange:"",
     zipCode:""
   }
-  
+  const params = props.match.params;
   const [fields, setFields] = useState(initialFields);
   const [userId, setUserId] = useState(null);
   const { handleSubmit, register, errors } = useForm();
-  const params = props.match.params;
   const [setDate, setStartDate] = useState();
   const [setRtoM, setReadyToMove] = useState(null);
   const [aminitiesOption, setAminitiesOption] = useState([]);
@@ -79,10 +80,12 @@ const AddProperty = (props) => {
   }, [params]);
   const onSubmit = (data) => {
     console.log(data,"79")
+    setUserId(params.userId)
+    const a=localStorage.getItem('userId')
     
-    if (userId) data.userId = userId;
     // if (setDate) data.dateOfBirth = setDate;
     if (setRtoM) data.readyToMove = setRtoM;
+    
     // data.longitude = fields.longitude;
     // data.latitude = fields.latitude;
     // data.address = fields.address;
@@ -90,16 +93,29 @@ const AddProperty = (props) => {
     if (fields.noOfBedRoom) data.noOfBedRoom=fields.noOfBedRoom
     if (fields.aminities) data.aminities=fields.aminities
     console.log(data)
-    console.log(data.roomImage[0])
-    data.roomImage = data.roomImage[0];
-    let formData = new FormData();
-    for (let [key, value] of Object.entries(data)) {
-      formData.append(key, value);
-    }
+    // console.log(data.roomImage[0])
+    // data.roomImage = data.roomImage[0];
+    // let formData = new FormData();
+    // formData.append('roomImage', data.roomImage[0]);
+    // for (let [key, value] of Object.entries(data)) {
+    //   console.log("",data.houseRules)
+    //   formData.append(key, value);
+    // }
+    console.log("101",data)
+    // console.log("102",formData)
     if(fields.aminities.length>0&&fields.houseRules.length>0){
+
       setErrAdd(' ')
       setErr(' ')
-      props.crudActionCall(ADD_AGENT_URL,formData, "ADD");
+      if(params.userId==a){
+        if (userId) data.userId = a;
+        props.crudActionCall(ADD_AGENT_URL,data, "ADD");
+      }
+     else{
+      if (userId) data.userId = a;
+      props.crudActionCall(`${UPDATE_AGENTT_URL}`+ `/${userId}`,data, "UPDATE");
+     }
+      // props.crudActionCall(ADD_AGENT_URL,data, "ADD");
       props.resetAction();
     toast.info('Submitted successfully', {
       position: toast.POSITION.TOP_CENTER
@@ -145,6 +161,20 @@ const  handleDatechange = date => {
   var realAge = Math.abs(age_dt.getUTCFullYear() - 1970);
   setFields((prevState) => ({ ...prevState, "age": realAge }));
 }
+useEffect(() => {
+  if (userId) props.crudActionAgenttCall(`${LIST_AGENTT_URL}/${userId}`, null, "GET")
+}, [userId])
+useEffect(() => {
+  const action = props.agentt.action;
+  if (props.agentt.agentt && userId) {
+    console.log("props",props.agentt.agentt)
+    setFields({ ...fields, ...props.agentt.agentt })
+    setReadyToMove(moment(props.agentt.agentt.readyToMove).toDate())
+    console.log("156",fields)
+  }
+
+}, [props.agentt]);
+
     return (
       
       <div className="home">
@@ -321,13 +351,14 @@ const  handleDatechange = date => {
                           </select> */}
                           <InputUI
                             type="number"
-                            name="age"
-                            placeholder="Age"
+                            name="ageRange"
+                            id="age"
+                            placeholder="Age range"
                             errors={errors}
                             innerRef={register({
-                            required: 'This is required field',
+                              required: 'This is required field',
                             })}
-                            value={fields.age}
+                            fields={fields}
                           />
                         </FormGroup>
                       </Col>
@@ -451,10 +482,11 @@ const  handleDatechange = date => {
 }
 // export default AddProperty;
 const mapStateToProps = state => {
-  const { agent , house ,city} = state;
+  const { agent , house ,agentt,city} = state;
   return {
     agent,
     house,
+    agentt,
     city
   }
 }
@@ -464,6 +496,7 @@ const mapDispatchToProps = dispatch => {
     crudActionCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "AGENT")),
     resetAction: () => dispatch({ type: "RESET_USER_ACTION" }),
     crudActionHouseCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "HOUSE")),
+    crudActionAgenttCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "AGENTT")),
     crudActionCityCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "CITY")),
   }
 }
