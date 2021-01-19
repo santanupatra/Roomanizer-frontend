@@ -213,11 +213,13 @@ else{
                           <InputUI
                           type="text"
                           name="email"
+                          readonly='readOnly'
                           id="email"
                           placeholder="Email"
                           errors={errors}
                           innerRef={register({
                           required: 'This is required field',
+                          
                           })}
                          fields={fields}
                          />
