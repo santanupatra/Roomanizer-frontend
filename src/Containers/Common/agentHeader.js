@@ -112,7 +112,7 @@ import { useHistory } from "react-router";
                 <Dropdown isOpen={dropdownOpen} toggle={toggle1}>
                   <DropdownToggle className="login-hd">
                     <img src={getImageUrl(profileImg)} href="/" alt="image"/>
-                     {props.user.user && props.user.username?username: "User Name"} 
+                     {props.user.user && props.user.user.firstName?props.user.user.lastName?`${props.user.user.firstName} ${props.user.user.lastName}`:`${props.user.user.firstName} `: "User Name"} 
                   </DropdownToggle>
                   <DropdownMenu>
                     <Link to={`/AgentEditProfile/${userId}`}>My Account</Link>
