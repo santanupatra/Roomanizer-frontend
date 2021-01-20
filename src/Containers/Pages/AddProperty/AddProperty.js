@@ -61,6 +61,8 @@ const AddProperty = (props) => {
   const [setRtoM, setReadyToMove] = useState(null);
   const [aminitiesOption, setAminitiesOption] = useState([]);
   const [err, setErr] = useState('');
+  const [roomImage, setRoomImage] = useState(null);
+
   const [errAdd, setErrAdd] = useState('');
   useEffect(() => {
     setUserId(params.userId)
@@ -79,6 +81,7 @@ const AddProperty = (props) => {
 
   }, [params]);
   const onSubmit = (data) => {
+    let formData = new FormData();
     console.log(data,"79")
     setUserId(params.userId)
     const a=localStorage.getItem('userId')
@@ -89,27 +92,36 @@ const AddProperty = (props) => {
     // data.longitude = fields.longitude;
     // data.latitude = fields.latitude;
     // data.address = fields.address;
+    
+console.log("fields.roomImage",...fields.roomImage)
+
     if (fields.houseRules) data.houseRules=fields.houseRules
     if (fields.noOfBedRoom) data.noOfBedRoom=fields.noOfBedRoom
     if (fields.aminities) data.aminities=fields.aminities
+    // if (fields.roomImage) data.roomImage=fields.roomImage
+
     console.log(data)
-    // console.log(data.roomImage[0])
-    // data.roomImage = data.roomImage[0];
-    // let formData = new FormData();
-    // formData.append('roomImage', data.roomImage[0]);
-    // for (let [key, value] of Object.entries(data)) {
-    //   console.log("",data.houseRules)
-    //   formData.append(key, value);
+    formData.append('roomImage', data.roomImage[0]);
+
+    // for (let i = 0; i < fromData.mealImage.length; i++) {
+    //   formData.append('mealImage', fromData.mealImage[i]);
     // }
-    console.log("101",data)
-    // console.log("102",formData)
+    for (let [key, value] of Object.entries(data)) {
+      console.log("key===",key,"value===",value)
+      if(key=='roomImage'){
+        formData.append(key, JSON.stringify(value));
+
+      }      
+      formData.append(key, value);
+    }
+    console.log("formData",formData)
     if(fields.aminities.length>0&&fields.houseRules.length>0){
 
       setErrAdd(' ')
       setErr(' ')
       if(params.userId==a){
         if (userId) data.userId = a;
-        props.crudActionCall(ADD_AGENT_URL,data, "ADD");
+        props.crudActionCall(ADD_AGENT_URL,formData, "ADD");
       }
      else{
       if (userId) data.userId = a;
@@ -120,7 +132,7 @@ const AddProperty = (props) => {
     toast.info('Submitted successfully', {
       position: toast.POSITION.TOP_CENTER
   });
-      props.history.push(`/Dashboard/${params.userId}`)
+      // props.history.push(`/Dashboard/${params.userId}`)
     
 
 }
@@ -452,6 +464,10 @@ useEffect(() => {
                             <FileInput
                               label="Website Logo"
                               name="roomImage"
+                              value={fields.roomImage}
+                              onChange={(e) =>
+                                handleChange(e.target.name, e.target.value)
+                              }
                               register={register}
                               errors={errors}
                               required={false}
