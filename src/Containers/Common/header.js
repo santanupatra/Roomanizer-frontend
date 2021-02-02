@@ -13,6 +13,7 @@ import { getImageUrl } from '../../shared/helpers';
 import { connect } from 'react-redux';
 import Navbaar from './Navbar';
 import LoginNavbar from './LoginNavbar';
+import AgentHeader from './agentHeader';
 import { crudAction } from '../../store/actions/common';
 import { NavLink, withRouter } from 'react-router-dom';
 
@@ -78,7 +79,7 @@ import { NavLink, withRouter } from 'react-router-dom';
                   }
                 </Col>
                 <Col xs={12} sm={12} md={9} lg={9}>
-                  {userId?<LoginNavbar />:<Navbaar />}
+                  {userId && userType!='agent'?<LoginNavbar />:<Navbaar />}
                 </Col>
               </Row>
             </Container>
