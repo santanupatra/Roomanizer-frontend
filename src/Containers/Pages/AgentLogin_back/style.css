@@ -72,16 +72,6 @@ input:-internal-autofill-selected {
 .g-plus.active button span{
     color: #fff !important;
 }
-.cust_Agentbutton {
-    background-color: #ffffff !important;
-    padding: 8px 10px !important;
-    font-size: 18px !important;
-    text-transform: uppercase;
-    border-radius: 0 !important;
-    color: #02477d !important;
-    border: 0.55px solid #dcdcdc !important;
-    margin-bottom: 9px !important;
-}
 
 
 

@@ -63,7 +63,7 @@ import { NavLink, withRouter } from 'react-router-dom';
     
         return (
           <div className="header-sec">
-            <Container fluid className="mb-3">
+            <Container className="mb-3">
               <Row className="align-items-center">
                 <Col xs={12} sm={12} md={3} lg={3}>
                   {

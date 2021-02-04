@@ -15,7 +15,7 @@ import SignUpFrom from './SignUpFrom';
               <Container className="mb-3">
                 <Row>
                   <Col xs={12} sm={12} md={12} lg={6} className="pr-lg-5">
-                    <h2 className="white-heading custm_h2">Agent Sign up</h2>
+                    <h2 className="white-heading text-center mb-3">Agent Sign up</h2>
                     <SignUpFrom />
                   </Col>
                   <Col xs={12} sm={12} md={12} lg={6}>

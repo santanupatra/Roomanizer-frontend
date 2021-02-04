@@ -24,6 +24,7 @@ import { useHistory } from "react-router";
 
  const  AgentHeader =(props)=> {
   const history = useHistory();
+
   const initialFields = {
     siteEmail: '',
     siteAddress: '',
@@ -40,18 +41,15 @@ import { useHistory } from "react-router";
 
   const [fields, setFields] = useState(initialFields);
   const [settingId, setSettingId] = useState(null);
-  const [showSearch, setShowSearch] = useState(true);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggle1 = () => setDropdownOpen(prevState => !prevState);
   const params = props.match.params;
-  const path = props.match.path
+
 
   useEffect(() => {
-    if(path == '/AddProperty/:userId' || path == '/agentchangePassword/:userId' || path == "/AgentEditProfile/:userId" ){
-        setShowSearch(false)
-    }
+    
     props.crudActionCall(`${SETTING_URL}`, null, "GET")
-  }, [params,path]);
+  }, [params]);
 
   useEffect(() => {
     const action = props.setting.action;
@@ -103,30 +101,25 @@ import { useHistory } from "react-router";
         <Container>
           <Row className="align-items-center">
             <Col xs={12} sm={12} md={4} lg={4}><a href={`/Dashboard/${userId}`}><img src={getImageUrl(fields.siteLogo)} alt="logo" /></a></Col>
-
-            <Col xs={12} sm={12} md={8} lg={8}>
-              <div className="cust_hdr">
-               {showSearch?
-                  <div className="searchbox custm_srch1 show_off_Srch">
-                      <input type="text" placeholder="Search ..." />
-                      <button><FontAwesomeIcon icon={faSearch} /></button>
-                  </div>:''
-
-               } 
-
-                <div className="text-right">
-                  <Dropdown isOpen={dropdownOpen} toggle={toggle1}>
-                    <DropdownToggle className="login-hd custm_Login">
-                      <img src={getImageUrl(profileImg)} href="/" alt="image" className="custm_img"/>
-                      {props.user.user && props.user.user.firstName?props.user.user.lastName?`${props.user.user.firstName} ${props.user.user.lastName}`:`${props.user.user.firstName} `: "User Name"} 
-                    </DropdownToggle>
-                    <DropdownMenu>
-                      <Link to={`/AgentEditProfile/${userId}`}>My Account</Link>
-                      <Link to={`/agentchangePassword/${userId}`}>Settings</Link>
-                      <Link to="#" onClick={logout}>Logout</Link>
-                    </DropdownMenu>
-                  </Dropdown>
-                </div>
+            <Col xs={12} sm={12} md={4} lg={4}>
+              <div className="searchbox">
+                <input type="text" placeholder="Search ..." />
+                <button><FontAwesomeIcon icon={faSearch} /></button>
+              </div>
+            </Col>
+            <Col xs={12} sm={12} md={4} lg={4}>
+              <div className="text-right">
+                <Dropdown isOpen={dropdownOpen} toggle={toggle1}>
+                  <DropdownToggle className="login-hd">
+                    <img src={getImageUrl(profileImg)} href="/" alt="image"/>
+                     {props.user.user && props.user.user.firstName?props.user.user.lastName?`${props.user.user.firstName} ${props.user.user.lastName}`:`${props.user.user.firstName} `: "User Name"} 
+                  </DropdownToggle>
+                  <DropdownMenu>
+                    <Link to={`/AgentEditProfile/${userId}`}>My Account</Link>
+                    <Link to={`/agentchangePassword/${userId}`}>Settings</Link>
+                    <Link to="#" onClick={logout}>Logout</Link>
+                  </DropdownMenu>
+                </Dropdown>
               </div>
             </Col>
           </Row>

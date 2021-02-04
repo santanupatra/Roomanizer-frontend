@@ -9,11 +9,8 @@
     color: #333;
 }
 .agent-header .login-hd{
-    color: #333 ;
-    border: 1px solid #9e9d9d !important;
-    border-radius: 0px;
-    padding: 7px 12px;
-    background-color:#fbfbfb !important;
+    color: #333 !important;
+    border: 1px solid #ccc !important;
 }
 .agent-header .login-hd:active,
 .agent-header .login-hd:focus{
@@ -28,7 +25,6 @@
     background-color: #fff;
     padding: 0px 15px;
     border: 1px solid #ccc;
-    border-right: 0;
 }
 .searchbox input:focus{
     outline: 0px;
@@ -36,14 +32,13 @@
 .searchbox button{
     width: 50px;
     height: 40px;
-    background-color: #fbfbfb;
+    background-color: #00457b;
     cursor: pointer;
-    border: 1px solid #ccc;
-    color: #014d81;
+    border: none;
+    color: #fff;
     font-size: 14px;
     vertical-align: top;
     line-height: 40px;
-    border-left: 0;
 }
 .dashboard .maindata{
     background-color: #f1f1f1;
@@ -177,17 +172,17 @@
 	box-shadow: 0 0 1px #00447b;
 	border: none;
 }
+
 .dashboard .input:checked+.slider:before {
 	-webkit-transform: translateX(20px);
 	-ms-transform: translateX(20px);
 	transform: translateX(20px);
 }
+
 .dashboard .slider.round {
 	border-radius: 34px;
 }
+
 .dashboard .slider.round:before {
 	border-radius: 50%;
-}
-.custm_img {
-    margin-right: 10px;
 }

@@ -25,37 +25,29 @@
 }
 .AgentDP{
   position: relative;
-  overflow: hidden;
-  width: 14%;
+  width: 200px;
   height: auto;
-  /* margin: -100px auto 0px auto; */
-  margin: 0 auto;
+  margin: -100px auto 0px auto;
 }
 .AgentDP img{
-  width: 120px;
-  height: 120px;
+  width: 200px;
+  height: 200px;
   border-radius: 360px;
-  /* border: 2px solid #014d81; */
-  max-width: 100%;
-  vertical-align: middle;
-  object-fit: cover;
+  border: 2px solid #014d81;
 }
 .uploadAgentDP{
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   line-height: 40px;
   text-align: center;
   border-radius: 360px;
   position: absolute;
-  right: 0;
-  bottom: 4px;
+  right: 0px;
+  bottom: 20px;
   overflow: hidden;
-  background-color:#e2e2e2;
+  background-color: #014d81;
   color: #fff;
   cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;  
 }
 .uploadAgentDP input{
   position: absolute;
@@ -65,20 +57,4 @@
   left: 0px;
   opacity: 0;
   cursor: pointer;
-}
-.svg-inline--fa {
-  font-size: 14px !important;
-  color:  #014d81;
-}
-.custm_save {
-  display: flex;
-  margin: 0 auto;
-  background: white;
-  color: #014d81;
-  border: 1px solid #ccc;
-  border-radius: 0;
-}
-.custm_save:hover {
-  background-color:#014d81;
-  color: white;
 }

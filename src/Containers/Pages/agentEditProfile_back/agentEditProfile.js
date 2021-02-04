@@ -150,17 +150,18 @@ else{
             });
   };
     return (
-      <div className="home">
-         <div className="header">
+      // <div className="home">
+        // <div className="header">
         <React.Fragment>
           <Header/>
               <Container className="mb-3">
+              
                 <Row className="justify-content-center mt-5">
                   <Col xs={12} sm={12} md={12} lg={10}>
-                  <h2 className="custm_hding">Agent Edit Profile</h2>
-                  <div className="userDetailsBox p-4 bg-white custm_userDetailsBox mt-2">
+                  <h2 className="mb-5">Agent Edit Profile</h2>
+                  <div className="userDetailsBox p-4 bg-white mt-5">
                     {/* <div className="AgentDP mb-5">
-                      <img src={imagePath.profileImage} alt="agentdp"  />
+                      <img src={imagePath.profileImage} alt="agentdp" />
                       <div className="uploadAgentDP">
                         <input type="file" />
                         <FontAwesomeIcon icon={faUpload} />
@@ -174,7 +175,6 @@ else{
                           <Label>First Name</Label>
                           {/* <input className="input" type="text" placeholder="Enter First Name" /> */}
                           <InputUI
-                          className="custm_inpt"
                           type="text"
                           name="firstName"
                           id="firstName"
@@ -192,7 +192,6 @@ else{
                           <Label>Last Name</Label>
                           {/* <input className="input" type="text" placeholder="Enter Last Name" /> */}
                           <InputUI
-                          className="custm_inpt"
                           type="text"
                           name="lastName"
                           id="lastName"
@@ -212,7 +211,6 @@ else{
                           <Label>Email</Label>
                           {/* <input className="input" type="email" placeholder="Enter Email" /> */}
                           <InputUI
-                          className="custm_inpt"
                           type="text"
                           name="email"
                           readonly='readOnly'
@@ -234,7 +232,6 @@ else{
                           <Label>City</Label>
                           {/* <input className="input" type="text" placeholder="Enter City" /> */}
                           <InputUI
-                          className="custm_inpt"
                       type="select"
                       name="city"
                       id="city"
@@ -272,11 +269,11 @@ else{
                     value={fields.address}
                   >
                     {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                      <Col xs={12} sm={12} md={12} lg={12} className="px-0">
+                      <Col xs={12} sm={12} md={12} lg={12}>
                         <input
                           {...getInputProps({
                             placeholder: 'Search Places ...',
-                            className: 'form-control custm_inpt',
+                            className: 'form-control',
                           })}
                         />
                         <p style={{color:"red"}}>{errAdd}</p>
@@ -314,7 +311,6 @@ else{
                           <Label>Zip Code</Label>
                           {/* <input className="input" type="text" placeholder="Enter Zip Code" /> */}
                           <InputUI
-                          className="custm_inpt"
                           type="number"
                           name="zipCode"
                           id="zipCode"
@@ -332,7 +328,6 @@ else{
                           <Label>Phone No</Label>
                           {/* <input className="input" type="tel" placeholder="Enter Phone No." /> */}
                           <InputUI
-                          className="custm_inpt"
                           type="text"
                           name="phone_number"
                           id="phone_number"
@@ -352,7 +347,6 @@ else{
                           <Label>Facebook Profile</Label>
                           {/* <input className="input" type="url" placeholder="Facebook URL" /> */}
                           <InputUI
-                          className="custm_inpt"
                           type="text"
                           name="facebookLink"
                           id="facebookLink1"
@@ -371,7 +365,6 @@ else{
                           <Label>YouTube Profile</Label>
                           {/* <input className="input" type="url" placeholder="EnYouTube URL" /> */}
                           <InputUI
-                                      className="custm_inpt"
                                       type="text"
                                       name="facebookLink"
                                       id="facebookLink2"
@@ -386,16 +379,14 @@ else{
                         </FormGroup>
                       </Col>
                     </Row>
-                    <Button type="button" onClick={handleSubmit(onSubmit)} className="px-5 custm_save">Save
-                    </Button>
+                    <Button type="button" onClick={handleSubmit(onSubmit)} color="blue" className="px-4">Save</Button>
                     </Form>
                   </div>
                 </Col>
                 </Row>
               </Container>
-            </React.Fragment>
-          </div>
-        </div>
+              </React.Fragment>
+        
     )
 }
 // export default AgentEditProfile;
