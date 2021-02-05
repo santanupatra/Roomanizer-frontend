@@ -86,12 +86,12 @@ const AgentEditProfile = (props) => {
   }, [props.user]);
 
   const onSubmit = (data) => {
-    console.log("data======>",data)
+    // console.log("data======>",data)
     if (userId) data.userId = userId;
     data.longitude = fields.longitude;
     data.latitude = fields.latitude;
     data.address = fields.address;
-    console.log(data)
+    // console.log(data)
     if(fields.address){
       setErrAdd(' ')
       setErr(' ')
@@ -109,12 +109,12 @@ else{
 
   
   const handleChange = (name,value)=>{
-    console.log(value)
+    // console.log(value)
     setFields((prevState) => ({ ...prevState, [name]: value }));
   }
 
   const handleChangeAddress = address => {
-    console.log(address)
+    // console.log(address)
     if(address===''){
       setErrAdd('This field is required')
     }else{
@@ -142,8 +142,8 @@ else{
     geocodeByAddress(address)
       .then(results => getLatLng(results[0]))
       .then(({ lat, lng }) => {
-              console.log("lat==",lat,"lng==",lng)
-              console.log(address);
+              // console.log("lat==",lat,"lng==",lng)
+              // console.log(address);
               setFields((prevState) => ({ ...prevState, ["address"]: address }));
               setFields((prevState) => ({ ...prevState, ["longitude"]: lng }));
               setFields((prevState) => ({ ...prevState, ["latitude"]: lat }));

@@ -47,7 +47,7 @@ export default function ({ setLoader, removeLoader }) {
     }
     useEffect(() => {
         axiosInstance.interceptors.request.use(req => {
-            console.log(req)
+            // console.log(req)
             // setLoader()
             // const token = localStorage.getItem('token');
             // config.headers.Authorization = token ? `Bearer ${token}` : '';

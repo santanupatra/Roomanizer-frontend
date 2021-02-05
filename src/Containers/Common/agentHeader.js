@@ -64,13 +64,13 @@ import { useHistory } from "react-router";
     
 
   }, [props.setting]);
-   console.log('propsuser',props);
+  //  console.log('propsuser',props);
   const userId = localStorage.getItem('userId');
   const profileImg = localStorage.getItem("profileImg");
   const username = localStorage.getItem('username');
 
   const userToken = localStorage.getItem('access-token')
-  console.log('imafe',localStorage.getItem('profileImg'));
+  // console.log('imafe',localStorage.getItem('profileImg'));
   const logout = () =>{
     localStorage.removeItem("access-token");
     localStorage.removeItem('userId')

@@ -32,7 +32,7 @@ export const callApi = (url, method, data) => {
       ...dataObj,
     })
       .then((response) => {
-        console.log("callApi===>>>>", response);
+        // console.log("callApi===>>>>", response);
         if (response.status === 200) {
           resolve(response.data);
           //alert(response.data.details);

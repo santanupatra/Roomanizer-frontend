@@ -26,6 +26,7 @@ const EditProfile = (props) => {
     if (props.user.user && params.userId) {
       setImage({ ...fields, ...props.user.user })
     }
+    setUserType({'userType':props.user.user && props.user.user.userType && props.user.user.userType})
   }, [props.user]);
 
   const handleChnage = (e) => {
@@ -50,6 +51,7 @@ const EditProfile = (props) => {
   } else if (props.user.user && props.user.user.userType && props.user.user.userType === 'landlord') {
     checked = true;
   }
+  console.log(userType, 'edit profile===========================')
   return (
     <div className="home">
       <div className="header">
@@ -63,7 +65,7 @@ const EditProfile = (props) => {
                 {/* Toggle */}
                 <div className="text-center mb-4">
                   <label class="switch">
-                    <input type="checkbox" name="userType" checked={checked} value={userType.userType} onClick={handleChnage} defaultChecked={checked} />
+                    <input type="checkbox" name="userType" value={userType.userType} onClick={handleChnage}  />
                     <span class="slider round"></span>
                   </label>
                   <span className="mt-2 d-block">

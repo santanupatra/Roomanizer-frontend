@@ -78,7 +78,7 @@ setAminitiesOption(option);
 }, [params]);
 const onSubmit = (data) => {
 let formData = new FormData();
-console.log(data,"79")
+// console.log(data,"79")
 setUserId(params.userId)
 const a=localStorage.getItem('userId')
 // if (setDate) data.dateOfBirth = setDate;
@@ -86,24 +86,24 @@ if (setRtoM) data.readyToMove = setRtoM;
 // data.longitude = fields.longitude;
 // data.latitude = fields.latitude;
 // data.address = fields.address;
-console.log("fields.roomImage",...fields.roomImage)
+// console.log("fields.roomImage",...fields.roomImage)
 if (fields.houseRules) data.houseRules=fields.houseRules
 if (fields.noOfBedRoom) data.noOfBedRoom=fields.noOfBedRoom
 if (fields.aminities) data.aminities=fields.aminities
 // if (fields.roomImage) data.roomImage=fields.roomImage
-console.log(data)
+// console.log(data)
 formData.append('roomImage', data.roomImage[0]);
 // for (let i = 0; i < fromData.mealImage.length; i++) {
 //   formData.append('mealImage', fromData.mealImage[i]);
 // }
 for (let [key, value] of Object.entries(data)) {
-console.log("key===",key,"value===",value)
+// console.log("key===",key,"value===",value)
 if(key=='roomImage'){
 formData.append(key, JSON.stringify(value));
 }      
 formData.append(key, value);
 }
-console.log("formData",formData)
+// console.log("formData",formData)
 if(fields.aminities.length>0&&fields.houseRules.length>0){
 setErrAdd(' ')
 setErr(' ')
@@ -131,16 +131,16 @@ const options = props.house.houseList.map((val) =>
 ({ label: val.name, value: val._id })  
 );
 const handleChange = (name,value)=>{
-console.log(value)
+// console.log(value)
 setFields((prevState) => ({ ...prevState, [name]: value }));
 }
 const  handlechange1 = e => {
-console.log(e.target.value)
+// console.log(e.target.value)
 const val = e.target.value
 setFields((prevState) => ({ ...prevState, "noOfBedRoom": val }));
 }
 const handleChangeAddress = address => {
-console.log(address)
+// console.log(address)
 if(address===''){
 setErrAdd('This field is required')
 }else{
@@ -161,10 +161,10 @@ if (userId) props.crudActionAgenttCall(`${LIST_AGENTT_URL}/${userId}`, null, "GE
 useEffect(() => {
 const action = props.agentt.action;
 if (props.agentt.agentt && userId) {
-console.log("props",props.agentt.agentt)
+// console.log("props",props.agentt.agentt)
 setFields({ ...fields, ...props.agentt.agentt })
 setReadyToMove(moment(props.agentt.agentt.readyToMove).toDate())
-console.log("156",fields)
+// console.log("156",fields)
 }
 }, [props.agentt]);
 return (
