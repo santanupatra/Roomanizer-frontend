@@ -71,11 +71,12 @@ const ChangePasswordForm = (props) => {
     return (
       <div className="">
         
-        <div className="login-form">
+        <div className="login-form custm_Login2">
                       <Form onSubmit={handleSubmit(onSubmit)}>
                         <FormGroup row>
                           <Col sm={12}>
                           <InputUI
+                            className="custm_inpt"
                             type="password" 
                             name="currentPassword" 
                             id="currentPassword" 
@@ -87,6 +88,7 @@ const ChangePasswordForm = (props) => {
                             fields={fields}
                             />
                             <InputUI
+                            className="custm_inpt"
                             type="password" 
                             name="newPassword" 
                             id="newPassword" 
@@ -98,6 +100,7 @@ const ChangePasswordForm = (props) => {
                             fields={fields}
                             />
                             <InputUI
+                            className="custm_inpt"
                             type="password" 
                             name="confirmPassword" 
                             id="confirmPassword" 
@@ -108,7 +111,7 @@ const ChangePasswordForm = (props) => {
                             })}
                             fields={fields}
                             />
-                            <Button type="submit" size="sm" color="primary" className="login-bt mt-5"> Submit</Button>
+                            <Button type="submit" size="sm" color="primary" className="login-bt mt-5 cust_Agentbutton"> Submit</Button>
                           </Col>
                         </FormGroup>
                       </Form>

@@ -128,7 +128,7 @@ const gotoEdit = (userId)=>
 
   return (
     <div className="">
-      <div className="login-form custm_Login2">
+      <div className="login-form">
 
         <Form >
           <FormGroup row>
@@ -137,7 +137,7 @@ const gotoEdit = (userId)=>
               <Input
                 type="email"
                 name="email"
-                className="custm_inpt"
+
                 placeholder="Email"
                 autoComplete="username"
                 innerRef={register}
@@ -145,7 +145,6 @@ const gotoEdit = (userId)=>
               />
               {/* <Input type="password" name="password" id="examplePassword" placeholder="password placeholder" /> */}
               <Input
-                className="custm_inpt"
                 type="password"
                 name="password"
                 placeholder="Password"
@@ -169,7 +168,6 @@ const gotoEdit = (userId)=>
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input
-                          className="custm_inpt"
                           type="email"
                           name="email"
                           placeholder="Email"
@@ -186,7 +184,6 @@ const gotoEdit = (userId)=>
                         </InputGroupText>
                       </InputGroupAddon>
                       <Input
-                        className="custm_inpt"
                         type="password"
                         name="otp"
                         placeholder="O.T.P"
@@ -202,7 +199,6 @@ const gotoEdit = (userId)=>
                       </InputGroupText>
                     </InputGroupAddon>
                     <Input
-                      className="custm_inpt"
                       type="password"
                       name="password"
                       placeholder="New Password"
@@ -218,7 +214,6 @@ const gotoEdit = (userId)=>
                     </InputGroupText>
                   </InputGroupAddon>
                   <Input
-                    className="custm_inpt"
                     type="password"
                     name="confirmPassword"
                     placeholder="Confirm Password"
@@ -255,7 +250,7 @@ const gotoEdit = (userId)=>
                 </Modal.Footer>
               </Modal>
               {/* <a href="#" className="login-bt mb-2">Login</a> */}
-              <Button type="button" onClick={handleSubmit(onSubmit)} color="primary" className="login-bt mb-2 cust_Agentbutton">
+              <Button type="button" onClick={handleSubmit(onSubmit)} color="primary" className="login-bt mb-2">
                 Login
                         </Button>
                         <div className="text-center">
@@ -265,7 +260,7 @@ const gotoEdit = (userId)=>
                           {/* <NavLink to="#"><img src={imagePath.gsImage} alt="image" /></NavLink> */}
                           <GoogleLoginCom  gotoEdit={gotoEdit}/>
                         </div>
-                        <NavLink to="/signUP" className="forgot mt-3 mb-0 custm_forgot">Don’t have an account? <span>Register</span></NavLink>
+                        <NavLink to="/signUP" className="forgot mt-3 mb-0">Don’t have an account? <span>Register</span></NavLink>
             </Col>
           </FormGroup>
         </Form>

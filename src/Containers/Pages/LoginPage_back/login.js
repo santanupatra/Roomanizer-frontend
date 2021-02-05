@@ -17,7 +17,7 @@ function Login () {
               <Container className="mb-3">
                 <Row>
                   <Col xs={12} sm={12} md={12} lg={6} className="pr-lg-5">
-                    <h2 className="white-heading custm_h2">Login</h2>
+                    <h2 className="white-heading text-center mb-3">Login</h2>
                     <LoginFrom />
                   </Col>
                   <Col xs={12} sm={12} md={12} lg={6}>

@@ -18,7 +18,7 @@ const changePassword =(props)=> {
               <Container className="mb-3">
                 <Row className="mt-5 pt-5">
                   <Col xs={12} sm={12} md={6} lg={6}>
-                    <h2 className="text-center mb-3 white-heading">Change Password</h2>
+                    <h2 className="custm_h2 white-heading">Change Password</h2>
                     <Formsec />
                   </Col>
                   <Col xs={12} sm={12} md={6} lg={6}>

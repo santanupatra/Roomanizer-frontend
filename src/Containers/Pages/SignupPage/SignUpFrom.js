@@ -82,11 +82,12 @@ const gotoEdit = (userId)=>
     return (
       <div className="">
         
-        <div className="login-form">
+        <div className="login-form custm_Login2">
                       <Form onSubmit={handleSubmit(onSubmit)}>
                         <FormGroup row>
                           <Col sm={12}>
                             <InputUI
+                            className="custm_inpt"
                             type="email"
                             name="email"
                             id="exampleEmail" 
@@ -98,6 +99,7 @@ const gotoEdit = (userId)=>
                             fields={fields}/>
                             
                             <InputUI
+                            className="custm_inpt"
                             type="password" 
                             name="password" 
                             id="Password" 
@@ -111,6 +113,7 @@ const gotoEdit = (userId)=>
                             }
                             fields={fields.password}/>
                             <InputUI
+                            className="custm_inpt"
                             type="password" 
                             name="confirmPassword" 
                             id="confirmPassword" 
@@ -124,7 +127,7 @@ const gotoEdit = (userId)=>
                             }
                             fields={fields.confirmPassword}/>
                             <div style={{color:'red'}}>{fields.errorMessage}</div>
-                            <Button type="submit" color="primary" className="login-bt mb-4">
+                            <Button type="submit" color="primary" className="login-bt mb-4 cust_Agentbutton">
                               Sign Up
                             </Button>
                             {/* <Link to="/activeMail" className="login-bt mt-4">Sign up</Link> */}
@@ -140,7 +143,7 @@ const gotoEdit = (userId)=>
                                 {/* <NavLink to="#"><img src={imagePath.gsImage} alt="image" /></NavLink> */}
                                 <GoogleLoginCom  gotoEdit={gotoEdit}/>
                            </div>
-                            <NavLink to="/login" className="forgot mt-3 mb-0">Already have an account? <span>Login</span></NavLink>
+                            <NavLink to="/login" className="forgot mt-3 mb-0 custm_forgot">Already have an account? <span>Login</span></NavLink>
                           </Col>
                         </FormGroup>
                       </Form>
