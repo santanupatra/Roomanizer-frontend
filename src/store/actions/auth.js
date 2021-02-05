@@ -15,7 +15,7 @@ const history = createBrowserHistory()
  * @param {Object} data
  */
 export const login = (val) => {
-    console.log('value==>',val)
+    // console.log('value==>',val)
      //let data = val.client_id ='Bearer';
     //console.log('data==>',data)
     //console.log('value==>',val)
@@ -26,8 +26,8 @@ export const login = (val) => {
             // let  data  = await callApi(LOGIN_URL, 'POST', val);
             let  {data}  = await axiosLogin.post(LOGIN_URL, val);
             const details = data.msg;
-            console.log(data.msg)
-            console.log('logindata====>>>>',data);
+            // console.log(data.msg)
+            // console.log('logindata====>>>>',data.data.userDetails.userType);
             if(data.ack===true) {
             // set token in localStorage
             localStorage.setItem('profileImg', data.data.userDetails.profilePicture);
@@ -37,7 +37,7 @@ export const login = (val) => {
            // localStorage.setItem('itemName', "#")
             localStorage.setItem('userType', data.data.userDetails.userType?data.data.userDetails.userType:'');
             localStorage.setItem('permission', data.data.userDetails.permission?data.data.userDetails.permission:'');
-           console.log(data.data.userDetails._id);
+        //    console.log(data.data.userDetails._id);
            const a = localStorage.getItem('userId')
              //console.log(a)
           // console.log(details)

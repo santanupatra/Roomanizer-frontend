@@ -56,11 +56,11 @@ import { NavLink, withRouter } from 'react-router-dom';
 
   }, [props.setting]);
    //console.log('propsuser',props);
-  const userId = localStorage.getItem('userId');
-  const userType = localStorage.getItem('userType');
-  const userToken = localStorage.getItem('access-token')
+  // const userId =  localStorage.getItem('userId');
+  const userId = props.user.user && props.user.user._id && props.user.user._id
+  // const userToken =  localStorage.getItem('access-token')
+  const userType = props.user.user && props.user.user.userType && props.user.user.userType
 
-    
         return (
           <div className="header-sec">
             <Container fluid className="mb-3">
@@ -78,8 +78,13 @@ import { NavLink, withRouter } from 'react-router-dom';
                 </NavLink>
                   }
                 </Col>
-                <Col xs={12} sm={12} md={9} lg={9}>
-                  {userId && userType!='agent'?<LoginNavbar />:<Navbaar />}
+                <Col xs={12} sm={12} md={9} lg={9}>                  
+                  {userId 
+                  && userType!='agent'
+                  ?
+                  <LoginNavbar />
+                  :
+                  <Navbaar />}
                 </Col>
               </Row>
             </Container>
