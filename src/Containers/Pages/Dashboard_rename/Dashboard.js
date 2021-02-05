@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react';
 import './style.css';
 import imagePath from '../../../Config/imageConstants';
-import { Container, Row, Col, Button, Table} from 'reactstrap';
+import { Container, Row, Col, Button, Dropdown, DropdownToggle, DropdownMenu, Table } from 'reactstrap';
 import {LIST_AGENT_URL,LIST_AGENTT_URL} from '../../../shared/allApiUrl';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
@@ -19,7 +19,6 @@ import {getImageUrl,firebaseConfig} from '../../../shared/helpers'
 // import LoginFrom from './loginFrom';
 
 import Header from '../../Common/agentHeader'
-import ListGroupItem from 'reactstrap/lib/ListGroupItem';
 
 const Dashboard = (props) => {
   console.log(props.agent.agentList)
@@ -60,26 +59,26 @@ const navToEditPage = (Id) => {
         <div className="maindata py-4">
           <Container>
             <Row className="align-items-center">
-              <Col xs={12} sm={12} md={3} lg={3}>
+              <Col xs={12} sm={12} md={4} lg={4}>
                 <h2>My Properties</h2>
                 <p>Show 60 Results</p>
               </Col>
-              <Col xs={12} sm={12} md={6} lg={6}>
+              <Col xs={12} sm={12} md={4} lg={4}>
                 <div className="filterDashboard text-center">
                   <Button color="white" className="active">Active</Button>
                   <Button color="white">Offmarket</Button>
                   <Button color="white">Drafts</Button>
                 </div>
               </Col>
-              <Col xs={12} sm={12} md={3} lg={3}>
-                <div className="text-lg-right custm_add_proprty">
+              <Col xs={12} sm={12} md={4} lg={4}>
+                <div className="text-lg-right">
                   <Button color="blue" href={`/AddProperty/${userId}`}>Add New Properties</Button>
                 </div>
               </Col>
             </Row>
 
-            <div className="table-responsive custm_tbl">
-            <Table className="table-borderless table-hover">
+            <div className="table-responsive">
+            <Table className="table-bordered bg-white">
               <thead>
                 <tr>
                   <th width="200">Properties</th>
@@ -93,7 +92,6 @@ const navToEditPage = (Id) => {
               <tbody>
                 <tr>
                   <td>
-                    <a href="#">
                     <div className="propertyDet">
                       <div className="mr-2"><img src={imagePath.roomImage1} className="propertyImg" alt="" /></div>
                       <div>
@@ -102,41 +100,22 @@ const navToEditPage = (Id) => {
                         <p>$1200</p>
                       </div>
                     </div>
-                    </a>
                   </td>
+                  <td>28 till now - 5 hot</td>
                   <td>
-                  <a href="#">
-                    28 till now - 5 hot
-                    <div className="grup_images">
-                      <ul className="custm_list">
-                        <li><a href="#"><img src={require("../../../assets/images/f2.png")} className="img-fluid"/></a></li>
-                        <li><a href="#"><img src={require("../../../assets/images/f3.png")} className="img-fluid"/></a></li>
-                        <li><a href="#"><img src={require("../../../assets/images/f4.png")} className="img-fluid"/></a></li>
-                        <li><a href="#"><img src={require("../../../assets/images/f5.png")} className="img-fluid"/></a></li>
-                        <li><a href="#"><img src={require("../../../assets/images/f2.png")} className="img-fluid"/></a></li>
-                      </ul>
-                    </div>
-                    </a>
-                  </td>
-                  <td>
-                  <a href="#">
                     <div className="stats text-center">
                       <p className="font-weight-bold"><FontAwesomeIcon icon={faBolt} style={{fontSize:'12px'}} className="text-blue" /> 281 + <span>5</span></p>
                       <p>Total Views</p>
                     </div>
-                    </a>
                   </td>
-                  <td><a href="#"><div className="postdate">15 May - 13.55 P.M <span>18 days ago</span></div></a></td>
+                  <td><div className="postdate">15 May - 13.55 P.M <span>18 days ago</span></div></td>
                   <td>
-                    <a href="#">
                     <div className="status">
                       <span className="active">Active</span>
                       <p>Till 3 Jun</p>
                     </div>
-                    </a>
                   </td>
                   <td>
-                    <a href="#">
                     <div className="action">
                       <button><FontAwesomeIcon icon={faEdit} /></button>
                       <label class="switch">
@@ -144,119 +123,6 @@ const navToEditPage = (Id) => {
                         <span class="slider round"></span>
                       </label>
                     </div>
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <a href="#">
-                    <div className="propertyDet">
-                      <div className="mr-2"><img src={imagePath.roomImage1} className="propertyImg" alt="" /></div>
-                      <div>
-                        <h6>3BHK Luxury Villa</h6>
-                        <p>711-2880 Nulla St.</p>
-                        <p>$1200</p>
-                      </div>
-                    </div>
-                    </a>
-                  </td>
-                  <td>
-                  <a href="#">
-                    28 till now - 5 hot
-                    <div className="grup_images">
-                      <ul className="custm_list">
-                        <li><a href="#"><img src={require("../../../assets/images/f2.png")} className="img-fluid"/></a></li>
-                        <li><a href="#"><img src={require("../../../assets/images/f3.png")} className="img-fluid"/></a></li>
-                        <li><a href="#"><img src={require("../../../assets/images/f4.png")} className="img-fluid"/></a></li>
-                        <li><a href="#"><img src={require("../../../assets/images/f5.png")} className="img-fluid"/></a></li>
-                        <li><a href="#"><img src={require("../../../assets/images/f2.png")} className="img-fluid"/></a></li>
-                      </ul>
-                    </div>
-                    </a>
-                  </td>
-                  <td>
-                  <a href="#">
-                    <div className="stats text-center">
-                      <p className="font-weight-bold"><FontAwesomeIcon icon={faBolt} style={{fontSize:'12px'}} className="text-blue" /> 281 + <span>5</span></p>
-                      <p>Total Views</p>
-                    </div>
-                    </a>
-                  </td>
-                  <td><a href="#"><div className="postdate">15 May - 13.55 P.M <span>18 days ago</span></div></a></td>
-                  <td>
-                    <a href="#">
-                    <div className="status">
-                      <span className="active">Active</span>
-                      <p>Till 3 Jun</p>
-                    </div>
-                    </a>
-                  </td>
-                  <td>
-                    <a href="#">
-                    <div className="action">
-                      <button><FontAwesomeIcon icon={faEdit} /></button>
-                      <label class="switch">
-                        <input type="checkbox" class="input" />
-                        <span class="slider round"></span>
-                      </label>
-                    </div>
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <a href="#">
-                    <div className="propertyDet">
-                      <div className="mr-2"><img src={imagePath.roomImage1} className="propertyImg" alt="" /></div>
-                      <div>
-                        <h6>3BHK Luxury Villa</h6>
-                        <p>711-2880 Nulla St.</p>
-                        <p>$1200</p>
-                      </div>
-                    </div>
-                    </a>
-                  </td>
-                  <td>
-                  <a href="#">
-                    28 till now - 5 hot
-                    <div className="grup_images">
-                      <ul className="custm_list">
-                        <li><a href="#"><img src={require("../../../assets/images/f2.png")} className="img-fluid"/></a></li>
-                        <li><a href="#"><img src={require("../../../assets/images/f3.png")} className="img-fluid"/></a></li>
-                        <li><a href="#"><img src={require("../../../assets/images/f4.png")} className="img-fluid"/></a></li>
-                        <li><a href="#"><img src={require("../../../assets/images/f5.png")} className="img-fluid"/></a></li>
-                        <li><a href="#"><img src={require("../../../assets/images/f2.png")} className="img-fluid"/></a></li>
-                      </ul>
-                    </div>
-                    </a>
-                  </td>
-                  <td>
-                  <a href="#">
-                    <div className="stats text-center">
-                      <p className="font-weight-bold"><FontAwesomeIcon icon={faBolt} style={{fontSize:'12px'}} className="text-blue" /> 281 + <span>5</span></p>
-                      <p>Total Views</p>
-                    </div>
-                    </a>
-                  </td>
-                  <td><a href="#"><div className="postdate">15 May - 13.55 P.M <span>18 days ago</span></div></a></td>
-                  <td>
-                    <a href="#">
-                    <div className="status">
-                      <span className="active">Active</span>
-                      <p>Till 3 Jun</p>
-                    </div>
-                    </a>
-                  </td>
-                  <td>
-                    <a href="#">
-                    <div className="action">
-                      <button><FontAwesomeIcon icon={faEdit} /></button>
-                      <label class="switch">
-                        <input type="checkbox" class="input" />
-                        <span class="slider round"></span>
-                      </label>
-                    </div>
-                    </a>
                   </td>
                 </tr>
                 {props.agent && props.agent.agentList.length > 0 ?

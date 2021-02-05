@@ -28,7 +28,6 @@ import ChatPage from '../Containers/Pages/ChatPage/chat';
 import AgentLogin from '../Containers/Pages/AgentLogin/AgentLogin';
 import AgentSignup from '../Containers/Pages/AgentSignup/signup';
 import Dashboard from '../Containers/Pages/Dashboard/Dashboard';
-import DashboardListing from '../Containers/Pages/Dashboard/DashboardListing';
 import AgentChangePassword from '../Containers/Pages/AgentChangePassword/AgentChangePassword';
 import AgentEditProfile from '../Containers/Pages/agentEditProfile/agentEditProfile';
 import AddProperty from '../Containers/Pages/AddProperty/AddProperty';
@@ -67,7 +66,6 @@ const Routes=(props) =>{
                 <Route path="/AgentLogin" exact component={AgentLogin} />
                 <Route path="/AgentSignup" exact component={AgentSignup} />
                 <Route path="/Dashboard/:userId" exact component={Dashboard} />
-				<Route path="/DashboardListing" exact component={DashboardListing} />
                 <Route path="/agentchangePassword/:userId" exact component={AgentChangePassword} />
                 <Route path="/AgentEditProfile/:userId" exact component={AgentEditProfile} />
                 <Route path="/AddProperty/:userId" exact component={AddProperty} />
