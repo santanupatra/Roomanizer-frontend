@@ -12,7 +12,6 @@ const initialState = {
 
 export default function (state = initialState, action) {
     const { type, payload } = action;
-    console.log("Add",payload)
     switch (type) {
         case 'SET_AGENT_ACTION':
             return setItemAction(state, payload, 'AGENT');

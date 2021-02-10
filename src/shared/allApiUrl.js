@@ -27,5 +27,8 @@ export const ADD_AGENT_URL = 'agent-api/AddAgentProperty';
 export const LIST_AGENT_URL = 'agent-api/agent';
 export const LIST_AGENTT_URL = 'agent-api/agentt';
 export const UPDATE_AGENTT_URL = 'agent-api/updateAgentProperty';
+export const ADD_PROPERTY = "/agent-api/agentProperty";
+
+
 
 
