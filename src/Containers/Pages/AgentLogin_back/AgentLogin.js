@@ -48,7 +48,7 @@ function AgentLogin (props) {
     
   };
   const onSubmit_1 = async(data) => {
-    console.log(data)
+    // console.log(data)
   if (status === false ) {
    try {
    await callApi(FORGET_PASSWORD_URL,"POST",data);
@@ -73,7 +73,7 @@ function AgentLogin (props) {
  else  {
    try {
        await callApi(SET_PASSWORD_URL, "PUT",data);
-       console.log(data)
+      //  console.log(data)
        //NotificationManager.success('Password changed succesfully!', 'Success');
        toast.info('Password changed succesfully!', {
          position: toast.POSITION.TOP_CENTER
@@ -83,7 +83,7 @@ function AgentLogin (props) {
  
    }
    catch (error) {
-       console.log("Error");
+      //  console.log("Error");
        // NotificationManager.error('OTP  is not valid!', 'Error');
        toast.error("OTP  is not valid!", {
          position: toast.POSITION.TOP_CENTER

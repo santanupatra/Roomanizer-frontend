@@ -31,8 +31,8 @@ const CmsDetails = (props) =>{
       let  {data}  = await axiosApiCall.get(`${CMS_URL}/${props.match.params.SlugId}`, null)
      
         setFields({ ...fields, ...data.data[0] })
-        console.log(data)
-        console.log(data.data[0])
+        // console.log(data)
+        // console.log(data.data[0])
      
     }
   }

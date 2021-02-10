@@ -16,7 +16,7 @@ export default class FacebookLogin extends Component {
   }
   
   responseFacebook = async (response) => {
-    console.log("responseFacebook===",response);
+    // console.log("responseFacebook===",response);
     const logInData = {
         email: response.email?response.email:'',
         name: response.name?response.name:'',
@@ -30,7 +30,7 @@ export default class FacebookLogin extends Component {
           let  {data}  = await axiosApiCall.post(SOCIALLOGIN_URL, logInData);
           // set token in localStorage
           if(data.ack===true && data.token){
-              console.log("data++++++",data.data)
+              // console.log("data++++++",data.data)
               localStorage.setItem('access-token', data.token);
               localStorage.setItem('userId', data.data._id);
               localStorage.setItem("profileImg",data.data.profilePicture)
@@ -39,7 +39,7 @@ export default class FacebookLogin extends Component {
                //localStorage.getItem("profileImg")
         //localStorage.getItem("username")
         //localStorage.getItem("userId")
-              console.log("userId",userId)
+              // console.log("userId",userId)
               if(userId){
                 this.props.gotoEdit(userId)
                 history.push(`/editProfile/${userId}`);

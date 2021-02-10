@@ -27,12 +27,12 @@ const { handleSubmit, register, errors } = useForm();
 const gotoEdit = (userId)=>
 props.history.push(`/editProfile/${userId}`)
 const onSubmit = (data) => {
-console.log(data)
+// console.log(data)
 data.userType="agent"
-console.log(data)
+// console.log(data)
 axios.post(apiBaseUrl+"/web/"+SIGNUP_URL,data )
 .then(res => {
-console.log(res.data.msg);
+// console.log(res.data.msg); 
 if (res.data.ack==false&&res.data.msg=="Parameter missing..."){
 toast.info('Parameter missing...', {
 position: toast.POSITION.TOP_CENTER
@@ -52,7 +52,7 @@ props.history.push("/activeMail")
 })
 }
 const  handleChange = (name,value)=>{
-console.log(value.length )
+// console.log(value.length )
 setFields((prevState) => ({ ...prevState, [name]: value }));
 if(value.length<6){
 fields.errorMessage="Password length should be at least 6"

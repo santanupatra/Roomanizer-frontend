@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import './style.css';
 import imagePath from '../../../Config/imageConstants';
 import { Container, Row, Col, Navbar, UncontrolledCollapse } from 'reactstrap';
@@ -10,28 +10,28 @@ import Gsuite from '../gSuite';
 import { crudAction } from '../../../store/actions/common';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import {HOUSE_RULE_URL} from '../../../shared/allApiUrl'
+import { HOUSE_RULE_URL } from '../../../shared/allApiUrl'
 import MultiSelect from "react-multi-select-component";
 import { useForm } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import InputUI from '../../../UI/InputUI';
 import moment from 'moment';
-import { callApi} from '../../../api';
+import { callApi } from '../../../api';
 import { apiBaseUrl } from "../../../shared/helpers";
-import {ROOM_URL,USER_URL,CITY_URL,LANDLORD_URL,AMINITIES_URL} from '../../../shared/allApiUrl'
-import {axiosApiCall} from "../../../api/index";
+import { ROOM_URL, USER_URL, CITY_URL, LANDLORD_URL, AMINITIES_URL } from '../../../shared/allApiUrl'
+import { axiosApiCall } from "../../../api/index";
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from 'react-places-autocomplete';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {mapApiKey} from '../RoomSearchPage/mapConfig';
+import { mapApiKey } from '../RoomSearchPage/mapConfig';
 //import 'react-google-places-autocomplete/dist/index.min.css';
 import Geocode from "react-geocode";
 const palceKey = mapApiKey;
-  Geocode.setApiKey(palceKey);
-  Geocode.setLanguage("en");
+Geocode.setApiKey(palceKey);
+Geocode.setLanguage("en");
 
 
 
@@ -40,40 +40,40 @@ const Formsec2 = (props) => {
     firstName: "",
     lastName: "",
     dateOfBirth: null,
-    facebookLink:'',
-    twitterLink:'',
-    gsuiteLink:'',
-    age:"",
-   }
-   const initialField = {
-   user_Id: "",
-   roomNo: "",
-   bathNo:"",
-   aboutRoom:"",
-   address:"",
-   age:"",
-   aminities: null,
-   area:"",
-   budget:"",
-   charges:"",
-   chargesType:"",
-   city:"",
-   deposite:"",
-   duration:"",
-   flateMate:"",
-   houseRules:null,
-   latitude:null,
-   location:[],
-   longitude:null,
-   moveIn:"",
-   noOfBedRoom:"",
-   roomName:"",
-   zipCode:"",
-   ageRange:"",
+    facebookLink: '',
+    twitterLink: '',
+    gsuiteLink: '',
+    age: "",
+  }
+  const initialField = {
+    user_Id: "",
+    roomNo: "",
+    bathNo: "",
+    aboutRoom: "",
+    address: "",
+    age: "",
+    aminities: null,
+    area: "",
+    budget: "",
+    charges: "",
+    chargesType: "",
+    city: "",
+    deposite: "",
+    duration: "",
+    flateMate: "",
+    houseRules: null,
+    latitude: null,
+    location: [],
+    longitude: null,
+    moveIn: "",
+    noOfBedRoom: "",
+    roomName: "",
+    zipCode: "",
+    ageRange: "",
 
-   }
+  }
 
-  
+
   const [fields, setFields] = useState(initialFields);
   const [field, setField] = useState(initialField);
   const [userId, setUserId] = useState(null);
@@ -90,10 +90,10 @@ const Formsec2 = (props) => {
     if (params.userId) props.crudActionRoomCall(`${ROOM_URL}/${params.userId}`, null, "GET")
     props.crudActionHouseCall(HOUSE_RULE_URL, null, "GET_ALL")
     props.crudActionCityCall(CITY_URL, null, "GET_ALL")
-    callApi(apiBaseUrl+"/web/"+AMINITIES_URL,'GET','').then(
+    callApi(apiBaseUrl + "/web/" + AMINITIES_URL, 'GET', '').then(
       response => {
-        let option = response.data.map((val) =>  
-          ({ label: val.name, value: val._id ,img: val.aminitiesImage})  
+        let option = response.data.map((val) =>
+          ({ label: val.name, value: val._id, img: val.aminitiesImage })
         );
         setAminitiesOption(option);
       }
@@ -106,66 +106,66 @@ const Formsec2 = (props) => {
       setmoveIn(moment(props.room.room.moveIn).toDate())
     }
     const { type, isSuccess } = props.house.action;
-    
+
     if (props.user.user && params.userId) {
       setFields({ ...fields, ...props.user.user })
-      if(props.user.user.dateOfBirth)setStartDate(moment(props.user.user.dateOfBirth).toDate())
+      if (props.user.user.dateOfBirth) setStartDate(moment(props.user.user.dateOfBirth).toDate())
     }
     if (action.isSuccess && action.type === "UPDATE")
       props.history.push(`/editProfile/${userId}`)
-  }, [props.user,props.house,props.room]);
-  
+  }, [props.user, props.house, props.room]);
+
   const onSubmit = (data) => {
-   
+
     data.longitude = field.longitude;
     data.latitude = field.latitude;
     data.address = field.address;
     if (userId) data.userId = userId;
-    data.user_Id = userId 
+    data.user_Id = userId
     if (setDate) data.dateOfBirth = setDate;
     if (setRtoM) data.moveIn = setRtoM;
-    if (field.houseRules) data.houseRules=field.houseRules
-    if (field.noOfBedRoom) data.noOfBedRoom=field.noOfBedRoom
-    if (field.aminities) data.aminities=field.aminities
-   if(data.aminities && data.aminities.length>0&& data.houseRules && data.houseRules.length>0&&data.address!==" "){
+    if (field.houseRules) data.houseRules = field.houseRules
+    if (field.noOfBedRoom) data.noOfBedRoom = field.noOfBedRoom
+    if (field.aminities) data.aminities = field.aminities
+    if (data.aminities && data.aminities.length > 0 && data.houseRules && data.houseRules.length > 0 && data.address !== " ") {
       setErrAdd(' ')
       setErr(' ')
       props.crudActionCall(LANDLORD_URL + `/${userId}`, data, "UPDATE");
-    props.resetAction();
-    toast.info('Updated  successfully', {
-      position: toast.POSITION.TOP_CENTER
-  });
-}
-else{
-  setErrAdd('This field is required')
-  setErr('This field is required')
-}
+      props.resetAction();
+      toast.info('Updated  successfully', {
+        position: toast.POSITION.TOP_CENTER
+      });
+    }
+    else {
+      setErrAdd('This field is required')
+      setErr('This field is required')
+    }
   }
-  const options = props.house.houseList.map((val) =>  
-  ({ label: val.name, value: val._id })  
+  const options = props.house.houseList.map((val) =>
+    ({ label: val.name, value: val._id })
   );
-  
+
   const searchOptions = {
-    componentRestrictions: { country: ['us','ca','uy'] },
+    componentRestrictions: { country: ['us', 'ca', 'uy'] },
     //types: ['city']
   }
-     
-  
-  
-  const handleChange = (name,value)=>{
+
+
+
+  const handleChange = (name, value) => {
     setField((prevState) => ({ ...prevState, [name]: value }));
   }
- 
+
   const handleChangeAddress = address => {
     console.log(address)
-    if(address===''){
+    if (address === '') {
       setErrAdd('This field is required')
-    }else{
+    } else {
       setErrAdd(' ')
     }
     setField((prevState) => ({ ...prevState, address }));
   };
-  const  handleDatechange = date => {
+  const handleDatechange = date => {
     setStartDate(date);
     var diff_ms = Date.now() - date.getTime();
     var age_dt = new Date(diff_ms);
@@ -173,557 +173,557 @@ else{
     setFields((prevState) => ({ ...prevState, "age": realAge }));
   }
   const handleSelect = address => {
-    setField((prevState) => ({ ...prevState, ["street"]: address })); 
+    setField((prevState) => ({ ...prevState, ["street"]: address }));
     geocodeByAddress(address)
       .then(results => getLatLng(results[0]))
-    //  .then(latLng => console.log('Success', latLng))
-    //  .catch(error => console.error('Error', error));
+      //  .then(latLng => console.log('Success', latLng))
+      //  .catch(error => console.error('Error', error));
       .then(({ lat, lng }) => {
-              console.log("lat==",lat,"lng==",lng)
-              console.log(address);
-            
-              setField((prevState) => ({ ...prevState, ["address"]: address }));
-              setField((prevState) => ({ ...prevState, ["longitude"]: lng }));
-              setField((prevState) => ({ ...prevState, ["latitude"]: lat }));
-            });
+        console.log("lat==", lat, "lng==", lng)
+        console.log(address);
+
+        setField((prevState) => ({ ...prevState, ["address"]: address }));
+        setField((prevState) => ({ ...prevState, ["longitude"]: lng }));
+        setField((prevState) => ({ ...prevState, ["latitude"]: lat }));
+      });
   };
-    return (
-      <div className="">
-        
-                      <Form onSubmit={handleSubmit(onSubmit)}>
-                            <Row>
-                              <Col xs={12} sm={12} md={6} lg={6}>
-                                <FormGroup>
-                                  <InputUI
-                                    type="text"
-                                    name="firstName"
-                                    id="firstName"
-                                    placeholder="First Name"
-                                    errors={errors}
-                                    innerRef={register({
-                                    required: 'This is required field',
-                                    })}
-                                    fields={fields}/>
-                                </FormGroup>
-                              </Col>
-                              <Col xs={12} sm={12} md={6} lg={6}>
-                                <FormGroup>
-                                <InputUI
-                                  type="text"
-                                  name="lastName"
-                                  id="lastName"
-                                  placeholder="Last Name"
-                                  errors={errors}
-                                  innerRef={register({
-                                  required: 'This is required field',
-                                  })}
-                                  fields={fields}/>
-                                  </FormGroup>
-                              </Col>
-                            </Row>
-                            <Row>
-                            <PlacesAutocomplete
-                              onChange={handleChangeAddress}
-                              onSelect={handleSelect}
-                              searchOptions={searchOptions}
-                              value={field.address}
-                              
-                          >
-                    {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                      <Col xs={12} sm={12} md={12} lg={12}>
-                        <input
-                          {...getInputProps({
-                            placeholder: 'Search Places ...',
-                            className: 'form-control',
-                          })}
-                        />
-                        <p style={{color:"red"}}>{errAdd}</p>
-                        <div className="autocomplete-dropdown-container">
-                          {loading && <div>Loading...</div>}
-                          {suggestions.map(suggestion => {
-                            const className = suggestion.active
-                              ? 'suggestion-item--active'
-                              : 'suggestion-item';
-                            // inline style for demonstration purpose
-                            const style = suggestion.active
-                              ? { backgroundColor: '#fafafa', cursor: 'pointer' }
-                              : { backgroundColor: '#ffffff', cursor: 'pointer' };
-                            return (
-                              <div
-                                {...getSuggestionItemProps(suggestion, {
-                                  className,
-                                  style,
-                                })}
-                              >
-                                <span>{suggestion.description}</span>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </Col>
-                    )}
-                  </PlacesAutocomplete>
-                          </Row>
-                                      
-                            
-                           <Row>
-                            <Col xs={12} sm={12} md={6} lg={6}>
-                              <FormGroup>
-                                <InputUI
-                                type="select"
-                                name="city"
-                                id="city"
-                                innerRef={register}
-                                value={field.city}
-                                errors={errors}
-                                innerRef={register({
-                                  required: 'This is required field',
-                                  })}
-                                onChange={(e) =>
-                                  handleChange(e.target.name, e.target.value)
-                                }>
-                                  <option value="">Select A City....</option>
-                                {
-                                    props.city && props.city.cityList.map((val) =>{
-                                    return(
-                                      // <option value={val._id}>{val.cityName}</option>
-                                      <option>{val.cityName}</option>
-                                    );
-                                  })
-                                  } 
-                                </InputUI>
-                              </FormGroup>
-                            </Col>
-                            <Col xs={12} sm={12} md={6} lg={6}>
-                              <FormGroup>
-                                <InputUI
-                                      type="number"
-                                      name="zipCode"
-                                      id="zipCode"
-                                      placeholder="Zip Code"
-                                      errors={errors}
-                                      innerRef={register({
-                                      required: 'This is required field',
-                                      })}
-                                      fields={field}/>
-                              </FormGroup>
-                            </Col>
-                            </Row>
-                            
-                             <Row>
-                              <Col xs={12} sm={12} md={6} lg={6}>
-                                <FormGroup>
-                                    <InputUI
-                                    type="text"
-                                    name="roomName"
-                                    id="roomName"
-                                    placeholder="Room Name"
-                                    errors={errors}
-                                    innerRef={register({
-                                    required: 'This is required field',
-                                    })}
-                                    fields={field}/>
-                                  </FormGroup>             
-                              </Col>
-                            <Col xs={12} sm={12} md={6} lg={6}>
-                              <FormGroup>
-                              <InputUI
-                                  type="number"
-                                  name="area"
-                                  id="area"
-                                  placeholder="Area in sq/ft"
-                                  errors={errors}
-                                  innerRef={register({
-                                  required: 'This is required field',
-                                  })}
-                                  fields={field}/>
-                              </FormGroup>
-                            </Col>
-                            </Row>
-                            <Row>
-                              <Col xs={12} sm={12} md={12} lg={12}>
-                              <FormGroup>
-                              <InputUI
-                                type="textarea"
-                                name="aboutRoom"
-                                id="aboutRoom"
-                                placeholder="About Room"
-                                errors={errors}
-                                innerRef={register({
-                                required: 'This is required field',
-                                })}
-                                fields={field}/>
-                                </FormGroup>
-                              </Col>
-                            </Row>
-                            <Row>
-                              <Col xs={12} sm={12} md={6} lg={6}>
-                                <FormGroup>
-                                  <DatePicker 
-                                    selected={setDate} 
-                                    className="form-control"
-                                    placeholderText="Date of Birth"
-                                    onChange={date => handleDatechange(date)}
-                                    required
-                                  />
-                                  </FormGroup>
-                              </Col>
-                              <Col xs={12} sm={12} md={6} lg={6}>
-                                <FormGroup>
-                                  <InputUI
-                                  type="number"
-                                  name="age"
-                                  placeholder="Age"
-                                  errors={errors}
-                                  innerRef={register({
-                                  required: 'This is required field',
-                                  })}
-                                  value={fields.age}/>
-                                  </FormGroup>
-                              </Col>
-                            </Row>
-                            <FormGroup className="mt-3">
-                              <Label for="exampleCheckbox" className="filter-mod">No of Bedrooms</Label>
-                              <div className="filt d-flex justify-content-between">
-                                <Label>
-                                  <input 
-                                  type="radio" 
-                                  value="2" 
-                                  name= "noOfBedRoom"
-                                  onChange={(e) => handleChange(e.target.name,e.target.value)}
-                                  checked={field.noOfBedRoom === "2"}
-                                  required
-                                  /> 2 Bedroom
-                                  </Label>
-                                  <Label>
-                                    <input type="radio" value="3" name= "noOfBedRoom"
-                                      checked={field.noOfBedRoom === "3"}
-                                      onChange={(e) =>
-                                        handleChange(e.target.name,e.target.value)}
-                                        required
-                                    /> 3 Bedroom
-                                  </Label>
-                                  <Label>
-                                    <input type="radio" value="5" name= "noOfBedRoom"
-                                      checked={field.noOfBedRoom === "5"}
-                                      onChange={(e) =>
-                                        handleChange(e.target.name,e.target.value)}
-                                     required
-                                      /> 4+ Bedroom
-                                  </Label>
-                                </div>
-                              </FormGroup>
-                           
-                            
-                                   <Label for="exampleCheckbox" className="filter-mod">Listing Amenities</Label>
-                              <div className="filt d-flex justify-content-between"></div>
-                                          <MultiSelect
-                                                options={aminitiesOption}
-                                                value={field.aminities}
-                                                className="MultiSelect-input"
-                                                onChange={(value) =>
-                                                  handleChange("aminities",value) 
-                                                }
-                                                labelledBy={"Preferences for house rules"}
-                                              />
-                                    <p style={{color:"red"}}>{errAdd}</p>
-                                  <Label for="exampleCheckbox" className="filter-mod">House Rules</Label>
-                                <div className="filt d-flex justify-content-between flex-wrap"></div>    
-                                          <MultiSelect
-                                            options={options}
-                                            value={field.houseRules}
-                                            className="MultiSelect-input"
-                                            onChange={(value) =>
-                                              handleChange("houseRules",value) 
-                                            }
-                                            labelledBy={"Preferences for house rules"}/>
-                                    <p style={{color:"red"}}>{errAdd}</p>
-                                      
-                              <Row>
-                                <Col className="pr-0">
-                                  <InputUI
-                                  type="select"
-                                  name="flateMate"
-                                  id="flateMate"
-                                  placeholder="flatmates"
-                                  errors={errors}
-                                  innerRef={register({
-                                  required: 'This is required field',
-                                  })}
-                                  value={field.flateMate}
-                                  onChange={(e) =>
-                                    handleChange(e.target.name, e.target.value)
-                                  }
-                                  >
-                                  <option value="">Choose your Flatmates </option>
-                                  <option value="male">Male</option>
-                                  <option value="female">Female</option>
-                                  <option value="other">Other</option>
-                                  </InputUI>
-                                </Col>
-                                <Col>
-                                 
-                                  <InputUI
-                                      type="select"
-                                      name="ageRange"
-                                      id="ageRange"
-                                      placeholder="Age Range"
-                                      errors={errors}
-                                      innerRef={register({
-                                      required: 'This is required field',
-                                      })}
-                                      value={field.ageRange}
-                                      onChange={(e) =>
-                                        handleChange(e.target.name, e.target.value)
-                                      }
-                                  >
-                                  <option value="">Choose your Age Range </option>
-                                  <option value="Early 20s">Early 20s</option>
-                                  <option value="Late 20s">Late 20s</option>
-                                  <option value="30s">30s</option>
-                                  <option value="40s and older">40s and older</option>
+  return (
+    <div className="">
 
-                                  
-                                  </InputUI>
-                                  
-                                </Col>
-                              </Row>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <Row>
+          <Col xs={12} sm={12} md={6} lg={6}>
+            <FormGroup>
+              <InputUI
+                type="text"
+                name="firstName"
+                id="firstName"
+                placeholder="First Name"
+                errors={errors}
+                innerRef={register({
+                  required: 'This is required field',
+                })}
+                fields={fields} />
+            </FormGroup>
+          </Col>
+          <Col xs={12} sm={12} md={6} lg={6}>
+            <FormGroup>
+              <InputUI
+                type="text"
+                name="lastName"
+                id="lastName"
+                placeholder="Last Name"
+                errors={errors}
+                innerRef={register({
+                  required: 'This is required field',
+                })}
+                fields={fields} />
+            </FormGroup>
+          </Col>
+        </Row>
+        <Row>
+          <PlacesAutocomplete
+            onChange={handleChangeAddress}
+            onSelect={handleSelect}
+            searchOptions={searchOptions}
+            value={field.address}
 
-                            <Row className="">
-                              <Col className="pr-0">
-                                {/* <Input type="select" name="select" id="exampleSelect">
+          >
+            {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+              <Col xs={12} sm={12} md={12} lg={12}>
+                <input
+                  {...getInputProps({
+                    placeholder: 'Search Places ...',
+                    className: 'form-control',
+                  })}
+                />
+                <p style={{ color: "red" }}>{errAdd}</p>
+                <div className="autocomplete-dropdown-container">
+                  {loading && <div>Loading...</div>}
+                  {suggestions.map(suggestion => {
+                    const className = suggestion.active
+                      ? 'suggestion-item--active'
+                      : 'suggestion-item';
+                    // inline style for demonstration purpose
+                    const style = suggestion.active
+                      ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                      : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                    return (
+                      <div
+                        {...getSuggestionItemProps(suggestion, {
+                          className,
+                          style,
+                        })}
+                      >
+                        <span>{suggestion.description}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </Col>
+            )}
+          </PlacesAutocomplete>
+        </Row>
+
+
+        <Row>
+          <Col xs={12} sm={12} md={6} lg={6}>
+            <FormGroup>
+              <InputUI
+                type="select"
+                name="city"
+                id="city"
+                innerRef={register}
+                value={field.city}
+                errors={errors}
+                innerRef={register({
+                  required: 'This is required field',
+                })}
+                onChange={(e) =>
+                  handleChange(e.target.name, e.target.value)
+                }>
+                <option value="">Select A City....</option>
+                {
+                  props.city && props.city.cityList.map((val) => {
+                    return (
+                      // <option value={val._id}>{val.cityName}</option>
+                      <option>{val.cityName}</option>
+                    );
+                  })
+                }
+              </InputUI>
+            </FormGroup>
+          </Col>
+          <Col xs={12} sm={12} md={6} lg={6}>
+            <FormGroup>
+              <InputUI
+                type="number"
+                name="zipCode"
+                id="zipCode"
+                placeholder="Zip Code"
+                errors={errors}
+                innerRef={register({
+                  required: 'This is required field',
+                })}
+                fields={field} />
+            </FormGroup>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col xs={12} sm={12} md={6} lg={6}>
+            <FormGroup>
+              <InputUI
+                type="text"
+                name="roomName"
+                id="roomName"
+                placeholder="Room Name"
+                errors={errors}
+                innerRef={register({
+                  required: 'This is required field',
+                })}
+                fields={field} />
+            </FormGroup>
+          </Col>
+          <Col xs={12} sm={12} md={6} lg={6}>
+            <FormGroup>
+              <InputUI
+                type="number"
+                name="area"
+                id="area"
+                placeholder="Area in sq/ft"
+                errors={errors}
+                innerRef={register({
+                  required: 'This is required field',
+                })}
+                fields={field} />
+            </FormGroup>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={12} sm={12} md={12} lg={12}>
+            <FormGroup>
+              <InputUI
+                type="textarea"
+                name="aboutRoom"
+                id="aboutRoom"
+                placeholder="About Room"
+                errors={errors}
+                innerRef={register({
+                  required: 'This is required field',
+                })}
+                fields={field} />
+            </FormGroup>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={12} sm={12} md={6} lg={6}>
+            <FormGroup>
+              <DatePicker
+                selected={setDate}
+                className="form-control"
+                placeholderText="Date of Birth"
+                onChange={date => handleDatechange(date)}
+                required
+              />
+            </FormGroup>
+          </Col>
+          <Col xs={12} sm={12} md={6} lg={6}>
+            <FormGroup>
+              <InputUI
+                type="number"
+                name="age"
+                placeholder="Age"
+                errors={errors}
+                innerRef={register({
+                  required: 'This is required field',
+                })}
+                value={fields.age} />
+            </FormGroup>
+          </Col>
+        </Row>
+        <FormGroup className="mt-3">
+          <Label for="exampleCheckbox" className="filter-mod">No of Bedrooms</Label>
+          <div className="filt d-flex justify-content-between">
+            <Label>
+              <input
+                type="radio"
+                value="2"
+                name="noOfBedRoom"
+                onChange={(e) => handleChange(e.target.name, e.target.value)}
+                checked={field.noOfBedRoom === "2"}
+                required
+              /> 2 Bedroom
+                                  </Label>
+            <Label>
+              <input type="radio" value="3" name="noOfBedRoom"
+                checked={field.noOfBedRoom === "3"}
+                onChange={(e) =>
+                  handleChange(e.target.name, e.target.value)}
+                required
+              /> 3 Bedroom
+                                  </Label>
+            <Label>
+              <input type="radio" value="5" name="noOfBedRoom"
+                checked={field.noOfBedRoom === "5"}
+                onChange={(e) =>
+                  handleChange(e.target.name, e.target.value)}
+                required
+              /> 4+ Bedroom
+                                  </Label>
+          </div>
+        </FormGroup>
+
+
+        <Label for="exampleCheckbox" className="filter-mod">Listing Amenities</Label>
+        <div className="filt d-flex justify-content-between"></div>
+        <MultiSelect
+          options={aminitiesOption}
+          value={field.aminities}
+          className="MultiSelect-input"
+          onChange={(value) =>
+            handleChange("aminities", value)
+          }
+          labelledBy={"Preferences for house rules"}
+        />
+        <p style={{ color: "red" }}>{errAdd}</p>
+        <Label for="exampleCheckbox" className="filter-mod">House Rules</Label>
+        <div className="filt d-flex justify-content-between flex-wrap"></div>
+        <MultiSelect
+          options={options}
+          value={field.houseRules}
+          className="MultiSelect-input"
+          onChange={(value) =>
+            handleChange("houseRules", value)
+          }
+          labelledBy={"Preferences for house rules"} />
+        <p style={{ color: "red" }}>{errAdd}</p>
+
+        <Row>
+          <Col className="pr-0">
+            <InputUI
+              type="select"
+              name="flateMate"
+              id="flateMate"
+              placeholder="flatmates"
+              errors={errors}
+              innerRef={register({
+                required: 'This is required field',
+              })}
+              value={field.flateMate}
+              onChange={(e) =>
+                handleChange(e.target.name, e.target.value)
+              }
+            >
+              <option value="">Choose your Flatmates </option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </InputUI>
+          </Col>
+          <Col>
+
+            <InputUI
+              type="select"
+              name="ageRange"
+              id="ageRange"
+              placeholder="Age Range"
+              errors={errors}
+              innerRef={register({
+                required: 'This is required field',
+              })}
+              value={field.ageRange}
+              onChange={(e) =>
+                handleChange(e.target.name, e.target.value)
+              }
+            >
+              <option value="">Choose your Age Range </option>
+              <option value="Early 20s">Early 20s</option>
+              <option value="Late 20s">Late 20s</option>
+              <option value="30s">30s</option>
+              <option value="40s and older">40s and older</option>
+
+
+            </InputUI>
+
+          </Col>
+        </Row>
+
+        <Row className="">
+          <Col className="pr-0">
+            {/* <Input type="select" name="select" id="exampleSelect">
                                   <option>Move In ?</option>
                                   <option>Available Now</option>
                                   <option>After 1 Month</option>
                                 </Input> */}
-                                <DatePicker 
-                                    selected={setRtoM} 
-                                    className="form-control w-100"
-                                    placeholderText="Move In ?"
-                                    onChange={e => setmoveIn(e)} 
-                                    required
-                                />
-                              </Col>
-                              <Col>
-                                {/* <Input type="select" name="select" id="exampleSelect">
+            <DatePicker
+              selected={setRtoM}
+              className="form-control w-100"
+              placeholderText="Move In ?"
+              onChange={e => setmoveIn(e)}
+              required
+            />
+          </Col>
+          <Col>
+            {/* <Input type="select" name="select" id="exampleSelect">
                                   <option>Duration</option>
                                   <option>1-12 Months</option>
                                   <option>1-10 Months</option>
                                 </Input> */}
-                                <InputUI
-                                  type="select"
-                                  name="duration"
-                                  id="duration"
-                                  placeholder="Duration"
-                                  errors={errors}
-                                  innerRef={register({
-                                  required: 'This is required field',
-                                  })}
-                                  value={field.duration}
-                                  onChange={(e) =>
-                                    handleChange(e.target.name, e.target.value)
-                                  }
-                                  >
-                                  <option value="">Choose your Duration </option>
-                                  <option value="1-3 Months">1-3 Months</option>
-                                  <option value="3-6 Months">3-6 Months</option>
-                                  <option value="6+ Months">6+ Months</option>
+            <InputUI
+              type="select"
+              name="duration"
+              id="duration"
+              placeholder="Duration"
+              errors={errors}
+              innerRef={register({
+                required: 'This is required field',
+              })}
+              value={field.duration}
+              onChange={(e) =>
+                handleChange(e.target.name, e.target.value)
+              }
+            >
+              <option value="">Choose your Duration </option>
+              <option value="1-3 Months">1-3 Months</option>
+              <option value="3-6 Months">3-6 Months</option>
+              <option value="6+ Months">6+ Months</option>
 
-                                  
-                                  </InputUI>
-                              </Col>
-                            </Row>
-                            <Row>
-                              <Col className="pr-0">
-                                {/* <Input type="text" name="select" id="exampleSelect" placeholder="Deposit">
+
+            </InputUI>
+          </Col>
+        </Row>
+        <Row>
+          <Col className="pr-0">
+            {/* <Input type="text" name="select" id="exampleSelect" placeholder="Deposit">
                                   <option>Deposit</option>
                                   <option>$500</option>
                                   <option>$700</option>
                                 </Input> */}
-                               <InputUI
-                                  type="text"
-                                  name="budget"
-                                  id="budget"
-                                  placeholder="Maximum Budget"
-                                  errors={errors}
-                                  innerRef={register({
-                                  required: 'This is required field',
-                                  })}
-                                  fields={field}/>
-                              </Col>
-                              <Col>
-                                {/* <Input type="text" name="select" id="exampleSelect" placeholder="Charges">
+            <InputUI
+              type="text"
+              name="budget"
+              id="budget"
+              placeholder="Maximum Budget"
+              errors={errors}
+              innerRef={register({
+                required: 'This is required field',
+              })}
+              fields={field} />
+          </Col>
+          <Col>
+            {/* <Input type="text" name="select" id="exampleSelect" placeholder="Charges">
                                   <option>Charges</option>
                                   <option>$200 or included</option>
                                   <option>$300 or included</option>
                                 </Input> */}
-                                <InputUI
-                                  type="text"
-                                  name="deposite"
-                                  id="deposite"
-                                  placeholder="Deposit"
-                                  errors={errors}
-                                  innerRef={register({
-                                  required: 'This is required field',
-                                  })}
-                                 fields={field}/>
-                              </Col>
-                            </Row>
-                            <Row>
-                           <Col>
-                           <InputUI  
-                                 type="number"
-                                  name="charges"
-                                  id="charges"
-                                  placeholder="Charges"
-                                  errors={errors}
-                                  innerRef={register({
-                                  required: 'This is required field',
-                                  })}
-                                  fields={field}/>
-                           
-                           </Col>
-                           
-                           
-                           <Col>
-                            <InputUI
-                                  type="select"
-                                  name="chargesType"
-                                  id="chargesType"
-                                  placeholder="Charges Type"
-                                  errors={errors}
-                                  innerRef={register({
-                                  required: 'This is required field',
-                                  })}
-                                  value={field.chargesType}
-                                  onChange={(e) =>
-                                    handleChange(e.target.name, e.target.value)
-                                  }
-                                  >
-                                  <option value="">Choose your Charges Type </option>
-                                  <option value="monthly">monthly</option>
-                                  <option value="yearly">yearly</option>
-                                  
-                                  </InputUI>
-                              </Col>
+            <InputUI
+              type="text"
+              name="deposite"
+              id="deposite"
+              placeholder="Deposit"
+              errors={errors}
+              innerRef={register({
+                required: 'This is required field',
+              })}
+              fields={field} />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <InputUI
+              type="number"
+              name="charges"
+              id="charges"
+              placeholder="Charges"
+              errors={errors}
+              innerRef={register({
+                required: 'This is required field',
+              })}
+              fields={field} />
+
+          </Col>
 
 
-                            </Row>
+          <Col>
+            <InputUI
+              type="select"
+              name="chargesType"
+              id="chargesType"
+              placeholder="Charges Type"
+              errors={errors}
+              innerRef={register({
+                required: 'This is required field',
+              })}
+              value={field.chargesType}
+              onChange={(e) =>
+                handleChange(e.target.name, e.target.value)
+              }
+            >
+              <option value="">Choose your Charges Type </option>
+              <option value="monthly">monthly</option>
+              <option value="yearly">yearly</option>
 
-                            <div className="mt-4 d-flex align-items-center">
-                              <h6 className="social mr-2">Link social media accounts:</h6>
-                                <div id="facebookLink" className="d-flex">
-                                  <Facebook></Facebook>
-                                  
-                                </div>
-                                <div id="twitterLink" className="d-flex">
-                                  
-                                  <Twitter></Twitter>
-                                  
-                                </div>
-                                <div id="gsuiteLink" className="d-flex">
-                                  
-                                 <Gsuite></Gsuite>
-                                </div>
-                            </div>
-                            <UncontrolledCollapse toggler="#facebookLink">
-                              <FormGroup>
-                                {/* <Input type="text" name="facebookprofile" id="facebookprofile" placeholder="Facebook Link" /> */}
-                                <InputUI
-                                      type="text"
-                                      name="facebookLink"
-                                      id="facebookLink1"
-                                      placeholder="Facebook Link"
-                                      errors={errors}
-                                      innerRef={register({
-                                      // required: 'This is required field',
-                                      })}
-                                      fields={fields}
-                                    // value={fields.socialMediaLink.facebookLink}
-                                    />
-                              </FormGroup>
-                              
-                              
-                            </UncontrolledCollapse>
-                            <UncontrolledCollapse toggler="#twitterLink">
-                              
-                              <FormGroup>
-                                {/* <Input type="text" name="twitterprofile" id="twitterprofile" placeholder="Twitter Link" /> */}
-                                <InputUI
-                                      type="text"
-                                      name="twitterLink"
-                                      id="twitterLink1"
-                                      placeholder="Twitter Link"
-                                      errors={errors}
-                                      innerRef={register({
-                                      // required: 'This is required field',
-                                      })}
-                                      fields={fields}
-                                    />
-                              </FormGroup>
-                              
-                            </UncontrolledCollapse>
-                            <UncontrolledCollapse toggler="#gsuiteLink">
-                              
-                              
-                              <FormGroup>
-                                {/* <Input type="text" name="googleprofile" id="googleprofile" placeholder="Google Link" /> */}
-                                <InputUI
-                                      type="text"
-                                      name="gsuiteLink"
-                                      id="gsuiteLink1"
-                                      placeholder="Google Link"
-                                      errors={errors}
-                                      innerRef={register({
-                                      // required: 'This is required field',
-                                      })}
-                                      fields={fields}
-                                    />
-                              </FormGroup>
-                            </UncontrolledCollapse>
-                            <div className="text-center">
-                              {/* <a href="#" className="login-bt mt-4 mb-2">Submit</a> */}
-                              <Button type="submit" className="login-bt mt-4 mb-2"> Submit </Button>
-                              {/* <img src={imagePath.orImage} alt="image"/>
+            </InputUI>
+          </Col>
+
+
+        </Row>
+
+        <div className="mt-4 d-flex align-items-center">
+          <h6 className="social mr-2">Link social media accounts:</h6>
+          <div id="facebookLink" className="d-flex">
+            <Facebook></Facebook>
+
+          </div>
+          <div id="twitterLink" className="d-flex">
+
+            <Twitter></Twitter>
+
+          </div>
+          <div id="gsuiteLink" className="d-flex">
+
+            <Gsuite></Gsuite>
+          </div>
+        </div>
+        <UncontrolledCollapse toggler="#facebookLink">
+          <FormGroup>
+            {/* <Input type="text" name="facebookprofile" id="facebookprofile" placeholder="Facebook Link" /> */}
+            <InputUI
+              type="text"
+              name="facebookLink"
+              id="facebookLink1"
+              placeholder="Facebook Link"
+              errors={errors}
+              innerRef={register({
+                // required: 'This is required field',
+              })}
+              fields={fields}
+            // value={fields.socialMediaLink.facebookLink}
+            />
+          </FormGroup>
+
+
+        </UncontrolledCollapse>
+        <UncontrolledCollapse toggler="#twitterLink">
+
+          <FormGroup>
+            {/* <Input type="text" name="twitterprofile" id="twitterprofile" placeholder="Twitter Link" /> */}
+            <InputUI
+              type="text"
+              name="twitterLink"
+              id="twitterLink1"
+              placeholder="Twitter Link"
+              errors={errors}
+              innerRef={register({
+                // required: 'This is required field',
+              })}
+              fields={fields}
+            />
+          </FormGroup>
+
+        </UncontrolledCollapse>
+        <UncontrolledCollapse toggler="#gsuiteLink">
+
+
+          <FormGroup>
+            {/* <Input type="text" name="googleprofile" id="googleprofile" placeholder="Google Link" /> */}
+            <InputUI
+              type="text"
+              name="gsuiteLink"
+              id="gsuiteLink1"
+              placeholder="Google Link"
+              errors={errors}
+              innerRef={register({
+                // required: 'This is required field',
+              })}
+              fields={fields}
+            />
+          </FormGroup>
+        </UncontrolledCollapse>
+        <div className="text-center">
+          {/* <a href="#" className="login-bt mt-4 mb-2">Submit</a> */}
+          <Button type="submit" className="login-bt mt-4 mb-2"> Submit </Button>
+          {/* <img src={imagePath.orImage} alt="image"/>
                               <div className="d-block"></div>
                               <a href="#"><img src={imagePath.fbImage} alt="image"/></a>
                               <a href="#"><img src={imagePath.gsImage} alt="image"/></a> */}
-                              </div>
-                      </Form>
-      </div>
-    );
+        </div>
+      </Form>
+    </div>
+  );
+}
+
+const mapStateToProps = state => {
+  const { user, room, city, house } = state;
+  return {
+    user,
+    room,
+    city,
+    house,
+
   }
-  
-  const mapStateToProps = state => {
-    const { user,room,city,house} = state;
-    return {
-      user,
-      room,
-      city,
-      house,
-      
-    }
-  }
-  
-  const mapDispatchToProps = dispatch => {
-    return {
-      crudActionCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "USER")),
-      resetAction: () => dispatch({ type: "RESET_USER_ACTION" }),
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    crudActionCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "USER")),
+    resetAction: () => dispatch({ type: "RESET_USER_ACTION" }),
     crudActionRoomCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "ROOM")),
     crudActionCityCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "CITY")),
     crudActionHouseCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "HOUSE"))
 
 
 
-      
 
-    }
+
   }
+}
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Formsec2));
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
   //export default Formsec2;

@@ -31,9 +31,7 @@ const LoginNavbaar = (props) => {
   const [msgCountData, setMsgCountData] = useState(0);
   //const [userId, setUserd] = useState();
   const profileImg = localStorage.getItem('profileImg');
-  //console.log('imafe',localStorage.getItem('profileImg'));
-  console.log("profileImg",profileImg,"userId",localStorage.getItem('access-token'))
-
+  // console.log('imafe',localStorage.getItem('profileImg'));
   const tgl = () => setIsView(!isView);
 
   const [isOpen, setIsOpen] = useState(false);
@@ -44,20 +42,20 @@ if (!firebase.apps.length) {
      .database()
      .ref()
      .child('chatMessages');
-     //console.log('chatRef:', chatRef)
+    //  console.log('chatRef:', chatRef)
  } else {
    chatRef = firebase
      .database()
      .ref()
      .child('chatMessages');
-   
+  //  console.log('chatRef:', chatRef)
  }
   useEffect(() => {
     if (props.user.user) {
       setFields({...fields,...props.user.user})
 
     }
-    console.log("props.user.user========",props.user.user)
+    // console.log("props.user.user========",props.user.user)
     if (props.user.user) {
       let userId = props.user.user._id;
       let UserDetails = props.user.user;
@@ -96,19 +94,19 @@ if (!firebase.apps.length) {
                 }
               }
             }
-           
+            // console.log("chatList==",chatList)
 
             if(chatList && chatList.length>= 0){
               //console.log('ji',userId)
                 for(let i=0; i<chatList.length; i++){
                     if(chatList[i].senderId != userId){
-                      console.log("senderId==",chatList[i].senderId,"tyuio",userId)
+                      // console.log("senderId==",chatList[i].senderId,"tyuio",userId)
 
                       msgCount = msgCount + chatList[i].msgCount
                     }
                 }
             }
-            console.log("msgcount in sidebar",msgCount);
+            // console.log("msgcount in sidebar",msgCount);
             setMsgCountData(msgCount)
           } 
         })
