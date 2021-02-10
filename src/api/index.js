@@ -1,7 +1,7 @@
 import axios from "axios";
 import { apiBaseUrl } from "../shared/helpers";
 import { getAuthToken } from "../shared/helpers";
-
+console.log("cghf",localStorage.getItem('access-token'))
 const axiosInstance = axios.create({
   baseURL: apiBaseUrl + "/web/",
   headers: { Authorization: `Bearer ${getAuthToken}` },

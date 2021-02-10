@@ -27,7 +27,7 @@ export const login = (val) => {
             let  {data}  = await axiosLogin.post(LOGIN_URL, val);
             const details = data.msg;
             // console.log(data.msg)
-            // console.log('logindata====>>>>',data.data.userDetails.userType);
+             console.log('logindata====>>>>',data.data);
             if(data.ack===true) {
             // set token in localStorage
             localStorage.setItem('profileImg', data.data.userDetails.profilePicture);
@@ -38,17 +38,9 @@ export const login = (val) => {
             localStorage.setItem('userType', data.data.userDetails.userType?data.data.userDetails.userType:'');
             localStorage.setItem('permission', data.data.userDetails.permission?data.data.userDetails.permission:'');
         //    console.log(data.data.userDetails._id);
-           const a = localStorage.getItem('userId')
-             //console.log(a)
-          // console.log(details)
-        //   if(localStorage.getItem('userType')=='landlord'||localStorage.getItem('userType')=='customer'){
-        //     toast.info(details, {
-        //         position: toast.POSITION.TOP_CENTER
-        //     });
-        // }
-            
-            
-            //console.log("su")
+            const a = localStorage.getItem('userId')
+            console.log(a,"userId",localStorage.getItem('access-token'))
+         
             // set token in redux
             dispatch({ type: AUTH_SUCCESS, payload: {token: data.data.token, 
                 userId:data.data.userDetails._id,

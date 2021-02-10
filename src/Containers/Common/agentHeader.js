@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react';
 import '../Pages/HomePage/style.css';
-import { SETTING_URL } from '../../shared/allApiUrl';
+import { SETTING_URL,USER_URL } from '../../shared/allApiUrl';
 
 import imagePath from '../../Config/imageConstants';
 
@@ -45,12 +45,17 @@ import { useHistory } from "react-router";
   const toggle1 = () => setDropdownOpen(prevState => !prevState);
   const params = props.match.params;
   const path = props.match.path
+  const userId = localStorage.getItem('userId');
+  const profileImg = localStorage.getItem("profileImg");
+  const username = localStorage.getItem('username');
 
+  const userToken = localStorage.getItem('access-token')
   useEffect(() => {
     if(path == '/AddProperty/:userId' || path == '/agentchangePassword/:userId' || path == "/AgentEditProfile/:userId" ){
         setShowSearch(false)
     }
     props.crudActionCall(`${SETTING_URL}`, null, "GET")
+    props.crudActionUserCall(`${USER_URL}/${userId}`, null, "GET")
   }, [params,path]);
 
   useEffect(() => {
@@ -64,13 +69,9 @@ import { useHistory } from "react-router";
     
 
   }, [props.setting]);
-   console.log('propsuser',props);
-  const userId = localStorage.getItem('userId');
-  const profileImg = localStorage.getItem("profileImg");
-  const username = localStorage.getItem('username');
-
-  const userToken = localStorage.getItem('access-token')
-  console.log('imafe',localStorage.getItem('profileImg'));
+   //console.log('propsuser',props);
+  
+  //console.log('imafe',localStorage.getItem('profileImg'));
   const logout = () =>{
     localStorage.removeItem("access-token");
     localStorage.removeItem('userId')
@@ -147,7 +148,7 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
   return {
-    crudActionCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "USER")),
+    crudActionUserCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "USER")),
     crudActionCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "SETTING"))
 
   }

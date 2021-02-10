@@ -31,7 +31,9 @@ const LoginNavbaar = (props) => {
   const [msgCountData, setMsgCountData] = useState(0);
   //const [userId, setUserd] = useState();
   const profileImg = localStorage.getItem('profileImg');
-  console.log('imafe',localStorage.getItem('profileImg'));
+  //console.log('imafe',localStorage.getItem('profileImg'));
+  console.log("profileImg",profileImg,"userId",localStorage.getItem('access-token'))
+
   const tgl = () => setIsView(!isView);
 
   const [isOpen, setIsOpen] = useState(false);
@@ -42,13 +44,13 @@ if (!firebase.apps.length) {
      .database()
      .ref()
      .child('chatMessages');
-     console.log('chatRef:', chatRef)
+     //console.log('chatRef:', chatRef)
  } else {
    chatRef = firebase
      .database()
      .ref()
      .child('chatMessages');
-   console.log('chatRef:', chatRef)
+   
  }
   useEffect(() => {
     if (props.user.user) {
@@ -94,7 +96,7 @@ if (!firebase.apps.length) {
                 }
               }
             }
-            console.log("chatList==",chatList)
+           
 
             if(chatList && chatList.length>= 0){
               //console.log('ji',userId)
@@ -245,9 +247,9 @@ if (!firebase.apps.length) {
                   </Dropdown> 
                 </NavLink>             
               </NavItem>
-              <NavItem>
+              {/* <NavItem>
                 <NavLink href="/AgentSignup">Agent</NavLink>
-              </NavItem>
+              </NavItem> */}
             </Nav>
           </Collapse>
         </Navbar>
