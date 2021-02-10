@@ -8,7 +8,7 @@ import Header from '../../Common/agentHeader';
 import MultiSelect from "react-multi-select-component";
 import { faTimesCircle } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ADD_AGENT_URL, HOUSE_RULE_URL, CITY_URL, AMINITIES_URL, LIST_AGENTT_URL, UPDATE_AGENTT_URL,ADD_PROPERTY } from '../../../shared/allApiUrl';
+import { ADD_AGENT_URL, HOUSE_RULE_URL, CITY_URL, AMINITIES_URL, LIST_AGENTT_URL, UPDATE_AGENTT_URL, ADD_PROPERTY } from '../../../shared/allApiUrl';
 import { crudAction } from '../../../store/actions/common';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -93,35 +93,35 @@ const AddProperty = (props) => {
    const onSubmit = (data) => {
       let formData = new FormData();
       console.log(data, 'data==========')
-      formData.append('user_Id',localStorage.getItem("userId"));
+      formData.append('user_Id', localStorage.getItem("userId"));
       formData.append('roomName', fields.roomName);
       for (let i = 0; i < RoomImageFile.length; i++) {
          formData.append('roomImage', RoomImageFile[i]);
       }
       formData.append('aboutRoom', fields.aboutRoom);
-      formData.append('flateMate',fields.flateMate);
-      formData.append('ageRange',fields.ageRange);
-      formData.append('noOfBedRoom',fields.noOfBedRoom);
+      formData.append('flateMate', fields.flateMate);
+      formData.append('ageRange', fields.ageRange);
+      formData.append('noOfBedRoom', fields.noOfBedRoom);
       // formData.append('houseRules',fields.houseRules);
       for (let i = 0; i < fields.houseRules.length; i++) {
          formData.append('houseRules', fields.houseRules[i]);
       }
-      formData.append('aminities',fields.aminities);
-      formData.append('duration',fields.duration);
-      formData.append('moveIn',fields.moveIn);
-      formData.append('area',fields.area);
-      formData.append('deposite',fields.deposite);
-      formData.append('charges',fields.charges);
-      formData.append('chargesType',fields.chargesType);
-      formData.append('budget',fields.budget);
-      formData.append('address',fields.address);
-      formData.append('city',fields.city);
-      formData.append('longitude',fields.longitude);
-      formData.append('latitude',fields.latitude);
-      formData.append('zipCode',fields.zipCode);
+      formData.append('aminities', fields.aminities);
+      formData.append('duration', fields.duration);
+      formData.append('moveIn', fields.moveIn);
+      formData.append('area', fields.area);
+      formData.append('deposite', fields.deposite);
+      formData.append('charges', fields.charges);
+      formData.append('chargesType', fields.chargesType);
+      formData.append('budget', fields.budget);
+      formData.append('address', fields.address);
+      formData.append('city', fields.city);
+      formData.append('longitude', fields.longitude);
+      formData.append('latitude', fields.latitude);
+      formData.append('zipCode', fields.zipCode);
 
-     console.log(formData, 'formData===============')
-     props.crudActionCall(ADD_PROPERTY, formData, "ADD");
+      console.log(formData, 'formData===============')
+      props.crudActionCall(ADD_PROPERTY, formData, "ADD");
       // setUserId(params.userId)
       // const a = localStorage.getItem('userId')
       // // if (setDate) data.dateOfBirth = setDate;
@@ -217,7 +217,7 @@ const AddProperty = (props) => {
       // (moment(props.agentt.agentt.readyToMove).toDate())
    }
 
-  
+
    const handleChangeAddress = address => {
       console.log(address)
       if (address === '') {
@@ -269,7 +269,7 @@ const AddProperty = (props) => {
       }))
          .then(images => {
             /* Once all promises are resolved, update state with image URI array */
-            updateRoomImage(images)            
+            updateRoomImage(images)
          }, error => {
             console.error(error);
          });
@@ -277,10 +277,10 @@ const AddProperty = (props) => {
    };
    console.log(RoomImageFile, 'RoomImageFile')
 
-   const roomImageUploadApi = async()=>{
+   const roomImageUploadApi = async () => {
       let sendData = new FormData();
       for (let i = 0; i < RoomImageFile.length; i++) {
-        sendData.append('roomImage', RoomImageFile[i]);
+         sendData.append('roomImage', RoomImageFile[i]);
       }
       setFields((prevState) => ({ ...prevState, ["roomImage"]: sendData }));
       console.log(sendData, 'im')
@@ -303,24 +303,57 @@ const AddProperty = (props) => {
                      <div className="userDetailsBox p-4 bg-white mt-2 custm_userDetailsBox">
                         <Form onSubmit={handleSubmit(onSubmit)}>
                            <Row>
-                              {/* <Col xs={12} sm={12} md={6} lg={6}>
+                              <Col xs={12} sm={12} md={6} lg={12}>
                                  <FormGroup>
-                                    <Label>Property Name</Label>
-                                    <InputUI
-                                       className="custm_inpt"
-                                       type="text"
-                                       name="propertyName"
-                                       id="propertyName"
-                                       placeholder="Property Name"
-                                       errors={errors}
-                                       innerRef={register({
-                                          required: 'This is required field',
+                                    <Label>Search Places</Label>
+                                    <PlacesAutocomplete
+                                       onChange={handleChangeAddress}
+                                       onSelect={handleSelect}
+                                       searchOptions={searchOptions}
+                                       value={fields.address}
 
-                                       })}
-                                       fields={fields}
-                                    />
+                                    >
+                                       {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                                          <>
+                                             <input
+                                                {...getInputProps({
+                                                   placeholder: 'Search Places ...',
+                                                   className: 'form-control custm_inpt',
+                                                })}
+                                             />
+                                             <p style={{ color: "red" }}>{errAdd}</p>
+                                             <div className="autocomplete-dropdown-container">
+                                                {loading && <div>Loading...</div>}
+                                                {suggestions.map(suggestion => {
+                                                   const className = suggestion.active
+                                                      ? 'suggestion-item--active'
+                                                      : 'suggestion-item';
+                                                   // inline style for demonstration purpose
+                                                   const style = suggestion.active
+                                                      ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                                                      : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                                                   return (
+                                                      <div
+                                                         {...getSuggestionItemProps(suggestion, {
+                                                            className,
+                                                            style,
+                                                         })}
+                                                      >
+                                                         <span>{suggestion.description}</span>
+                                                      </div>
+                                                   );
+                                                })}
+                                             </div>
+                                          </>
+                                       )}
+                                    </PlacesAutocomplete>
                                  </FormGroup>
-                              </Col> */}
+                              </Col>
+                           </Row>
+                           <Row>
+
+                              {/* </Row> */}
+
                               <Col xs={12} sm={12} md={6} lg={6}>
                                  <FormGroup>
                                     <Label>City</Label>
@@ -350,59 +383,15 @@ const AddProperty = (props) => {
                                     </InputUI>
                                  </FormGroup>
                               </Col>
-                           </Row>
-                           <Row>
-                              <PlacesAutocomplete
-                                 onChange={handleChangeAddress}
-                                 onSelect={handleSelect}
-                                 searchOptions={searchOptions}
-                                 value={fields.address}
-
-                              >
-                                 {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                                    <Col xs={12} sm={12} md={12} lg={12}>
-                                       <input
-                                          {...getInputProps({
-                                             placeholder: 'Search Places ...',
-                                             className: 'form-control',
-                                          })}
-                                       />
-                                       <p style={{ color: "red" }}>{errAdd}</p>
-                                       <div className="autocomplete-dropdown-container">
-                                          {loading && <div>Loading...</div>}
-                                          {suggestions.map(suggestion => {
-                                             const className = suggestion.active
-                                                ? 'suggestion-item--active'
-                                                : 'suggestion-item';
-                                             // inline style for demonstration purpose
-                                             const style = suggestion.active
-                                                ? { backgroundColor: '#fafafa', cursor: 'pointer' }
-                                                : { backgroundColor: '#ffffff', cursor: 'pointer' };
-                                             return (
-                                                <div
-                                                   {...getSuggestionItemProps(suggestion, {
-                                                      className,
-                                                      style,
-                                                   })}
-                                                >
-                                                   <span>{suggestion.description}</span>
-                                                </div>
-                                             );
-                                          })}
-                                       </div>
-                                    </Col>
-                                 )}
-                              </PlacesAutocomplete>
-                              {/* </Row> */}
                               <Col xs={12} sm={12} md={6} lg={6}>
                                  <FormGroup>
-                                    <Label>Room Name</Label>
+                                    <Label>Property Name</Label>
                                     <InputUI
                                        className="custm_inpt"
                                        type="text"
                                        name="roomName"
                                        id="roomName"
-                                       placeholder="Room Name"
+                                       placeholder="Property Name"
                                        errors={errors}
                                        innerRef={register({
                                           required: 'This is required field',
@@ -415,31 +404,9 @@ const AddProperty = (props) => {
 
                                  </FormGroup>
                               </Col>
-                              <Col className="pr-0" xs={12} sm={12} md={6} lg={6}>
-                                 <FormGroup>
-                                    <Label>Prefer Gender Types</Label>
-                                    <InputUI
-                                       className="custm_inpt"
-                                       type="select"
-                                       name="flateMate"
-                                       id="flateMate"
-                                       placeholder="flatmates"
-                                       errors={errors}
-                                       innerRef={register({
-                                          required: 'This is required field',
-                                       })}
-                                       value={fields.flateMate}
-                                       onChange={(e) =>
-                                          handleChange(e.target.name, e.target.value)
-                                       }
-                                    >
-                                       <option value="">Prefer Gender Types </option>
-                                       <option value="male">Male</option>
-                                       <option value="female">Female</option>
-                                       <option value="other">Other</option>
-                                    </InputUI>
-                                 </FormGroup>
-                              </Col>
+
+
+
                            </Row>
                            <Row>
                               <Col xs={12} sm={12} md={6} lg={6}>
@@ -484,7 +451,9 @@ const AddProperty = (props) => {
                               </Col>
                            </Row>
                            <Row>
-                              <Col xs={12} sm={12} md={12} lg={12}>
+                           </Row>
+                           <Row>
+                              <Col xs={12} sm={12} md={12} lg={6}>
                                  <FormGroup>
                                     <Label>About Room</Label>
                                     {/* <textarea className="input" placeholder="Enter About Room"></textarea> */}
@@ -505,10 +474,36 @@ const AddProperty = (props) => {
                                     />
                                  </FormGroup>
                               </Col>
+                              <Col xs={12} sm={12} md={6} lg={6}>
+                                 <FormGroup>
+                                    <Label>Prefer Gender Types</Label>
+                                    <InputUI
+                                       className="custm_inpt"
+                                       type="select"
+                                       name="flateMate"
+                                       id="flateMate"
+                                       placeholder="flatmates"
+                                       errors={errors}
+                                       innerRef={register({
+                                          required: 'This is required field',
+                                       })}
+                                       value={fields.flateMate}
+                                       onChange={(e) =>
+                                          handleChange(e.target.name, e.target.value)
+                                       }
+                                    >
+                                       <option value="">Prefer Gender Types </option>
+                                       <option value="male">Male</option>
+                                       <option value="female">Female</option>
+                                       <option value="other">Other</option>
+                                    </InputUI>
+                                 </FormGroup>
+                              </Col>
                            </Row>
                            <Row>
-                              <Row>
-                                 <Col className="pr-0">
+                              <Col xs={12} sm={12} md={6} lg={6}>
+                                 <FormGroup>
+                                    <Label>Maximum Budget</Label>
                                     <InputUI
                                        className="custm_inpt"
                                        type="text"
@@ -523,8 +518,11 @@ const AddProperty = (props) => {
                                        onChange={(e) =>
                                           handleChange(e.target.name, e.target.value)
                                        } />
-                                 </Col>
-                                 <Col>
+                                 </FormGroup>
+                              </Col>
+                              <Col xs={12} sm={12} md={6} lg={6}>
+                                 <FormGroup>
+                                    <Label>Deposit</Label>
                                     <InputUI
                                        className="custm_inpt"
                                        type="text"
@@ -539,50 +537,57 @@ const AddProperty = (props) => {
                                        onChange={(e) =>
                                           handleChange(e.target.name, e.target.value)
                                        } />
-                                 </Col>
-                              </Row>
+                                 </FormGroup>
+                              </Col>
                            </Row>
+
                            <Row>
-                              <Col>
-                                 <InputUI
-                                    className="custm_inpt"
-                                    type="number"
-                                    name="charges"
-                                    id="charges"
-                                    placeholder="Charges"
-                                    errors={errors}
-                                    innerRef={register({
-                                       required: 'This is required field',
-                                    })}
-                                    fields={fields}
-                                    onChange={(e) =>
-                                       handleChange(e.target.name, e.target.value)
-                                    } />
+                              <Col xs={12} sm={12} md={6} lg={6}>
+                                 <FormGroup>
+                                    <Label>Charges</Label>
+                                    <InputUI
+                                       className="custm_inpt"
+                                       type="number"
+                                       name="charges"
+                                       id="charges"
+                                       placeholder="Charges"
+                                       errors={errors}
+                                       innerRef={register({
+                                          required: 'This is required field',
+                                       })}
+                                       fields={fields}
+                                       onChange={(e) =>
+                                          handleChange(e.target.name, e.target.value)
+                                       } />
+                                 </FormGroup>
 
                               </Col>
 
 
-                              <Col>
-                                 <InputUI
-                                    className="custm_inpt"
-                                    type="select"
-                                    name="chargesType"
-                                    id="chargesType"
-                                    placeholder="Charges Type"
-                                    errors={errors}
-                                    innerRef={register({
-                                       required: 'This is required field',
-                                    })}
-                                    value={fields.chargesType}
-                                    onChange={(e) =>
-                                       handleChange(e.target.name, e.target.value)
-                                    }
-                                 >
-                                    <option value="">Choose your Charges Type </option>
-                                    <option value="monthly">monthly</option>
-                                    <option value="yearly">yearly</option>
+                              <Col xs={12} sm={12} md={6} lg={6}>
+                                 <FormGroup>
+                                    <Label>Charges Type</Label>
+                                    <InputUI
+                                       className="custm_inpt"
+                                       type="select"
+                                       name="chargesType"
+                                       id="chargesType"
+                                       placeholder="Charges Type"
+                                       errors={errors}
+                                       innerRef={register({
+                                          required: 'This is required field',
+                                       })}
+                                       value={fields.chargesType}
+                                       onChange={(e) =>
+                                          handleChange(e.target.name, e.target.value)
+                                       }
+                                    >
+                                       <option value="">Choose your Charges Type </option>
+                                       <option value="monthly">monthly</option>
+                                       <option value="yearly">yearly</option>
 
-                                 </InputUI>
+                                    </InputUI>
+                                 </FormGroup>
                               </Col>
 
 
@@ -618,27 +623,28 @@ const AddProperty = (props) => {
                               <Col xs={12} sm={12} md={6} lg={6}>
                                  <FormGroup>
                                     <Label>Choose Age Range</Label>
-                                    {/* 
-                        <select className="input">
-                           <option>1 - 3 year</option>
-                           <option>18+</option>
-                        </select>
-                        */}
                                     <InputUI
-                                       className="custm_inpt"
-                                       type="number"
+                                       type="select"
                                        name="ageRange"
-                                       id="age"
-                                       placeholder="Age range"
+                                       id="ageRange"
+                                       placeholder="Age Range"
                                        errors={errors}
                                        innerRef={register({
                                           required: 'This is required field',
                                        })}
-                                       fields={fields}
+                                       value={fields.ageRange}
                                        onChange={(e) =>
                                           handleChange(e.target.name, e.target.value)
                                        }
-                                    />
+                                    >
+                                       <option value="">Choose your Age Range </option>
+                                       <option value="Early 20s">Early 20s</option>
+                                       <option value="Late 20s">Late 20s</option>
+                                       <option value="30s">30s</option>
+                                       <option value="40s and older">40s and older</option>
+
+
+                                    </InputUI>
                                  </FormGroup>
                               </Col>
                            </Row>
