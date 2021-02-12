@@ -33,6 +33,7 @@ import AgentChangePassword from '../Containers/Pages/AgentChangePassword/AgentCh
 import AgentEditProfile from '../Containers/Pages/agentEditProfile/agentEditProfile';
 import AddProperty from '../Containers/Pages/AddProperty/AddProperty';
 import AgentSettings from '../Containers/Pages/AgentSettings/AgentSettings';
+import PropertyDetails from '../Containers/Pages/Dashboard/propertyDetails';
 
 
 const Routes=(props) =>{
@@ -70,10 +71,11 @@ const Routes=(props) =>{
 				<Route path="/DashboardListing" exact component={DashboardListing} />
                 <Route path="/agentchangePassword/:userId" exact component={AgentChangePassword} />
                 <Route path="/AgentEditProfile/:userId" exact component={AgentEditProfile} />
-                <Route path="/AddProperty/:userId" exact component={AddProperty} />
+                <Route path="/AddProperty/:propertyId" exact component={AddProperty} />
                 <Route path="/AddProperty" exact component={AddProperty} />
                 <Route path="/AgentSettings/:userId" exact component={AgentSettings} />
                 <Route path="/agentchangePassword/:userId" exact component={AgentChangePassword} />
+                <Route path="/PropertyDetails/:propertyId" exact component={PropertyDetails} />
                 
             </Switch>
         </Router>
