@@ -36,7 +36,6 @@ const Formsec = () => {
   //  address:"",
     budget:"",
   }
-console.log("loginuseId",localStorage.getItem('userId'))
   const loginUserId = localStorage.getItem('userId');
   const [activeTab, setActiveTab] = useState('1');
   const [startDate, setStartDate] = useState('');
@@ -52,7 +51,7 @@ console.log("loginuseId",localStorage.getItem('userId'))
   const toggle = tab => {
     if(activeTab !== tab) setActiveTab(tab);
   }
-console.log("startDate",startDate);
+//console.log("startDate",startDate);
   useEffect(() => {
     callApi(apiBaseUrl+"/web/"+CITY_URL,'GET','').then(
       response => {

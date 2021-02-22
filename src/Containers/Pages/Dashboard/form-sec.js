@@ -60,7 +60,7 @@ const Formsec = (props) => {
     const history = useHistory();
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
-    const handleModal = () => setShow(true);
+    //const handleModal = () => setShow(true);
     let chatRef = null;
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
@@ -152,7 +152,7 @@ const Formsec = (props) => {
        getChat()
   
     }, [props.user]);
-     
+     console.log("fields1111",fields)
     useEffect(() => {
       console.log('abvr',chatRoomId)
       if(chatRoomId != undefined){
@@ -212,19 +212,29 @@ const Formsec = (props) => {
 
                     </div>
                       <h2>{fields.firstName + ' ' + fields.lastName}</h2>
-                      {/* <h6 className="mb-3">Mail  |  Age: {fields.age}</h6> */}
-                            
-                      <div>
-                      {/* <label class="switch">
+                       <h6 className="mb-3">Mail  |  Age: {fields.age}</h6>
+                      <div className="mt-3 d-flex align-items-center justify-content-center">
+                    {fields.facebookLink?<a href= {fields.facebookLink} target="_blank"><Facebook></Facebook></a>:""}
+                    {fields.twitterLink?<a href= {fields.twitterLink} target="_blank">  <Twitter></Twitter></a>:""}
+                    {fields.gsuiteLink?<a href= {fields.gsuiteLink} target="_blank">  <Gsuite></Gsuite></a>:""}
+                    {/* <a href={`mailto:${fields.email}`} target="_blank">  <Email></Email></a> */}
+                     {/* <a class="btn btn-primay" href={`mailto:${val.email}`}>Reply</a> */}
+                      {/* <Facebook></Facebook> */}
+                      {/* <Twitter></Twitter> */}
+                      {/* <Gsuite></Gsuite>
+                      <Email></Email> */}
+                    </div>   
+                      {/* <div>
+                       <label class="switch">
                       <input type="checkbox" name="userType" value={fields.userType} onClick={handleChnage} defaultChecked={checked}/>
                         <span class="slider round"></span>
-                      </label> */}
+                      </label> 
                       <span className="mt-2 mb-5 d-md-flex d-lg-flex justify-content-between">
                         <NavLink to="#" className="toggle pr-3">I am looking for a room</NavLink>
                         <NavLink to="#" className="toggle border-right-0 pl-3">I have an available room</NavLink>
                       </span>
-                    </div>
-                    <button onClick={handleModal} className="login-bt mb-2">Messsage</button>
+                    </div> */}
+                    {/* <button onClick={handleModal} className="login-bt mb-2">Messsage</button> */}
 
                     <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>

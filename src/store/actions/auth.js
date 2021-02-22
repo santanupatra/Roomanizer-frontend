@@ -75,9 +75,9 @@ export const login = (val) => {
 export const logout = () => {
     return async dispatch => {
         
-        localStorage.removeItem('access-token');
-        localStorage.removeItem('itemName')
-        localStorage.removeItem('adminId');
+            localStorage.removeItem("access-token");
+            localStorage.removeItem('userId')
+            localStorage.removeItem('userType')
         dispatch({ type: AUTH_LOGOUT, payload: {} })
     }
 }

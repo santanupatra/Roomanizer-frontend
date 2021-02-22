@@ -15,7 +15,7 @@ import { USER_URL } from '../../../shared/allApiUrl';
 const EditProfile = (props) => {
 
   const [fields, setImage] = useState({ preview: "", profilePicture: "" });
-  const [userType, setUserType] = useState({ 'userType': localStorage.getItem('userType') });
+  const [userType, setUserType] = useState({'userType':localStorage.getItem('userType')});
 
   const [userId, setUserId] = useState(null);
   const params = props.match.params;
@@ -26,30 +26,31 @@ const EditProfile = (props) => {
     if (props.user.user && params.userId) {
       setImage({ ...fields, ...props.user.user })
     }
-    setUserType({'userType':props.user.user && props.user.user.userType && props.user.user.userType})
+    
   }, [props.user]);
 
-  const handleChnage = (e) => {
+  const handleChnage =(e)=>{
+    
+    if(e.target.checked==true){
+       
+       localStorage.setItem('userType','landlord')
+       setUserType({userType:'landlord'});
+       props.crudActionCall(`${USER_URL}` + `/${userId}`, {'userType':'landlord'}, "UPDATE");
 
-    if (e.target.checked == true) {
-
-      localStorage.setItem('userType', 'landlord')
-      setUserType({ userType: 'landlord' });
-      props.crudActionCall(`${USER_URL}` + `/${userId}`, { 'userType': 'landlord' }, "UPDATE");
-
-    } else {
-      localStorage.setItem('userType', 'customer')
-      setUserType({ userType: 'customer' });
-      props.crudActionCall(`${USER_URL}` + `/${userId}`, { 'userType': 'customer' }, "UPDATE");
+    }else{
+      localStorage.setItem('userType','customer')
+      setUserType({userType:'customer'});
+      props.crudActionCall(`${USER_URL}` + `/${userId}`, {'userType':'customer'}, "UPDATE");
 
     }
   }
 
+ 
   let checked;
-  if (props.user.user && props.user.user.userType && props.user.user.userType === 'customer') {
-    checked = false;
-  } else if (props.user.user && props.user.user.userType && props.user.user.userType === 'landlord') {
-    checked = true;
+  if(userType.userType ==='customer'){
+   checked=false;
+  }else if(userType.userType ==='landlord'){
+   checked=true;
   }
   console.log(userType, 'edit profile===========================')
   return (
@@ -65,7 +66,7 @@ const EditProfile = (props) => {
                 {/* Toggle */}
                 <div className="text-center mb-4">
                   <label class="switch">
-                    <input type="checkbox" name="userType" value={userType.userType} onClick={handleChnage}  />
+                  <input type="checkbox" name="userType" value={userType.userType} onClick={handleChnage} defaultChecked={checked}/>
                     <span class="slider round"></span>
                   </label>
                   <span className="mt-2 d-block">

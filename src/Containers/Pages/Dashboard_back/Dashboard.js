@@ -26,18 +26,7 @@ const Dashboard = (props) => {
   const history = useHistory();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggle1 = () => setDropdownOpen(prevState => !prevState);
-  const logout = () =>{
-    localStorage.removeItem("access-token");
-    localStorage.removeItem('userId')
-    // this.setState({
-    //     Authtoken: '',
-    //   });
-      toast.info("Sucessfully logout", {
-        position: toast.POSITION.TOP_LEFT
-        });
-          
-    history.push('/')
-} 
+  
 const getLandlordList = () => {
   props.crudActionCall(LIST_AGENT_URL +`/${userId}`, null, "GET_ALL")
 }

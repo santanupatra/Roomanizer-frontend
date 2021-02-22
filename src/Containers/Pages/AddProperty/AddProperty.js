@@ -64,6 +64,7 @@ const AddProperty = (props) => {
       longitude: 0,
 
    }
+   console.log("props=====",props)
    const params = props.match.params;
    let propertyId = props.match.params && props.match.params.propertyId && props.match.params.propertyId;
    const [fields, setFields] = useState(initialFields);
@@ -92,7 +93,7 @@ const AddProperty = (props) => {
    }, [params]);
 
    useEffect(() => {
-      props.crudActionAgentCall(`${ADD_PROPERTY}/${propertyId}`, null, "GET_ALL");
+      props.crudActionAgentCall(`${ADD_PROPERTY}/${propertyId}`, null, "GET");
    }, [propertyId]);
 
    const onSubmit = (data) => {
@@ -122,8 +123,14 @@ const AddProperty = (props) => {
       } else {
          props.crudActionCall(ADD_PROPERTY, formData, "ADD");
       }
-      props.history.push(`/Dashboard/${userId}`);
+      //props.history.push(`/Dashboard/${userId}`);
    }
+
+   useEffect(() => {
+     if(props.agent.action.type == "UPDATE" && props.agent.action.isSuccess){
+       props.history.push(`/Dashboard/${localStorage.getItem("userId")}`);
+     }
+   }, [props.agent.action]);
    const options = props.house.houseList.map((val) =>
       ({ label: val.name, value: val._id })
    );
@@ -142,34 +149,36 @@ const AddProperty = (props) => {
    }, [props.agentt]);
 
    useEffect(() => {
-      if (props.room.roomList) {
-         setFields({
-            ...fields,
-            roomName: props.room.roomList && props.room.roomList.roomName ? props.room.roomList.roomName : "",
-            aboutRoom: props.room.roomList && props.room.roomList.aboutRoom ? props.room.roomList.aboutRoom : "",
-            noOfBedRoom: props.room.roomList && props.room.roomList.noOfBedRoom ? props.room.roomList.noOfBedRoom : "",
-            houseRules: props.room.roomList && props.room.roomList.houseRules ? props.room.roomList.houseRules : [],
-            aminities: props.room.roomList && props.room.roomList.aminities ? props.room.roomList.aminities : [],
-            duration: props.room.roomList && props.room.roomList.duration ? props.room.roomList.duration : "",
-            moveIn: props.room.roomList && props.room.roomList.moveIn ? moment(props.room.roomList.moveIn).toDate() : "",
-            city: props.room.roomList && props.room.roomList.city ? props.room.roomList.city : "",
-            ageRange: props.room.roomList && props.room.roomList.ageRange ? props.room.roomList.ageRange : "",
-            area: props.room.roomList && props.room.roomList.area ? props.room.roomList.area : "",
-            ageRange: props.room.roomList && props.room.roomList.ageRange ? props.room.roomList.ageRange : "",
-            zipCode: props.room.roomList && props.room.roomList.zipCode ? props.room.roomList.zipCode : "",
-            address: props.room.roomList && props.room.roomList.address ? props.room.roomList.address : "",
-            flateMate: props.room.roomList && props.room.roomList.flateMate ? props.room.roomList.flateMate : "",
-            deposite: props.room.roomList && props.room.roomList.deposite ? props.room.roomList.deposite : "",
-            budget: props.room.roomList && props.room.roomList.budget ? props.room.roomList.budget : "",
-            charges: props.room.roomList && props.room.roomList.charges ? props.room.roomList.charges : "",
-            chargesType: props.room.roomList && props.room.roomList.chargesType ? props.room.roomList.chargesType : "",
-            latitude: props.room.roomList && props.room.roomList.latitude ? props.room.roomList.latitude : "",
-            longitude: props.room.roomList && props.room.roomList.longitude ? props.room.roomList.longitude : "",
+      if (props.room.room) {
+         setFields({ ...fields, ...props.room.room })
 
-         })
-         updateRoomImageFile(props.room.roomList && props.room.roomList.roomImage && props.room.roomList.roomImage);
+         // setFields({
+         //    ...fields,
+         //    roomName: props.room.roomList && props.room.roomList.roomName ? props.room.roomList.roomName : "",
+         //    aboutRoom: props.room.roomList && props.room.roomList.aboutRoom ? props.room.roomList.aboutRoom : "",
+         //    noOfBedRoom: props.room.roomList && props.room.roomList.noOfBedRoom ? props.room.roomList.noOfBedRoom : "",
+         //    houseRules: props.room.roomList && props.room.roomList.houseRules ? props.room.roomList.houseRules : [],
+         //    aminities: props.room.roomList && props.room.roomList.aminities ? props.room.roomList.aminities : [],
+         //    duration: props.room.roomList && props.room.roomList.duration ? props.room.roomList.duration : "",
+         //    moveIn: props.room.roomList && props.room.roomList.moveIn ? moment(props.room.roomList.moveIn).toDate() : "",
+         //    city: props.room.roomList && props.room.roomList.city ? props.room.roomList.city : "",
+         //    ageRange: props.room.roomList && props.room.roomList.ageRange ? props.room.roomList.ageRange : "",
+         //    area: props.room.roomList && props.room.roomList.area ? props.room.roomList.area : "",
+         //    ageRange: props.room.roomList && props.room.roomList.ageRange ? props.room.roomList.ageRange : "",
+         //    zipCode: props.room.roomList && props.room.roomList.zipCode ? props.room.roomList.zipCode : "",
+         //    address: props.room.roomList && props.room.roomList.address ? props.room.roomList.address : "",
+         //    flateMate: props.room.roomList && props.room.roomList.flateMate ? props.room.roomList.flateMate : "",
+         //    deposite: props.room.roomList && props.room.roomList.deposite ? props.room.roomList.deposite : "",
+         //    budget: props.room.roomList && props.room.roomList.budget ? props.room.roomList.budget : "",
+         //    charges: props.room.roomList && props.room.roomList.charges ? props.room.roomList.charges : "",
+         //    chargesType: props.room.roomList && props.room.roomList.chargesType ? props.room.roomList.chargesType : "",
+         //    latitude: props.room.roomList && props.room.roomList.latitude ? props.room.roomList.latitude : "",
+         //    longitude: props.room.roomList && props.room.roomList.longitude ? props.room.roomList.longitude : "",
+
+         // })
+         //updateRoomImageFile(props.room.room && props.room.room.roomImage);
       }
-   }, [props.room.roomList]);
+   }, [props.room.room]);
 
    const setReadyToMove = (e) => {
       setFields((prevState) => ({ ...prevState, "moveIn": e }));
@@ -236,7 +245,8 @@ const AddProperty = (props) => {
       setFields({ ...fields, ...props.room.roomList })
 
     }
-   // console.log(props.room.roomList,fields, 'propertyId edit===============')
+    //console.log(props.room, 'propertyId edit===============',fields)
+    console.log('propertyId edit===============',fields)
    return (
       <div className="home">
          <div className="header">

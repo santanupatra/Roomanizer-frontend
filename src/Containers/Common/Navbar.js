@@ -23,7 +23,9 @@ const Navbaar = (props) => {
   const toggle = () => setIsOpen(!isOpen);
    
   const logout = () =>{
-     localStorage.removeItem('userId')
+    localStorage.removeItem("access-token");
+    localStorage.removeItem('userId')
+    localStorage.removeItem('userType')
   }
   const userId = localStorage.getItem('userId')
   

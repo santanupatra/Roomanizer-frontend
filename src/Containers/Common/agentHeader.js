@@ -51,7 +51,7 @@ import { useHistory } from "react-router";
 
   const userToken = localStorage.getItem('access-token')
   useEffect(() => {
-    if(path == '/AddProperty/:userId' || path == '/agentchangePassword/:userId' || path == "/AgentEditProfile/:userId" ){
+    if(path == '/AddProperty' || path == '/AddProperty/:propertyId' || path == '/agentchangePassword/:userId' || path == "/AgentEditProfile/:userId" || path=="/PropertyDetails/:propertyId"){
         setShowSearch(false)
     }
     props.crudActionCall(`${SETTING_URL}`, null, "GET")
@@ -75,6 +75,7 @@ import { useHistory } from "react-router";
   const logout = () =>{
     localStorage.removeItem("access-token");
     localStorage.removeItem('userId')
+    localStorage.removeItem('userType')
     // this.setState({
     //     Authtoken: '',
     //   });
@@ -82,7 +83,7 @@ import { useHistory } from "react-router";
         position: toast.POSITION.TOP_LEFT
         });
           
-    history.push('/')
+    history.push('/home')
 } 
     
         return (

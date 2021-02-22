@@ -36,17 +36,7 @@ const Dashboard = (props) => {
   const [offMarketClass, SetoffMarketClass] = useState(true);
 
   const toggle1 = () => setDropdownOpen(prevState => !prevState);
-  const logout = () => {
-    localStorage.removeItem("access-token");
-    localStorage.removeItem('userId')
-    // this.setState({
-    //     Authtoken: '',
-    //   });
-    toast.info("Sucessfully logout", {
-      position: toast.POSITION.TOP_LEFT
-    });
-    history.push('/')
-  }  
+ 
 
   useEffect(() => {
     getRoomList(true);
@@ -97,12 +87,12 @@ const Dashboard = (props) => {
     props.crudActionCall(`${ADD_PROPERTY}/status/${roomId}`, data, "UPDATE");
   }  
 
-  const navToEditPage = (Id, details) => {    
+  const navToEditPage = (Id) => {    
     props.history.push(`/AddProperty/${Id}`);
   }
   const paginationCallFunction = (e) => {
     const selectedPage = e.selected;
-    props.crudActionCall(ADD_PROPERTY + `?perpage=${perPage}&page=${selectedPage}&isActive=true&userId=${userId}`, null, "GET_ALL")
+    props.crudActionCall(ADD_PROPERTY + `?perpage=${perPage}&page=${selectedPage}&isActive=${SetoffMarketClass?false:true}&userId=${userId}`, null, "GET_ALL")
 
   }
   
@@ -150,8 +140,8 @@ const Dashboard = (props) => {
                   </tr>
                 </thead>                
                 <tbody>                                   
-                  {propertyList && propertyList.list.length ?
-                    propertyList.list.map((propertyItem) => {
+                  {props.room && props.room.roomList && props.room.roomList.list && props.room.roomList.list.length  ?
+                    props.room.roomList.list.map((propertyItem) => {
                       return (
                         <tr key ={propertyItem._id}>
                           <td>
@@ -198,15 +188,15 @@ const Dashboard = (props) => {
                             </a>
                           </td>
                           <td>
-                            <a href="#">
+                            {/* <a href="#"> */}
                               <div className="action">
-                                <button onClick={()=> navToEditPage(propertyItem._id, propertyItem)}><FontAwesomeIcon icon={faEdit} /></button>
+                                <button onClick={()=> navToEditPage(propertyItem._id)}><FontAwesomeIcon icon={faEdit} /></button>
                                 <label class="switch">
-                                  <input type="checkbox" class="input" onChange={(e) => statusChange(propertyItem._id, false)} />
+                                  <input type="checkbox" class="input" onChange={(e) => statusChange(propertyItem._id, propertyItem.isActive?false:true)} />
                                   <span class="slider round"></span>
                                 </label>
                               </div>
-                            </a>
+                            {/* </a> */}
                           </td>
                         </tr>
                       );

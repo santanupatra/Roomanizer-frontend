@@ -3,7 +3,7 @@ import './style.css';
 import imagePath from '../../../Config/imageConstants';
 import { Container, Row, Col } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Header from '../../Common/header';
+import Header from '../../Common/agentHeader';
 import Formsec from './form-sec';
 import Slider from './slider';
 import Footer from '../../Common/footer';
@@ -55,7 +55,7 @@ const PropertyDetails = (props) => {
             setFields({ ...fields, ...props.agent.agentList });
         }
     }, [props.agent]);
-
+console.log("fields000000",fields)
 
     return (
         <div className="home">

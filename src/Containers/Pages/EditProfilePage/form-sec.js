@@ -113,8 +113,7 @@ const Formsec = (props) => {
     if (fields.houseRules) data.houseRules=fields.houseRules
     if (fields.noOfBedRoom) data.noOfBedRoom=fields.noOfBedRoom
     if (fields.aminities) data.aminities=fields.aminities
-    console.log(fields)
-    console.log(fields.aminities)
+    
     if(fields.aminities.length>0&&fields.houseRules.length>0&&fields.address){
       setErrAdd(' ')
       setErr(' ')
@@ -136,17 +135,11 @@ else{
   ); 
   
   const handleChange = (name,value)=>{
-    console.log(value)
     setFields((prevState) => ({ ...prevState, [name]: value }));
   }
-  const  handlechange1 = e => {
-    console.log(e.target.value)
-    const val = e.target.value
-    setFields((prevState) => ({ ...prevState, "noOfBedRoom": val }));
-  }
-  
+ 
   const handleChangeAddress = address => {
-    console.log(address)
+   
     if(address===''){
       setErrAdd('This field is required')
     }else{

@@ -119,6 +119,7 @@ if (!firebase.apps.length) {
   const logout = () =>{
     localStorage.removeItem("access-token");
     localStorage.removeItem('userId')
+    localStorage.removeItem('userType')
     // this.setState({
     //     Authtoken: '',
     //   });

@@ -1,6 +1,6 @@
 //import React from 'react';
 import React, { useEffect, useState } from 'react'
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import history from '../history';
 import HomePage from '../Containers/Pages/HomePage/home';
 import LoginPage from '../Containers/Pages/LoginPage/login';
@@ -17,7 +17,7 @@ import AboutPage from '../Containers/Pages/AboutPage/about';
 import ContactPage from '../Containers/Pages/ContactPage/contact';
 // import ForgetPassword from '../Containers/Pages/LoginPage/ForgetPassword'
 import ActiveMailPage from '../Containers/Pages/ActiveMailPage/ActiveMailPage';
-import CmsDetails from  '../Containers/Common/CmsDetails'
+import CmsDetails from '../Containers/Common/CmsDetails'
 import { Navbar } from 'reactstrap'
 import AfterActive from '../Containers/Pages/ActiveMailPage/AfterActive';
 import FavoritePage from '../Containers/Pages/FavoritePage/favorite';
@@ -36,15 +36,27 @@ import AgentSettings from '../Containers/Pages/AgentSettings/AgentSettings';
 import PropertyDetails from '../Containers/Pages/Dashboard/propertyDetails';
 
 
-const Routes=(props) =>{
-  //const [loggedIn, setLoggedIn] = useState(localStorage.getItem("token"));
-  return (
+const Routes = (props) => {
+    
+    return (
         <Router history={history}>
             <Switch>
                 {/* <Navbar isAuth={loggedIn} /> */}
-                <Route path="/" exact component={HomePage} />
+                {/* <Route path="/" exact component={HomePage} />*/}
+                <Route path="/" exact component={HomePage} /> 
                 <Route path="/home" exact component={HomePage} />
-                {/* <Route path="/home/:userId" exact component={HomePage} /> */}
+                <Route path="/Dashboard" exact component={Dashboard} />
+                {/* {localStorage.getItem("userType")=='agent' && localStorage.getItem("access-token") ?
+                  <>
+                    <Redirect  exact to="/Dashboard"  />
+                        <Route path="/Dashboard">
+                            <Dashboard />
+                        </Route>
+                </>
+                : 
+                
+                <Route path="/" exact component={HomePage} />} */}
+
                 <Route path="/login" exact component={LoginPage} />
                 <Route path="/signUP" exact component={SignupPage} />
                 <Route path="/editProfile/:userId" exact component={EditprofilePage} />
@@ -67,8 +79,7 @@ const Routes=(props) =>{
                 <Route path="/chat" exact component={ChatPage} />
                 <Route path="/AgentLogin" exact component={AgentLogin} />
                 <Route path="/AgentSignup" exact component={AgentSignup} />
-                <Route path="/Dashboard/:userId" exact component={Dashboard} />
-				<Route path="/DashboardListing" exact component={DashboardListing} />
+                <Route path="/DashboardListing" exact component={DashboardListing} />
                 <Route path="/agentchangePassword/:userId" exact component={AgentChangePassword} />
                 <Route path="/AgentEditProfile/:userId" exact component={AgentEditProfile} />
                 <Route path="/AddProperty/:propertyId" exact component={AddProperty} />
@@ -76,9 +87,9 @@ const Routes=(props) =>{
                 <Route path="/AgentSettings/:userId" exact component={AgentSettings} />
                 <Route path="/agentchangePassword/:userId" exact component={AgentChangePassword} />
                 <Route path="/PropertyDetails/:propertyId" exact component={PropertyDetails} />
-                
+
             </Switch>
         </Router>
-      )
+    )
 }
 export default Routes;

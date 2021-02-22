@@ -117,9 +117,9 @@ const gotoEdit = (userId)=>
       });
     }
  
-  localStorage.removeItem("access-token");
-    localStorage.removeItem('userId')
-    localStorage.removeItem('userType')
+  // localStorage.removeItem("access-token");
+  //   localStorage.removeItem('userId')
+  //   localStorage.removeItem('userType')
   
     return () => {
       // cleanup
