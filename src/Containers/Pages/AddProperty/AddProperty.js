@@ -62,9 +62,9 @@ const AddProperty = (props) => {
       chargesType: "",
       latitude: 0,
       longitude: 0,
+      isDraft:false
 
    }
-   console.log("props=====",props)
    const params = props.match.params;
    let propertyId = props.match.params && props.match.params.propertyId && props.match.params.propertyId;
    const [fields, setFields] = useState(initialFields);
@@ -76,6 +76,8 @@ const AddProperty = (props) => {
    const [errAdd, setErrAdd] = useState('');
    const [RoomImageFile, updateRoomImageFile] = useState([]);
    const [RoomImage, updateRoomImage] = useState([]);
+   const [moveInDate, setmoveIn] = useState(null);
+  console.log("fieldsfieldsfields",fields)
 
    useEffect(() => {
       setUserId(params.userId)
@@ -93,19 +95,22 @@ const AddProperty = (props) => {
    }, [params]);
 
    useEffect(() => {
-      props.crudActionAgentCall(`${ADD_PROPERTY}/${propertyId}`, null, "GET");
-   }, [propertyId]);
+     if(propertyId || (props.agent.action.type=="DELETE" && props.agent.action.isSuccess) ) props.crudActionAgentCall(`${ADD_PROPERTY}/${propertyId}`, null, "GET");
+   }, [propertyId,props.agent.action]);
 
    const onSubmit = (data) => {
-      let userId = localStorage.getItem("userId");
+      
       let formData = new FormData();
       data.user_Id = localStorage.getItem("userId");
-      data.moveIn = fields.moveIn;
+      if (moveInDate) data.moveIn = moveInDate;
       data.address = fields.address;
       data.longitude = fields.longitude;
       data.latitude = fields.latitude;
       data.aminities = fields.aminities;
       data.houseRules = fields.houseRules;
+      data.isDraft = fields.isDraft;
+     
+
       for (let i = 0; i < RoomImageFile.length; i++) {
          formData.append('roomImage', RoomImageFile[i]);
       }
@@ -118,7 +123,7 @@ const AddProperty = (props) => {
          }
          formData.append(key, value);
       }
-      if (props.room.roomList) {
+      if (props.room.room) {
          props.crudActionCall(`${ADD_PROPERTY}/${propertyId}`, formData, "UPDATE");
       } else {
          props.crudActionCall(ADD_PROPERTY, formData, "ADD");
@@ -128,62 +133,34 @@ const AddProperty = (props) => {
 
    useEffect(() => {
      if(props.agent.action.type == "UPDATE" && props.agent.action.isSuccess){
-       props.history.push(`/Dashboard/${localStorage.getItem("userId")}`);
+       //props.history.push(`/Dashboard`);
+      // alert('hi')
+      updateRoomImage([])
+       toast.info(props.agent.action.response.msg, {
+         position: toast.POSITION.TOP_CENTER
+         });
      }
+     if(props.agent.action.type == "ADD" && props.agent.action.isSuccess){
+      props.history.push(`/Dashboard`);
+     // alert('hi')
+      // toast.info(props.agent.action.response.msg, {
+      //   position: toast.POSITION.TOP_CENTER
+      //   });
+    }
    }, [props.agent.action]);
    const options = props.house.houseList.map((val) =>
       ({ label: val.name, value: val._id })
    );
    const handleChange = (name, value) => {
+      console.log("name===",name,"value===",value)
       setFields((prevState) => ({ ...prevState, [name]: value }));
    }
-   useEffect(() => {
-      if (userId) props.crudActionAgenttCall(`${LIST_AGENTT_URL}/${userId}`, null, "GET")
-   }, [userId])
-
-   useEffect(() => {
-      const action = props.agentt.action;
-      if (props.agentt.agentt && userId) {
-         setFields({ ...fields, ...props.agentt.agentt })
-      }
-   }, [props.agentt]);
-
-   useEffect(() => {
-      if (props.room.room) {
+   
+   useEffect(()=>{
+      if (props.room.room ) 
          setFields({ ...fields, ...props.room.room })
-
-         // setFields({
-         //    ...fields,
-         //    roomName: props.room.roomList && props.room.roomList.roomName ? props.room.roomList.roomName : "",
-         //    aboutRoom: props.room.roomList && props.room.roomList.aboutRoom ? props.room.roomList.aboutRoom : "",
-         //    noOfBedRoom: props.room.roomList && props.room.roomList.noOfBedRoom ? props.room.roomList.noOfBedRoom : "",
-         //    houseRules: props.room.roomList && props.room.roomList.houseRules ? props.room.roomList.houseRules : [],
-         //    aminities: props.room.roomList && props.room.roomList.aminities ? props.room.roomList.aminities : [],
-         //    duration: props.room.roomList && props.room.roomList.duration ? props.room.roomList.duration : "",
-         //    moveIn: props.room.roomList && props.room.roomList.moveIn ? moment(props.room.roomList.moveIn).toDate() : "",
-         //    city: props.room.roomList && props.room.roomList.city ? props.room.roomList.city : "",
-         //    ageRange: props.room.roomList && props.room.roomList.ageRange ? props.room.roomList.ageRange : "",
-         //    area: props.room.roomList && props.room.roomList.area ? props.room.roomList.area : "",
-         //    ageRange: props.room.roomList && props.room.roomList.ageRange ? props.room.roomList.ageRange : "",
-         //    zipCode: props.room.roomList && props.room.roomList.zipCode ? props.room.roomList.zipCode : "",
-         //    address: props.room.roomList && props.room.roomList.address ? props.room.roomList.address : "",
-         //    flateMate: props.room.roomList && props.room.roomList.flateMate ? props.room.roomList.flateMate : "",
-         //    deposite: props.room.roomList && props.room.roomList.deposite ? props.room.roomList.deposite : "",
-         //    budget: props.room.roomList && props.room.roomList.budget ? props.room.roomList.budget : "",
-         //    charges: props.room.roomList && props.room.roomList.charges ? props.room.roomList.charges : "",
-         //    chargesType: props.room.roomList && props.room.roomList.chargesType ? props.room.roomList.chargesType : "",
-         //    latitude: props.room.roomList && props.room.roomList.latitude ? props.room.roomList.latitude : "",
-         //    longitude: props.room.roomList && props.room.roomList.longitude ? props.room.roomList.longitude : "",
-
-         // })
-         //updateRoomImageFile(props.room.room && props.room.room.roomImage);
-      }
-   }, [props.room.room]);
-
-   const setReadyToMove = (e) => {
-      setFields((prevState) => ({ ...prevState, "moveIn": e }));
-   }
-
+         if (props.room.room && props.room.room.moveIn) setmoveIn(props.room.room.moveIn?moment(props.room.room.moveIn).toDate():'')
+   },[props.room.room]);
 
    const handleChangeAddress = address => {
       if (address === '') {
@@ -209,45 +186,47 @@ const AddProperty = (props) => {
       componentRestrictions: { country: ['us', 'ca', 'uy'] },
    }
 
+   
    let fileData = [];
+   /**Multiple Image Upload */
    const handlemultipleFileChange = e => {
-      const files = Array.from(e.target.files);
-      updateRoomImageFile(fileData);
-
-      Promise.all(files.map(file => {
+       const files = Array.from(e.target.files);
+       updateRoomImageFile(fileData);
+       Promise.all(files.map(file => {
          fileData.push(file);
          updateRoomImageFile(fileData);
-         return (new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.addEventListener('load', (ev) => {
-               resolve(ev.target.result);
-            });
-            reader.addEventListener('error', reject);
-            reader.readAsDataURL(file);
+         return (new Promise((resolve,reject) => {
+             const reader = new FileReader();
+             reader.addEventListener('load', (ev) => {
+                 resolve(ev.target.result);
+             });
+             reader.addEventListener('error', reject);
+             reader.readAsDataURL(file);
          }));
-      }))
-         .then(images => {
-            /* Once all promises are resolved, update state with image URI array */
-            updateRoomImage(images)
-         }, error => {
-            console.error(error);
-         });
-
+     }))
+     .then(images => {
+         /* Once all promises are resolved, update state with image URI array */
+         updateRoomImage(images)
+     }, error => {        
+         console.error(error);
+     });
+     
    };
-
    const handleFileDelete = (key) => {
       const findArr = RoomImage.splice(key, 1);
       const propertyImageFileNew = RoomImageFile.splice(key, 1);
    }
 
    const handleFileDeleteApi = async(roomId,imageId) =>{
-      let  {data}  = await axiosApiCall.delete(`${ADD_PROPERTY}/${roomId}/${imageId}`, null);
-      setFields({ ...fields, ...props.room.roomList })
+      //let  {data}  = await axiosApiCall.delete(`${ADD_PROPERTY}/${roomId}/${imageId}`, null);
+      props.crudActionCall(`${ADD_PROPERTY}/${roomId}/${imageId}`, null, "DELETE");
+
+      //setFields({ ...fields, ...props.room.room })
 
     }
-    //console.log(props.room, 'propertyId edit===============',fields)
-    console.log('propertyId edit===============',fields)
+  
    return (
+      
       <div className="home">
          <div className="header">
             <Header />
@@ -645,13 +624,14 @@ const AddProperty = (props) => {
                               <Col xs={12} sm={12} md={6} lg={6}>
                                  <FormGroup>
                                     <Label>Move In</Label>
-                                    {/* <input className="input" type="text" placeholder="Move In" /> */}
+                                   
                                     <DatePicker
-                                       selected={fields.moveIn}
+                                       selected={moveInDate}
                                        className="form-control w-100 custm_inpt"
                                        placeholderText="Ready to Move"
-                                       onChange={e =>
-                                          setReadyToMove(e)}
+                                       // onChange={e =>
+                                       //    setReadyToMove(e)}
+                                       onChange={e => setmoveIn(e)}
                                        required
                                     />
                                  </FormGroup>
@@ -689,12 +669,12 @@ const AddProperty = (props) => {
                                  <div className="uploadImgs">
 
                                     {
-                                       props.room.roomList && props.room.roomList.roomImage && props.room.roomList.roomImage.length > 0 &&
-                                       props.room.roomList.roomImage.map((value, key) => {
+                                       fields && fields.roomImage && fields.roomImage.length > 0 &&
+                                       fields.roomImage.map((value, key) => {
                                           return (
                                              <div className="uPic">
                                                 <img key={key} src={getImageUrl(value.image)} alt="Image Preview" />
-                                                <a href="#" onClick={e => handleFileDeleteApi(props.room.roomList._id, value._id)} >
+                                                <a href="#" onClick={e => handleFileDeleteApi(fields._id, value._id)} >
                                                    <FontAwesomeIcon icon={faTimesCircle} />
                                                 </a>
                                              </div>
@@ -724,6 +704,38 @@ const AddProperty = (props) => {
                                     {/* <Button type="button" color="primary" className="login-bt mt-4 mb-2" onClick={roomImageUploadApi}> Upload </Button> */}
                                  </FormGroup>
                               </Col>
+                              
+                           </Row>
+                           <Row>
+                              <Col xs={12} sm={12} md={12} lg={12}>
+                                    <FormGroup>
+                                       <Label>Is Draft</Label>
+                                       {/* <textarea className="input" placeholder="Enter About Room"></textarea> */}
+                                       {/* <InputUI
+                                          className="custm_inpt"
+                                          type="checkbox"
+                                          name="isDraft"
+                                          id="isDraft"
+                                          errors={errors}
+                                          fields={fields}
+                                          onChange={(e) =>
+                                             handleChange(e.target.name, e.target.checked)
+                                          }
+                                          defaultChecked={fields.isDraft}
+
+                                       /> */}
+                                      
+                                       <input 
+                                         type="checkbox" 
+                                          name="isDraft" 
+                                          value={fields.isDraft} 
+                                          onChange={(e) =>
+                                             handleChange(e.target.name, e.target.checked)
+                                          }
+                                          checked={fields.isDraft}
+                                       />
+                                    </FormGroup>
+                                 </Col>
                            </Row>
                            {/* href={`/Dashboard/${params.userId}`} */}
                            <Button color="blue" type="submit" className="px-4"  >{propertyId ? "Update Property " : "Upload Property"}</Button>

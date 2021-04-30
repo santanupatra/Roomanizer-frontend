@@ -34,6 +34,7 @@ import AgentEditProfile from '../Containers/Pages/agentEditProfile/agentEditProf
 import AddProperty from '../Containers/Pages/AddProperty/AddProperty';
 import AgentSettings from '../Containers/Pages/AgentSettings/AgentSettings';
 import PropertyDetails from '../Containers/Pages/Dashboard/propertyDetails';
+import test from '../Containers/Pages/test';
 
 
 const Routes = (props) => {
@@ -64,7 +65,7 @@ const Routes = (props) => {
                 <Route path="/changePassword/:userId" exact component={ChangePasswordPage} />
                 <Route path="/roomSearch" exact component={RoomSearchPage} />
                 <Route path="/roomMateSearch" exact component={RoommateSearchPage} />
-                <Route path="/roomRent/:userId" exact component={RoomsForRentPage} />
+                <Route path="/roomRent/:roomId" exact component={RoomsForRentPage} />
                 <Route path="/success" exact component={SuccessPage} />
                 <Route path="/activeMail" exact component={ActiveMailPage} />
                 <Route path="/about" exact component={AboutPage} />
@@ -79,7 +80,7 @@ const Routes = (props) => {
                 <Route path="/chat" exact component={ChatPage} />
                 <Route path="/AgentLogin" exact component={AgentLogin} />
                 <Route path="/AgentSignup" exact component={AgentSignup} />
-                <Route path="/DashboardListing" exact component={DashboardListing} />
+                <Route path="/DashboardListing/:roomId" exact component={DashboardListing} />
                 <Route path="/agentchangePassword/:userId" exact component={AgentChangePassword} />
                 <Route path="/AgentEditProfile/:userId" exact component={AgentEditProfile} />
                 <Route path="/AddProperty/:propertyId" exact component={AddProperty} />
@@ -87,6 +88,7 @@ const Routes = (props) => {
                 <Route path="/AgentSettings/:userId" exact component={AgentSettings} />
                 <Route path="/agentchangePassword/:userId" exact component={AgentChangePassword} />
                 <Route path="/PropertyDetails/:propertyId" exact component={PropertyDetails} />
+                <Route path="/test" exact component={test} />
 
             </Switch>
         </Router>

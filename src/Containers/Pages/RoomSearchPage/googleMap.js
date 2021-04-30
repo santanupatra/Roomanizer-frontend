@@ -20,10 +20,7 @@ const MapContainer = compose(
             defaultCenter={defaultCenter}
             mapTypeId={mapTypeId}
         >
-            { 
-                console.log("props.properties",props.properties)
             
-            }
             {
                 props.properties && props.properties.map(({ _id, latitude, longitude, roomImage,roomName }, index) => {
 

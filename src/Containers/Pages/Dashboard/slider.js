@@ -11,92 +11,35 @@ import {
 import { withRouter } from 'react-router-dom';
 import { connect } from "react-redux";
 import { crudAction } from "../../../store/actions/common";
-import { ROOM_URL } from '../../../shared/allApiUrl';
 import {getImageUrl} from '../../../shared/helpers'
 
-// const items = [
-//   {
-//     src: imagePath.slider1Image,
-//   },
-//   {
-//     src: imagePath.slider1Image,
-//   },
-//   {
-//     src: imagePath.slider1Image,
-//   }
-// ];
+
+    
 
 const Slider = (props) => {
-  const initialFields = {
-    user_Id: "",
-    roomNo: "",
-    bathNo:"",
-    aboutRoom:"",
-    address:"",
-    age:"",
-    aminities: null,
-    area:"",
-    budget:"",
-    charges:"",
-    chargesType:"",
-    city:"",
-    deposite:"",
-    duration:"",
-    flateMate:"",
-    houseRules:[],
-    latitude:null,
-    location:[],
-    longitude:null,
-    moveIn:"",
-    noOfBedRoom:'',
-    roomName:"",
-    zipCode:"",
-    ageRange:"",
-    aminities:[],
-    roomImage:[]
-  
-      }
-    
-    
-    
-      //const params = props.match.params;
-    let userId = props.match.params.userId;
-    // const userData = props.user.user;
-    const [fields, setFields] = useState(initialFields);
-    const [userData, setUserDate] = useState(null);
-    const [settingId, setSettingId] = useState(null);
-  
-  
+    const [roomImageItem, setroomImageItem] = useState('');
+    const [activeIndex, setActiveIndex] = useState(0);
+    const [animating, setAnimating] = useState(false);
+    const [itemTrue, setItemTrue] = useState(false);
+    const [items, setItems] = useState([]);
     useEffect(() => {
-      props.crudActionCall(`${ROOM_URL}/${userId}`, null, "GET")
-      //setUserDate(props.user.action.data);
-      
-  
-      
-    },[userId]);
-  
+      setroomImageItem(props.roomImage)
+      setItemTrue(true)
+    },[props.roomImage]);
     useEffect(() => {
-      const action = props.room.room;
-  
-      if (props.room.room) {
-        setFields({ ...fields, ...props.room.room });
-       setSettingId(props.room.room._id);
-       
+      getItem()
+    },[itemTrue,roomImageItem]);
+    
+    
+    let itemsArr =[];
+    const getItem=async()=>{
+      if(roomImageItem && roomImageItem.length > 0){
+        const newList = await Promise.all(roomImageItem.map(async(val,key) => {
+          itemsArr.push({ src: getImageUrl(val.image)}) 
+        }))
+        setItems(itemsArr)
       }
-      
-  
-    }, [props.room]);
-     console.log(fields.houseRules)
-     console.log(fields.roomImage)
-
-  // console.log(props.val)
-  const items = fields.roomImage.map((val) =>  
-  // src={getImageUrl(fields.profilePicture)}
-    ({ src: getImageUrl(val.image)})  
-  )
-  
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [animating, setAnimating] = useState(false);
+    }
 
   const next = () => {
     if (animating) return;
@@ -141,20 +84,20 @@ const Slider = (props) => {
   );
 }
 
-// export default Slider;
+ export default Slider;
 
 
-const mapStateToProps = state => {
-  const { room } = state;
-  return {
-    room
-  }
-}
+// const mapStateToProps = state => {
+//   const { room } = state;
+//   return {
+//     room
+//   }
+// }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    crudActionCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "ROOM"))
-  }
-}
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     crudActionCall: (url, data, actionType) => dispatch(crudAction(url, data, actionType, "ROOM"))
+//   }
+// }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Slider));
+//export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Slider));

@@ -98,7 +98,7 @@ const Cardbox = (props) => {
     }
   }
   const clickToOutLineHeart = () => {
-    if (localStorage.getItem('userId') == null) {
+    if (localStorage.getItem('userId') == null || localStorage.getItem('userType') == 'agent') {
       handleShow();
 
     } else {
@@ -134,7 +134,7 @@ const Cardbox = (props) => {
     <Card className="mt-5">
       <div className="">
         <div className="roomPic">
-        <Link to={`/roomRent/${val.user_Id._id}`}
+        <Link to={`/roomRent/${val._id}`}
         >
           <CardImg className="roomimg" top width="100%" src={roomData.roomImage && roomData.roomImage.length > 0 ? getImageUrl(roomData.roomImage[0] ? roomData.roomImage[0].image : '') : imagePath.roomImage1} alt="Card image cap" />
           </Link>

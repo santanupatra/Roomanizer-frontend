@@ -14,20 +14,20 @@ const ChatLeft = (props) => {
 const [chatList, setChatList] = useState([]);
 const [userId,setuserId] = useState();
 
-console.log("count===",props.count);
+
   if (!firebase.apps.length) {
    firebase.initializeApp(firebaseConfig);
    var chatRef = firebase
       .database()
       .ref()
       .child('chatMessages');
-      console.log('chatRef:', chatRef)
+   
   } else {
     chatRef = firebase
       .database()
       .ref()
       .child('chatMessages');
-    console.log('chatRef:', chatRef)
+ 
   }
 
   useEffect(() => {

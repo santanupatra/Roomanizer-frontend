@@ -152,9 +152,9 @@ const Formsec = (props) => {
        getChat()
   
     }, [props.user]);
-     console.log("fields1111",fields)
+     //console.log("fields1111",fields)
     useEffect(() => {
-      console.log('abvr',chatRoomId)
+     // console.log('abvr',chatRoomId)
       if(chatRoomId != undefined){
         chatRef
         .orderByChild('chatRoomId')

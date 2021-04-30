@@ -8,6 +8,7 @@ import { faCalendar } from "@fortawesome/free-regular-svg-icons";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import Header from '../../Common/header';
+import AgentHeader from '../../Common/agentHeader';
 import ChatLeft from './chatleft';
 import ChatboxDark from'./chat-box-dark';
 import ChatBoxLight from'./chat-box-light';
@@ -23,7 +24,7 @@ const Home =(props)=>{
   const [data,setData] = useState();
   const [childShow,setchildShow] = useState(false)
   const [count,setCount] = useState(false);
-  
+ 
  /* const [chatList, setChatList] = useState([]);
   const [typeMessage, setTypeMessage] = useState("");
   const [chatRoomId, setChatRoomId]= useState("");
@@ -157,7 +158,7 @@ const Home =(props)=>{
     return (
       <div className="home">
         <div className="header">
-          <Header></Header>
+         {localStorage.getItem("userType")!='agent'?<Header></Header>:<AgentHeader/>} 
             <div className="">
               <Container className="mb-3">
                 <Row className="align-items-center">

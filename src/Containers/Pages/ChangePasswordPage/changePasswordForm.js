@@ -12,7 +12,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import bcrypt from 'bcryptjs';
 
 const ChangePasswordForm = (props) => {
-  console.log(props.user.user)
+
   const initialFields = {
     currentPassword:null,
     newPassword: null,
@@ -40,13 +40,7 @@ const ChangePasswordForm = (props) => {
   }, [props.user]);
   
   const onSubmit = (data) => {
-    console.log("data====>",fields)
-  console.log(fields.password)
-  console.log(data)
-
     var compering=bcrypt.compareSync(data.currentPassword, fields.password);
-      console.log(compering)
-  // console.log("currentPassword",currentPassword)
   if(!compering){
     toast.error('Your current password is not valid', {
       position: toast.POSITION.TOP_CENTER
@@ -67,7 +61,6 @@ const ChangePasswordForm = (props) => {
   props.crudActionCall(CHANGEPASSWORD_URL + `/${userId}`, data, "UPDATE");
   props.resetAction()
   }
-  console.log("fields.password",fields)
     return (
       <div className="">
         

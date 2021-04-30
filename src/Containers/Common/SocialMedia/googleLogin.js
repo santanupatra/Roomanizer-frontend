@@ -16,7 +16,7 @@ export default class GoogleLogin extends Component {
         // }
       }
       responseGoogle = async (response) => {
-        console.log("response google===",response);
+       
         const logInData = {
             email:response.profileObj?response.profileObj.email:'',
             name:response.profileObj?response.profileObj.name:'',
@@ -52,7 +52,7 @@ export default class GoogleLogin extends Component {
                 // toast.info(details, {
                 //     position: toast.POSITION.TOP_CENTER
                 // });
-                console.log(response)
+               // console.log(response)
             }
             
            

@@ -7,13 +7,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { login } from "../../../store/actions/auth";
 import { connect } from "react-redux";
 import { getAuthToken } from "../../../shared/helpers";
-import { withRouter ,useHistory} from "react-router";
+import { withRouter, useHistory } from "react-router";
 import { Modal } from 'react-bootstrap'
 import { ToastContainer, toast } from 'react-toastify';
-import {callApi} from "../../../api";
+import { callApi } from "../../../api";
 import { FORGET_PASSWORD_URL } from '../../../shared/allApiUrl';
 import { SET_PASSWORD_URL } from '../../../shared/allApiUrl';
-import { NotificationManager} from 'react-notifications';
+import { NotificationManager } from 'react-notifications';
 import FbLoginCom from '../../Common/SocialMedia/faceBookLogin';
 import GoogleLoginCom from '../../Common/SocialMedia/googleLogin';
 
@@ -39,88 +39,83 @@ function LoginFrom(props) {
   const { handleSubmit, register } = useForm();
   // const { handleSubmit, register } = useForm();
   const [status, setStatus] = useState(false);
-  const [fbComponent,setFbComponent] = useState(false);
+  const [fbComponent, setFbComponent] = useState(false);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const onSubmit = (data) => {
-
-
     props.loginApiCall(data);
-
-    
   };
 
 
   /*
   modal api calling
   */
- const onSubmit_1 = async(data) => {
-   console.log(data)
- if (status === false ) {
-  try {
-  await callApi(FORGET_PASSWORD_URL,"POST",data);
-  setStatus(true);
- // NotificationManager.success('Email Verified', 'Success');
-  toast.info('Email Verified', {
-    position: toast.POSITION.TOP_CENTER
-});
-  }
-  catch (error) {
-     // NotificationManager.error('Email is not valid!', 'Error');
-      toast.error("Email is not valid!", {
-        position: toast.POSITION.TOP_CENTER
-    });
-  }
-}
-else if(data.password!=data.confirmPassword){
-  toast.error("Password and Confirm_Password not match!", {
-    position: toast.POSITION.TOP_CENTER
-});
-}
-else  {
-  try {
-      await callApi(SET_PASSWORD_URL, "PUT",data);
-      console.log(data)
-      //NotificationManager.success('Password changed succesfully!', 'Success');
-      toast.info('Password changed succesfully!', {
+  const onSubmit_1 = async (data) => {
+    if (status === false) {
+      try {
+        await callApi(FORGET_PASSWORD_URL, "POST", data);
+        setStatus(true);
+        // NotificationManager.success('Email Verified', 'Success');
+        toast.info('Email Verified', {
+          position: toast.POSITION.TOP_CENTER
+        });
+      }
+      catch (error) {
+        // NotificationManager.error('Email is not valid!', 'Error');
+        toast.error("Email is not valid!", {
+          position: toast.POSITION.TOP_CENTER
+        });
+      }
+    }
+    else if (data.password != data.confirmPassword) {
+      toast.error("Password and Confirm_Password not match!", {
         position: toast.POSITION.TOP_CENTER
       });
+    }
+    else {
+      try {
+        await callApi(SET_PASSWORD_URL, "PUT", data);
+        // console.log(data)
+        //NotificationManager.success('Password changed succesfully!', 'Success');
+        toast.info('Password changed succesfully!', {
+          position: toast.POSITION.TOP_CENTER
+        });
 
-      props.history.push("/");
+        props.history.push("/");
 
+      }
+      catch (error) {
+        console.log("Error");
+        // NotificationManager.error('OTP  is not valid!', 'Error');
+        toast.error("OTP  is not valid!", {
+          position: toast.POSITION.TOP_CENTER
+        });
+      }
+
+    }
   }
-  catch (error) {
-      console.log("Error");
-      // NotificationManager.error('OTP  is not valid!', 'Error');
-      toast.error("OTP  is not valid!", {
-        position: toast.POSITION.TOP_CENTER
-    });
-  }
-
-}
-}
-const gotoEdit = (userId)=>
+  const gotoEdit = (userId) =>
     history.push(`/editProfile/${userId}`)
   useEffect(() => {
-  
-    if (props.auth.isAuthenticated && getAuthToken !== "" && props.auth.isAuthenticated!='agent')
-    {
+    console.log("props.auth888", props.auth)
+    if (props.auth.isAuthenticated && getAuthToken !== "" && props.auth.userType != 'agent') {
       const userId = localStorage.getItem('userId')
       toast.info('Successfully loggedIn!', {
         position: toast.POSITION.TOP_CENTER
       });
       history.push(`/editProfile/${userId}`);
-    }else{
-      toast.info(`${props.auth.userType=='agent'?'Agent':''} can not login from here!`, {
+    } else {
+      toast.info(`${props.auth.userType == 'agent' ? 'Agent' : 'Agent'} can not login from here!`, {
         position: toast.POSITION.TOP_CENTER
       });
+
+      localStorage.removeItem("access-token");
+      localStorage.removeItem('userId')
+      localStorage.removeItem('userType')
     }
- 
-  // localStorage.removeItem("access-token");
-  //   localStorage.removeItem('userId')
-  //   localStorage.removeItem('userType')
-  
+
+
     return () => {
       // cleanup
     };
@@ -159,27 +154,27 @@ const gotoEdit = (userId)=>
                   <Modal.Title> <h1>Forget Password</h1></Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                <Form >
+                  <Form >
 
-                      <p className="text-muted">Please put your Email</p>
-                      <InputGroup className="mb-3">
-                        <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                            <i className="icon-user"></i>
-                          </InputGroupText>
-                        </InputGroupAddon>
-                        <Input
-                          className="custm_inpt"
-                          type="email"
-                          name="email"
-                          placeholder="Email"
-                          disabled={status}
-                          autoComplete="username"
-                          innerRef={register}
-                          required
-                        />
-                      </InputGroup>
-                      { status? <> <InputGroup className="mb-4">
+                    <p className="text-muted">Please put your Email</p>
+                    <InputGroup className="mb-3">
+                      <InputGroupAddon addonType="prepend">
+                        <InputGroupText>
+                          <i className="icon-user"></i>
+                        </InputGroupText>
+                      </InputGroupAddon>
+                      <Input
+                        className="custm_inpt"
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        disabled={status}
+                        autoComplete="username"
+                        innerRef={register}
+                        required
+                      />
+                    </InputGroup>
+                    {status ? <> <InputGroup className="mb-4">
                       <InputGroupAddon addonType="prepend">
                         <InputGroupText>
                           <i className="icon-lock"></i>
@@ -195,77 +190,77 @@ const gotoEdit = (userId)=>
                         required
                       />
                     </InputGroup>
-                    <InputGroup className="mb-4">
-                    <InputGroupAddon addonType="prepend">
-                      <InputGroupText>
-                        <i className="icon-lock"></i>
-                      </InputGroupText>
-                    </InputGroupAddon>
-                    <Input
-                      className="custm_inpt"
-                      type="password"
-                      name="password"
-                      placeholder="New Password"
-                    //   autoComplete="current-password"
-                      innerRef={register}
-                      required
-                    />
-                  </InputGroup>
-                  <InputGroup className="mb-4">
-                  <InputGroupAddon addonType="prepend">
-                    <InputGroupText>
-                      <i className="icon-lock"></i>
-                    </InputGroupText>
-                  </InputGroupAddon>
-                  <Input
-                    className="custm_inpt"
-                    type="password"
-                    name="confirmPassword"
-                    placeholder="Confirm Password"
-                    // autoComplete="current-password"
-                    innerRef={register}
-                    required
-                  />
-                </InputGroup> </>: null}
-                      <Row>
-                        <Col xs="3">
+                      <InputGroup className="mb-4">
+                        <InputGroupAddon addonType="prepend">
+                          <InputGroupText>
+                            <i className="icon-lock"></i>
+                          </InputGroupText>
+                        </InputGroupAddon>
+                        <Input
+                          className="custm_inpt"
+                          type="password"
+                          name="password"
+                          placeholder="New Password"
+                          //   autoComplete="current-password"
+                          innerRef={register}
+                          required
+                        />
+                      </InputGroup>
+                      <InputGroup className="mb-4">
+                        <InputGroupAddon addonType="prepend">
+                          <InputGroupText>
+                            <i className="icon-lock"></i>
+                          </InputGroupText>
+                        </InputGroupAddon>
+                        <Input
+                          className="custm_inpt"
+                          type="password"
+                          name="confirmPassword"
+                          placeholder="Confirm Password"
+                          // autoComplete="current-password"
+                          innerRef={register}
+                          required
+                        />
+                      </InputGroup> </> : null}
+                    <Row>
+                      <Col xs="3">
                         <Button variant="secondary" onClick={handleClose}>
-                    Close
+                          Close
                     </Button>
-                          {/* <Button type="submit" color="primary" className="px-4 mr-4">
+                        {/* <Button type="submit" color="primary" className="px-4 mr-4">
                             Submit
                           </Button> */}
-                          
-                        </Col>
-                        <Col xs="3">
+
+                      </Col>
+                      <Col xs="3">
                         {/* <Button variant="secondary" onClick={handleClose}>
                     Close
                     </Button> */}
-                          <Button type="button" onClick={handleSubmit(onSubmit_1)} style={{marginLeft:"236px"}} color="primary" className="px-4 mr-4">
-                            Submit
+                        <Button type="button" onClick={handleSubmit(onSubmit_1)} style={{ marginLeft: "236px" }} color="primary" className="px-4 mr-4">
+                          Submit
                           </Button>
-                          
-                        </Col>
-                      </Row>
-                    </Form>
+
+                      </Col>
+                    </Row>
+                  </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                 
-                  
+
+
                 </Modal.Footer>
               </Modal>
               {/* <a href="#" className="login-bt mb-2">Login</a> */}
               <Button type="button" onClick={handleSubmit(onSubmit)} color="primary" className="login-bt mb-2 cust_Agentbutton">
                 Login
                         </Button>
-                        <div className="text-center">
-                          <img src={imagePath.orImage} alt="image" />
-                          {/* <NavLink to="#" onClick={()=>{setFbComponent(true)}}><img src={imagePath.fbImage} alt="image" /></NavLink> */}
-                          <FbLoginCom  gotoEdit={gotoEdit}/>
-                          {/* <NavLink to="#"><img src={imagePath.gsImage} alt="image" /></NavLink> */}
-                          <GoogleLoginCom  gotoEdit={gotoEdit}/>
-                        </div>
-                        <NavLink to="/signUP" className="forgot mt-3 mb-0 custm_forgot">Don’t have an account? <span>Register</span></NavLink>
+              <div className="text-center">
+                <img src={imagePath.orImage} alt="image" />
+                {/* <NavLink to="#" onClick={()=>{setFbComponent(true)}}><img src={imagePath.fbImage} alt="image" /></NavLink> */}
+                <FbLoginCom gotoEdit={gotoEdit} />
+                {/* <NavLink to="#"><img src={imagePath.gsImage} alt="image" /></NavLink> */}
+                <GoogleLoginCom gotoEdit={gotoEdit} />
+              </div>
+              <NavLink to="/signUP" className="forgot mt-3 mb-0 custm_forgot">Don’t have an account? <span>Register</span></NavLink>
             </Col>
           </FormGroup>
         </Form>

@@ -45,15 +45,9 @@ const initialFields = {
       email:''
   }
   
-  // localStorage.getItem('profileImg');
-  //           localStorage.getItem('username');
-  //           localStorage.getItem('userId');
-  console.log(" props.match.params------", localStorage.getItem('profileImg'),'name==',localStorage.getItem('username'),'userId==',localStorage.getItem('userId'))
-    //const params = props.match.params;
-  let userId = props.match.params.userId;
-  // const userData = props.user.user;
-  const { handleSubmit, register } = useForm();
 
+  let userId = props.match.params.userId;
+  const { handleSubmit, register } = useForm();
   const [fields, setFields] = useState(initialFields);
   const [userData, setUserDate] = useState(null);
   const [settingId, setSettingId] = useState(null);
@@ -119,7 +113,7 @@ const initialFields = {
   }, [props.user]);
    
   useEffect(() => {
-    console.log('abvr',chatRoomId)
+   
     if(chatRoomId != undefined){
       chatRef
       .orderByChild('chatRoomId')
@@ -218,7 +212,7 @@ const initialFields = {
                       </span>
                     </div>
                     
-                    <button onClick={handleModal} className="login-bt mb-2">Messsage</button>
+                    {localStorage.getItem('userType') !=='agent'?<button onClick={handleModal} className="login-bt mb-2">Messsage</button>:''}
                     <div className="mt-3 d-flex align-items-center justify-content-center">
                     {fields.facebookLink?<a href= {fields.facebookLink} target="_blank"><Facebook></Facebook></a>:""}
                     {fields.twitterLink?<a href= {fields.twitterLink} target="_blank">  <Twitter></Twitter></a>:""}

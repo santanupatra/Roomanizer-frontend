@@ -27,7 +27,7 @@ export const login = (val) => {
             let  {data}  = await axiosLogin.post(LOGIN_URL, val);
             const details = data.msg;
             // console.log(data.msg)
-             console.log('logindata====>>>>',data.data);
+             //console.log('logindata====>>>>',data.data);
             if(data.ack===true) {
             // set token in localStorage
             localStorage.setItem('profileImg', data.data.userDetails.profilePicture);

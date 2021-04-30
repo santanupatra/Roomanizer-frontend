@@ -72,7 +72,7 @@ class Chatdetails extends PureComponent {
       }
 
     async componentDidMount() {
-      console.log("key++++++",this.state.uniqueKey)
+     
       
        await this.getStorageValue();
         // if (this.state.senderId != this.state.messageSender) {
@@ -81,11 +81,11 @@ class Chatdetails extends PureComponent {
         this.getStorageValue();
       }
     async componentDidUpdate(prevProps, prevState){
-        console.log("prevState==",prevState)
+       
         if(this.state.uniqueKey != prevState.uniqueKey){
           await this.getStorageValue();
               if (this.state.senderId != this.state.messageSender) {
-                console.log('asmita');
+               
                 this.state.chatRef.child(this.state.uniqueKey).update({msgCount: 0});
               }
               this.getStorageValue();
@@ -133,12 +133,11 @@ class Chatdetails extends PureComponent {
           .equalTo(this.state.chatRoomId)
           .once('value')
           .then(snapshot => {
-            console.log("snapshot++++",snapshot.val());
+           
             if (snapshot.val()) {
               var listMesage = [];
               var unique = '';
               for (let key in snapshot.val()) {
-                console.log("key",key)
                 listMesage.push(snapshot.val()[key]);
                 unique = key;
               }
@@ -157,7 +156,7 @@ class Chatdetails extends PureComponent {
       };
     
       sendMessage = () => {
-        console.log('sendMessage', this.state);
+        
         const nowDate = Date.now();
         if (this.state.typeMessage && this.state.typeMessage.trim()) {
           this.state.chatRef.push({

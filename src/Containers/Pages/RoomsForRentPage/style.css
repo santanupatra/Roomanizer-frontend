@@ -84,6 +84,50 @@
     height: 350px;
     object-fit: cover;
 }
+.custm_modalchat {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+}
+.send_sms {
+    position: relative !important;
+    top: 0 !important;
+    right: 0 !important;
+}
+.custInput,
+.custInput:hover,
+.custInput:focus,
+.custInput:active {
+    border-radius: 50px;
+    padding: 0;
+    box-shadow: 0 0 29px -7px #dddddd;
+    border-color: #ced4da;
+}
+.custmTitle {
+    font-size: 17px;
+    text-transform: uppercase;
+    color: #194466;
+}
+.badagePart {
+    margin: 0 0 15px 0;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.custm_anc {
+    background: #eef3f7;
+    padding: 3px 20px;
+    font-size: 13px;
+    border-radius: 50px;
+    cursor: pointer;
+    margin: 5px 4px 10px 0;
+}
+.custm_txtarea {
+    line-height: 1.1;
+    padding: 15px 0 0 16px !important;
+}
 @media(max-width:767px){
     .left-box h2{
         font-size: 24px;

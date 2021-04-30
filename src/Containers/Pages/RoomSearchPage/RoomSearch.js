@@ -183,7 +183,9 @@ const RoomSearch = (props) => {
         + bedrooms + '&amenities=' + amenities + '&houserules='
         + houserules + '&page=' + page + '&perpage=' + perPage;
 
-      history.push('/roomMateSearch/' + searchpara);
+     
+      history.push('/roomSearch/' + searchpara);
+
      // window.location.reload();
     }
     callApi(apiBaseUrl + "/web/landlord-api/" + searchpara, 'GET', '').then(

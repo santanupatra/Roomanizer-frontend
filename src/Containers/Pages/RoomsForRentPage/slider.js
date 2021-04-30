@@ -11,7 +11,7 @@ import {
 import { withRouter } from 'react-router-dom';
 import { connect } from "react-redux";
 import { crudAction } from "../../../store/actions/common";
-import { ROOM_URL } from '../../../shared/allApiUrl';
+import { LANDLORD_URL } from '../../../shared/allApiUrl';
 import {getImageUrl} from '../../../shared/helpers'
 
 // const items = [
@@ -60,7 +60,7 @@ const Slider = (props) => {
     
     
       //const params = props.match.params;
-    let userId = props.match.params.userId;
+    let roomId = props.match.params.roomId;
     // const userData = props.user.user;
     const [fields, setFields] = useState(initialFields);
     const [userData, setUserDate] = useState(null);
@@ -68,12 +68,12 @@ const Slider = (props) => {
   
   
     useEffect(() => {
-      props.crudActionCall(`${ROOM_URL}/${userId}`, null, "GET")
+      props.crudActionCall(`${LANDLORD_URL}/room/${roomId}`, null, "GET")
       //setUserDate(props.user.action.data);
       
   
       
-    },[userId]);
+    },[roomId]);
   
     useEffect(() => {
       const action = props.room.room;

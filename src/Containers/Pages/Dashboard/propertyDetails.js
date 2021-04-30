@@ -54,8 +54,8 @@ const PropertyDetails = (props) => {
         if (props.agent.agentList) {
             setFields({ ...fields, ...props.agent.agentList });
         }
-    }, [props.agent]);
-console.log("fields000000",fields)
+    }, [props.agent.action]);
+
 
     return (
         <div className="home">
@@ -66,7 +66,7 @@ console.log("fields000000",fields)
                         <Row className="align-items-center">
                             <Col>
                                 <Row className="mb-4">
-                                    <Col className="sl"><Slider></Slider></Col>
+                                    <Col className="sl"><Slider roomImage={fields.roomImage}></Slider></Col>
                                 </Row>
 
                                 <div className="page-bg">

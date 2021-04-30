@@ -8,17 +8,17 @@ import Gsuite from '../gSuite';
 import Email from '../email';
 import { connect } from "react-redux";
 import { crudAction } from "../../../store/actions/common";
-import { USER_URL } from '../../../shared/allApiUrl';
+import { USER_URL,ADD_PROPERTY } from '../../../shared/allApiUrl';
+import { axiosApiCall } from '../../../api/index';
 import {getImageUrl,firebaseConfig} from '../../../shared/helpers'
 import firebase from 'firebase';
 import moment from 'moment'
 import { NavLink, withRouter,useHistory } from 'react-router-dom';
 import { useForm } from "react-hook-form";
-import {Modal} from 'react-bootstrap';
+import {Modal,Row} from 'react-bootstrap';
 import { Form, FormGroup, Input,Alert, Col} from 'reactstrap';
-
+import { toast  } from 'react-toastify';
 const Formsec = (props) => {
-  console.log(props.user,"localStorage.getItem('userId')",localStorage.getItem('userId'))
 
   const initialFields = {
   aboutMe: " ",
@@ -43,13 +43,14 @@ const Formsec = (props) => {
     
     
       //const params = props.match.params;
-    let userId = props.match.params.userId;
+    let userId = props.userId;
     // const userData = props.user.user;
     const { handleSubmit, register } = useForm();
 
     const [fields, setFields] = useState(initialFields);
     const [userData, setUserDate] = useState(null);
     const [settingId, setSettingId] = useState(null);
+    const [roomId, setRoomId] = useState(null);
     const [userType, setUserType] = useState({'userType':localStorage.getItem('userType')});
     const [typeMessage,setTypeMessage]= useState('');
     //const [chatRef,setChatRef] = useState();
@@ -60,8 +61,16 @@ const Formsec = (props) => {
     const history = useHistory();
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
-    const handleModal = () => setShow(true);
-    let chatRef = null;
+    const handleModal = () => {
+        if(!localStorage.getItem('userId') || localStorage.getItem('userId')==null|| localStorage.getItem('userType')=='agent'){
+            toast.info("Please login with you credential", {
+              position: toast.POSITION.TOP_LEFT
+            });
+        }else{
+          setShow(true)
+        }
+      };
+    let chatRef = null; 
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
        chatRef = firebase
@@ -78,7 +87,7 @@ const Formsec = (props) => {
          .child('chatMessages');
          //setChatRef(chatRefOpt)
   
-       //console.log('chatRef:', chatRef)
+      
      }
     const sendMessage = (e) => {
       e.preventDefault()
@@ -100,23 +109,30 @@ const Formsec = (props) => {
            ? chatList[chatList.length - 1].msgCount + 1
            : 1,
          });
-         //console.log("receiverId",fields._id);
-         //console.log("token",this.props.details.token);
-        
+         if(typeMessage.trim()=='I am Interested'){
+            interestedUser(typeMessage.trim())
+        }
          setShow(false);
          history.push('/chat');
        } else {
          alert('Plesae type message to send.');
        }
      };
-  
+     const interestedUser = async(msg)=>{
+       let sendData = { userId:localStorage.getItem('userId'),
+                        profilePicture :localStorage.getItem('profileImg'),
+                        name:localStorage.getItem('username'),
+                        isIntrested:true,
+                        roomId:roomId
+                      };
+        let  {data}  = await axiosApiCall.post(`${ADD_PROPERTY}/interest`, sendData)
+                  
+     }
     useEffect(() => {
       props.crudActionCall(`${USER_URL}/${userId}`, null, "GET")
       //setUserDate(props.user.action.data);
-      
-  
-      
-    },[userId]);
+      setRoomId(props.roomId)
+    },[userId,props.roomId]);
   
     const handleChnage =(e)=>{
     
@@ -154,7 +170,7 @@ const Formsec = (props) => {
     }, [props.user]);
      
     useEffect(() => {
-      console.log('abvr',chatRoomId)
+      //console.log('abvr',chatRoomId)
       if(chatRoomId != undefined){
         chatRef
         .orderByChild('chatRoomId')
@@ -185,23 +201,25 @@ const Formsec = (props) => {
        let roomId;
       await chatRef.on('child_added', snapshot => {
         const snapShotVal = snapshot.val();
-        console.log(userId,"snapShotVal.chatRoomId===",snapShotVal);
+       
         if (
           (snapShotVal.userId == localStorage.getItem('userId') &&
             snapShotVal.senderId == userId) ||
           (snapShotVal.senderId == localStorage.getItem('userId') &&
             snapShotVal.userId == userId)
         ) {
-          console.log("true+++");
+          
            setChatRoomId(snapShotVal.chatRoomId);
            roomId = snapShotVal.chatRoomId;
         }
       });
-      console.log(roomId,"chatRoomId+++",chatRoomId);
+     
 
       
     }
-     
+    const setMessagechange=(msg)=>{
+      setTypeMessage(msg)
+    } 
   
    return (
     
@@ -212,8 +230,9 @@ const Formsec = (props) => {
 
                     </div>
                       <h2>{fields.firstName + ' ' + fields.lastName}</h2>
-                      <h6 className="mb-3">Mail  |  Age: {fields.age}</h6>
+                      <h6 className="mb-3">{fields.userType =='agent'?'Agent' :fields.gender} |  Age: {fields.age}</h6>
                             
+                      {fields.userType !=='agent'?
                       <div>
                       <label class="switch">
                       <input type="checkbox" name="userType" value={fields.userType} onClick={handleChnage} defaultChecked={checked}/>
@@ -223,7 +242,7 @@ const Formsec = (props) => {
                         <NavLink to="#" className="toggle pr-3">I am looking for a room</NavLink>
                         <NavLink to="#" className="toggle border-right-0 pl-3">I have an available room</NavLink>
                       </span>
-                    </div>
+                    </div>:''}
                     <button onClick={handleModal} className="login-bt mb-2">Messsage</button>
 
                     <Modal show={show} onHide={handleClose}>
@@ -231,20 +250,36 @@ const Formsec = (props) => {
                   <Modal.Title>Type Message</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                  <Form >
-                    <FormGroup row>
-                      <Col sm={12}>
-                      <Input type="textarea" 
-                             value={typeMessage}
-                             name="text" 
-                             id="exampleText" 
-                             onChange={e => setTypeMessage(e.target.value)}
-                        />          
-                      <button onClick={sendMessage} className="chat-bt"><img src={imagePath.chatbtImage} alt="image"/></button>
-                       
+                <Form >
+                    <FormGroup>
+                      <Row>
+                        <Col lg={12} md={12} sm={12}>
+                          <div className="badagePart">
+                            <span className="custm_anc" onClick={() => setMessagechange('I am Interested')}> I am Interested </span>
+                            <span className="custm_anc" onClick={() => setMessagechange('Not Interested')}> Not Interested</span>
+                            {/* <span className="custm_anc"> I am Interested </span>
+                            <span className="custm_anc"> Not Interested</span>
+                            <span className="custm_anc"> I am Interested </span>
+                            <span className="custm_anc"> Not Interested</span>
+                            <span className="custm_anc"> I am Interested </span>
+                            <span className="custm_anc"> Not Interested</span> */}
+                          </div>
+                        </Col>
+                      </Row>
+
+                      <Row>
+                        <Col lg={12} md={12} sm={12}>
+                          <div className="custm_modalchat">
+                            <Input type="textarea" value={typeMessage} name="text" id="exampleText" 
+                            onChange={e => setTypeMessage(e.target.value)} className="custInput custm_txtarea" />    
+
+                            <button onClick={sendMessage} className="chat-bt send_sms">
+                              <img src={imagePath.chatbtImage} alt="image"/>
+                            </button>
+                          </div>
                         {/* <Button type="button" onClick={handleSubmit(onSubmit)} color="primary" className="login-bt mb-2">Send</Button> */}
-                        
-                      </Col>
+                        </Col>
+                      </Row>
                     </FormGroup>
                   </Form>
                 </Modal.Body>

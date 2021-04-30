@@ -52,7 +52,7 @@ const EditProfile = (props) => {
   }else if(userType.userType ==='landlord'){
    checked=true;
   }
-  console.log(userType, 'edit profile===========================')
+ 
   return (
     <div className="home">
       <div className="header">

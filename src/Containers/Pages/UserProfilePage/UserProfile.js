@@ -3,6 +3,7 @@ import './style.css';
 import { Container, Row, Col, Navbar } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from '../../Common/header';
+import AgentHeader from '../../Common/agentHeader';
 import Formsec from './form-sec';
 import Footer from '../../Common/footer';
 import { connect } from "react-redux";
@@ -16,7 +17,7 @@ import moment from 'moment'
 
 
 const UserProfile = (props)=>  {
-    console.log(props.user.user)
+   
 const initialFields = {
 aboutMe: " ",
 createdDate: " ",
@@ -64,12 +65,12 @@ occupation:" "
     
 
   }, [props.user]);
-   console.log(fields.readyToMove)
+  
 
     return (
       <div className="home">
         <div className="header">
-          <Header></Header>
+        {localStorage.getItem('userType') !=='agent'|| localStorage.getItem('userType') ==null?<Header/>:<AgentHeader/>}
           
             <div className="">
               <Container className="mb-3">

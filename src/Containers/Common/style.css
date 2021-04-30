@@ -53,7 +53,10 @@
   margin-top: -2px;
 }
 
-
+.cust_dropdown {
+  left: -5rem !important;
+  min-width: 13rem !important;
+}
 
 
 

@@ -29,9 +29,7 @@ const LoginNavbaar = (props) => {
   const [isView, setIsView] = useState(true);
   const [fields, setFields] = useState();
   const [msgCountData, setMsgCountData] = useState(0);
-  //const [userId, setUserd] = useState();
   const profileImg = localStorage.getItem('profileImg');
-  // console.log('imafe',localStorage.getItem('profileImg'));
   const tgl = () => setIsView(!isView);
 
   const [isOpen, setIsOpen] = useState(false);
@@ -55,7 +53,6 @@ if (!firebase.apps.length) {
       setFields({...fields,...props.user.user})
 
     }
-    // console.log("props.user.user========",props.user.user)
     if (props.user.user) {
       let userId = props.user.user._id;
       let UserDetails = props.user.user;
@@ -94,7 +91,7 @@ if (!firebase.apps.length) {
                 }
               }
             }
-            // console.log("chatList==",chatList)
+             console.log("chatList==",chatList)
 
             if(chatList && chatList.length>= 0){
               //console.log('ji',userId)
@@ -130,63 +127,7 @@ if (!firebase.apps.length) {
     history.push('/')
 } 
 
-// componentFocused = () => {
-//   // console.log("this.props.details sidebar",this.props.details);
-   
-//      if (props.user.user) {
-//        let userId = props.user.user._id;
-//        let UserDetails = props.user.user;
-//       // setUserd(props.user.user._id);
-//          chatRef
-//          .orderByChild('date')
-//          .once('value')
-//          .then(snapShot => {
-             
-//            if (snapShot.val()) {
-//              let chatList = [];
-//              let msgCountData=0;
-//              let keys = Object.keys(snapShot.val())
-//              for (let key = keys.length-1; key >= 0; key--) {
-//                let IsPresent = false;
-//                if (
-//                  snapShot.val()[keys[key]].senderId == UserDetails.userId ||
-//                  snapShot.val()[keys[key]].userId == UserDetails.userId
-//                ) {
-//                  for (let i = 0; i < chatList.length; i++) {
-//                    if (
-//                      chatList[i].chatRoomId == snapShot.val()[keys[key]].chatRoomId
-//                    ) {
-//                      IsPresent = true;
-//                      break;
-//                    }
-//                  }
-//                  if (!IsPresent) {
-//                    chatList.push(snapShot.val()[keys[key]]);
-//                  }
-//                }
-//              }
-//              if(chatList && chatList.length>= 0){
-//                  for(let i=0; i<chatList.length; i++){
-//                      if(chatList[i].senderId != userId){
-//                       msgCountData = msgCountData + chatList[i].msgCountData
-//                      }
-//                  }
-//              }
-//              console.log("msgcount in sidebar",msgCountData);
-//              setMsgCount(msgCountData)
-//            } 
-//          })
-//          .catch(err => {
-//          });
-//      } 
-//    }
-
-// const change = () =>{
-//   history.push(`/editProfile/${userId}`)
-// } 
-// const change2 = () =>{
-//   history.push(`/changePassword/${userId}`)
-// } 
+ 
   const userId = localStorage.getItem('userId')
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -233,7 +174,7 @@ if (!firebase.apps.length) {
                     <DropdownToggle caret className="login-hd">
                       <img src={getImageUrl(profileImg)} href="/" alt="image"/>
                     </DropdownToggle>
-                    <DropdownMenu>
+                    <DropdownMenu className="cust_dropdown">
                       <Link to={`/editProfile/${userId}`}>My Account</Link>
                       <Link to={`/changePassword/${userId}`}>Settings</Link>
                       <Link to={`/favoriteroom/${userId}`}>My Favorites Room </Link>

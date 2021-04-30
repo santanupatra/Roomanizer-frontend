@@ -55,11 +55,10 @@ import { NavLink, withRouter } from 'react-router-dom';
     
 
   }, [props.setting]);
-   console.log('propsuser',props);
-  const userId = props.user.user && props.user.user._id ? props.user.user._id:localStorage.getItem('userId');
-  // const userToken =  localStorage.getItem('access-token')
-  const userType = props.user.user && props.user.user.userType ?props.user.user.userType:localStorage.getItem('userType');
-  // console.log("userId11",localStorage.getItem('access-token'))
+ 
+  const userId = localStorage.getItem('userId');
+  const userType = localStorage.getItem('userType');
+ 
 
         return (
           <div className="header-sec">

@@ -21,7 +21,7 @@ import {getImageUrl,firebaseConfig} from '../../../shared/helpers'
 import Header from '../../Common/agentHeader'
 
 const Dashboard = (props) => {
-  console.log(props.agent.agentList)
+
   const userId = localStorage.getItem('userId')
   const history = useHistory();
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -38,7 +38,7 @@ useEffect(() => {
   }
 }, []);
 const navToEditPage = (Id) => {
-  console.log("52",Id)
+
   props.history.push(`/AddProperty/${Id}`);
 }
     return (

@@ -88,14 +88,14 @@ const AgentEditProfile = (props) => {
   }, [props.user]);
 
   const onSubmit = (data) => {
-   //console.log("data======>",data)
+
     if (userId) data.userId = userId;
     data.longitude = fields.longitude;
     data.latitude = fields.latitude;
     data.address = fields.address;
     if (setDate) data.dateOfBirth = setDate;
 
-    
+
     if (fields.address) {
       setErrAdd(' ')
       setErr(' ')
@@ -110,16 +110,14 @@ const AgentEditProfile = (props) => {
       setErr('This field is required')
     }
   }
-    console.log("props.user.user",props.user.user)
+  console.log("props.user.user", props.user.user)
 
 
   const handleChange = (name, value) => {
-    // console.log(value)
     setFields((prevState) => ({ ...prevState, [name]: value }));
   }
 
   const handleChangeAddress = address => {
-    // console.log(address)
     if (address === '') {
       setErrAdd('This field is required')
     } else {
@@ -229,7 +227,7 @@ const AgentEditProfile = (props) => {
 
                             })}
                             fields={fields}
-                            
+
 
                           />
                         </FormGroup>
@@ -407,19 +405,19 @@ const AgentEditProfile = (props) => {
                       </Col>
                       <Col xs={12} sm={6} md={6} lg={6}>
                         <FormGroup>
-                      <Label>Age</Label>
-                        <InputUI
-                          className="custm_inpt"
-                          type="number"
-                          name="age"
-                          placeholder="Age"
-                          readonly='readOnly'
-                          errors={errors}
-                          innerRef={register({
-                            required: 'This is required field',
-                          })}
-                          value={fields.age}
-                        />
+                          <Label>Age</Label>
+                          <InputUI
+                            className="custm_inpt"
+                            type="number"
+                            name="age"
+                            placeholder="Age"
+                            readonly='readOnly'
+                            errors={errors}
+                            innerRef={register({
+                              required: 'This is required field',
+                            })}
+                            value={fields.age}
+                          />
                         </FormGroup>
                       </Col>
                     </Row>

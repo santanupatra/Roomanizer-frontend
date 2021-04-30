@@ -9,7 +9,7 @@ import Slider from './slider';
 import Footer from '../../Common/footer';
 import { connect } from "react-redux";
 import { crudAction } from "../../../store/actions/common";
-import { ROOM_URL } from '../../../shared/allApiUrl';
+import { LANDLORD_URL } from '../../../shared/allApiUrl';
 //import { getImageUrl } from '../../../hared/helpers';
 import moment from 'moment'
 import { withRouter } from 'react-router-dom';
@@ -18,8 +18,8 @@ import {getImageUrl} from '../../../shared/helpers'
 
 
 //export default class Home extends React.Component {
-  const Home = (props) => {
-    console.log(props.room)
+  const RoomForRent = (props) => {
+  
     const initialFields = {
       user_Id: "",
       roomNo: "",
@@ -52,7 +52,7 @@ import {getImageUrl} from '../../../shared/helpers'
       
       
         //const params = props.match.params;
-      let userId = props.match.params.userId;
+      let roomId = props.match.params.roomId;
       // const userData = props.user.user;
       const [fields, setFields] = useState(initialFields);
       const [userData, setUserDate] = useState(null);
@@ -60,12 +60,12 @@ import {getImageUrl} from '../../../shared/helpers'
     
     
       useEffect(() => {
-        props.crudActionCall(`${ROOM_URL}/${userId}`, null, "GET")
+        props.crudActionCall(`${LANDLORD_URL}/room/${roomId}`, null, "GET")
         //setUserDate(props.user.action.data);
         
     
         
-      },[userId]);
+      },[roomId]);
     
       useEffect(() => {
         const action = props.room.room;
@@ -78,8 +78,7 @@ import {getImageUrl} from '../../../shared/helpers'
         
     
       }, [props.room]);
-       console.log(fields.houseRules)
-       console.log(fields.roomImage)
+      
   
     return (
       <div className="home">
@@ -97,7 +96,7 @@ import {getImageUrl} from '../../../shared/helpers'
 
                         <Row className="p-3 p-sm-5 p-md-5 p-lg-5">
                           <Col xs={12} sm={12} md={12} lg={4}>
-                            <Formsec></Formsec>
+                            <Formsec roomId={settingId} userId={fields.user_Id}></Formsec>
                           </Col>
                           <Col xs={12} sm={12} md={12} lg={8}>
                             <div className="about mt-0 pb-4">
@@ -188,7 +187,7 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Home));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(RoomForRent));
 
 
 
